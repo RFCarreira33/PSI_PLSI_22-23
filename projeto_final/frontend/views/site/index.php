@@ -2,6 +2,11 @@
 
 /** @var yii\web\View $this */
 
+use yii\helpers\Url;
+
+
+
+
 $this->title = 'My Yii Application';
 ?>
 <!-- Section-->
@@ -32,7 +37,9 @@ $this->title = 'My Yii Application';
                     </div>
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                href="<?= Url::toRoute(['produto/view', 'id' => 1]) ?> ">View
+                                options</a></div>
                     </div>
                 </div>
             </div>
