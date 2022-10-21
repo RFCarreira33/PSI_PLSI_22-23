@@ -3,13 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 21-Out-2022 às 11:05
--- Versão do servidor: 10.4.25-MariaDB
--- versão do PHP: 8.1.10
-
-Create DATABASE if NOT EXISTS projeto_final;
-
-USE projeto_final;
+-- Generation Time: Oct 21, 2022 at 08:46 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -22,13 +18,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `projeto_final`
+-- Database: `projeto_final`
+CREATE DATABASE IF NOT EXISTS projeto_final;
+USE projeto_final; 
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `auth_assignment`
+-- Table structure for table `auth_assignment`
 --
 
 CREATE TABLE `auth_assignment` (
@@ -38,7 +36,7 @@ CREATE TABLE `auth_assignment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `auth_assignment`
+-- Dumping data for table `auth_assignment`
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
@@ -48,7 +46,7 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `auth_item`
+-- Table structure for table `auth_item`
 --
 
 CREATE TABLE `auth_item` (
@@ -62,7 +60,7 @@ CREATE TABLE `auth_item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `auth_item`
+-- Dumping data for table `auth_item`
 --
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
@@ -73,7 +71,7 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `auth_item_child`
+-- Table structure for table `auth_item_child`
 --
 
 CREATE TABLE `auth_item_child` (
@@ -84,7 +82,7 @@ CREATE TABLE `auth_item_child` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `auth_rule`
+-- Table structure for table `auth_rule`
 --
 
 CREATE TABLE `auth_rule` (
@@ -97,7 +95,7 @@ CREATE TABLE `auth_rule` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `categoria`
+-- Table structure for table `categoria`
 --
 
 CREATE TABLE `categoria` (
@@ -107,7 +105,7 @@ CREATE TABLE `categoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `categoria`
+-- Dumping data for table `categoria`
 --
 
 INSERT INTO `categoria` (`id`, `categoriaPai`, `nome`) VALUES
@@ -116,7 +114,7 @@ INSERT INTO `categoria` (`id`, `categoriaPai`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `cliente`
+-- Table structure for table `cliente`
 --
 
 CREATE TABLE `cliente` (
@@ -128,10 +126,17 @@ CREATE TABLE `cliente` (
   `codPostal` varchar(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `cliente`
+--
+
+INSERT INTO `cliente` (`idUser`, `nome`, `telefone`, `nif`, `morada`, `codPostal`) VALUES
+(2, 'test', '123123123', '123123123', 'yse', '123123123');
+
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `empresa`
+-- Table structure for table `empresa`
 --
 
 CREATE TABLE `empresa` (
@@ -149,16 +154,23 @@ CREATE TABLE `empresa` (
   `imgBackground` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `empresa`
+--
+
+INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`, `imgBackground`) VALUES
+(1, 'GlobalDiga', 'globaldiga@gmail.com', '244501812', '503503503', 'Rua do', '2410-367', 'Leiria', 28654876, '', '', '');
+
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `fatura`
+-- Table structure for table `fatura`
 --
 
 CREATE TABLE `fatura` (
   `id` int(11) NOT NULL,
   `idCliente` int(11) NOT NULL,
-  `dataFatura` date NOT NULL,
+  `dataFatura` date NOT NULL DEFAULT current_timestamp(),
   `valorTotal` decimal(11,2) NOT NULL,
   `valorIva` decimal(11,2) NOT NULL,
   `estado` enum('Emitida','Em Lancamento','Carrinho') NOT NULL
@@ -167,7 +179,7 @@ CREATE TABLE `fatura` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `iva`
+-- Table structure for table `iva`
 --
 
 CREATE TABLE `iva` (
@@ -176,7 +188,7 @@ CREATE TABLE `iva` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `iva`
+-- Dumping data for table `iva`
 --
 
 INSERT INTO `iva` (`id`, `percentagem`) VALUES
@@ -185,7 +197,7 @@ INSERT INTO `iva` (`id`, `percentagem`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `linhafatura`
+-- Table structure for table `linhafatura`
 --
 
 CREATE TABLE `linhafatura` (
@@ -200,7 +212,7 @@ CREATE TABLE `linhafatura` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `loja`
+-- Table structure for table `loja`
 --
 
 CREATE TABLE `loja` (
@@ -211,7 +223,7 @@ CREATE TABLE `loja` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `marca`
+-- Table structure for table `marca`
 --
 
 CREATE TABLE `marca` (
@@ -219,7 +231,7 @@ CREATE TABLE `marca` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `marca`
+-- Dumping data for table `marca`
 --
 
 INSERT INTO `marca` (`nome`) VALUES
@@ -229,7 +241,7 @@ INSERT INTO `marca` (`nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `migration`
+-- Table structure for table `migration`
 --
 
 CREATE TABLE `migration` (
@@ -238,7 +250,7 @@ CREATE TABLE `migration` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `migration`
+-- Dumping data for table `migration`
 --
 
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
@@ -254,7 +266,7 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `produto`
+-- Table structure for table `produto`
 --
 
 CREATE TABLE `produto` (
@@ -270,7 +282,7 @@ CREATE TABLE `produto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `produto`
+-- Dumping data for table `produto`
 --
 
 INSERT INTO `produto` (`id`, `idCategoria`, `idIva`, `marca`, `descricao`, `imagem`, `referencia`, `preco`, `nome`) VALUES
@@ -281,7 +293,7 @@ INSERT INTO `produto` (`id`, `idCategoria`, `idIva`, `marca`, `descricao`, `imag
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `stock`
+-- Table structure for table `stock`
 --
 
 CREATE TABLE `stock` (
@@ -293,7 +305,7 @@ CREATE TABLE `stock` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -310,7 +322,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`) VALUES
@@ -318,18 +330,18 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 (2, 'cliente', '4VSpN1OuE8poYmpOYj7Ydfemd8rVsvEv', '$2y$13$CRfnOyBa8CzQcdfI86pIOu.uFi0th5tOCGuqCl0TUFMO6ebjiYKg2', NULL, 'cliente@gmail.com', 10, 1666112069, 1666112069, 'oJPREkKzHvs-Y1vFtg7HkAv0QOsN9Hpu_1666112069');
 
 --
--- Índices para tabelas despejadas
+-- Indexes for dumped tables
 --
 
 --
--- Índices para tabela `auth_assignment`
+-- Indexes for table `auth_assignment`
 --
 ALTER TABLE `auth_assignment`
   ADD PRIMARY KEY (`item_name`,`user_id`),
   ADD KEY `idx-auth_assignment-user_id` (`user_id`);
 
 --
--- Índices para tabela `auth_item`
+-- Indexes for table `auth_item`
 --
 ALTER TABLE `auth_item`
   ADD PRIMARY KEY (`name`),
@@ -337,52 +349,53 @@ ALTER TABLE `auth_item`
   ADD KEY `idx-auth_item-type` (`type`);
 
 --
--- Índices para tabela `auth_item_child`
+-- Indexes for table `auth_item_child`
 --
 ALTER TABLE `auth_item_child`
   ADD PRIMARY KEY (`parent`,`child`),
   ADD KEY `child` (`child`);
 
 --
--- Índices para tabela `auth_rule`
+-- Indexes for table `auth_rule`
 --
 ALTER TABLE `auth_rule`
   ADD PRIMARY KEY (`name`);
 
 --
--- Índices para tabela `categoria`
+-- Indexes for table `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id`),
   ADD KEY `categoriaPai` (`categoriaPai`);
 
 --
--- Índices para tabela `cliente`
+-- Indexes for table `cliente`
 --
 ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`idUser`),
   ADD KEY `idUser` (`idUser`);
 
 --
--- Índices para tabela `empresa`
+-- Indexes for table `empresa`
 --
 ALTER TABLE `empresa`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `fatura`
+-- Indexes for table `fatura`
 --
 ALTER TABLE `fatura`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idCliente` (`idCliente`);
 
 --
--- Índices para tabela `iva`
+-- Indexes for table `iva`
 --
 ALTER TABLE `iva`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `linhafatura`
+-- Indexes for table `linhafatura`
 --
 ALTER TABLE `linhafatura`
   ADD PRIMARY KEY (`id`),
@@ -390,25 +403,25 @@ ALTER TABLE `linhafatura`
   ADD KEY `idProduto` (`idProduto`);
 
 --
--- Índices para tabela `loja`
+-- Indexes for table `loja`
 --
 ALTER TABLE `loja`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `marca`
+-- Indexes for table `marca`
 --
 ALTER TABLE `marca`
   ADD PRIMARY KEY (`nome`);
 
 --
--- Índices para tabela `migration`
+-- Indexes for table `migration`
 --
 ALTER TABLE `migration`
   ADD PRIMARY KEY (`version`);
 
 --
--- Índices para tabela `produto`
+-- Indexes for table `produto`
 --
 ALTER TABLE `produto`
   ADD PRIMARY KEY (`id`),
@@ -417,14 +430,14 @@ ALTER TABLE `produto`
   ADD KEY `marca` (`marca`);
 
 --
--- Índices para tabela `stock`
+-- Indexes for table `stock`
 --
 ALTER TABLE `stock`
   ADD KEY `idLoja` (`idLoja`),
   ADD KEY `idProduto` (`idProduto`);
 
 --
--- Índices para tabela `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
@@ -433,107 +446,107 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `categoria`
+-- AUTO_INCREMENT for table `categoria`
 --
 ALTER TABLE `categoria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de tabela `empresa`
+-- AUTO_INCREMENT for table `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de tabela `fatura`
+-- AUTO_INCREMENT for table `fatura`
 --
 ALTER TABLE `fatura`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de tabela `iva`
+-- AUTO_INCREMENT for table `iva`
 --
 ALTER TABLE `iva`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de tabela `linhafatura`
+-- AUTO_INCREMENT for table `linhafatura`
 --
 ALTER TABLE `linhafatura`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `loja`
+-- AUTO_INCREMENT for table `loja`
 --
 ALTER TABLE `loja`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `produto`
+-- AUTO_INCREMENT for table `produto`
 --
 ALTER TABLE `produto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de tabela `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Restrições para despejos de tabelas
+-- Constraints for dumped tables
 --
 
 --
--- Limitadores para a tabela `auth_assignment`
+-- Constraints for table `auth_assignment`
 --
 ALTER TABLE `auth_assignment`
   ADD CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `auth_item`
+-- Constraints for table `auth_item`
 --
 ALTER TABLE `auth_item`
   ADD CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `auth_item_child`
+-- Constraints for table `auth_item_child`
 --
 ALTER TABLE `auth_item_child`
   ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `categoria`
+-- Constraints for table `categoria`
 --
 ALTER TABLE `categoria`
   ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`categoriaPai`) REFERENCES `categoria` (`id`);
 
 --
--- Limitadores para a tabela `cliente`
+-- Constraints for table `cliente`
 --
 ALTER TABLE `cliente`
   ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`);
 
 --
--- Limitadores para a tabela `fatura`
+-- Constraints for table `fatura`
 --
 ALTER TABLE `fatura`
   ADD CONSTRAINT `fatura_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idUser`);
 
 --
--- Limitadores para a tabela `linhafatura`
+-- Constraints for table `linhafatura`
 --
 ALTER TABLE `linhafatura`
   ADD CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`idFatura`) REFERENCES `fatura` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `linhafatura_ibfk_2` FOREIGN KEY (`idProduto`) REFERENCES `produto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `produto`
+-- Constraints for table `produto`
 --
 ALTER TABLE `produto`
   ADD CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`idIva`) REFERENCES `iva` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -541,7 +554,7 @@ ALTER TABLE `produto`
   ADD CONSTRAINT `produto_ibfk_4` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`id`);
 
 --
--- Limitadores para a tabela `stock`
+-- Constraints for table `stock`
 --
 ALTER TABLE `stock`
   ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`idLoja`) REFERENCES `loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
