@@ -5,6 +5,7 @@ use yii\helpers\Url;
 $this->title = 'Starter Page';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
+<<<<<<< Updated upstream
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-6">
@@ -18,6 +19,17 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 'body' => 'There is a problem that we need to fix. A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.'
             ]) ?>
         </div>
+=======
+<div class="site-index">
+
+    <div class="jumbotron text-center bg-transparent">
+        <h1 class="display-4">Congratulations!</h1>
+
+        <p class="lead">You have successfully created your Yii-powered application.</p>
+
+<<<<<<< Updated upstream
+        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+>>>>>>> Stashed changes
     </div>
 
     <div class="row">
@@ -56,6 +68,12 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         </div>
     </div>
 
+<<<<<<< Updated upstream
+=======
+                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            </div>
+=======
+>>>>>>> Stashed changes
     <div class="row">
         <div class="col-md-4 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\InfoBox::widget([
@@ -84,6 +102,52 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 'text' => 'Ribbon',
             ]) ?>
             <?php \hail812\adminlte\widgets\InfoBox::end() ?>
+<<<<<<< Updated upstream
+=======
+        </div>
+        <div class="col-md-4 col-sm-6 col-12">
+            <?= \hail812\adminlte\widgets\InfoBox::widget([
+                'text' => 'Events',
+                'number' => '41,410',
+                'theme' => 'gradient-warning',
+                'icon' => 'far fa-calendar-alt',
+                'progress' => [
+                    'width' => '70%',
+                    'description' => '70% Increase in 30 Days'
+                ],
+            ]) ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <?= \hail812\adminlte\widgets\SmallBox::widget([
+                'title' => $nClientes,
+                'text' => 'Clientes Registados',
+                'icon' => 'fas fa-user-plus',
+                'linkText' => 'Ver Clientes',
+                'linkUrl' => Url::toRoute(["cliente/index"])
+            ]) ?>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <?= \hail812\adminlte\widgets\SmallBox::widget([
+                'title' => $nFaturas,
+                'text' => 'Numero de Faturas',
+                'icon' => 'far fa-copy',
+                'linkText' => 'Ver Faturas',
+                'linkUrl' => Url::toRoute(["fatura/index"])
+            ]) ?>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <?= \hail812\adminlte\widgets\SmallBox::widget([
+                'title' => $somaFatura,
+                'text' => 'Total Faturado',
+                'icon' => 'far fa-copy',
+                'linkText' => 'Ver Faturas',
+                'linkUrl' => Url::toRoute(["fatura/index"])
+            ]) ?>
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         </div>
         <div class="col-md-4 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\InfoBox::widget([

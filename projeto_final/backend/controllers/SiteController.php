@@ -2,8 +2,17 @@
 
 namespace backend\controllers;
 
+<<<<<<< Updated upstream
 use app\models\AuthAssignment;
 use common\models\Cliente;
+=======
+<<<<<<< Updated upstream
+=======
+use app\models\AuthAssignment;
+use common\models\Cliente;
+use common\models\Fatura;
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 use common\models\LoginForm;
 use common\models\User;
 use Yii;
@@ -66,8 +75,23 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+<<<<<<< Updated upstream
         $nClientes = AuthAssignment::find()->where(["item_name" => "cliente"])->count();
         return $this->render('index', ['nClientes' => $nClientes]);
+=======
+<<<<<<< Updated upstream
+        return $this->render('index');
+=======
+        $nClientes = AuthAssignment::find()->where(["item_name" => "cliente"])->count();
+        $nFaturas = Fatura::find()->count();
+        $faturas = Fatura::find()->all();
+        $soma = 0;
+        foreach ($faturas as $fatura) {
+            $soma += $fatura->valorTotal;
+        }
+        return $this->render('index', ['nClientes' => $nClientes, 'nFaturas' => $nFaturas, 'somaFatura' => $soma]);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     }
 
     /**
