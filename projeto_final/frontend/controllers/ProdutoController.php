@@ -56,9 +56,12 @@ class ProdutoController extends Controller
     public function actionView($id)
     {
         $maximo = Produto::find()->count();
+        $produtos = Produto::find()->all();
+        
         return $this->render('view', [
             'produto' => $this->findModel($id),
             'maximo' => $maximo,
+            'produtos' => $produtos
         ]);
     }
 
