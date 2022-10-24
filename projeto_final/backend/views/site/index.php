@@ -105,8 +105,8 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             <?= \hail812\adminlte\widgets\SmallBox::widget([
                 'title' => $nClientes,
                 'text' => 'Clientes Registados',
-                'icon' => 'fas fa-shopping-cart',
-                'linkText' => 'poggers',
+                'icon' => 'fas fa-user-plus',
+                'linkText' => 'Ver Clientes',
                 'linkUrl' => Url::toRoute(["cliente/index"])
             ]) ?>
         </div>
@@ -132,7 +132,6 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 'text' => 'User Registrations',
                 'icon' => 'fas fa-user-plus',
                 'theme' => 'gradient-success',
-                'loadingStyle' => true
             ]) ?>
         </div>
     </div>
