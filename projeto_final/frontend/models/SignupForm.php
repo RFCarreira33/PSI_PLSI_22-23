@@ -5,6 +5,7 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\User;
+use common\models\Cliente;
 
 /**
  * Signup form
@@ -14,6 +15,11 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $nome;
+    public $codPostal;
+    public $telefone;
+    public $nif;
+    public $morada;
 
 
     /**
@@ -35,6 +41,24 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
+            ['nome', 'trim'],
+            ['nome', 'required'],
+
+            ['codPostal', 'trim'],
+            ['codPostal', 'required'],
+            ['codPostal', 'match', 'pattern' => '^\d{4}-\d{3}?$'],
+
+            ['telefone', 'trim'],
+            ['telefone', 'required'],
+            ['telefone', 'integer', 'min' => 9, 'max' => 9],
+
+            ['nif', 'trim'],
+            ['nif', 'required'],
+            ['nif', 'integer', 'min' => 9, 'max' => 9],
+
+            ['morada', 'trim'],
+            ['morada', 'required'],
         ];
     }
 
@@ -56,6 +80,15 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
         $user->save();
+
+        $inf = new Cliente();
+        $inf->idUser = $user->id;
+        $inf->nome = $this->nome;
+        $inf->codPostal = $this->codPostal;
+        $inf->telefone = $this->telefone;
+        $inf->nif = $this->nif;
+        $inf->morada = $this->morada;
+        $inf->save();
 
         $auth = \Yii::$app->authManager;
         $clienteRole = $auth->getRole('cliente');
