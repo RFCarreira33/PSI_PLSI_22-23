@@ -2,7 +2,10 @@
 
 namespace backend\controllers;
 
+use app\models\AuthAssignment;
+use common\models\Cliente;
 use common\models\LoginForm;
+use common\models\User;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -63,7 +66,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $nClientes = AuthAssignment::find()->where(["item_name" => "cliente"])->count();
+        return $this->render('index', ['nClientes' => $nClientes]);
     }
 
     /**
