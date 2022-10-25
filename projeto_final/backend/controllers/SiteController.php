@@ -28,9 +28,14 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['admin', 'funcionario'],
                     ],
 
                 ],
@@ -49,13 +54,15 @@ class SiteController extends Controller
      */
     public function actions()
     {
+
         return [
             'error' => [
-                'class' => \yii\web\ErrorAction::class,
+                'class' => 'yii\web\ErrorAction',
+                'view' => '@app/views/site/error.php',
+                'layout' => '@app/views/layouts/no_layout.php'
             ],
         ];
     }
-
     /**
      * Displays homepage.
      *
@@ -80,7 +87,7 @@ class SiteController extends Controller
         $this->layout = 'main-login';
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login() && Yii::$app->user->can('backendLogin')) {
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
 
