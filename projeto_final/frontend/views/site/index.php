@@ -23,7 +23,7 @@ $this->title = 'My Yii Application';
                     <div class="card h-100">
                         <!-- Product image-->
                         <a style="text-decoration: none;color:black;" href="<?= Url::toRoute(["produto/view", "id" => $produto->id]) ?>">
-                            <img class="card-img-top" src="img/<?php echo $produto->imagem ?>" alt="..." />
+                            <img class="card-img-top" style="width:220px;height:220px;" src="img/<?php echo $produto->imagem ?>" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
