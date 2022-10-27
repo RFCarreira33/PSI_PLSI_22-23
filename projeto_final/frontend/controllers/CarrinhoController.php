@@ -64,12 +64,25 @@ class CarrinhoController extends Controller
     public function actionCreate($id)
     {
         $model = new Carrinho();
+        $carrinhos = Carrinho::find()->all();
 
-        $model->idUser = Yii::$app->user->id;
+        $model->idCliente = Yii::$app->user->id;
         $model->idProduto = $id;
         $model->Quantidade = 2;
-
-        if ($model->save()) {
+        
+        foreach($carrinhos as $carrinho)
+        {
+            if($carrinho->idProduto == $id)
+            {
+                $carrinho = Carrinho::find()->where(['idProduto' => $id])->one();
+                $carrinho->Quantidade = $carrinho->Quantidade + 1;
+                $carrinho -> save();
+                return $this->redirect('site/index');
+            }
+        }
+        
+        if ($model->save()) 
+        {
             return $this->redirect('site/index');
         }
 

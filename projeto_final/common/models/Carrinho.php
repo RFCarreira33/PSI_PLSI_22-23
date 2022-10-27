@@ -7,12 +7,12 @@ use Yii;
 /**
  * This is the model class for table "carrinho".
  *
- * @property int $idUser
+ * @property int $idCliente
  * @property int $idProduto
  * @property int $Quantidade
  *
  * @property Produto $idProduto0
- * @property User $idUser0
+ * @property User $idCliente0
  */
 class Carrinho extends \yii\db\ActiveRecord
 {
@@ -30,10 +30,10 @@ class Carrinho extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idUser', 'idProduto', 'Quantidade'], 'required'],
-            [['idUser', 'idProduto', 'Quantidade'], 'integer'],
+            [['idCliente', 'idProduto', 'Quantidade'], 'required'],
+            [['idCliente', 'idProduto', 'Quantidade'], 'integer'],
             [['idProduto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['idProduto' => 'id']],
-            [['idUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idUser' => 'id']],
+            [['idCliente'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idCliente' => 'id']],
         ];
     }
 
@@ -43,7 +43,7 @@ class Carrinho extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idUser' => 'Id User',
+            'idCliente' => 'Id Cliente',
             'idProduto' => 'Id Produto',
             'Quantidade' => 'Quantidade',
         ];
@@ -64,8 +64,8 @@ class Carrinho extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdUser0()
+    public function getIdCliente0()
     {
-        return $this->hasOne(User::class, ['id' => 'idUser']);
+        return $this->hasOne(User::class, ['id' => 'idCliente']);
     }
 }
