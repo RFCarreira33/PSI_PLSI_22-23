@@ -18,7 +18,7 @@ class FaturaSearch extends Fatura
     {
         return [
             [['id', 'idCliente'], 'integer'],
-            [['dataFatura', 'estado'], 'safe'],
+            [['dataFatura'], 'safe'],
             [['valorTotal', 'valorIva'], 'number'],
         ];
     }
@@ -65,8 +65,6 @@ class FaturaSearch extends Fatura
             'valorTotal' => $this->valorTotal,
             'valorIva' => $this->valorIva,
         ]);
-
-        $query->andFilterWhere(['like', 'estado', $this->estado]);
 
         return $dataProvider;
     }

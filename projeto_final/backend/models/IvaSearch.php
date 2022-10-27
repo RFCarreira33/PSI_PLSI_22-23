@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Iva;
+use common\models\iva;
 
 /**
- * IvaSearch represents the model behind the search form of `common\models\Iva`.
+ * IvaSearch represents the model behind the search form of `common\models\iva`.
  */
-class IvaSearch extends Iva
+class IvaSearch extends iva
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,7 @@ class IvaSearch extends Iva
     public function rules()
     {
         return [
-            [['id', 'percentagem'], 'integer'],
+            [['id', 'percentagem', 'Ativo'], 'integer'],
         ];
     }
 
@@ -39,7 +39,7 @@ class IvaSearch extends Iva
      */
     public function search($params)
     {
-        $query = Iva::find();
+        $query = iva::find();
 
         // add conditions that should always apply here
 
@@ -59,6 +59,7 @@ class IvaSearch extends Iva
         $query->andFilterWhere([
             'id' => $this->id,
             'percentagem' => $this->percentagem,
+            'Ativo' => $this->Ativo,
         ]);
 
         return $dataProvider;

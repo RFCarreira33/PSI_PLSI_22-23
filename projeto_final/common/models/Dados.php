@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "cliente".
+ * This is the model class for table "dados".
  *
  * @property int $idUser
  * @property string $nome
@@ -17,14 +17,14 @@ use Yii;
  * @property Fatura[] $faturas
  * @property User $idUser0
  */
-class Cliente extends \yii\db\ActiveRecord
+class Dados extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'cliente';
+        return 'dados';
     }
 
     /**
@@ -37,6 +37,7 @@ class Cliente extends \yii\db\ActiveRecord
             [['idUser'], 'integer'],
             [['nome', 'morada'], 'string', 'max' => 45],
             [['telefone', 'nif', 'codPostal'], 'string', 'max' => 9],
+            [['idUser'], 'unique'],
             [['idUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idUser' => 'id']],
         ];
     }

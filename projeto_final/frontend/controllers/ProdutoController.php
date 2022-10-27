@@ -56,7 +56,7 @@ class ProdutoController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'produto' => $this->findModel($id),
+            'model' => $this->findModel($id),
         ]);
     }
 

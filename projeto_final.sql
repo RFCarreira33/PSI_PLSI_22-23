@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 27, 2022 at 12:37 PM
+-- Generation Time: Oct 27, 2022 at 04:25 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `projeto_final`
 --
-CREATE DATABASE IF NOT EXISTS `projeto_final` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `projeto_final`;
 
 -- --------------------------------------------------------
 
@@ -464,8 +462,10 @@ ALTER TABLE `auth_rule`
 -- Indexes for table `carrinho`
 --
 ALTER TABLE `carrinho`
-  ADD KEY `idCliente` (`idCliente`),
-  ADD KEY `idProduto` (`idProduto`);
+  ADD PRIMARY KEY (`idCliente`,`idProduto`),
+  ADD KEY `idProduto` (`idProduto`),
+  ADD KEY `idCliente` (`idCliente`,`idProduto`),
+  ADD KEY `idCliente_2` (`idCliente`,`idProduto`);
 
 --
 -- Indexes for table `categoria`

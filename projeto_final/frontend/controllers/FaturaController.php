@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Fatura;
-use frontend\models\FaturaSearch;
+use common\models\FaturaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

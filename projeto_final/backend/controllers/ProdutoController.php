@@ -2,14 +2,14 @@
 
 namespace backend\controllers;
 
-use common\models\Produto;
+use common\models\produto;
 use backend\models\ProdutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProdutoController implements the CRUD actions for Produto model.
+ * ProdutoController implements the CRUD actions for produto model.
  */
 class ProdutoController extends Controller
 {
@@ -32,7 +32,7 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Lists all Produto models.
+     * Lists all produto models.
      *
      * @return string
      */
@@ -48,7 +48,7 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Displays a single Produto model.
+     * Displays a single produto model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,13 +61,13 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Creates a new Produto model.
+     * Creates a new produto model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Produto();
+        $model = new produto();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -83,7 +83,7 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Updates an existing Produto model.
+     * Updates an existing produto model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -103,7 +103,7 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Deletes an existing Produto model.
+     * Deletes an existing produto model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -117,15 +117,15 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Finds the Produto model based on its primary key value.
+     * Finds the produto model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Produto the loaded model
+     * @return produto the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Produto::findOne(['id' => $id])) !== null) {
+        if (($model = produto::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
