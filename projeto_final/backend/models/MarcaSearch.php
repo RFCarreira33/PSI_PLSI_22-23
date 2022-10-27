@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Cliente;
+use common\models\marca;
 
 /**
- * ClienteSearch represents the model behind the search form of `common\models\Cliente`.
+ * MarcaSearch represents the model behind the search form of `common\models\marca`.
  */
-class ClienteSearch extends Cliente
+class MarcaSearch extends marca
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,7 @@ class ClienteSearch extends Cliente
     public function rules()
     {
         return [
-            [['idUser'], 'integer'],
-            [['nome', 'telefone', 'nif', 'morada', 'codPostal'], 'safe'],
+            [['nome'], 'safe'],
         ];
     }
 
@@ -40,7 +39,7 @@ class ClienteSearch extends Cliente
      */
     public function search($params)
     {
-        $query = Cliente::find();
+        $query = marca::find();
 
         // add conditions that should always apply here
 
@@ -57,15 +56,7 @@ class ClienteSearch extends Cliente
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'idUser' => $this->idUser,
-        ]);
-
-        $query->andFilterWhere(['like', 'nome', $this->nome])
-            ->andFilterWhere(['like', 'telefone', $this->telefone])
-            ->andFilterWhere(['like', 'nif', $this->nif])
-            ->andFilterWhere(['like', 'morada', $this->morada])
-            ->andFilterWhere(['like', 'codPostal', $this->codPostal]);
+        $query->andFilterWhere(['like', 'nome', $this->nome]);
 
         return $dataProvider;
     }

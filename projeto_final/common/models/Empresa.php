@@ -18,7 +18,8 @@ use Yii;
  * @property int $capitalSocial
  * @property string $imgBanner
  * @property string $imgLogo
- * @property string $imgBackground
+ *
+ * @property Loja[] $lojas
  */
 class Empresa extends \yii\db\ActiveRecord
 {
@@ -36,11 +37,11 @@ class Empresa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['designacaoSocial', 'email', 'telefone', 'nif', 'morada', 'codPostal', 'localidade', 'capitalSocial', 'imgBanner', 'imgLogo', 'imgBackground'], 'required'],
+            [['designacaoSocial', 'email', 'telefone', 'nif', 'morada', 'codPostal', 'localidade', 'capitalSocial', 'imgBanner', 'imgLogo'], 'required'],
             [['capitalSocial'], 'integer'],
             [['designacaoSocial', 'email', 'morada', 'localidade'], 'string', 'max' => 45],
             [['telefone', 'nif', 'codPostal'], 'string', 'max' => 9],
-            [['imgBanner', 'imgLogo', 'imgBackground'], 'string', 'max' => 255],
+            [['imgBanner', 'imgLogo'], 'string', 'max' => 255],
         ];
     }
 
@@ -61,7 +62,16 @@ class Empresa extends \yii\db\ActiveRecord
             'capitalSocial' => 'Capital Social',
             'imgBanner' => 'Img Banner',
             'imgLogo' => 'Img Logo',
-            'imgBackground' => 'Img Background',
         ];
+    }
+
+    /**
+     * Gets query for [[Lojas]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLojas()
+    {
+        return $this->hasMany(Loja::class, ['idEmpresa' => 'id']);
     }
 }
