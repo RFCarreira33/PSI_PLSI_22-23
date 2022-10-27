@@ -1,18 +1,18 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 
 /**
  * This is the model class for table "carrinho".
  *
- * @property int $idCliente
+ * @property int $idUser
  * @property int $idProduto
  * @property int $Quantidade
  *
- * @property User $idCliente0
  * @property Produto $idProduto0
+ * @property User $idUser0
  */
 class Carrinho extends \yii\db\ActiveRecord
 {
@@ -30,10 +30,10 @@ class Carrinho extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idCliente', 'idProduto', 'Quantidade'], 'required'],
-            [['idCliente', 'idProduto', 'Quantidade'], 'integer'],
-            [['idCliente'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idCliente' => 'id']],
+            [['idUser', 'idProduto', 'Quantidade'], 'required'],
+            [['idUser', 'idProduto', 'Quantidade'], 'integer'],
             [['idProduto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['idProduto' => 'id']],
+            [['idUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idUser' => 'id']],
         ];
     }
 
@@ -43,20 +43,10 @@ class Carrinho extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idCliente' => 'Id Cliente',
+            'idUser' => 'Id User',
             'idProduto' => 'Id Produto',
             'Quantidade' => 'Quantidade',
         ];
-    }
-
-    /**
-     * Gets query for [[IdCliente0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIdCliente0()
-    {
-        return $this->hasOne(User::class, ['id' => 'idCliente']);
     }
 
     /**
@@ -67,5 +57,15 @@ class Carrinho extends \yii\db\ActiveRecord
     public function getIdProduto0()
     {
         return $this->hasOne(Produto::class, ['id' => 'idProduto']);
+    }
+
+    /**
+     * Gets query for [[IdUser0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdUser0()
+    {
+        return $this->hasOne(User::class, ['id' => 'idUser']);
     }
 }

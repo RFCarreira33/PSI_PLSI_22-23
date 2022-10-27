@@ -7,7 +7,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var frontend\models\FaturaSearch $searchModel */
+/** @var common\models\FaturaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Faturas';
@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataFatura',
             'valorTotal',
             'valorIva',
-            //'estado',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Fatura $model, $key, $index, $column) {

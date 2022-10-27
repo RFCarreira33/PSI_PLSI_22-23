@@ -2,8 +2,10 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Carrinho;
+use common\models\Produto;
+use common\models\Carrinho;
 use frontend\models\CarrinhoSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,13 +40,6 @@ class CarrinhoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CarrinhoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 
     /**
@@ -66,21 +61,19 @@ class CarrinhoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Carrinho();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idCliente' => $model->idCliente, 'idProduto' => $model->idProduto]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        $model->idUser = Yii::$app->user->id;
+        $model->idProduto = $id;
+        $model->Quantidade = 2;
+
+        if ($model->save()) {
+            return $this->redirect('site/index');
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->redirect('site/logout');
     }
 
     /**

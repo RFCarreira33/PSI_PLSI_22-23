@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var common\models\Produto $model */
+/** @var common\models\produto $model */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Produtos', 'url' => ['index']];
@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'referencia',
             'preco',
             'nome',
+            'Ativo',
         ],
     ]) ?>
 
