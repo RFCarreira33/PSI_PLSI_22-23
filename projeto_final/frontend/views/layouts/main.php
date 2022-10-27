@@ -85,11 +85,146 @@ AppAsset::register($this);
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 text-muted">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+
+<!-- Footer -->
+<footer
+        class="text-center text-lg-start text-white"
+        style="background-color: #1c2331"
+        >
+  <!-- Section: Social media -->
+  <section
+           class="d-flex justify-content-between p-4"
+           style="background-color: #6351ce"
+           >
+    <!-- Left -->
+    <div class="me-5">
+    <a href="<?= Url::home() ?>">
+                <img class="card-img-top mb-5 mb-md-0" src="img/logo.png" style="width:175px;height:50px;">
+            </a>
+    </div>
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a href="" class="text-white me-4">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="" class="text-white me-4">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="" class="text-white me-4">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="" class="text-white me-4">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="" class="text-white me-4">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="" class="text-white me-4">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold">GlobalDiga</h6>
+          <hr
+              class="mb-4 mt-0 d-inline-block mx-auto"
+              style="width: 60px; background-color: #7c4dff; height: 2px"
+              />
+          <p>
+            GLOBALDIGA Online - Nº1 em Informática em Portugal
+          </p>
         </div>
-    </footer>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold">Produtos</h6>
+          <hr
+              class="mb-4 mt-0 d-inline-block mx-auto"
+              style="width: 60px; background-color: #7c4dff; height: 2px"
+              />
+          <p>
+            <a href="#!" class="text-white">Placas Graficas</a>
+          </p>
+          <p>
+            <a href="#!" class="text-white">Processadores</a>
+          </p>
+          <p>
+            <a href="#!" class="text-white">Fontes</a>
+          </p>
+          <p>
+            <a href="#!" class="text-white">Motherboards</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold">Useful links</h6>
+          <hr
+              class="mb-4 mt-0 d-inline-block mx-auto"
+              style="width: 60px; background-color: #7c4dff; height: 2px"
+              />
+          <p>
+            <a href="<?= Url::toRoute(["site/login"]) ?>" class="text-white">Login</a>
+          </p>
+          <p>
+            <a href="<?= Url::toRoute(["site/signup"]) ?>" class="text-white">Registar</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold">Contactos</h6>
+          <hr
+              class="mb-4 mt-0 d-inline-block mx-auto"
+              style="width: 60px; background-color: #7c4dff; height: 2px"
+              />
+          <p><i class="fas fa-home mr-3"></i> Rua António do Espírito Santo, Nº94, Lt.4, Estr. da Estação A, 2415-408 Leiria</p>
+          <p><i class="fas fa-envelope mr-3"></i> globaldiga@gmail.com</p>
+          <p><i class="fas fa-phone mr-3"></i> 914569234</p>
+          <p><i class="fas fa-print mr-3"></i> 956123054</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div
+       class="text-center p-3"
+       style="background-color: rgba(0, 0, 0, 0.2)"
+       >
+    © 2020 Copyright:
+    <a class="text-white">
+        GlobalDiga.com
+    </a
+      >
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+</div>
+<!-- End of .container -->
 
     <?php $this->endBody() ?>
 </body>

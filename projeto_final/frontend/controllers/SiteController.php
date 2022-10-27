@@ -75,7 +75,8 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $produtos = Produto::find()->all();
-        return $this->render('index', ['produtos' => $produtos]);
+        $nProdutos = Produto::find()->count();
+        return $this->render('index', ['produtos' => $produtos, 'nProdutos' => $nProdutos]);
     }
 
     /**

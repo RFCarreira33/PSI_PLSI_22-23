@@ -21,10 +21,7 @@
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="img/<?php
-
-                                                                                        use common\models\Produto;
-
-                                                                                        echo $produto->imagem ?>" alt="..." /></div>
+                 echo $produto->imagem ?>" alt="..." /></div>
                 <div class="col-md-6">
                     <div class="small mb-1">REF: <?php echo $produto->referencia ?></div>
                     <h1 class="display-5 fw-bolder"><?php echo $produto->nome ?></h1>
@@ -76,12 +73,6 @@
             </div>
         </div>
     </section>
-    <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
-        </div>
-    </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
