@@ -42,8 +42,10 @@ class RbacController extends Controller
         }
         */
 
-
-
+        $permission = $auth->createPermission("carrinho");
+        $permission->description = "Aceder ao carrinho";
+        $auth->add($permission);
+        $auth->addChild($cliente, $permission);
 
 
         //criar permissoes funcionario

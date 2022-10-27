@@ -42,8 +42,7 @@ class SiteController extends Controller
             ],
             'verbs' => [
                 'class' => VerbFilter::class,
-                'actions' => [
-                ],
+                'actions' => [],
             ],
         ];
     }
@@ -87,6 +86,9 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if (Yii::$app->user->can('carrinho')) {
+                return $this->actionLogout();
+            }
             return $this->goBack();
         }
 

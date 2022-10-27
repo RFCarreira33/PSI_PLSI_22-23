@@ -35,7 +35,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/logout',
+            'errorAction' => 'site/error',
         ],
         /*
         'urlManager' => [
