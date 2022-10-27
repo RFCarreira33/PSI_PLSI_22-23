@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Categoria;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -91,7 +92,7 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->login() && Yii::$app->user->can('frontendLogin')) {
             return $this->goBack();
         }
 
