@@ -2,9 +2,9 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 21, 2022 at 08:46 PM
--- Server version: 10.4.24-MariaDB
+-- Host: localhost
+-- Generation Time: Oct 27, 2022 at 12:37 PM
+-- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -19,9 +19,9 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `projeto_final`
-CREATE DATABASE IF NOT EXISTS projeto_final;
-USE projeto_final; 
 --
+CREATE DATABASE IF NOT EXISTS `projeto_final` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `projeto_final`;
 
 -- --------------------------------------------------------
 
@@ -40,8 +40,7 @@ CREATE TABLE `auth_assignment` (
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-('admin', '1', 1666108008),
-('cliente', '2', 1666112069);
+('admin', '1', 1666701423);
 
 -- --------------------------------------------------------
 
@@ -64,9 +63,49 @@ CREATE TABLE `auth_item` (
 --
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
-('admin', 1, NULL, NULL, NULL, 1666108008, 1666108008),
-('cliente', 1, NULL, NULL, NULL, 1666108008, 1666108008),
-('funcionario', 1, NULL, NULL, NULL, 1666108008, 1666108008);
+('admin', 1, NULL, NULL, NULL, 1666701423, 1666701423),
+('cliente', 1, NULL, NULL, NULL, 1666701423, 1666701423),
+('CreateCategoria', 2, 'Create Categoria', NULL, NULL, 1666701423, 1666701423),
+('CreateEmpresa', 2, 'Create Empresa', NULL, NULL, 1666701423, 1666701423),
+('CreateFatura', 2, 'Create Fatura', NULL, NULL, 1666701423, 1666701423),
+('CreateIva', 2, 'Create Iva', NULL, NULL, 1666701423, 1666701423),
+('CreateLinhaFatura', 2, 'Create LinhaFatura', NULL, NULL, 1666701423, 1666701423),
+('CreateMarca', 2, 'Create Marca', NULL, NULL, 1666701423, 1666701423),
+('CreateProduto', 2, 'Create Produto', NULL, NULL, 1666701423, 1666701423),
+('CreateStock', 2, 'Create Stock', NULL, NULL, 1666701423, 1666701423),
+('DeleteCategoria', 2, 'Delete Categoria', NULL, NULL, 1666701423, 1666701423),
+('DeleteEmpresa', 2, 'Delete Empresa', NULL, NULL, 1666701423, 1666701423),
+('DeleteFatura', 2, 'Delete Fatura', NULL, NULL, 1666701423, 1666701423),
+('DeleteIva', 2, 'Delete Iva', NULL, NULL, 1666701423, 1666701423),
+('DeleteLinhaFatura', 2, 'Delete LinhaFatura', NULL, NULL, 1666701423, 1666701423),
+('DeleteMarca', 2, 'Delete Marca', NULL, NULL, 1666701423, 1666701423),
+('DeleteProduto', 2, 'Delete Produto', NULL, NULL, 1666701423, 1666701423),
+('DeleteStock', 2, 'Delete Stock', NULL, NULL, 1666701423, 1666701423),
+('funcionario', 1, NULL, NULL, NULL, 1666701423, 1666701423),
+('IndexCategoria', 2, 'Index Categoria', NULL, NULL, 1666701423, 1666701423),
+('IndexEmpresa', 2, 'Index Empresa', NULL, NULL, 1666701423, 1666701423),
+('IndexFatura', 2, 'Index Fatura', NULL, NULL, 1666701423, 1666701423),
+('IndexIva', 2, 'Index Iva', NULL, NULL, 1666701423, 1666701423),
+('IndexLinhaFatura', 2, 'Index LinhaFatura', NULL, NULL, 1666701423, 1666701423),
+('IndexMarca', 2, 'Index Marca', NULL, NULL, 1666701423, 1666701423),
+('IndexProduto', 2, 'Index Produto', NULL, NULL, 1666701423, 1666701423),
+('IndexStock', 2, 'Index Stock', NULL, NULL, 1666701423, 1666701423),
+('UpdateCategoria', 2, 'Update Categoria', NULL, NULL, 1666701423, 1666701423),
+('UpdateEmpresa', 2, 'Update Empresa', NULL, NULL, 1666701423, 1666701423),
+('UpdateFatura', 2, 'Update Fatura', NULL, NULL, 1666701423, 1666701423),
+('UpdateIva', 2, 'Update Iva', NULL, NULL, 1666701423, 1666701423),
+('UpdateLinhaFatura', 2, 'Update LinhaFatura', NULL, NULL, 1666701423, 1666701423),
+('UpdateMarca', 2, 'Update Marca', NULL, NULL, 1666701423, 1666701423),
+('UpdateProduto', 2, 'Update Produto', NULL, NULL, 1666701423, 1666701423),
+('UpdateStock', 2, 'Update Stock', NULL, NULL, 1666701423, 1666701423),
+('ViewCategoria', 2, 'View Categoria', NULL, NULL, 1666701423, 1666701423),
+('ViewEmpresa', 2, 'View Empresa', NULL, NULL, 1666701423, 1666701423),
+('ViewFatura', 2, 'View Fatura', NULL, NULL, 1666701423, 1666701423),
+('ViewIva', 2, 'View Iva', NULL, NULL, 1666701423, 1666701423),
+('ViewLinhaFatura', 2, 'View LinhaFatura', NULL, NULL, 1666701423, 1666701423),
+('ViewMarca', 2, 'View Marca', NULL, NULL, 1666701423, 1666701423),
+('ViewProduto', 2, 'View Produto', NULL, NULL, 1666701423, 1666701423),
+('ViewStock', 2, 'View Stock', NULL, NULL, 1666701423, 1666701423);
 
 -- --------------------------------------------------------
 
@@ -78,6 +117,53 @@ CREATE TABLE `auth_item_child` (
   `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `auth_item_child`
+--
+
+INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
+('admin', 'CreateEmpresa'),
+('admin', 'DeleteEmpresa'),
+('admin', 'funcionario'),
+('admin', 'IndexEmpresa'),
+('admin', 'UpdateEmpresa'),
+('admin', 'ViewEmpresa'),
+('funcionario', 'CreateCategoria'),
+('funcionario', 'CreateFatura'),
+('funcionario', 'CreateIva'),
+('funcionario', 'CreateLinhaFatura'),
+('funcionario', 'CreateMarca'),
+('funcionario', 'CreateProduto'),
+('funcionario', 'CreateStock'),
+('funcionario', 'DeleteCategoria'),
+('funcionario', 'DeleteFatura'),
+('funcionario', 'DeleteIva'),
+('funcionario', 'DeleteLinhaFatura'),
+('funcionario', 'DeleteMarca'),
+('funcionario', 'DeleteProduto'),
+('funcionario', 'DeleteStock'),
+('funcionario', 'IndexCategoria'),
+('funcionario', 'IndexFatura'),
+('funcionario', 'IndexIva'),
+('funcionario', 'IndexLinhaFatura'),
+('funcionario', 'IndexMarca'),
+('funcionario', 'IndexProduto'),
+('funcionario', 'IndexStock'),
+('funcionario', 'UpdateCategoria'),
+('funcionario', 'UpdateFatura'),
+('funcionario', 'UpdateIva'),
+('funcionario', 'UpdateLinhaFatura'),
+('funcionario', 'UpdateMarca'),
+('funcionario', 'UpdateProduto'),
+('funcionario', 'UpdateStock'),
+('funcionario', 'ViewCategoria'),
+('funcionario', 'ViewFatura'),
+('funcionario', 'ViewIva'),
+('funcionario', 'ViewLinhaFatura'),
+('funcionario', 'ViewMarca'),
+('funcionario', 'ViewProduto'),
+('funcionario', 'ViewStock');
 
 -- --------------------------------------------------------
 
@@ -91,6 +177,18 @@ CREATE TABLE `auth_rule` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carrinho`
+--
+
+CREATE TABLE `carrinho` (
+  `idCliente` int(11) NOT NULL,
+  `idProduto` int(11) NOT NULL,
+  `Quantidade` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -114,10 +212,10 @@ INSERT INTO `categoria` (`id`, `categoriaPai`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cliente`
+-- Table structure for table `dados`
 --
 
-CREATE TABLE `cliente` (
+CREATE TABLE `dados` (
   `idUser` int(11) NOT NULL,
   `nome` varchar(45) NOT NULL,
   `telefone` varchar(9) NOT NULL,
@@ -127,10 +225,10 @@ CREATE TABLE `cliente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `cliente`
+-- Dumping data for table `dados`
 --
 
-INSERT INTO `cliente` (`idUser`, `nome`, `telefone`, `nif`, `morada`, `codPostal`) VALUES
+INSERT INTO `dados` (`idUser`, `nome`, `telefone`, `nif`, `morada`, `codPostal`) VALUES
 (2, 'test', '123123123', '123123123', 'yse', '123123123');
 
 -- --------------------------------------------------------
@@ -150,16 +248,15 @@ CREATE TABLE `empresa` (
   `localidade` varchar(45) NOT NULL,
   `capitalSocial` int(11) NOT NULL,
   `imgBanner` varchar(255) NOT NULL,
-  `imgLogo` varchar(255) NOT NULL,
-  `imgBackground` varchar(255) NOT NULL
+  `imgLogo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `empresa`
 --
 
-INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`, `imgBackground`) VALUES
-(1, 'GlobalDiga', 'globaldiga@gmail.com', '244501812', '503503503', 'Rua do', '2410-367', 'Leiria', 28654876, '', '', '');
+INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`) VALUES
+(1, 'GlobalDiga', 'globaldiga@gmail.com', '244501812', '503503503', 'Rua do', '2410-367', 'Leiria', 28654876, '', '');
 
 -- --------------------------------------------------------
 
@@ -172,8 +269,7 @@ CREATE TABLE `fatura` (
   `idCliente` int(11) NOT NULL,
   `dataFatura` date NOT NULL DEFAULT current_timestamp(),
   `valorTotal` decimal(11,2) NOT NULL,
-  `valorIva` decimal(11,2) NOT NULL,
-  `estado` enum('Emitida','Em Lancamento','Carrinho') NOT NULL
+  `valorIva` decimal(11,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -184,15 +280,16 @@ CREATE TABLE `fatura` (
 
 CREATE TABLE `iva` (
   `id` int(11) NOT NULL,
-  `percentagem` int(11) NOT NULL
+  `percentagem` int(11) NOT NULL,
+  `Ativo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `iva`
 --
 
-INSERT INTO `iva` (`id`, `percentagem`) VALUES
-(1, 23);
+INSERT INTO `iva` (`id`, `percentagem`, `Ativo`) VALUES
+(1, 23, 0);
 
 -- --------------------------------------------------------
 
@@ -217,6 +314,7 @@ CREATE TABLE `linhafatura` (
 
 CREATE TABLE `loja` (
   `id` int(11) NOT NULL,
+  `idEmpresa` int(11) NOT NULL,
   `localidade` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -278,17 +376,18 @@ CREATE TABLE `produto` (
   `imagem` text NOT NULL,
   `referencia` varchar(45) NOT NULL,
   `preco` decimal(11,2) NOT NULL,
-  `nome` varchar(50) DEFAULT NULL
+  `nome` varchar(50) DEFAULT NULL,
+  `Ativo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `produto`
 --
 
-INSERT INTO `produto` (`id`, `idCategoria`, `idIva`, `marca`, `descricao`, `imagem`, `referencia`, `preco`, `nome`) VALUES
-(1, 1, 1, 'AMD', 'BESATS', 'gpu.jpg', 'qwdasa', '15.00', 'GTX 1060'),
-(2, 1, 1, 'Nvidia', 'ewfdsds', 'cooler.jpg', 'sadd', '20.00', 'GTX 1070'),
-(3, 1, 1, 'Nvidia', 'sadsad', 'gt 730.jpg', 'asdsad', '50.00', 'GTX 1080');
+INSERT INTO `produto` (`id`, `idCategoria`, `idIva`, `marca`, `descricao`, `imagem`, `referencia`, `preco`, `nome`, `Ativo`) VALUES
+(1, 1, 1, 'AMD', 'BESATS', 'gpu.jpg', 'qwdasa', '15.00', 'GTX 1060', 0),
+(2, 1, 1, 'Nvidia', 'ewfdsds', 'cooler.jpg', 'sadd', '20.00', 'GTX 1070', 0),
+(3, 1, 1, 'Nvidia', 'sadsad', 'gt 730.jpg', 'asdsad', '50.00', 'GTX 1080', 0);
 
 -- --------------------------------------------------------
 
@@ -362,6 +461,13 @@ ALTER TABLE `auth_rule`
   ADD PRIMARY KEY (`name`);
 
 --
+-- Indexes for table `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD KEY `idCliente` (`idCliente`),
+  ADD KEY `idProduto` (`idProduto`);
+
+--
 -- Indexes for table `categoria`
 --
 ALTER TABLE `categoria`
@@ -369,9 +475,9 @@ ALTER TABLE `categoria`
   ADD KEY `categoriaPai` (`categoriaPai`);
 
 --
--- Indexes for table `cliente`
+-- Indexes for table `dados`
 --
-ALTER TABLE `cliente`
+ALTER TABLE `dados`
   ADD PRIMARY KEY (`idUser`),
   ADD KEY `idUser` (`idUser`);
 
@@ -406,7 +512,8 @@ ALTER TABLE `linhafatura`
 -- Indexes for table `loja`
 --
 ALTER TABLE `loja`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idEmpresa` (`idEmpresa`);
 
 --
 -- Indexes for table `marca`
@@ -521,22 +628,29 @@ ALTER TABLE `auth_item_child`
   ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD CONSTRAINT `carrinho_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `carrinho_ibfk_2` FOREIGN KEY (`idProduto`) REFERENCES `produto` (`id`);
+
+--
 -- Constraints for table `categoria`
 --
 ALTER TABLE `categoria`
   ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`categoriaPai`) REFERENCES `categoria` (`id`);
 
 --
--- Constraints for table `cliente`
+-- Constraints for table `dados`
 --
-ALTER TABLE `cliente`
-  ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`);
+ALTER TABLE `dados`
+  ADD CONSTRAINT `dados_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `fatura`
 --
 ALTER TABLE `fatura`
-  ADD CONSTRAINT `fatura_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idUser`);
+  ADD CONSTRAINT `fatura_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `dados` (`idUser`);
 
 --
 -- Constraints for table `linhafatura`
@@ -544,6 +658,12 @@ ALTER TABLE `fatura`
 ALTER TABLE `linhafatura`
   ADD CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`idFatura`) REFERENCES `fatura` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `linhafatura_ibfk_2` FOREIGN KEY (`idProduto`) REFERENCES `produto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `loja`
+--
+ALTER TABLE `loja`
+  ADD CONSTRAINT `loja_ibfk_1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresa` (`id`);
 
 --
 -- Constraints for table `produto`
