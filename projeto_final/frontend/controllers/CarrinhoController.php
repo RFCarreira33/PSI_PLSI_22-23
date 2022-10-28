@@ -69,6 +69,7 @@ class CarrinhoController extends Controller
     public function actionCreate()
     {
         $model = new Carrinho();
+<<<<<<< Updated upstream
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -81,6 +82,31 @@ class CarrinhoController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+=======
+        $model->idCliente = Yii::$app->user->id;
+        $model->idProduto = $id;
+        $model->Quantidade = 2;
+
+        $carrinhos = Carrinho::find()->all();
+        foreach($carrinhos as $carrinho)
+        {
+            if($carrinho->idProduto == $id)
+            {
+                //$carrinho = Carrinho::find()->where(['idProduto' => $id])->one();
+                $carrinho->Quantidade = $carrinho->Quantidade + 1;
+                $carrinho -> save();
+                $carrinhosUser = Carrinho::find()->where(['idCliente' => Yii::$app->user->id])->all();
+                return $this->render('view',['carrinhos' => $carrinhosUser]);
+            }
+        }
+        
+        if ($model->save()) 
+        {
+            return $this->render('view');
+        }
+
+        return $this->redirect('site/index');
+>>>>>>> Stashed changes
     }
 
     /**
