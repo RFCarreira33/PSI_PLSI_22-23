@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'capitalSocial',
             'imgBanner',
             'imgLogo',
-            'imgBackground',
         ],
     ]) ?>
 

@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Iva;
+use common\models\iva;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -31,9 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'percentagem',
+            'Ativo',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Iva $model, $key, $index, $column) {
+                'urlCreator' => function ($action, iva $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

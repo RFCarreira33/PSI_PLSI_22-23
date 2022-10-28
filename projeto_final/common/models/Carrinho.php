@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 
@@ -11,8 +11,8 @@ use Yii;
  * @property int $idProduto
  * @property int $Quantidade
  *
- * @property User $idCliente0
  * @property Produto $idProduto0
+ * @property User $idCliente0
  */
 class Carrinho extends \yii\db\ActiveRecord
 {
@@ -32,8 +32,8 @@ class Carrinho extends \yii\db\ActiveRecord
         return [
             [['idCliente', 'idProduto', 'Quantidade'], 'required'],
             [['idCliente', 'idProduto', 'Quantidade'], 'integer'],
-            [['idCliente'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idCliente' => 'id']],
             [['idProduto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['idProduto' => 'id']],
+            [['idCliente'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idCliente' => 'id']],
         ];
     }
 
@@ -50,16 +50,6 @@ class Carrinho extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[IdCliente0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIdCliente0()
-    {
-        return $this->hasOne(User::class, ['id' => 'idCliente']);
-    }
-
-    /**
      * Gets query for [[IdProduto0]].
      *
      * @return \yii\db\ActiveQuery
@@ -67,5 +57,15 @@ class Carrinho extends \yii\db\ActiveRecord
     public function getIdProduto0()
     {
         return $this->hasOne(Produto::class, ['id' => 'idProduto']);
+    }
+
+    /**
+     * Gets query for [[IdUser0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdCliente0()
+    {
+        return $this->hasOne(User::class, ['id' => 'idCliente']);
     }
 }

@@ -2,8 +2,10 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Carrinho;
+use common\models\Produto;
+use common\models\Carrinho;
 use frontend\models\CarrinhoSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,13 +40,6 @@ class CarrinhoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CarrinhoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 
     /**
@@ -66,47 +61,32 @@ class CarrinhoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Carrinho();
-<<<<<<< Updated upstream
+        $carrinhos = Carrinho::find()->all();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idCliente' => $model->idCliente, 'idProduto' => $model->idProduto]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-=======
         $model->idCliente = Yii::$app->user->id;
         $model->idProduto = $id;
         $model->Quantidade = 2;
-
-        $carrinhos = Carrinho::find()->all();
+        
         foreach($carrinhos as $carrinho)
         {
             if($carrinho->idProduto == $id)
             {
-                //$carrinho = Carrinho::find()->where(['idProduto' => $id])->one();
+                $carrinho = Carrinho::find()->where(['idProduto' => $id])->one();
                 $carrinho->Quantidade = $carrinho->Quantidade + 1;
                 $carrinho -> save();
-                $carrinhosUser = Carrinho::find()->where(['idCliente' => Yii::$app->user->id])->all();
-                return $this->render('view',['carrinhos' => $carrinhosUser]);
+                return $this->redirect('site/index');
             }
         }
         
         if ($model->save()) 
         {
-            return $this->render('view');
+            return $this->redirect('site/index');
         }
 
-        return $this->redirect('site/index');
->>>>>>> Stashed changes
+        return $this->redirect('site/logout');
     }
 
     /**

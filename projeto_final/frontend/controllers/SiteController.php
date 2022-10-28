@@ -59,7 +59,9 @@ class SiteController extends Controller
     {
         return [
             'error' => [
-                'class' => \yii\web\ErrorAction::class,
+                'class' => 'yii\web\ErrorAction',
+                'view' => '@app/views/site/error.php',
+                'layout' => '@app/views/layouts/no_layout.php'
             ],
             'captcha' => [
                 'class' => \yii\captcha\CaptchaAction::class,
@@ -92,7 +94,7 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login() && Yii::$app->user->can('frontendLogin')) {
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
 
