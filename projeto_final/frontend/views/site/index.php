@@ -41,7 +41,7 @@ $this->title = 'My Yii Application';
                         <?php echo $produtos[$i]->preco ?>€
 
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= Url::toRoute(["produto/view", "id" => $produtos[$i]->id]) ?>">
+                            <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= Url::toRoute(["carrinho/create", "id" => $produtos[$i]->id]) ?>">
                                     Adicionar<i class="bi-cart-fill me-1"></i>
                                 </a></div>
                         </div>

@@ -77,16 +77,17 @@ class CarrinhoController extends Controller
                 $carrinho = Carrinho::find()->where(['idProduto' => $id])->one();
                 $carrinho->Quantidade = $carrinho->Quantidade + 1;
                 $carrinho -> save();
-                return $this->redirect('site/index');
+                $carrinhos = Carrinho::find()->where(['idCliente' => Yii::$app->user->id])->all();
+                return $this->render('view', ['carrinhos' => $carrinhos]);
             }
         }
         
         if ($model->save()) 
         {
-            return $this->redirect('site/index');
+            return $this->render('view', ['carrinhos' => $carrinhos]);
         }
 
-        return $this->redirect('site/logout');
+        return $this->redirect('site/index');
     }
 
     /**
