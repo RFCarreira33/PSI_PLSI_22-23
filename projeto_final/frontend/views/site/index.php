@@ -53,5 +53,10 @@ $this->title = 'My Yii Application';
 <?php
     echo LinkPager::widget([
         'pagination' => $pages,
+        'hideOnSinglePage' => true,
+        'maxButtonCount' => 5,
+        'disableCurrentPageButton' => true,
+        'firstPageLabel' => true,
+        'lastPageLabel' => true
     ]);
 ?>
