@@ -10,7 +10,6 @@ use yii\grid\GridView;
 /** @var backend\models\ProdutoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Produtos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="produto-index">
@@ -21,7 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Produto', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -29,21 +27,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
+            'nome',
+            'preco',
+            'Ativo',
             'idCategoria',
             'idIva',
             'marca',
-            'descricao:ntext',
+            //'descricao:ntext',
             //'imagem:ntext',
-            //'referencia',
-            //'preco',
-            //'nome',
-            //'Ativo',
+            'referencia',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, produto $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>

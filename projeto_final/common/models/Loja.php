@@ -12,6 +12,7 @@ use Yii;
  * @property string $localidade
  *
  * @property Empresa $idEmpresa0
+ * @property Produto[] $idProdutos
  * @property Stock[] $stocks
  */
 class Loja extends \yii\db\ActiveRecord
@@ -57,6 +58,16 @@ class Loja extends \yii\db\ActiveRecord
     public function getIdEmpresa0()
     {
         return $this->hasOne(Empresa::class, ['id' => 'idEmpresa']);
+    }
+
+    /**
+     * Gets query for [[IdProdutos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdProdutos()
+    {
+        return $this->hasMany(Produto::class, ['id' => 'idProduto'])->viaTable('stock', ['idLoja' => 'id']);
     }
 
     /**

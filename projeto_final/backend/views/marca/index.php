@@ -10,7 +10,6 @@ use yii\grid\GridView;
 /** @var backend\models\MarcaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Marcas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="marca-index">
@@ -21,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Marca', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -31,10 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'nome',
             [
-                'class' => ActionColumn::className(),
+                'class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}',
                 'urlCreator' => function ($action, marca $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'nome' => $model->nome]);
-                 }
+                }
             ],
         ],
     ]); ?>

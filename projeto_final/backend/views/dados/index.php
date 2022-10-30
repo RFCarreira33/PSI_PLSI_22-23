@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Dados', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -34,12 +35,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'telefone',
             'nif',
             'morada',
-            //'codPostal',
+            'codPostal',
             [
-                'class' => ActionColumn::className(),
+                'class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}',
                 'urlCreator' => function ($action, Dados $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'idUser' => $model->idUser]);
-                 }
+                }
             ],
         ],
     ]); ?>

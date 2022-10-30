@@ -10,9 +10,9 @@ class RbacController extends Controller
     public function actionInit()
     {
         $Crud = ['Read', 'Update', 'Delete', 'Create']; // READ = VIEW + INDEX
-        $tabelasFuncionario = ['Categoria', 'Produto', 'Iva', 'Fatura', 'LinhaFatura', 'Marca', 'Stock']; //STOCK KINDA TROLLING
-        $tabelasCliente = ['Produto', 'LinhaFatura', 'Fatura'];
-        $tabelasAdmin = ['Empresa']; //adicionar a tabela de dados
+        $tabelasFuncionario = ['Categoria', 'Produto', 'Iva', 'Fatura', 'LinhaFatura', 'Marca', 'Stock'];
+        $tabelasCliente = ['Produto', 'LinhaFatura', 'Fatura']; // linhas ??
+        $tabelasAdmin = ['Empresa'];
 
         $auth = Yii::$app->authManager;
         $auth->removeAll();
@@ -47,6 +47,15 @@ class RbacController extends Controller
         $auth->add($permission);
         $auth->addChild($cliente, $permission);
 
+        /*
+        $rule = new \app\rbac\FaturaRule;
+        $auth->add($rule);
+        $permission = $auth->createPermission("VerFaturas");
+        $permission->description = "Verifica de a fatura pertence ao user";
+        $auth->add($permission);
+        $permission->ruleName = $rule->name;
+        $auth->addChild($cliente, $permission);
+*/
 
         //criar permissoes funcionario
         foreach ($Crud as $itemCrud) {
