@@ -1,27 +1,27 @@
 <?php
 
-use common\models\Categoria;
+use common\models\Stock;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\CategoriaSearch $searchModel */
+/** @var backend\models\StockSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
+$this->title = 'Stocks';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="categoria-index">
+<div class="stock-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Categoria', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Stock', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -29,14 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'categoriaPai',
-            'nome',
+            'idLoja',
+            'idProduto',
+            'quantidade',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Categoria $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                }
+                'urlCreator' => function ($action, Stock $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'idLoja' => $model->idLoja, 'idProduto' => $model->idProduto]);
+                 }
             ],
         ],
     ]); ?>

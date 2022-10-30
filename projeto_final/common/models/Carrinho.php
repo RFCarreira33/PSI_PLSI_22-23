@@ -9,10 +9,10 @@ use Yii;
  *
  * @property int $idCliente
  * @property int $idProduto
- * @property int $Quantidade
+ * @property int $quantidade
  *
+ * @property Dados $idCliente0
  * @property Produto $idProduto0
- * @property User $idCliente0
  */
 class Carrinho extends \yii\db\ActiveRecord
 {
@@ -30,10 +30,11 @@ class Carrinho extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idCliente', 'idProduto', 'Quantidade'], 'required'],
-            [['idCliente', 'idProduto', 'Quantidade'], 'integer'],
+            [['idCliente', 'idProduto', 'quantidade'], 'required'],
+            [['idCliente', 'idProduto', 'quantidade'], 'integer'],
+            [['idCliente', 'idProduto'], 'unique', 'targetAttribute' => ['idCliente', 'idProduto']],
             [['idProduto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['idProduto' => 'id']],
-            [['idCliente'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idCliente' => 'id']],
+            [['idCliente'], 'exist', 'skipOnError' => true, 'targetClass' => Dados::class, 'targetAttribute' => ['idCliente' => 'idUser']],
         ];
     }
 
@@ -45,8 +46,18 @@ class Carrinho extends \yii\db\ActiveRecord
         return [
             'idCliente' => 'Id Cliente',
             'idProduto' => 'Id Produto',
-            'Quantidade' => 'Quantidade',
+            'quantidade' => 'quantidade',
         ];
+    }
+
+    /**
+     * Gets query for [[IdCliente0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdCliente0()
+    {
+        return $this->hasOne(Dados::class, ['idUser' => 'idCliente']);
     }
 
     /**
@@ -57,15 +68,5 @@ class Carrinho extends \yii\db\ActiveRecord
     public function getIdProduto0()
     {
         return $this->hasOne(Produto::class, ['id' => 'idProduto']);
-    }
-
-    /**
-     * Gets query for [[IdUser0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIdCliente0()
-    {
-        return $this->hasOne(User::class, ['id' => 'idCliente']);
     }
 }

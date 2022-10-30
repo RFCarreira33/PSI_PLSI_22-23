@@ -1,17 +1,17 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
-use common\models\Fatura;
-use common\models\FaturaSearch;
+use common\models\Stock;
+use backend\models\StockSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * FaturaController implements the CRUD actions for Fatura model.
+ * StockController implements the CRUD actions for Stock model.
  */
-class FaturaController extends Controller
+class StockController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class FaturaController extends Controller
     }
 
     /**
-     * Lists all Fatura models.
+     * Lists all Stock models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new FaturaSearch();
+        $searchModel = new StockSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,33 +48,31 @@ class FaturaController extends Controller
     }
 
     /**
-     * Displays a single Fatura model.
-     * @param int $id ID
+     * Displays a single Stock model.
+     * @param int $idLoja Id Loja
+     * @param int $idProduto Id Produto
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($idLoja, $idProduto)
     {
-        $fatura =  $this->findModel($id);
-
-        if (\Yii::$app->user->can('VerFatura', ['fatura' => $fatura])) {
-            return $this->render('view', ['model' => $fatura]);
-        }
-        return;
+        return $this->render('view', [
+            'model' => $this->findModel($idLoja, $idProduto),
+        ]);
     }
 
     /**
-     * Creates a new Fatura model.
+     * Creates a new Stock model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Fatura();
+        $model = new Stock();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'idLoja' => $model->idLoja, 'idProduto' => $model->idProduto]);
             }
         } else {
             $model->loadDefaultValues();
@@ -86,18 +84,19 @@ class FaturaController extends Controller
     }
 
     /**
-     * Updates an existing Fatura model.
+     * Updates an existing Stock model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param int $idLoja Id Loja
+     * @param int $idProduto Id Produto
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($idLoja, $idProduto)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($idLoja, $idProduto);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'idLoja' => $model->idLoja, 'idProduto' => $model->idProduto]);
         }
 
         return $this->render('update', [
@@ -106,29 +105,31 @@ class FaturaController extends Controller
     }
 
     /**
-     * Deletes an existing Fatura model.
+     * Deletes an existing Stock model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param int $idLoja Id Loja
+     * @param int $idProduto Id Produto
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($idLoja, $idProduto)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($idLoja, $idProduto)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Fatura model based on its primary key value.
+     * Finds the Stock model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Fatura the loaded model
+     * @param int $idLoja Id Loja
+     * @param int $idProduto Id Produto
+     * @return Stock the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($idLoja, $idProduto)
     {
-        if (($model = Fatura::findOne(['id' => $id])) !== null) {
+        if (($model = Stock::findOne(['idLoja' => $idLoja, 'idProduto' => $idProduto])) !== null) {
             return $model;
         }
 
