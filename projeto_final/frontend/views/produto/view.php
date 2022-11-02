@@ -1,3 +1,8 @@
+<?php
+
+use yii\helpers\Url;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +26,7 @@
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="img/<?php
-                 echo $produto->imagem ?>" alt="..." /></div>
+                                                                                        echo $produto->imagem ?>" alt="..." /></div>
                 <div class="col-md-6">
                     <div class="small mb-1">REF: <?php echo $produto->referencia ?></div>
                     <h1 class="display-5 fw-bolder"><?php echo $produto->nome ?></h1>
@@ -32,10 +37,11 @@
                     <p class="lead"><?php echo $produto->descricao ?></p>
                     <div class="d-flex">
                         <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                            <i class="bi-cart-fill me-1"></i>
-                            Adicionar ao carrinho
-                        </button>
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= Url::toRoute(["carrinho/create", "id" => $produto->id]) ?>">
+                                    Adicionar ao carrinho<i class="bi-cart-fill me-1"></i>
+                                </a></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,13 +50,12 @@
     <!-- Related items section-->
     <section class="py-5 bg-light">
         <div class="container px-4 px-lg-5 mt-5">
-            <?php 
-                if(count($relatedProducts) > 0) {  ?>
-            <h2 class="fw-bolder mb-4">Related products</h2> <?php } ?>
+            <?php
+            if (count($relatedProducts) > 0) {  ?>
+                <h2 class="fw-bolder mb-4">Related products</h2> <?php } ?>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <?php
-                for ($i = 0; $i < count($relatedProducts); $i++) 
-                { ?>
+                for ($i = 0; $i < count($relatedProducts); $i++) { ?>
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
@@ -62,9 +67,7 @@
                                     <h5 class="fw-bolder"><?= $relatedProducts[$i]->nome ?></h5>
                                     <!-- Product price-->
                                     <?= $relatedProducts[$i]->preco ?>€
-                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="">Adicionar ao carrinho</a></div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
