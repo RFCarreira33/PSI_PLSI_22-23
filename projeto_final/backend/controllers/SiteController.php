@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\AuthAssignment;
 use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
@@ -86,8 +87,8 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if (Yii::$app->user->can('carrinho')) {
-                return $this->actionLogout();
+            if (AuthAssignment::checkAccess() == 'cliente') {
+                return $this->redirect('logout');
             }
             return $this->goBack();
         }

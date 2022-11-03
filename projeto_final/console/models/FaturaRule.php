@@ -1,6 +1,6 @@
 <?php
 
-namespace app\rbac;
+namespace console\models;
 
 use yii\rbac\Rule;
 use common\models\Fatura;
