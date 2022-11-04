@@ -43,6 +43,9 @@
                         'items' => [
                             ['label' => 'Active Page', 'url' => ['site/index'], 'iconStyle' => 'far'],
                             ['label' => 'Inactive Page', 'iconStyle' => 'far'],
+                            ['label' => 'Criar uma conta', 'url' => ['site/signup'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar uma conta', 'url' => ['site/signup'], 'iconStyle' => 'far'],
+
                         ]
                     ],
                     ['label' => 'Simple Link', 'icon' => 'th', 'badge' => '<span class="right badge badge-danger">New</span>'],
