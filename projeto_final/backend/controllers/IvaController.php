@@ -7,6 +7,7 @@ use backend\models\IvaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * IvaController implements the CRUD actions for iva model.
@@ -21,6 +22,15 @@ class IvaController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['admin', 'funcionario']
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -111,7 +121,10 @@ class IvaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->Ativo = 0;
+        $model->save();
+
 
         return $this->redirect(['index']);
     }

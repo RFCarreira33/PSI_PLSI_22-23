@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataFatura',
             'valorTotal',
             'valorIva',
-            //'estado',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Fatura $model, $key, $index, $column) {

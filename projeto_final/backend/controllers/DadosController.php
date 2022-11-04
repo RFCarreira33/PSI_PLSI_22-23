@@ -2,17 +2,23 @@
 
 namespace backend\controllers;
 
-use common\models\Dados;
+use common\models\dados;
 use backend\models\DadosSearch;
+use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * DadosController implements the CRUD actions for Dados model.
  */
 class DadosController extends Controller
 {
+
+    const STATUS_DELETED = 0;
+    const STATUS_INACTIVE = 9;
+    const STATUS_ACTIVE = 10;
     /**
      * @inheritDoc
      */
@@ -21,6 +27,15 @@ class DadosController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['admin', 'funcionario']
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -32,7 +47,7 @@ class DadosController extends Controller
     }
 
     /**
-     * Lists all Dados models.
+     * Lists all dados models.
      *
      * @return string
      */
@@ -48,7 +63,7 @@ class DadosController extends Controller
     }
 
     /**
-     * Displays a single Dados model.
+     * Displays a single dados model.
      * @param int $idUser Id User
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -57,17 +72,18 @@ class DadosController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($idUser),
+            'status' => User::findIdentity($idUser)
         ]);
     }
 
     /**
-     * Creates a new Dados model.
+     * Creates a new dados model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Dados();
+        $model = new dados();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -83,7 +99,7 @@ class DadosController extends Controller
     }
 
     /**
-     * Updates an existing Dados model.
+     * Updates an existing dados model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $idUser Id User
      * @return string|\yii\web\Response
@@ -103,12 +119,11 @@ class DadosController extends Controller
     }
 
     /**
-     * Deletes an existing Dados model.
+     * Deletes an existing dados model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $idUser Id User
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($idUser)
     {
         $this->findModel($idUser)->delete();
@@ -116,16 +131,25 @@ class DadosController extends Controller
         return $this->redirect(['index']);
     }
 
+     */
+    public function actionChange($idUser)
+    {
+        $user = User::findOne(['id' => $idUser]);
+        $user->status == self::STATUS_ACTIVE ? $user->status = self::STATUS_DELETED : $user->status = self::STATUS_ACTIVE;
+        $user->save();
+        return $this->redirect(['index']);
+    }
+
     /**
-     * Finds the Dados model based on its primary key value.
+     * Finds the dados model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $idUser Id User
-     * @return Dados the loaded model
+     * @return dados the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($idUser)
     {
-        if (($model = Dados::findOne(['idUser' => $idUser])) !== null) {
+        if (($model = dados::findOne(['idUser' => $idUser])) !== null) {
             return $model;
         }
 

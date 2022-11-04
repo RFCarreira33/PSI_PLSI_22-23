@@ -2,7 +2,11 @@
 
 namespace backend\controllers;
 
+use common\models\Fatura;
+use backend\models\AuthAssignment;
 use common\models\LoginForm;
+use common\models\User;
+use backend\models\SignupForm;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -26,20 +30,24 @@ class SiteController extends Controller
                     [
                         'actions' => ['login', 'error'],
                         'allow' => true,
+                        'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index', 'signup'],
+                        'allow' => true,
+                        'roles' => ['admin', 'funcionario'],
                     ],
 
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
-                ],
+                'actions' => [],
             ],
         ];
     }
@@ -49,13 +57,15 @@ class SiteController extends Controller
      */
     public function actions()
     {
+
         return [
             'error' => [
-                'class' => \yii\web\ErrorAction::class,
+                'class' => 'yii\web\ErrorAction',
+                'view' => '@app/views/site/error.php',
+                'layout' => '@app/views/layouts/no_layout.php'
             ],
         ];
     }
-
     /**
      * Displays homepage.
      *
@@ -63,7 +73,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $nClientes = AuthAssignment::find()->where(["item_name" => "cliente"])->count();
+        $nFaturas = Fatura::find()->count();
+        $faturas = Fatura::find()->all();
+        $soma = 0;
+        foreach ($faturas as $fatura) {
+            $soma += $fatura->valorTotal;
+        }
+        return $this->render('index', ['nClientes' => $nClientes, 'nFaturas' => $nFaturas, 'somaFatura' => $soma]);
     }
 
     /**
@@ -80,13 +97,28 @@ class SiteController extends Controller
         $this->layout = 'main-login';
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login() && Yii::$app->user->can('backendLogin')) {
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if (AuthAssignment::checkAccess() == 'cliente') {
+                return $this->redirect('logout');
+            }
             return $this->goBack();
         }
 
         $model->password = '';
 
         return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            return $this->goHome();
+        }
+
+        return $this->render('signup', [
             'model' => $model,
         ]);
     }

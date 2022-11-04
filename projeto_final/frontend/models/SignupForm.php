@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\Dados;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -49,6 +50,7 @@ class SignupForm extends Model
             return null;
         }
 
+        $ficha = new Dados();
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
@@ -57,6 +59,8 @@ class SignupForm extends Model
         $user->generateEmailVerificationToken();
         $user->save();
 
+        $ficha->idUser = $user->id;
+        $ficha->save();
         $auth = \Yii::$app->authManager;
         $clienteRole = $auth->getRole('cliente');
         $auth->assign($clienteRole, $user->getId());

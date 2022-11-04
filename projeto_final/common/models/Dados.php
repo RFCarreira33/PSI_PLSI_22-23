@@ -14,7 +14,9 @@ use Yii;
  * @property string $morada
  * @property string $codPostal
  *
+ * @property Carrinho[] $carrinhos
  * @property Fatura[] $faturas
+ * @property Produto[] $idProdutos
  * @property User $idUser0
  */
 class Dados extends \yii\db\ActiveRecord
@@ -33,10 +35,10 @@ class Dados extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idUser', 'nome', 'telefone', 'nif', 'morada', 'codPostal'], 'required'],
+            [['idUser'], 'required'],
             [['idUser'], 'integer'],
             [['nome', 'morada'], 'string', 'max' => 45],
-            [['telefone', 'nif', 'codPostal'], 'string', 'max' => 9],
+            [['telefone', 'nif', 'codPostal'], 'string', 'min' => 9, 'max' => 9],
             [['idUser'], 'unique'],
             [['idUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idUser' => 'id']],
         ];
@@ -58,6 +60,16 @@ class Dados extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Carrinhos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCarrinhos()
+    {
+        return $this->hasMany(Carrinho::class, ['idCliente' => 'idUser']);
+    }
+
+    /**
      * Gets query for [[Faturas]].
      *
      * @return \yii\db\ActiveQuery
@@ -65,6 +77,16 @@ class Dados extends \yii\db\ActiveRecord
     public function getFaturas()
     {
         return $this->hasMany(Fatura::class, ['idCliente' => 'idUser']);
+    }
+
+    /**
+     * Gets query for [[IdProdutos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdProdutos()
+    {
+        return $this->hasMany(Produto::class, ['id' => 'idProduto'])->viaTable('carrinho', ['idCliente' => 'idUser']);
     }
 
     /**

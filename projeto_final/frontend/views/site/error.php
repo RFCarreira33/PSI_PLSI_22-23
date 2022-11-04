@@ -1,27 +1,24 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var string $name */
-/** @var string $message */
-/** @var Exception $exception */
+/* @var $this yii\web\View */
+/* @var $name string */
+/* @var $message string */
+/* @var $exception Exception */
 
 use yii\helpers\Html;
 
+
 $this->title = $name;
+$this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
-<div class="site-error">
+<div class="error-page">
+    <div class="error-content" style="margin-left: auto;">
+        <h3><i class="fas fa-exclamation-triangle text-danger"></i> <?= Html::encode($name) ?></h3>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+        <p>
+            <?= nl2br(Html::encode($message)) ?>
+        </p>
 
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
+        <?= Html::a('Go back', ['site/logout'], ['data-method' => 'post']) ?>
     </div>
-
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
-
 </div>
