@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `projeto_final`
 --
-
+create schema if not exists projeto_final;
+use projeto_final;
 -- --------------------------------------------------------
 
 --
@@ -261,7 +262,7 @@ INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `mo
 CREATE TABLE `fatura` (
   `id` int(11) NOT NULL,
   `idCliente` int(11) NOT NULL,
-  `dataFatura` date NOT NULL DEFAULT current_timestamp(),
+  `dataFatura` timestamp NOT NULL DEFAULT current_timestamp(),
   `valorTotal` decimal(11,2) NOT NULL,
   `valorIva` decimal(11,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
