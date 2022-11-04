@@ -2,16 +2,17 @@
 
 namespace backend\controllers;
 
-use common\models\Cliente;
-use backend\models\ClienteSearch;
+use common\models\dados;
+use backend\models\DadosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
- * ClienteController implements the CRUD actions for Cliente model.
+ * DadosController implements the CRUD actions for Dados model.
  */
-class ClienteController extends Controller
+class DadosController extends Controller
 {
     /**
      * @inheritDoc
@@ -21,6 +22,15 @@ class ClienteController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['admin', 'funcionario']
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -32,13 +42,13 @@ class ClienteController extends Controller
     }
 
     /**
-     * Lists all Cliente models.
+     * Lists all dados models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new ClienteSearch();
+        $searchModel = new DadosSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +58,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Displays a single Cliente model.
+     * Displays a single dados model.
      * @param int $idUser Id User
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,13 +71,13 @@ class ClienteController extends Controller
     }
 
     /**
-     * Creates a new Cliente model.
+     * Creates a new dados model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Cliente();
+        $model = new dados();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -83,7 +93,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Updates an existing Cliente model.
+     * Updates an existing dados model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $idUser Id User
      * @return string|\yii\web\Response
@@ -103,7 +113,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Deletes an existing Cliente model.
+     * Deletes an existing dados model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $idUser Id User
      * @return \yii\web\Response
@@ -117,15 +127,15 @@ class ClienteController extends Controller
     }
 
     /**
-     * Finds the Cliente model based on its primary key value.
+     * Finds the dados model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $idUser Id User
-     * @return Cliente the loaded model
+     * @return dados the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($idUser)
     {
-        if (($model = Cliente::findOne(['idUser' => $idUser])) !== null) {
+        if (($model = dados::findOne(['idUser' => $idUser])) !== null) {
             return $model;
         }
 

@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $percentagem
+ * @property int $Ativo
  *
  * @property Produto[] $produtos
  */
@@ -28,8 +29,8 @@ class Iva extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['percentagem'], 'required'],
-            [['percentagem'], 'integer'],
+            [['percentagem', 'Ativo'], 'required'],
+            [['percentagem', 'Ativo'], 'integer'],
         ];
     }
 
@@ -41,6 +42,7 @@ class Iva extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'percentagem' => 'Percentagem',
+            'Ativo' => 'Ativo',
         ];
     }
 

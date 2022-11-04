@@ -3,10 +3,11 @@
 namespace backend\controllers;
 
 use common\models\Empresa;
-use yii\data\ActiveDataProvider;
+use backend\models\DadosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * EmpresaController implements the CRUD actions for Empresa model.
@@ -21,6 +22,15 @@ class EmpresaController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['admin']
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -35,24 +45,14 @@ class EmpresaController extends Controller
      * Lists all Empresa models.
      *
      * @return string
-     */
+
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Empresa::find(),
-            /*
-            'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-            */
-        ]);
+        $searchModel = new DadosSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -63,10 +63,10 @@ class EmpresaController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView()
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel(1),
         ]);
     }
 
@@ -74,7 +74,7 @@ class EmpresaController extends Controller
      * Creates a new Empresa model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
-     */
+
     public function actionCreate()
     {
         $model = new Empresa();
@@ -118,7 +118,7 @@ class EmpresaController extends Controller
      * @param int $id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();

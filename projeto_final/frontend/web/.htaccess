@@ -1,0 +1,2 @@
+RewriteEngine On
+# If a directory or a file exists, use the request directlyRewriteCond %{REQUEST_FILENAME}!-fRewriteCond %{REQUEST_FILENAME}!-d# Otherwise forward the request to index.phpRewriteRule . index.php

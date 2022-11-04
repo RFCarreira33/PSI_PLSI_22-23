@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\Produto $model */
+/** @var common\models\produto $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -25,6 +25,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'referencia')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'preco')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'Ativo')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

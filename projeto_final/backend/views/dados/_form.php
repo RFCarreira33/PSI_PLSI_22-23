@@ -4,13 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\Cliente $model */
+/** @var common\models\Dados $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="cliente-form">
+<div class="dados-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'idUser')->textInput() ?>
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 

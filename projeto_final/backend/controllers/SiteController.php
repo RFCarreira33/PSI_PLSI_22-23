@@ -2,9 +2,8 @@
 
 namespace backend\controllers;
 
-use common\models\Cliente;
-use app\models\AuthAssignment;
 use common\models\Fatura;
+use backend\models\AuthAssignment;
 use common\models\LoginForm;
 use common\models\User;
 use backend\models\SignupForm;
@@ -34,18 +33,21 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'index', 'signup'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['admin', 'funcionario'],
                     ],
 
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
-                ],
+                'actions' => [],
             ],
         ];
     }
@@ -55,13 +57,15 @@ class SiteController extends Controller
      */
     public function actions()
     {
+
         return [
             'error' => [
-                'class' => \yii\web\ErrorAction::class,
+                'class' => 'yii\web\ErrorAction',
+                'view' => '@app/views/site/error.php',
+                'layout' => '@app/views/layouts/no_layout.php'
             ],
         ];
     }
-
     /**
      * Displays homepage.
      *
@@ -93,7 +97,10 @@ class SiteController extends Controller
         $this->layout = 'main-login';
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login() && Yii::$app->user->can('backendLogin')) {
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if (AuthAssignment::checkAccess() == 'cliente') {
+                return $this->redirect('logout');
+            }
             return $this->goBack();
         }
 

@@ -20,8 +20,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'valorIva')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'estado')->dropDownList([ 'Emitida' => 'Emitida', 'Em Lancamento' => 'Em Lancamento', 'Carrinho' => 'Carrinho', ], ['prompt' => '']) ?>
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

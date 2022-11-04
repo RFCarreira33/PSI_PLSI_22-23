@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Produto;
+use common\models\produto;
 
 /**
- * ProdutoSearch represents the model behind the search form of `common\models\Produto`.
+ * ProdutoSearch represents the model behind the search form of `common\models\produto`.
  */
-class ProdutoSearch extends Produto
+class ProdutoSearch extends produto
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,7 @@ class ProdutoSearch extends Produto
     public function rules()
     {
         return [
-            [['id', 'idCategoria', 'idIva'], 'integer'],
+            [['id', 'idCategoria', 'idIva', 'Ativo'], 'integer'],
             [['marca', 'descricao', 'imagem', 'referencia', 'nome'], 'safe'],
             [['preco'], 'number'],
         ];
@@ -41,7 +41,7 @@ class ProdutoSearch extends Produto
      */
     public function search($params)
     {
-        $query = Produto::find();
+        $query = produto::find();
 
         // add conditions that should always apply here
 
@@ -63,6 +63,7 @@ class ProdutoSearch extends Produto
             'idCategoria' => $this->idCategoria,
             'idIva' => $this->idIva,
             'preco' => $this->preco,
+            'Ativo' => $this->Ativo,
         ]);
 
         $query->andFilterWhere(['like', 'marca', $this->marca])

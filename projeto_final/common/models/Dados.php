@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "cliente".
+ * This is the model class for table "dados".
  *
  * @property int $idUser
  * @property string $nome
@@ -14,17 +14,19 @@ use Yii;
  * @property string $morada
  * @property string $codPostal
  *
+ * @property Carrinho[] $carrinhos
  * @property Fatura[] $faturas
+ * @property Produto[] $idProdutos
  * @property User $idUser0
  */
-class Cliente extends \yii\db\ActiveRecord
+class Dados extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'cliente';
+        return 'dados';
     }
 
     /**
@@ -37,6 +39,7 @@ class Cliente extends \yii\db\ActiveRecord
             [['idUser'], 'integer'],
             [['nome', 'morada'], 'string', 'max' => 45],
             [['telefone', 'nif', 'codPostal'], 'string', 'max' => 9],
+            [['idUser'], 'unique'],
             [['idUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idUser' => 'id']],
         ];
     }
@@ -57,6 +60,16 @@ class Cliente extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Carrinhos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCarrinhos()
+    {
+        return $this->hasMany(Carrinho::class, ['idCliente' => 'idUser']);
+    }
+
+    /**
      * Gets query for [[Faturas]].
      *
      * @return \yii\db\ActiveQuery
@@ -64,6 +77,16 @@ class Cliente extends \yii\db\ActiveRecord
     public function getFaturas()
     {
         return $this->hasMany(Fatura::class, ['idCliente' => 'idUser']);
+    }
+
+    /**
+     * Gets query for [[IdProdutos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdProdutos()
+    {
+        return $this->hasMany(Produto::class, ['id' => 'idProduto'])->viaTable('carrinho', ['idCliente' => 'idUser']);
     }
 
     /**

@@ -15,7 +15,10 @@ use Yii;
  * @property string $imagem
  * @property string $referencia
  * @property float $preco
+ * @property string|null $nome
+ * @property int $Ativo
  *
+ * @property Carrinho[] $carrinhos
  * @property Categoria $idCategoria0
  * @property Iva $idIva0
  * @property Linhafatura[] $linhafaturas
@@ -38,11 +41,12 @@ class Produto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idCategoria', 'idIva', 'marca', 'descricao', 'imagem', 'referencia', 'preco'], 'required'],
-            [['idCategoria', 'idIva'], 'integer'],
+            [['idCategoria', 'idIva', 'marca', 'descricao', 'imagem', 'referencia', 'preco', 'Ativo'], 'required'],
+            [['idCategoria', 'idIva', 'Ativo'], 'integer'],
             [['descricao', 'imagem'], 'string'],
             [['preco'], 'number'],
             [['marca', 'referencia'], 'string', 'max' => 45],
+            [['nome'], 'string', 'max' => 50],
             [['idIva'], 'exist', 'skipOnError' => true, 'targetClass' => Iva::class, 'targetAttribute' => ['idIva' => 'id']],
             [['marca'], 'exist', 'skipOnError' => true, 'targetClass' => Marca::class, 'targetAttribute' => ['marca' => 'nome']],
             [['idCategoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['idCategoria' => 'id']],
@@ -63,7 +67,19 @@ class Produto extends \yii\db\ActiveRecord
             'imagem' => 'Imagem',
             'referencia' => 'Referencia',
             'preco' => 'Preco',
+            'nome' => 'Nome',
+            'Ativo' => 'Ativo',
         ];
+    }
+
+    /**
+     * Gets query for [[Carrinhos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCarrinhos()
+    {
+        return $this->hasMany(Carrinho::class, ['idProduto' => 'id']);
     }
 
     /**

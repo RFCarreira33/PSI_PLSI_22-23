@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Cliente;
+use common\models\dados;
 
 /**
- * ClienteSearch represents the model behind the search form of `common\models\Cliente`.
+ * DadosSearch represents the model behind the search form of `common\models\dados`.
  */
-class ClienteSearch extends Cliente
+class DadosSearch extends dados
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class ClienteSearch extends Cliente
      */
     public function search($params)
     {
-        $query = Cliente::find();
+        $query = dados::find();
 
         // add conditions that should always apply here
 

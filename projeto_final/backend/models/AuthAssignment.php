@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use Yii;
 
@@ -57,5 +57,13 @@ class AuthAssignment extends \yii\db\ActiveRecord
     public function getItemName()
     {
         return $this->hasOne(AuthItem::class, ['name' => 'item_name']);
+    }
+
+
+    public static function checkAccess()
+    {
+        $user = AuthAssignment::find()->where(['user_id' => Yii::$app->user->id])->one();
+
+        return $user->item_name;
     }
 }
