@@ -49,11 +49,9 @@ use yii\helpers\Url;
                             ['label' => 'Active Page', 'url' => ['site/index'], 'iconStyle' => 'far'],
                             ['label' => 'Inactive Page', 'iconStyle' => 'far'],
                             ['label' => 'Criar uma conta', 'url' => ['site/signup'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar uma conta', 'url' => ['site/signup'], 'iconStyle' => 'far'],
 
                         ]
                     ],
-                    ['label' => 'Registar Funcionaraios',  'icon' => 'th', 'url' => ['//view'],],
                     ['label' => 'Yii2 PROVIDED', 'header' => true],
                     ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
                     ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],

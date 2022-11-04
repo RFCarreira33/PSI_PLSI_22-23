@@ -35,10 +35,10 @@ class Dados extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idUser', 'nome', 'telefone', 'nif', 'morada', 'codPostal'], 'required'],
+            [['idUser'], 'required'],
             [['idUser'], 'integer'],
             [['nome', 'morada'], 'string', 'max' => 45],
-            [['telefone', 'nif', 'codPostal'], 'string', 'max' => 9],
+            [['telefone', 'nif', 'codPostal'], 'string', 'min' => 9, 'max' => 9],
             [['idUser'], 'unique'],
             [['idUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idUser' => 'id']],
         ];

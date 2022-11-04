@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\dados;
 use backend\models\DadosSearch;
+use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -14,6 +15,10 @@ use yii\filters\AccessControl;
  */
 class DadosController extends Controller
 {
+
+    const STATUS_DELETED = 0;
+    const STATUS_INACTIVE = 9;
+    const STATUS_ACTIVE = 10;
     /**
      * @inheritDoc
      */
@@ -67,6 +72,7 @@ class DadosController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($idUser),
+            'status' => User::findIdentity($idUser)
         ]);
     }
 
@@ -118,11 +124,19 @@ class DadosController extends Controller
      * @param int $idUser Id User
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($idUser)
     {
         $this->findModel($idUser)->delete();
 
+        return $this->redirect(['index']);
+    }
+
+     */
+    public function actionChange($idUser)
+    {
+        $user = User::findOne(['id' => $idUser]);
+        $user->status == self::STATUS_ACTIVE ? $user->status = self::STATUS_DELETED : $user->status = self::STATUS_ACTIVE;
+        $user->save();
         return $this->redirect(['index']);
     }
 
