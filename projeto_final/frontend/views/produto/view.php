@@ -38,7 +38,7 @@ use yii\helpers\Url;
                     <div class="d-flex">
                         <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= Url::toRoute(["carrinho/create", "id" => $produto->id]) ?>">
+                            <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= Url::toRoute(["carrinho/create", "id" => $produto->id, "quantidade" => 1]) ?>">
                                     Adicionar ao carrinho<i class="bi-cart-fill me-1"></i>
                                 </a></div>
                         </div>
@@ -58,23 +58,25 @@ use yii\helpers\Url;
                 for ($i = 0; $i < count($relatedProducts); $i++) { ?>
                     <div class="col mb-5">
                         <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" style="width:220px;height:220px;" src="img/<?= $relatedProducts[$i]->imagem ?>" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder"><?= $relatedProducts[$i]->nome ?></h5>
-                                    <!-- Product price-->
-                                    <?= $relatedProducts[$i]->preco ?>€
+                            <a style="text-decoration: none;color:black;" href="<?= Url::toRoute(["produto/view", "id" => $relatedProducts[$i]->id]) ?>">
+                                <!-- Product image-->
+                                <img class="card-img-top" style="width:220px;height:220px;" src="img/<?= $relatedProducts[$i]->imagem ?>" alt="..." />
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <h5 class="fw-bolder"><?= $relatedProducts[$i]->nome ?></h5>
+                            </a>
+                            <!-- Product price-->
+                            <?= $relatedProducts[$i]->preco ?>€
 
-                                </div>
-                            </div>
                         </div>
                     </div>
-                <?php } ?>
             </div>
         </div>
+    <?php } ?>
+    </div>
+    </div>
     </section>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

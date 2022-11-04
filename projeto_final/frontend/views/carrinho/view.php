@@ -1,39 +1,45 @@
+<?php
+
+use yii\helpers\Url;
+?>
+
 <head>
-    <style>
-   @media (min-width: 1025px) {
-.h-custom {
-height: 125vh !important;
-}
-   }
-.card-registration .select-input.form-control[readonly]:not([disabled]) {
-font-size: 1rem;
-line-height: 2.15;
-padding-left: .75em;
-padding-right: .75em;
-}
+  <style>
+    @media (min-width: 1025px) {
+      .h-custom {
+        height: 125vh !important;
+      }
+    }
 
-.card-registration .select-arrow {
-top: 13px;
-}
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+      font-size: 1rem;
+      line-height: 2.15;
+      padding-left: .75em;
+      padding-right: .75em;
+    }
 
-.bg-grey {
-background-color: #eae8e8;
-}
+    .card-registration .select-arrow {
+      top: 13px;
+    }
 
-@media (min-width: 992px) {
-.card-registration-2 .bg-grey {
-border-top-right-radius: 16px;
-border-bottom-right-radius: 16px;
-}
-}
+    .bg-grey {
+      background-color: #eae8e8;
+    }
 
-@media (max-width: 991px) {
-.card-registration-2 .bg-grey {
-border-bottom-left-radius: 16px;
-border-bottom-right-radius: 16px;
-}
-}
-    </style>
+    @media (min-width: 992px) {
+      .card-registration-2 .bg-grey {
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .card-registration-2 .bg-grey {
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+      }
+    }
+  </style>
 </head>
 
 <section class="h-100 h-custom">
@@ -49,47 +55,34 @@ border-bottom-right-radius: 16px;
                     <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
                     <h6 class="mb-0 text-muted">3 items</h6>
                   </div>
-                  <?php foreach($carrinhos as $carrinho)
-                  {?>
-                  <hr class="my-4">
+                  <?php $precoTotal = 0; ?>
+                  <?php foreach ($carrinhos as $carrinho) {
+                    $precoTotal += $carrinho->getProduto()->one()->preco * $carrinho->quantidade;
+                  ?>
+                    <hr class="my-4">
 
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
+                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+                      <div class="col-md-2 col-lg-2 col-xl-2">
+                        <img src="img/<?php echo $carrinho->getProduto()->one()->imagem ?>" class="img-fluid rounded-3" alt="Cotton T-shirt">
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xl-3">
+                        <h6 class="text-muted"><?php echo $carrinho->getProduto()->one()->nome ?></h6>
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                        <?php echo $carrinho->quantidade ?>
+                      </div>
+                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                        <h6 class="mb-0"><?php echo $carrinho->getProduto()->one()->preco *  $carrinho->quantidade ?>€</h6>
+                      </div>
+                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                      </div>
                     </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-muted"><?php echo $carrinho->idCliente ?></h6>
-                      <h6 class="text-black mb-0"><?php echo $carrinho->idProduto ?></h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
-
-                      <input id="form1" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm" />
-
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">€ 44.00</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                    </div>
-                  </div>
-                <?php } ?>
+                  <?php } ?>
                   <hr class="my-4">
 
                   <div class="pt-5">
-                    <h6 class="mb-0"><a href="#!" class="text-body"><i
-                          class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                    <h6 class="mb-0"><a href="<?= Url::toRoute("site/index") ?>" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
                   </div>
                 </div>
               </div>
@@ -99,8 +92,7 @@ border-bottom-right-radius: 16px;
                   <hr class="my-4">
 
                   <div class="d-flex justify-content-between mb-4">
-                    <h5 class="text-uppercase">items 3</h5>
-                    <h5>€ 132.00</h5>
+                    <h5 class=""> Numero de Artigos: <?php echo $nItens ?></h5>
                   </div>
 
                   <h5 class="text-uppercase mb-3">Shipping</h5>
@@ -126,12 +118,11 @@ border-bottom-right-radius: 16px;
                   <hr class="my-4">
 
                   <div class="d-flex justify-content-between mb-5">
-                    <h5 class="text-uppercase">Total price</h5>
-                    <h5>€ 137.00</h5>
+                    <h5 class="text-uppercase">Preço Total</h5>
+                    <h5><?php echo $precoTotal ?>€</h5>
                   </div>
 
-                  <button type="button" class="btn btn-dark btn-block btn-lg"
-                    data-mdb-ripple-color="dark">Register</button>
+                  <button type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Comprar</button>
 
                 </div>
               </div>

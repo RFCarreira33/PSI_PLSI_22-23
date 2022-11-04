@@ -60,11 +60,12 @@ class CarrinhoController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idCliente, $idProduto)
+    public function actionView()
     {
-        return $this->render('view', [
-            'model' => $this->findModel($idCliente, $idProduto),
-        ]);
+        $dados = Dados::find()->where(['idUser' => Yii::$app->user->id])->one();
+        $carrinhos = $dados->getCarrinhos()->all();
+        $nItens = count($carrinhos);
+        return $this->render('view', ['carrinhos' => $carrinhos, 'nItens' => $nItens]);
     }
 
     /**
@@ -72,7 +73,7 @@ class CarrinhoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate($id)
+    public function actionCreate($id, $quantidade)
     {
         if (!Yii::$app->user->can('carrinho')) {
             return $this->redirect('site/login');
@@ -85,13 +86,14 @@ class CarrinhoController extends Controller
             $carrinho = new Carrinho;
             $carrinho->idCliente = $dados->idUser;
             $carrinho->idProduto = $id;
-            $carrinho->quantidade + 31; //passar quantidades não a toa 
+            $carrinho->quantidade = $quantidade;
         } else {
-            $carrinho->quantidade += 22;
+            $carrinho->quantidade += $quantidade;
         }
         $carrinho->save();
         $carrinhos = $dados->getCarrinhos()->all();
-        return $this->render('view', ['carrinhos' => $carrinhos]);
+        $nItens = count($carrinhos);
+        return $this->render('view', ['carrinhos' => $carrinhos, 'nItens' => $nItens]);
     }
 
     /**
