@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Produto;
+use common\models\Categoria;
 use common\models\ProdutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -36,15 +37,14 @@ class ProdutoController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($category)
     {
-        $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        //Gets category and it's children (if they exist), search for every product related with one of the categories and returns
+        $parentCategory = Categoria::find()->select("id")->where(["nome" => $category]);
+        $childCategories = Categoria::find()->select("id")->where(["categoriaPai" => $parentCategory])->column();
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        $produtos = Produto::find()->where(["idCategoria" => $parentCategory])->orWhere(["idCategoria" => $childCategories])->all();
+        return $this->render('index', ['produtos' => $produtos]);
     }
 
     /**
