@@ -8,18 +8,12 @@ use Yii;
  * This is the model class for table "fatura".
  *
  * @property int $id
- * @property int $id_Cliente
- * @property string $nome
- * @property string $nif
- * @property string $codPostal
- * @property string $telefone
- * @property string $morada
- * @property string $email
+ * @property int $idCliente
  * @property string $dataFatura
  * @property float $valorTotal
  * @property float $valorIva
  *
- * @property Dados $cliente
+ * @property Dados $idCliente0
  * @property Linhafatura[] $linhafaturas
  */
 class Fatura extends \yii\db\ActiveRecord
@@ -38,14 +32,11 @@ class Fatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_Cliente', 'nome', 'nif', 'codPostal', 'telefone', 'morada', 'email', 'valorTotal', 'valorIva'], 'required'],
-            [['id_Cliente'], 'integer'],
+            [['idCliente', 'valorTotal', 'valorIva'], 'required'],
+            [['idCliente'], 'integer'],
             [['dataFatura'], 'safe'],
             [['valorTotal', 'valorIva'], 'number'],
-            [['nome', 'morada'], 'string', 'max' => 45],
-            [['nif', 'codPostal', 'telefone'], 'string', 'max' => 9],
-            [['email'], 'string', 'max' => 255],
-            [['id_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Dados::class, 'targetAttribute' => ['id_Cliente' => 'id_User']],
+            [['idCliente'], 'exist', 'skipOnError' => true, 'targetClass' => Dados::class, 'targetAttribute' => ['idCliente' => 'idUser']],
         ];
     }
 
@@ -56,13 +47,7 @@ class Fatura extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_Cliente' => 'Id Cliente',
-            'nome' => 'Nome',
-            'nif' => 'Nif',
-            'codPostal' => 'Cod Postal',
-            'telefone' => 'Telefone',
-            'morada' => 'Morada',
-            'email' => 'Email',
+            'idCliente' => 'Id Cliente',
             'dataFatura' => 'Data Fatura',
             'valorTotal' => 'Valor Total',
             'valorIva' => 'Valor Iva',
@@ -70,13 +55,13 @@ class Fatura extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Cliente]].
+     * Gets query for [[IdCliente0]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCliente()
+    public function getIdCliente0()
     {
-        return $this->hasOne(Dados::class, ['id_User' => 'id_Cliente']);
+        return $this->hasOne(Dados::class, ['idUser' => 'idCliente']);
     }
 
     /**
@@ -86,6 +71,6 @@ class Fatura extends \yii\db\ActiveRecord
      */
     public function getLinhafaturas()
     {
-        return $this->hasMany(Linhafatura::class, ['id_Fatura' => 'id']);
+        return $this->hasMany(Linhafatura::class, ['idFatura' => 'id']);
     }
 }

@@ -8,10 +8,11 @@ use Yii;
  * This is the model class for table "loja".
  *
  * @property int $id
- * @property int $id_Empresa
+ * @property int $idEmpresa
  * @property string $localidade
  *
- * @property Empresa $empresa
+ * @property Empresa $idEmpresa0
+ * @property Produto[] $idProdutos
  * @property Stock[] $stocks
  */
 class Loja extends \yii\db\ActiveRecord
@@ -30,10 +31,10 @@ class Loja extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_Empresa', 'localidade'], 'required'],
-            [['id_Empresa'], 'integer'],
+            [['idEmpresa', 'localidade'], 'required'],
+            [['idEmpresa'], 'integer'],
             [['localidade'], 'string', 'max' => 45],
-            [['id_Empresa'], 'exist', 'skipOnError' => true, 'targetClass' => Empresa::class, 'targetAttribute' => ['id_Empresa' => 'id']],
+            [['idEmpresa'], 'exist', 'skipOnError' => true, 'targetClass' => Empresa::class, 'targetAttribute' => ['idEmpresa' => 'id']],
         ];
     }
 
@@ -44,19 +45,29 @@ class Loja extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_Empresa' => 'Id Empresa',
+            'idEmpresa' => 'Id Empresa',
             'localidade' => 'Localidade',
         ];
     }
 
     /**
-     * Gets query for [[Empresa]].
+     * Gets query for [[IdEmpresa0]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEmpresa()
+    public function getIdEmpresa0()
     {
-        return $this->hasOne(Empresa::class, ['id' => 'id_Empresa']);
+        return $this->hasOne(Empresa::class, ['id' => 'idEmpresa']);
+    }
+
+    /**
+     * Gets query for [[IdProdutos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdProdutos()
+    {
+        return $this->hasMany(Produto::class, ['id' => 'idProduto'])->viaTable('stock', ['idLoja' => 'id']);
     }
 
     /**
@@ -66,6 +77,6 @@ class Loja extends \yii\db\ActiveRecord
      */
     public function getStocks()
     {
-        return $this->hasMany(Stock::class, ['id_Loja' => 'id']);
+        return $this->hasMany(Stock::class, ['idLoja' => 'id']);
     }
 }

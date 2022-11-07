@@ -7,12 +7,12 @@ use Yii;
 /**
  * This is the model class for table "carrinho".
  *
- * @property int $id_Cliente
- * @property int $id_Produto
- * @property int $Quantidade
+ * @property int $idCliente
+ * @property int $idProduto
+ * @property int $quantidade
  *
- * @property User $cliente
- * @property Produto $produto
+ * @property Dados $idCliente0
+ * @property Produto $idProduto0
  */
 class Carrinho extends \yii\db\ActiveRecord
 {
@@ -30,11 +30,11 @@ class Carrinho extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_Cliente', 'id_Produto', 'Quantidade'], 'required'],
-            [['id_Cliente', 'id_Produto', 'Quantidade'], 'integer'],
-            [['id_Cliente', 'id_Produto'], 'unique', 'targetAttribute' => ['id_Cliente', 'id_Produto']],
-            [['id_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_Cliente' => 'id']],
-            [['id_Produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['id_Produto' => 'id']],
+            [['idCliente', 'idProduto', 'quantidade'], 'required'],
+            [['idCliente', 'idProduto', 'quantidade'], 'integer'],
+            [['idCliente', 'idProduto'], 'unique', 'targetAttribute' => ['idCliente', 'idProduto']],
+            [['idProduto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['idProduto' => 'id']],
+            [['idCliente'], 'exist', 'skipOnError' => true, 'targetClass' => Dados::class, 'targetAttribute' => ['idCliente' => 'idUser']],
         ];
     }
 
@@ -44,29 +44,29 @@ class Carrinho extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_Cliente' => 'Id Cliente',
-            'id_Produto' => 'Id Produto',
-            'Quantidade' => 'Quantidade',
+            'idCliente' => 'Id Cliente',
+            'idProduto' => 'Id Produto',
+            'quantidade' => 'quantidade',
         ];
     }
 
     /**
-     * Gets query for [[Cliente]].
+     * Gets query for [[IdCliente0]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCliente()
+    public function getIdCliente0()
     {
-        return $this->hasOne(User::class, ['id' => 'id_Cliente']);
+        return $this->hasOne(Dados::class, ['idUser' => 'idCliente']);
     }
 
     /**
-     * Gets query for [[Produto]].
+     * Gets query for [[IdProduto0]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProduto()
+    public function getIdProduto0()
     {
-        return $this->hasOne(Produto::class, ['id' => 'id_Produto']);
+        return $this->hasOne(Produto::class, ['id' => 'idProduto']);
     }
 }

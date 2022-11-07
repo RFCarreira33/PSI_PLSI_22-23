@@ -50,6 +50,6 @@ class Marca extends \yii\db\ActiveRecord
      */
     public function getProdutos()
     {
-        return $this->hasMany(Produto::class, ['id_Marca' => 'nome']);
+        return $this->hasMany(Produto::class, ['marca' => 'nome']);
     }
 }
