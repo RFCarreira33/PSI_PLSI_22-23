@@ -55,13 +55,8 @@ class ProdutoController extends Controller
      */
     public function actionView($id)
     {
-        $produto = $this->findModel($id);
-        /* It's a query to find all products with the same category as the current product. */
-        $relatedProducts = Produto::find()->where(["idCategoria" => $produto->idCategoria])->andWhere(["<>", "id", $produto->id])->limit(4)->all();
-        
         return $this->render('view', [
-            'produto' => $produto,
-            'relatedProducts' => $relatedProducts
+            'produto' => $this->findModel($id),
         ]);
     }
 
@@ -73,10 +68,5 @@ class ProdutoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function getRelatedProducts($category)
-    {
-        $relatedProducts = array();
     }
 }

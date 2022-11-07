@@ -24,16 +24,6 @@ $this->title = 'Signup';
 
             <?= $form->field($model, 'password')->passwordInput() ?>
 
-            <?= $form->field($model, 'nome') ?>
-
-            <?= $form->field($model, 'codPostal') ?>
-
-            <?= $form->field($model, 'telefone') ?>
-
-            <?= $form->field($model, 'nif') ?>
-
-            <?= $form->field($model, 'morada') ?>
-
             <div class="form-group">
                 <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
