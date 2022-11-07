@@ -7,6 +7,7 @@ use common\models\FaturaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii;
 
 /**
  * DadosController implements the CRUD actions for Dados model.
@@ -53,8 +54,9 @@ class DadosController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idUser)
+    public function actionView()
     {
+        $idUser = Yii::$app->user->id;
         return $this->render('view', [
             'model' => $this->findModel($idUser),
         ]);
