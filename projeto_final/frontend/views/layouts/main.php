@@ -61,7 +61,16 @@ AppAsset::register($this);
         <form action="" class="d-flex">
           <a class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
             <i class="bi-cart-fill me-1"></i>
-            Cart
+          </a>
+        </form>
+        <form action="" class="d-flex">
+          <a class="btn btn-outline-dark" href="<?= Url::toRoute("dados/view") ?>">
+            <i class="bi bi-person"></i>
+          </a>
+        </form>
+        <form action="" class="d-flex">
+          <a class="btn btn-outline-dark" href="<?= Url::toRoute("fatura/index") ?>">
+            <i class="bi bi-receipt"></i>
           </a>
         </form>
         <?php

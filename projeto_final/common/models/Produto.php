@@ -97,7 +97,7 @@ class Produto extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdIva0()
+    public function getIva()
     {
         return $this->hasOne(Iva::class, ['id' => 'idIva']);
     }

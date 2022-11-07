@@ -52,8 +52,7 @@ use yii\helpers\Url;
               <div class="col-lg-8">
                 <div class="p-5">
                   <div class="d-flex justify-content-between align-items-center mb-5">
-                    <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                    <h6 class="mb-0 text-muted">3 items</h6>
+                    <h1 class="fw-bold mb-0 text-black">Carrinho de compras</h1>
                   </div>
                   <?php $precoTotal = 0; ?>
                   <?php foreach ($carrinhos as $carrinho) {
@@ -82,36 +81,32 @@ use yii\helpers\Url;
                   <hr class="my-4">
 
                   <div class="pt-5">
-                    <h6 class="mb-0"><a href="<?= Url::toRoute("site/index") ?>" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                    <h6 class="mb-0"><a href="<?= Url::toRoute("site/index") ?>" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Voltar a loja</a></h6>
                   </div>
                 </div>
               </div>
               <div class="col-lg-4 bg-grey">
                 <div class="p-5">
-                  <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                  <h3 class="fw-bold mb-5 mt-2 pt-1">Summario</h3>
                   <hr class="my-4">
 
                   <div class="d-flex justify-content-between mb-4">
                     <h5 class=""> Numero de Artigos: <?php echo $nItens ?></h5>
                   </div>
 
-                  <h5 class="text-uppercase mb-3">Shipping</h5>
+                  <h5 class="text-uppercase mb-3">Metodo de entrega</h5>
 
                   <div class="mb-4 pb-2">
                     <select class="select">
-                      <option value="1">Standard-Delivery- €5.00</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                      <option value="4">Four</option>
+                      <option value="1">Free</option>
                     </select>
                   </div>
 
-                  <h5 class="text-uppercase mb-3">Give code</h5>
+                  <h5 class="text-uppercase mb-3">Codigo de Desconto</h5>
 
                   <div class="mb-5">
                     <div class="form-outline">
                       <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                      <label class="form-label" for="form3Examplea2">Enter your code</label>
                     </div>
                   </div>
 
