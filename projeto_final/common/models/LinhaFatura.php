@@ -8,14 +8,14 @@ use Yii;
  * This is the model class for table "linhafatura".
  *
  * @property int $id
- * @property int $idFatura
- * @property int $idProduto
+ * @property int $id_Fatura
+ * @property int $id_Produto
  * @property int $quantidade
  * @property float $valor
  * @property float $valorIva
  *
- * @property Fatura $idFatura0
- * @property Produto $idProduto0
+ * @property Fatura $fatura
+ * @property Produto $produto
  */
 class LinhaFatura extends \yii\db\ActiveRecord
 {
@@ -33,11 +33,11 @@ class LinhaFatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idFatura', 'idProduto', 'quantidade', 'valor', 'valorIva'], 'required'],
-            [['idFatura', 'idProduto', 'quantidade'], 'integer'],
+            [['id_Fatura', 'id_Produto', 'quantidade', 'valor', 'valorIva'], 'required'],
+            [['id_Fatura', 'id_Produto', 'quantidade'], 'integer'],
             [['valor', 'valorIva'], 'number'],
-            [['idFatura'], 'exist', 'skipOnError' => true, 'targetClass' => Fatura::class, 'targetAttribute' => ['idFatura' => 'id']],
-            [['idProduto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['idProduto' => 'id']],
+            [['id_Fatura'], 'exist', 'skipOnError' => true, 'targetClass' => Fatura::class, 'targetAttribute' => ['id_Fatura' => 'id']],
+            [['id_Produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['id_Produto' => 'id']],
         ];
     }
 
@@ -48,8 +48,8 @@ class LinhaFatura extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'idFatura' => 'Id Fatura',
-            'idProduto' => 'Id Produto',
+            'id_Fatura' => 'Id Fatura',
+            'id_Produto' => 'Id Produto',
             'quantidade' => 'Quantidade',
             'valor' => 'Valor',
             'valorIva' => 'Valor Iva',
@@ -57,22 +57,22 @@ class LinhaFatura extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[IdFatura0]].
+     * Gets query for [[Fatura]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdFatura0()
+    public function getFatura()
     {
-        return $this->hasOne(Fatura::class, ['id' => 'idFatura']);
+        return $this->hasOne(Fatura::class, ['id' => 'id_Fatura']);
     }
 
     /**
-     * Gets query for [[IdProduto0]].
+     * Gets query for [[Produto]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdProduto0()
+    public function getProduto()
     {
-        return $this->hasOne(Produto::class, ['id' => 'idProduto']);
+        return $this->hasOne(Produto::class, ['id' => 'id_Produto']);
     }
 }

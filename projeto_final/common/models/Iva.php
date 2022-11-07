@@ -53,6 +53,6 @@ class Iva extends \yii\db\ActiveRecord
      */
     public function getProdutos()
     {
-        return $this->hasMany(Produto::class, ['idIva' => 'id']);
+        return $this->hasMany(Produto::class, ['id_Iva' => 'id']);
     }
 }

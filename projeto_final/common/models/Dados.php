@@ -7,17 +7,15 @@ use Yii;
 /**
  * This is the model class for table "dados".
  *
- * @property int $idUser
+ * @property int $id_User
  * @property string $nome
  * @property string $telefone
  * @property string $nif
  * @property string $morada
  * @property string $codPostal
  *
- * @property Carrinho[] $carrinhos
  * @property Fatura[] $faturas
- * @property Produto[] $idProdutos
- * @property User $idUser0
+ * @property User $user
  */
 class Dados extends \yii\db\ActiveRecord
 {
@@ -35,12 +33,12 @@ class Dados extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idUser'], 'required'],
-            [['idUser'], 'integer'],
+            [['id_User', 'nome', 'telefone', 'nif', 'morada', 'codPostal'], 'required'],
+            [['id_User'], 'integer'],
             [['nome', 'morada'], 'string', 'max' => 45],
-            [['telefone', 'nif', 'codPostal'], 'string', 'min' => 9, 'max' => 9],
-            [['idUser'], 'unique'],
-            [['idUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['idUser' => 'id']],
+            [['telefone', 'nif', 'codPostal'], 'string', 'max' => 9],
+            [['id_User'], 'unique'],
+            [['id_User'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_User' => 'id']],
         ];
     }
 
@@ -50,7 +48,7 @@ class Dados extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idUser' => 'Id User',
+            'id_User' => 'Id User',
             'nome' => 'Nome',
             'telefone' => 'Telefone',
             'nif' => 'Nif',
@@ -60,42 +58,22 @@ class Dados extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Carrinhos]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCarrinhos()
-    {
-        return $this->hasMany(Carrinho::class, ['idCliente' => 'idUser']);
-    }
-
-    /**
      * Gets query for [[Faturas]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getFaturas()
     {
-        return $this->hasMany(Fatura::class, ['idCliente' => 'idUser']);
+        return $this->hasMany(Fatura::class, ['id_Cliente' => 'id_User']);
     }
 
     /**
-     * Gets query for [[IdProdutos]].
+     * Gets query for [[User]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdProdutos()
+    public function getUser()
     {
-        return $this->hasMany(Produto::class, ['id' => 'idProduto'])->viaTable('carrinho', ['idCliente' => 'idUser']);
-    }
-
-    /**
-     * Gets query for [[IdUser0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIdUser0()
-    {
-        return $this->hasOne(User::class, ['id' => 'idUser']);
+        return $this->hasOne(User::class, ['id' => 'id_User']);
     }
 }

@@ -8,9 +8,9 @@ use Yii;
  * This is the model class for table "produto".
  *
  * @property int $id
- * @property int $idCategoria
- * @property int $idIva
- * @property string $marca
+ * @property int $id_Categoria
+ * @property int $id_Iva
+ * @property string $id_Marca
  * @property string $descricao
  * @property string $imagem
  * @property string $referencia
@@ -19,10 +19,11 @@ use Yii;
  * @property int $Ativo
  *
  * @property Carrinho[] $carrinhos
- * @property Categoria $idCategoria0
- * @property Iva $idIva0
+ * @property Categoria $categoria
+ * @property User[] $clientes
+ * @property Iva $iva
  * @property Linhafatura[] $linhafaturas
- * @property Marca $marca0
+ * @property Marca $marca
  * @property Stock[] $stocks
  */
 class Produto extends \yii\db\ActiveRecord
@@ -41,15 +42,15 @@ class Produto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idCategoria', 'idIva', 'marca', 'descricao', 'imagem', 'referencia', 'preco', 'Ativo'], 'required'],
-            [['idCategoria', 'idIva', 'Ativo'], 'integer'],
+            [['id_Categoria', 'id_Iva', 'id_Marca', 'descricao', 'imagem', 'referencia', 'preco', 'Ativo'], 'required'],
+            [['id_Categoria', 'id_Iva', 'Ativo'], 'integer'],
             [['descricao', 'imagem'], 'string'],
             [['preco'], 'number'],
-            [['marca', 'referencia'], 'string', 'max' => 45],
+            [['id_Marca', 'referencia'], 'string', 'max' => 45],
             [['nome'], 'string', 'max' => 50],
-            [['idIva'], 'exist', 'skipOnError' => true, 'targetClass' => Iva::class, 'targetAttribute' => ['idIva' => 'id']],
-            [['marca'], 'exist', 'skipOnError' => true, 'targetClass' => Marca::class, 'targetAttribute' => ['marca' => 'nome']],
-            [['idCategoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['idCategoria' => 'id']],
+            [['id_Iva'], 'exist', 'skipOnError' => true, 'targetClass' => Iva::class, 'targetAttribute' => ['id_Iva' => 'id']],
+            [['id_Marca'], 'exist', 'skipOnError' => true, 'targetClass' => Marca::class, 'targetAttribute' => ['id_Marca' => 'nome']],
+            [['id_Categoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['id_Categoria' => 'id']],
         ];
     }
 
@@ -60,9 +61,9 @@ class Produto extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'idCategoria' => 'Id Categoria',
-            'idIva' => 'Id Iva',
-            'marca' => 'Marca',
+            'id_Categoria' => 'Id Categoria',
+            'id_Iva' => 'Id Iva',
+            'id_Marca' => 'Id Marca',
             'descricao' => 'Descricao',
             'imagem' => 'Imagem',
             'referencia' => 'Referencia',
@@ -79,27 +80,37 @@ class Produto extends \yii\db\ActiveRecord
      */
     public function getCarrinhos()
     {
-        return $this->hasMany(Carrinho::class, ['idProduto' => 'id']);
+        return $this->hasMany(Carrinho::class, ['id_Produto' => 'id']);
     }
 
     /**
-     * Gets query for [[IdCategoria0]].
+     * Gets query for [[Categoria]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdCategoria0()
+    public function getCategoria()
     {
-        return $this->hasOne(Categoria::class, ['id' => 'idCategoria']);
+        return $this->hasOne(Categoria::class, ['id' => 'id_Categoria']);
     }
 
     /**
-     * Gets query for [[IdIva0]].
+     * Gets query for [[Clientes]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdIva0()
+    public function getClientes()
     {
-        return $this->hasOne(Iva::class, ['id' => 'idIva']);
+        return $this->hasMany(User::class, ['id' => 'id_Cliente'])->viaTable('carrinho', ['id_Produto' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Iva]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIva()
+    {
+        return $this->hasOne(Iva::class, ['id' => 'id_Iva']);
     }
 
     /**
@@ -109,17 +120,17 @@ class Produto extends \yii\db\ActiveRecord
      */
     public function getLinhafaturas()
     {
-        return $this->hasMany(Linhafatura::class, ['idProduto' => 'id']);
+        return $this->hasMany(Linhafatura::class, ['id_Produto' => 'id']);
     }
 
     /**
-     * Gets query for [[Marca0]].
+     * Gets query for [[Marca]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMarca0()
+    public function getMarca()
     {
-        return $this->hasOne(Marca::class, ['nome' => 'marca']);
+        return $this->hasOne(Marca::class, ['nome' => 'id_Marca']);
     }
 
     /**
@@ -129,6 +140,6 @@ class Produto extends \yii\db\ActiveRecord
      */
     public function getStocks()
     {
-        return $this->hasMany(Stock::class, ['idProduto' => 'id']);
+        return $this->hasMany(Stock::class, ['id_Produto' => 'id']);
     }
 }

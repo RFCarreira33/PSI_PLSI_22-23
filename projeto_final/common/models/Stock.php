@@ -7,12 +7,12 @@ use Yii;
 /**
  * This is the model class for table "stock".
  *
- * @property int $idLoja
- * @property int $idProduto
+ * @property int $id_Loja
+ * @property int $id_Produto
  * @property int $quantidade
  *
- * @property Loja $idLoja0
- * @property Produto $idProduto0
+ * @property Loja $loja
+ * @property Produto $produto
  */
 class Stock extends \yii\db\ActiveRecord
 {
@@ -30,10 +30,10 @@ class Stock extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idLoja', 'idProduto', 'quantidade'], 'required'],
-            [['idLoja', 'idProduto', 'quantidade'], 'integer'],
-            [['idLoja'], 'exist', 'skipOnError' => true, 'targetClass' => Loja::class, 'targetAttribute' => ['idLoja' => 'id']],
-            [['idProduto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['idProduto' => 'id']],
+            [['id_Loja', 'id_Produto', 'quantidade'], 'required'],
+            [['id_Loja', 'id_Produto', 'quantidade'], 'integer'],
+            [['id_Loja'], 'exist', 'skipOnError' => true, 'targetClass' => Loja::class, 'targetAttribute' => ['id_Loja' => 'id']],
+            [['id_Produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['id_Produto' => 'id']],
         ];
     }
 
@@ -43,29 +43,29 @@ class Stock extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idLoja' => 'Id Loja',
-            'idProduto' => 'Id Produto',
+            'id_Loja' => 'Id Loja',
+            'id_Produto' => 'Id Produto',
             'quantidade' => 'Quantidade',
         ];
     }
 
     /**
-     * Gets query for [[IdLoja0]].
+     * Gets query for [[Loja]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdLoja0()
+    public function getLoja()
     {
-        return $this->hasOne(Loja::class, ['id' => 'idLoja']);
+        return $this->hasOne(Loja::class, ['id' => 'id_Loja']);
     }
 
     /**
-     * Gets query for [[IdProduto0]].
+     * Gets query for [[Produto]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIdProduto0()
+    public function getProduto()
     {
-        return $this->hasOne(Produto::class, ['id' => 'idProduto']);
+        return $this->hasOne(Produto::class, ['id' => 'id_Produto']);
     }
 }
