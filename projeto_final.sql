@@ -124,7 +124,7 @@ CREATE TABLE `carrinho` (
   `id_Cliente` int NOT NULL,
   `id_Produto` int NOT NULL,
   `Quantidade` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 -- --------------------------------------------------------
 
@@ -136,7 +136,7 @@ CREATE TABLE `categoria` (
   `id` int NOT NULL,
   `id_CategoriaPai` int DEFAULT NULL,
   `nome` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `categoria`
@@ -158,7 +158,7 @@ CREATE TABLE `dados` (
   `nif` varchar(9) NOT NULL,
   `morada` varchar(45) NOT NULL,
   `codPostal` varchar(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `dados`
@@ -185,7 +185,7 @@ CREATE TABLE `empresa` (
   `capitalSocial` int NOT NULL,
   `imgBanner` varchar(255) NOT NULL,
   `imgLogo` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `empresa`
@@ -212,7 +212,7 @@ CREATE TABLE `fatura` (
   `dataFatura` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `valorTotal` decimal(11,2) NOT NULL,
   `valorIva` decimal(11,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `fatura`
@@ -231,7 +231,7 @@ CREATE TABLE `iva` (
   `id` int NOT NULL,
   `percentagem` int NOT NULL,
   `Ativo` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `iva`
@@ -253,7 +253,7 @@ CREATE TABLE `linhafatura` (
   `quantidade` int NOT NULL,
   `valor` decimal(11,2) NOT NULL,
   `valorIva` decimal(11,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `linhafatura`
@@ -272,7 +272,7 @@ CREATE TABLE `loja` (
   `id` int NOT NULL,
   `id_Empresa` int NOT NULL,
   `localidade` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -282,7 +282,7 @@ CREATE TABLE `loja` (
 
 CREATE TABLE `marca` (
   `nome` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `marca`
@@ -301,7 +301,7 @@ INSERT INTO `marca` (`nome`) VALUES
 CREATE TABLE `migration` (
   `version` varchar(180) NOT NULL,
   `apply_time` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `migration`
@@ -327,14 +327,14 @@ CREATE TABLE `produto` (
   `id` int NOT NULL,
   `id_Categoria` int NOT NULL,
   `id_Iva` int NOT NULL,
-  `id_Marca` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `id_Marca` varchar(45) CHARACTER SET UTF8MB4 NOT NULL,
   `descricao` text NOT NULL,
   `imagem` text NOT NULL,
   `referencia` varchar(45) NOT NULL,
   `preco` decimal(11,2) NOT NULL,
   `nome` varchar(50) DEFAULT NULL,
   `Ativo` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `produto`
@@ -355,7 +355,7 @@ CREATE TABLE `stock` (
   `id_Loja` int NOT NULL,
   `id_Produto` int NOT NULL,
   `quantidade` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -365,16 +365,16 @@ CREATE TABLE `stock` (
 
 CREATE TABLE `user` (
   `id` int NOT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `auth_key` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `password_hash` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `password_reset_token` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb3 NOT NULL,
+  `auth_key` varchar(32) CHARACTER SET utf8mb3 NOT NULL,
+  `password_hash` varchar(255) CHARACTER SET utf8mb3 NOT NULL,
+  `password_reset_token` varchar(255) CHARACTER SET utf8mb3 DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb3 NOT NULL,
   `status` smallint NOT NULL DEFAULT '10',
   `created_at` int NOT NULL,
   `updated_at` int NOT NULL,
-  `verification_token` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `verification_token` varchar(255) CHARACTER SET utf8mb3 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `user`
