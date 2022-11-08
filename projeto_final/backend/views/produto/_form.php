@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_Categoria')->textInput() ?>
 
-    <?= $form->field($model, 'idIva')->textInput() ?>
+    <?= $form->field($model, 'id_Iva')->textInput() ?>
 
     <?= $form->field($model, 'marca')->textInput(['maxlength' => true]) ?>
 

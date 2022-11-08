@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_Categoria') ?>
 
-    <?= $form->field($model, 'idIva') ?>
+    <?= $form->field($model, 'id_Iva') ?>
 
     <?= $form->field($model, 'marca') ?>
 

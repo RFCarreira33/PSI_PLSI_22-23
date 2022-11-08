@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'preco',
             'Ativo',
             'id_Categoria',
-            'idIva',
+            'id_Iva',
             'marca',
             //'descricao:ntext',
             //'imagem:ntext',
