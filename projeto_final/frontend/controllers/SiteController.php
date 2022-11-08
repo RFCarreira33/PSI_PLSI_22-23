@@ -10,6 +10,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\data\Pagination;
 use common\models\LoginForm;
 use common\models\Produto;
 use frontend\models\PasswordResetRequestForm;
@@ -74,8 +75,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $produtos = Produto::find()->all();
-        return $this->render('index', ['produtos' => $produtos]);
+        $query = Produto::find();
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 4]);
+        $models = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        return $this->render('index', [
+            'produtos' => $models,
+            'pages' => $pages,
+        ]);
     }
 
     /**
