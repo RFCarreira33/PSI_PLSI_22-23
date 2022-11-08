@@ -3,10 +3,12 @@
 namespace frontend\controllers;
 
 use common\models\Produto;
+use common\models\Categoria;
 use common\models\ProdutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\Pagination;
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
@@ -36,15 +38,34 @@ class ProdutoController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($category)
     {
-        $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        //Gets category and it's children (if they exist), search for every product related with one of the categories and returns
+        $parentCategory = Categoria::find()->select("id")->where(["nome" => $category]);
+        $childCategories = Categoria::find()->select("id")->where(["categoriaPai" => $parentCategory])->column();
+        $i = sizeof($childCategories);
+        
+        foreach($childCategories as $child)
+        {
+            while(sizeof(Categoria::find()->select("id")->where(["categoriaPai" => $child])->column()) != 0)
+            {
+                foreach(Categoria::find()->select("id")->where(["categoriaPai" => $child])->column() as $child)
+                {
+                    $childCategories[] = $child;
+                    $i = sizeof($childCategories);
+                }
+            }
+        }
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        $produtos = Produto::find()->where(["idCategoria" => $parentCategory])->orWhere(["idCategoria" => $childCategories]);
+
+        $countQuery = clone $produtos;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 2]);
+        $models = $produtos->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        return $this->render('index', ['produtos' => $models, 'pages' => $pages]);
     }
 
     /**
