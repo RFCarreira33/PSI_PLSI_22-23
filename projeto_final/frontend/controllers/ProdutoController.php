@@ -8,6 +8,7 @@ use common\models\ProdutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\Pagination;
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
@@ -56,8 +57,15 @@ class ProdutoController extends Controller
             }
         }
 
-        $produtos = Produto::find()->where(["idCategoria" => $parentCategory])->orWhere(["idCategoria" => $childCategories])->all();
-        return $this->render('index', ['produtos' => $produtos]);
+        $produtos = Produto::find()->where(["idCategoria" => $parentCategory])->orWhere(["idCategoria" => $childCategories]);
+
+        $countQuery = clone $produtos;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 2]);
+        $models = $produtos->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        return $this->render('index', ['produtos' => $models, 'pages' => $pages]);
     }
 
     /**

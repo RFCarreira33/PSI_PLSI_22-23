@@ -4,6 +4,7 @@
 
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
+use yii\widgets\LinkPager;
 
 $this->title = 'My Yii Application';
 ?>
@@ -46,3 +47,14 @@ $this->title = 'My Yii Application';
 </div>
 </div>
 </section>
+
+<?php
+    echo LinkPager::widget([
+        'pagination' => $pages,
+        'hideOnSinglePage' => true,
+        'maxButtonCount' => 5,
+        'disableCurrentPageButton' => true,
+        'firstPageLabel' => true,
+        'lastPageLabel' => true
+    ]);
+?>
