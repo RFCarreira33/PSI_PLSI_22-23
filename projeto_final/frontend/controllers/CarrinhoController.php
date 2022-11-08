@@ -48,15 +48,15 @@ class CarrinhoController extends Controller
      * Lists all Carrinho models.
      *
      * @return string
-     */
+     *
     public function actionIndex()
     {
     }
 
     /**
      * Displays a single Carrinho model.
-     * @param int $idCliente Id Cliente
-     * @param int $idProduto Id Produto
+     * @param int $id_Cliente Id Cliente
+     * @param int $id_Produto Id Produto
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -99,8 +99,8 @@ class CarrinhoController extends Controller
     /**
      * Updates an existing Carrinho model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idCliente Id Cliente
-     * @param int $idProduto Id Produto
+     * @param int $id_Cliente Id Cliente
+     * @param int $id_Produto Id Produto
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -120,8 +120,8 @@ class CarrinhoController extends Controller
     /**
      * Deletes an existing Carrinho model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idCliente Id Cliente
-     * @param int $idProduto Id Produto
+     * @param int $id_Cliente Id Cliente
+     * @param int $id_Produto Id Produto
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -135,8 +135,8 @@ class CarrinhoController extends Controller
     /**
      * Finds the Carrinho model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idCliente Id Cliente
-     * @param int $idProduto Id Produto
+     * @param int $id_Cliente Id Cliente
+     * @param int $id_Produto Id Produto
      * @return Carrinho the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

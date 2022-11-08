@@ -84,7 +84,7 @@ class SignupForm extends Model
         $user->save();
 
         $inf = new Cliente();
-        $inf->idUser = $user->id;
+        $inf->id_User = $user->id;
         $inf->nome = $this->nome;
         $inf->codPostal = $this->codPostal;
         $inf->telefone = $this->telefone;

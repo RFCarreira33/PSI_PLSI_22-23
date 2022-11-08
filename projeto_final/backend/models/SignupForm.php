@@ -68,7 +68,7 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
         $user->save();
-        $ficha->idUser = $user->id;
+        $ficha->id_User = $user->id;
         $ficha->save();
 
         $auth = \Yii::$app->authManager;

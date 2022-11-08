@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idCliente')->textInput() ?>
+    <?= $form->field($model, 'id_Cliente')->textInput() ?>
 
     <?= $form->field($model, 'dataFatura')->textInput() ?>
 

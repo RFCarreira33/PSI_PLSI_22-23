@@ -62,7 +62,7 @@ class CategoriaController extends Controller
      * Creates a new Categoria model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
-     */
+     *
     public function actionCreate()
     {
         $model = new Categoria();
@@ -86,7 +86,7 @@ class CategoriaController extends Controller
      * @param int $id ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
-     */
+     *
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -106,7 +106,7 @@ class CategoriaController extends Controller
      * @param int $id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
-     */
+     *
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();

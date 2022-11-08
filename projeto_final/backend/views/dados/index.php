@@ -29,7 +29,7 @@ use yii\grid\GridView;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idUser',
+            'id_User',
             'nome',
             'telefone',
             'nif',
@@ -38,7 +38,7 @@ use yii\grid\GridView;
             [
                 'class' => 'yii\grid\ActionColumn', 'template' => '{view}',
                 'urlCreator' => function ($action, Dados $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'idUser' => $model->idUser]);
+                    return Url::toRoute([$action, 'id_User' => $model->id_User]);
                 }
             ],
         ],

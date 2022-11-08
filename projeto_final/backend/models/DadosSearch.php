@@ -17,7 +17,7 @@ class DadosSearch extends dados
     public function rules()
     {
         return [
-            [['idUser'], 'integer'],
+            [['id_User'], 'integer'],
             [['nome', 'telefone', 'nif', 'morada', 'codPostal'], 'safe'],
         ];
     }
@@ -58,7 +58,7 @@ class DadosSearch extends dados
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idUser' => $this->idUser,
+            'id_User' => $this->id_User,
         ]);
 
         $query->andFilterWhere(['like', 'nome', $this->nome])

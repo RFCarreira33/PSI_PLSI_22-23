@@ -16,18 +16,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idUser' => $model->idUser], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['update', 'id_User' => $model->id_User], ['class' => 'btn btn-primary']) ?>
         <?php if ($status == null) {
-            echo Html::a('Reativar Conta', ['change', 'idUser' => $model->idUser], ['class' => 'btn btn-primary']);
+            echo Html::a('Reativar Conta', ['change', 'id_User' => $model->id_User], ['class' => 'btn btn-primary']);
         } else {
-            echo Html::a('Desativar Conta', ['change', 'idUser' => $model->idUser], ['class' => 'btn btn-danger']);
+            echo Html::a('Desativar Conta', ['change', 'id_User' => $model->id_User], ['class' => 'btn btn-danger']);
         } ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idUser',
+            'id_User',
             'nome',
             'telefone',
             'nif',

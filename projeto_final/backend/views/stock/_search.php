@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idLoja') ?>
 
-    <?= $form->field($model, 'idProduto') ?>
+    <?= $form->field($model, 'id_Produto') ?>
 
     <?= $form->field($model, 'quantidade') ?>
 
