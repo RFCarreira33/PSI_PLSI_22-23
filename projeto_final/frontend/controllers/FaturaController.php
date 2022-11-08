@@ -7,6 +7,7 @@ use common\models\FaturaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * FaturaController implements the CRUD actions for Fatura model.
@@ -21,6 +22,15 @@ class FaturaController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['cliente']
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -91,7 +101,7 @@ class FaturaController extends Controller
      * @param int $id ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
-     */
+     *
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -111,7 +121,7 @@ class FaturaController extends Controller
      * @param int $id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
-     */
+     *
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();

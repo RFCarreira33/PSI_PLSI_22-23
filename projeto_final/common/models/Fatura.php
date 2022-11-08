@@ -14,6 +14,7 @@ use Yii;
  * @property string $codPostal
  * @property string $telefone
  * @property string $morada
+ * @property string $localidade
  * @property string $email
  * @property string $dataFatura
  * @property float $valorTotal
@@ -38,11 +39,11 @@ class Fatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_Cliente', 'nome', 'nif', 'codPostal', 'telefone', 'morada', 'email', 'valorTotal', 'valorIva'], 'required'],
+            [['id_Cliente', 'nome', 'nif', 'codPostal', 'telefone', 'morada', 'localidade', 'email', 'valorTotal', 'valorIva'], 'required'],
             [['id_Cliente'], 'integer'],
             [['dataFatura'], 'safe'],
             [['valorTotal', 'valorIva'], 'number'],
-            [['nome', 'morada'], 'string', 'max' => 45],
+            [['nome', 'morada', 'localidade'], 'string', 'max' => 45],
             [['nif', 'codPostal', 'telefone'], 'string', 'max' => 9],
             [['email'], 'string', 'max' => 255],
             [['id_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Dados::class, 'targetAttribute' => ['id_Cliente' => 'id_User']],
@@ -62,6 +63,7 @@ class Fatura extends \yii\db\ActiveRecord
             'codPostal' => 'Cod Postal',
             'telefone' => 'Telefone',
             'morada' => 'Morada',
+            'localidade' => 'Localidade',
             'email' => 'Email',
             'dataFatura' => 'Data Fatura',
             'valorTotal' => 'Valor Total',

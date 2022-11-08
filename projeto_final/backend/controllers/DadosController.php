@@ -64,15 +64,15 @@ class DadosController extends Controller
 
     /**
      * Displays a single dados model.
-     * @param int $idUser Id User
+     * @param int $id_User Id User
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idUser)
+    public function actionView($id_User)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idUser),
-            'status' => User::findIdentity($idUser)
+            'model' => $this->findModel($id_User),
+            'status' => User::findIdentity($id_User)
         ]);
     }
 
@@ -87,7 +87,7 @@ class DadosController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idUser' => $model->idUser]);
+                return $this->redirect(['view', 'id_User' => $model->id_User]);
             }
         } else {
             $model->loadDefaultValues();
@@ -101,16 +101,16 @@ class DadosController extends Controller
     /**
      * Updates an existing dados model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idUser Id User
+     * @param int $id_User Id User
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idUser)
+    public function actionUpdate($id_User)
     {
-        $model = $this->findModel($idUser);
+        $model = $this->findModel($id_User);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idUser' => $model->idUser]);
+            return $this->redirect(['view', 'id_User' => $model->id_User]);
         }
 
         return $this->render('update', [
@@ -121,20 +121,20 @@ class DadosController extends Controller
     /**
      * Deletes an existing dados model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idUser Id User
+     * @param int $id_User Id User
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
-    public function actionDelete($idUser)
+    public function actionDelete($id_User)
     {
-        $this->findModel($idUser)->delete();
+        $this->findModel($id_User)->delete();
 
         return $this->redirect(['index']);
     }
 
      */
-    public function actionChange($idUser)
+    public function actionChange($id_User)
     {
-        $user = User::findOne(['id' => $idUser]);
+        $user = User::findOne(['id' => $id_User]);
         $user->status == self::STATUS_ACTIVE ? $user->status = self::STATUS_DELETED : $user->status = self::STATUS_ACTIVE;
         $user->save();
         return $this->redirect(['index']);
@@ -143,13 +143,13 @@ class DadosController extends Controller
     /**
      * Finds the dados model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idUser Id User
+     * @param int $id_User Id User
      * @return dados the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idUser)
+    protected function findModel($id_User)
     {
-        if (($model = dados::findOne(['idUser' => $idUser])) !== null) {
+        if (($model = dados::findOne(['id_User' => $id_User])) !== null) {
             return $model;
         }
 

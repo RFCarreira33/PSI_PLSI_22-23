@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'idCategoria') ?>
+    <?= $form->field($model, 'id_Categoria') ?>
 
     <?= $form->field($model, 'idIva') ?>
 
@@ -25,11 +25,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'descricao') ?>
 
-    <?php // echo $form->field($model, 'imagem') ?>
+    <?php // echo $form->field($model, 'imagem') 
+    ?>
 
-    <?php // echo $form->field($model, 'referencia') ?>
+    <?php // echo $form->field($model, 'referencia') 
+    ?>
 
-    <?php // echo $form->field($model, 'preco') ?>
+    <?php // echo $form->field($model, 'preco') 
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

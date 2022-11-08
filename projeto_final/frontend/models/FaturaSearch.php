@@ -17,7 +17,7 @@ class FaturaSearch extends Fatura
     public function rules()
     {
         return [
-            [['id', 'idCliente'], 'integer'],
+            [['id', 'id_Cliente'], 'integer'],
             [['dataFatura', 'estado'], 'safe'],
             [['valorTotal', 'valorIva'], 'number'],
         ];
@@ -60,7 +60,7 @@ class FaturaSearch extends Fatura
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'idCliente' => $this->idCliente,
+            'id_Cliente' => $this->id_Cliente,
             'dataFatura' => $this->dataFatura,
             'valorTotal' => $this->valorTotal,
             'valorIva' => $this->valorIva,
