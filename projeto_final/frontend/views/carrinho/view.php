@@ -62,7 +62,7 @@ use yii\helpers\Url;
 
                     <div class="row mb-4 d-flex justify-content-between align-items-center">
                       <div class="col-md-2 col-lg-2 col-xl-2">
-                        <img src="img/<?php echo $carrinho->produto->imagem ?>" class="img-fluid rounded-3" alt="Cotton T-shirt">
+                        <img src="img/<?php echo $carrinho->produto->imagem ?>" class="img-fluid rounded-3">
                       </div>
                       <div class="col-md-3 col-lg-3 col-xl-3">
                         <h6 class="text-muted"><?php echo $carrinho->produto->nome ?></h6>

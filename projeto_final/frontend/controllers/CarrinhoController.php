@@ -86,9 +86,9 @@ class CarrinhoController extends Controller
             $carrinho = new Carrinho;
             $carrinho->id_Cliente = $dados->id_User;
             $carrinho->id_Produto = $id;
-            $carrinho->quantidade = $quantidade;
+            $carrinho->Quantidade = $quantidade;
         } else {
-            $carrinho->quantidade += $quantidade;
+            $carrinho->Quantidade += $quantidade;
         }
         $carrinho->save();
         $carrinhos = $dados->getCarrinhos()->all();
