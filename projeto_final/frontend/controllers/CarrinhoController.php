@@ -89,8 +89,7 @@ class CarrinhoController extends Controller
         }
         $carrinho->save();
         $carrinhos = $dados->getCarrinhos()->all();
-        $nItens = count($carrinhos);
-        return $this->render('view', ['carrinhos' => $carrinhos, 'nItens' => $nItens]);
+        return $this->render('view', ['carrinhos' => $carrinhos]);
     }
 
     /**
@@ -132,9 +131,8 @@ class CarrinhoController extends Controller
 
     public function actionClear()
     {
-        $id_Cliente = Yii::$app->user->id;
         $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
-        $carrinho = $dados->getCarrinhos()->all();
+        $carrinho = $dados->carrinhos;
         foreach ($carrinho as $carrinhos) {
             $carrinhos->delete();
         }
