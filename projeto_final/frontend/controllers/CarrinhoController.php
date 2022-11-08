@@ -75,9 +75,6 @@ class CarrinhoController extends Controller
      */
     public function actionCreate($id, $quantidade)
     {
-        if (!Yii::$app->user->can('carrinho')) {
-            return $this->redirect('site/login');
-        }
 
         $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
         $carrinho = $dados->getCarrinhos()->where(['id_Produto' => $id])->one();
@@ -125,11 +122,18 @@ class CarrinhoController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id_Cliente, $id_Produto)
+    public function actionDelete($id_Produto)
     {
+        $id_Cliente = Yii::$app->user->id;
         $this->findModel($id_Cliente, $id_Produto)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['carrinho/view']);
+    }
+
+    public function actionDeleteAll()
+    {
+        $id_Cliente = Yii::$app->user->id;
+        return $this->redirect(['carrinho/view']);
     }
 
     /**

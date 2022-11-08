@@ -25,7 +25,7 @@ use yii\helpers\Url;
     <section class="py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
-                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="img/<?php echo $produto->imagem ?>" /></div>
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/img/<?php echo $produto->imagem ?>" /></div>
                 <div class="col-md-6">
                     <div class="small mb-1">REF: <?php echo $produto->referencia ?></div>
                     <h1 class="display-5 fw-bolder"><?php echo $produto->nome ?></h1>
@@ -59,7 +59,7 @@ use yii\helpers\Url;
                         <div class="card h-100">
                             <a style="text-decoration: none;color:black;" href="<?= Url::toRoute(["produto/view", "id" => $relatedProducts[$i]->id]) ?>">
                                 <!-- Product image-->
-                                <img class="card-img-top" style="width:220px;height:220px;" src="img/<?= $relatedProducts[$i]->imagem ?>" alt="..." />
+                                <img class="card-img-top" style="width:220px;height:220px;" src="/img/<?= $relatedProducts[$i]->imagem ?>" alt="..." />
                                 <!-- Product details-->
                                 <div class="card-body p-4">
                                     <div class="text-center">

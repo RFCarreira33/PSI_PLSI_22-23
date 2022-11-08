@@ -59,10 +59,9 @@ use yii\helpers\Url;
                     $precoTotal += $carrinho->produto->preco * $carrinho->Quantidade;
                   ?>
                     <hr class="my-4">
-
                     <div class="row mb-4 d-flex justify-content-between align-items-center">
                       <div class="col-md-2 col-lg-2 col-xl-2">
-                        <img src="img/<?php echo $carrinho->produto->imagem ?>" class="img-fluid rounded-3">
+                        <img src="/img/<?php echo $carrinho->produto->imagem ?>" class="img-fluid rounded-3">
                       </div>
                       <div class="col-md-3 col-lg-3 col-xl-3">
                         <h6 class="text-muted"><?php echo $carrinho->produto->nome ?></h6>
@@ -72,16 +71,18 @@ use yii\helpers\Url;
                       </div>
                       <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                         <h6 class="mb-0"><?php echo $carrinho->produto->preco *  $carrinho->Quantidade ?>€</h6>
-                      </div>
+                      </div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                       <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                        <a data-method="POST" href="<?= Url::toRoute(["carrinho/delete", 'id_Produto' => $carrinho->id_Produto]) ?>">Remover</a>
                       </div>
                     </div>
                   <?php } ?>
                   <hr class="my-4">
-
                   <div class="pt-5">
-                    <h6 class="mb-0"><a href="<?= Url::toRoute("site/index") ?>" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Voltar a loja</a></h6>
+                    <h6 class="mb-0"><a data-method="POST" class="text-body" href="<?= Url::toRoute("carrinho/deleteAll") ?>">Limpar Carrinho</a></h6>
+                  </div>
+                  <div class="pt-5">
+                    <h6 class="mb-0"><a href="<?= Url::toRoute("site/index") ?>" class="text-body">Voltar a loja</a></h6>
                   </div>
                 </div>
               </div>
