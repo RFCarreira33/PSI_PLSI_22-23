@@ -14,7 +14,9 @@ use Yii;
  * @property string $morada
  * @property string $codPostal
  *
+ * @property Carrinho[] $carrinhos
  * @property Fatura[] $faturas
+ * @property Produto[] $produtos
  * @property User $user
  */
 class Dados extends \yii\db\ActiveRecord
@@ -58,6 +60,16 @@ class Dados extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Carrinhos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCarrinhos()
+    {
+        return $this->hasMany(Carrinho::class, ['id_Cliente' => 'id_User']);
+    }
+
+    /**
      * Gets query for [[Faturas]].
      *
      * @return \yii\db\ActiveQuery
@@ -65,6 +77,16 @@ class Dados extends \yii\db\ActiveRecord
     public function getFaturas()
     {
         return $this->hasMany(Fatura::class, ['id_Cliente' => 'id_User']);
+    }
+
+    /**
+     * Gets query for [[Produtos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProdutos()
+    {
+        return $this->hasMany(Produto::class, ['id' => 'id_Produto'])->viaTable('carrinho', ['id_Cliente' => 'id_User']);
     }
 
     /**

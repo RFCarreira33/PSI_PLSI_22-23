@@ -56,22 +56,22 @@ use yii\helpers\Url;
                   </div>
                   <?php $precoTotal = 0; ?>
                   <?php foreach ($carrinhos as $carrinho) {
-                    $precoTotal += $carrinho->Produto->preco * $carrinho->quantidade;
+                    $precoTotal += $carrinho->produto->preco * $carrinho->Quantidade;
                   ?>
                     <hr class="my-4">
 
                     <div class="row mb-4 d-flex justify-content-between align-items-center">
                       <div class="col-md-2 col-lg-2 col-xl-2">
-                        <img src="img/<?php echo $carrinho->Produto->imagem ?>" class="img-fluid rounded-3" alt="Cotton T-shirt">
+                        <img src="img/<?php echo $carrinho->produto->imagem ?>" class="img-fluid rounded-3" alt="Cotton T-shirt">
                       </div>
                       <div class="col-md-3 col-lg-3 col-xl-3">
-                        <h6 class="text-muted"><?php echo $carrinho->Produto->nome ?></h6>
+                        <h6 class="text-muted"><?php echo $carrinho->produto->nome ?></h6>
                       </div>
                       <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                        <?php echo $carrinho->quantidade ?>
+                        <?php echo $carrinho->Quantidade ?>
                       </div>
                       <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                        <h6 class="mb-0"><?php echo $carrinho->Produto->preco *  $carrinho->quantidade ?>€</h6>
+                        <h6 class="mb-0"><?php echo $carrinho->produto->preco *  $carrinho->Quantidade ?>€</h6>
                       </div>
                       <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                         <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>

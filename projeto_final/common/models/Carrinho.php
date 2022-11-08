@@ -11,7 +11,7 @@ use Yii;
  * @property int $id_Produto
  * @property int $Quantidade
  *
- * @property User $cliente
+ * @property Dados $cliente
  * @property Produto $produto
  */
 class Carrinho extends \yii\db\ActiveRecord
@@ -33,7 +33,7 @@ class Carrinho extends \yii\db\ActiveRecord
             [['id_Cliente', 'id_Produto', 'Quantidade'], 'required'],
             [['id_Cliente', 'id_Produto', 'Quantidade'], 'integer'],
             [['id_Cliente', 'id_Produto'], 'unique', 'targetAttribute' => ['id_Cliente', 'id_Produto']],
-            [['id_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_Cliente' => 'id']],
+            [['id_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Dados::class, 'targetAttribute' => ['id_Cliente' => 'id_User']],
             [['id_Produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['id_Produto' => 'id']],
         ];
     }
@@ -57,7 +57,7 @@ class Carrinho extends \yii\db\ActiveRecord
      */
     public function getCliente()
     {
-        return $this->hasOne(User::class, ['id' => 'id_Cliente']);
+        return $this->hasOne(Dados::class, ['id_User' => 'id_Cliente']);
     }
 
     /**
