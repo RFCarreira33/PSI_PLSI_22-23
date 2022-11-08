@@ -42,14 +42,14 @@ class ProdutoController extends Controller
     {
         //Gets category and it's children (if they exist), search for every product related with one of the categories and returns
         $parentCategory = Categoria::find()->select("id")->where(["nome" => $category]);
-        $childCategories = Categoria::find()->select("id")->where(["categoriaPai" => $parentCategory])->column();
+        $childCategories = Categoria::find()->select("id")->where(["id_CategoriaPai" => $parentCategory])->column();
         $i = sizeof($childCategories);
         
         foreach($childCategories as $child)
         {
-            while(sizeof(Categoria::find()->select("id")->where(["categoriaPai" => $child])->column()) != 0)
+            while(sizeof(Categoria::find()->select("id")->where(["id_CategoriaPai" => $child])->column()) != 0)
             {
-                foreach(Categoria::find()->select("id")->where(["categoriaPai" => $child])->column() as $child)
+                foreach(Categoria::find()->select("id")->where(["id_CategoriaPai" => $child])->column() as $child)
                 {
                     $childCategories[] = $child;
                     $i = sizeof($childCategories);
@@ -57,7 +57,7 @@ class ProdutoController extends Controller
             }
         }
 
-        $produtos = Produto::find()->where(["idCategoria" => $parentCategory])->orWhere(["idCategoria" => $childCategories]);
+        $produtos = Produto::find()->where(["id_Categoria" => $parentCategory])->orWhere(["id_Categoria" => $childCategories]);
 
         $countQuery = clone $produtos;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 2]);
