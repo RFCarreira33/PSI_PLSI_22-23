@@ -7,7 +7,9 @@ use common\models\FaturaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yii;
+use Yii as GlobalYii;
 
 /**
  * DadosController implements the CRUD actions for Dados model.
@@ -22,6 +24,15 @@ class DadosController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['cliente']
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -50,7 +61,7 @@ class DadosController extends Controller
 
     /**
      * Displays a single Dados model.
-     * @param int $idUser Id User
+     * @param int $id_User Id User
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -66,7 +77,7 @@ class DadosController extends Controller
      * Creates a new Dados model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
-     */
+     *
     public function actionCreate()
     {
         $model = new Dados();
@@ -87,16 +98,16 @@ class DadosController extends Controller
     /**
      * Updates an existing Dados model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idUser Id User
+     * @param int $id_User Id User
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id_User)
+    public function actionUpdate()
     {
-        $model = $this->findModel($id_User);
+        $model = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_User' => $model->id_User]);
+            return $this->redirect(['view']);
         }
 
         return $this->render('update', [
@@ -107,7 +118,7 @@ class DadosController extends Controller
     /**
      * Deletes an existing Dados model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idUser Id User
+     * @param int $id_User Id User
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -121,7 +132,7 @@ class DadosController extends Controller
     /**
      * Finds the Dados model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idUser Id User
+     * @param int $id_User Id User
      * @return Dados the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

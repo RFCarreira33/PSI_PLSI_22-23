@@ -5,14 +5,15 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "carrinho".
+ * This is the model class for table "categoria".
  *
- * @property int $id_Cliente
- * @property int $id_Produto
- * @property int $Quantidade
+ * @property int $id
+ * @property int|null $id_CategoriaPai
+ * @property string $nome
  *
- * @property User $cliente
- * @property Produto $produto
+ * @property Categoria $categoriaPai
+ * @property Categoria[] $categorias
+ * @property Produto[] $produtos
  */
 class Categoria extends \yii\db\ActiveRecord
 {
@@ -21,7 +22,7 @@ class Categoria extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'carrinho';
+        return 'categoria';
     }
 
     /**
@@ -30,11 +31,10 @@ class Categoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_Cliente', 'id_Produto', 'Quantidade'], 'required'],
-            [['id_Cliente', 'id_Produto', 'Quantidade'], 'integer'],
-            [['id_Cliente', 'id_Produto'], 'unique', 'targetAttribute' => ['id_Cliente', 'id_Produto']],
-            [['id_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_Cliente' => 'id']],
-            [['id_Produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['id_Produto' => 'id']],
+            [['id_CategoriaPai'], 'integer'],
+            [['nome'], 'required'],
+            [['nome'], 'string', 'max' => 45],
+            [['id_CategoriaPai'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['id_CategoriaPai' => 'id']],
         ];
     }
 
@@ -44,29 +44,39 @@ class Categoria extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_Cliente' => 'Id Cliente',
-            'id_Produto' => 'Id Produto',
-            'Quantidade' => 'Quantidade',
+            'id' => 'ID',
+            'id_CategoriaPai' => 'Id Categoria Pai',
+            'nome' => 'Nome',
         ];
     }
 
     /**
-     * Gets query for [[Cliente]].
+     * Gets query for [[CategoriaPai]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCliente()
+    public function getCategoriaPai()
     {
-        return $this->hasOne(User::class, ['id' => 'id_Cliente']);
+        return $this->hasOne(Categoria::class, ['id' => 'id_CategoriaPai']);
     }
 
     /**
-     * Gets query for [[Produto]].
+     * Gets query for [[Categorias]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProduto()
+    public function getCategorias()
     {
-        return $this->hasOne(Produto::class, ['id' => 'id_Produto']);
+        return $this->hasMany(Categoria::class, ['id_CategoriaPai' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Produtos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProdutos()
+    {
+        return $this->hasMany(Produto::class, ['id_Categoria' => 'id']);
     }
 }

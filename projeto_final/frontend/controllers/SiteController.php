@@ -11,6 +11,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\data\Pagination;
 use common\models\LoginForm;
 use common\models\Produto;
 use frontend\models\PasswordResetRequestForm;
@@ -77,9 +78,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $produtos = Produto::find()->all();
-        $nProdutos = Produto::find()->count();
-        return $this->render('index', ['produtos' => $produtos, 'nProdutos' => $nProdutos]);
+        $produtos = Produto::find()->limit(4)->all();
+        return $this->render('index', ['produtos' => $produtos]);
     }
 
     /**

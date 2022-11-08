@@ -21,6 +21,6 @@ class FaturaRule extends Rule
      */
     public function execute($user, $item, $params)
     {
-        return isset($params['fatura']) ? $params['fatura']->idCliente == $user : false;
+        return isset($params['fatura']) ? $params['fatura']->id_Cliente == $user : false;
     }
 }
