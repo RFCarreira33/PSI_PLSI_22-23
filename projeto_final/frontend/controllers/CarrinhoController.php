@@ -130,9 +130,14 @@ class CarrinhoController extends Controller
         return $this->redirect(['carrinho/view']);
     }
 
-    public function actionDeleteAll()
+    public function actionClear()
     {
         $id_Cliente = Yii::$app->user->id;
+        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
+        $carrinho = $dados->getCarrinhos()->all();
+        foreach ($carrinho as $carrinhos) {
+            $carrinhos->delete();
+        }
         return $this->redirect(['carrinho/view']);
     }
 
