@@ -12,13 +12,13 @@ use yii\widgets\DetailView;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idUser' => $model->idUser], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['update', 'id_User' => $model->id_User], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idUser',
+            'id_User',
             'nome',
             'telefone',
             'nif',

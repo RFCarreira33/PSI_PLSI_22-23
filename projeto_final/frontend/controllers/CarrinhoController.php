@@ -62,7 +62,7 @@ class CarrinhoController extends Controller
      */
     public function actionView()
     {
-        $dados = Dados::find()->where(['idUser' => Yii::$app->user->id])->one();
+        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
         $carrinhos = $dados->getCarrinhos()->all();
         $nItens = count($carrinhos);
         return $this->render('view', ['carrinhos' => $carrinhos, 'nItens' => $nItens]);
@@ -79,13 +79,13 @@ class CarrinhoController extends Controller
             return $this->redirect('site/login');
         }
 
-        $dados = Dados::find()->where(['idUser' => Yii::$app->user->id])->one();
-        $carrinho = $dados->getCarrinhos()->where(['idProduto' => $id])->one();
+        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
+        $carrinho = $dados->getCarrinhos()->where(['id_Produto' => $id])->one();
 
         if ($carrinho == null) {
             $carrinho = new Carrinho;
-            $carrinho->idCliente = $dados->idUser;
-            $carrinho->idProduto = $id;
+            $carrinho->id_Cliente = $dados->id_User;
+            $carrinho->id_Produto = $id;
             $carrinho->quantidade = $quantidade;
         } else {
             $carrinho->quantidade += $quantidade;
@@ -104,12 +104,12 @@ class CarrinhoController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idCliente, $idProduto)
+    public function actionUpdate($id_Cliente, $id_Produto)
     {
-        $model = $this->findModel($idCliente, $idProduto);
+        $model = $this->findModel($id_Cliente, $id_Produto);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idCliente' => $model->idCliente, 'idProduto' => $model->idProduto]);
+            return $this->redirect(['view', 'id_Cliente' => $model->id_Cliente, 'id_Produto' => $model->id_Produto]);
         }
 
         return $this->render('update', [
@@ -125,9 +125,9 @@ class CarrinhoController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idCliente, $idProduto)
+    public function actionDelete($id_Cliente, $id_Produto)
     {
-        $this->findModel($idCliente, $idProduto)->delete();
+        $this->findModel($id_Cliente, $id_Produto)->delete();
 
         return $this->redirect(['index']);
     }
@@ -140,9 +140,9 @@ class CarrinhoController extends Controller
      * @return Carrinho the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idCliente, $idProduto)
+    protected function findModel($id_Cliente, $id_Produto)
     {
-        if (($model = Carrinho::findOne(['idCliente' => $idCliente, 'idProduto' => $idProduto])) !== null) {
+        if (($model = Carrinho::findOne(['id_Cliente' => $id_Cliente, 'id_Produto' => $id_Produto])) !== null) {
             return $model;
         }
 

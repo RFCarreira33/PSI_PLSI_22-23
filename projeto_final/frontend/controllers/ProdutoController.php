@@ -57,8 +57,8 @@ class ProdutoController extends Controller
     {
         $produto = $this->findModel($id);
         /* It's a query to find all products with the same category as the current product. */
-        $relatedProducts = Produto::find()->where(["idCategoria" => $produto->idCategoria])->andWhere(["<>", "id", $produto->id])->limit(4)->all();
-        
+        $relatedProducts = Produto::find()->where(["id_Categoria" => $produto->id_Categoria])->andWhere(["<>", "id", $produto->id])->limit(4)->all();
+
         return $this->render('view', [
             'produto' => $produto,
             'relatedProducts' => $relatedProducts

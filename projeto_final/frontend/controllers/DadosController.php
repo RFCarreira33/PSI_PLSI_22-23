@@ -56,9 +56,9 @@ class DadosController extends Controller
      */
     public function actionView()
     {
-        $idUser = Yii::$app->user->id;
+        $id_User = Yii::$app->user->id;
         return $this->render('view', [
-            'model' => $this->findModel($idUser),
+            'model' => $this->findModel($id_User),
         ]);
     }
 
@@ -73,7 +73,7 @@ class DadosController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idUser' => $model->idUser]);
+                return $this->redirect(['view', 'id_User' => $model->id_User]);
             }
         } else {
             $model->loadDefaultValues();
@@ -91,12 +91,12 @@ class DadosController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idUser)
+    public function actionUpdate($id_User)
     {
-        $model = $this->findModel($idUser);
+        $model = $this->findModel($id_User);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idUser' => $model->idUser]);
+            return $this->redirect(['view', 'id_User' => $model->id_User]);
         }
 
         return $this->render('update', [
@@ -111,9 +111,9 @@ class DadosController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idUser)
+    public function actionDelete($id_User)
     {
-        $this->findModel($idUser)->delete();
+        $this->findModel($id_User)->delete();
 
         return $this->redirect(['index']);
     }
@@ -125,9 +125,9 @@ class DadosController extends Controller
      * @return Dados the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idUser)
+    protected function findModel($id_User)
     {
-        if (($model = Dados::findOne(['idUser' => $idUser])) !== null) {
+        if (($model = Dados::findOne(['id_User' => $id_User])) !== null) {
             return $model;
         }
 
