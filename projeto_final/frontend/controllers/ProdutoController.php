@@ -33,31 +33,37 @@ class ProdutoController extends Controller
         );
     }
 
-    /**
-     * Lists all Produto models.
-     *
-     * @return string
-     */
     public function actionIndex($category)
     {
         //Gets category and it's children (if they exist), search for every product related with one of the categories and returns
         $parentCategory = Categoria::find()->select("id")->where(["nome" => $category]);
-        $childCategories = Categoria::find()->select("id")->where(["categoriaPai" => $parentCategory])->column();
-        $i = sizeof($childCategories);
+        $childCategories = Categoria::find()->select("id")->where(["id_categoriaPai" => $parentCategory])->column();
         
         foreach($childCategories as $child)
         {
-            while(sizeof(Categoria::find()->select("id")->where(["categoriaPai" => $child])->column()) != 0)
+            while(sizeof(Categoria::find()->select("id")->where(["id_categoriaPai" => $child])->column()) != 0)
             {
-                foreach(Categoria::find()->select("id")->where(["categoriaPai" => $child])->column() as $child)
+                foreach(Categoria::find()->select("id")->where(["id_categoriaPai" => $child])->column() as $child)
                 {
                     $childCategories[] = $child;
-                    $i = sizeof($childCategories);
                 }
             }
         }
 
-        $produtos = Produto::find()->where(["idCategoria" => $parentCategory])->orWhere(["idCategoria" => $childCategories]);
+        $produtos = Produto::find()->where(["id_Categoria" => $parentCategory])->orWhere(["id_Categoria" => $childCategories]);
+
+        $countQuery = clone $produtos;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 2]);
+        $models = $produtos->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        return $this->render('index', ['produtos' => $models, 'pages' => $pages]);
+    }
+
+    public function actionSearch($query)
+    {
+        $produtos = Produto::find()->where(['like', 'nome', '%' . $query . '%', false])->orWhere(['like', 'referencia', '%' . $query . '%', false]);
 
         $countQuery = clone $produtos;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 2]);
@@ -78,7 +84,7 @@ class ProdutoController extends Controller
     {
         $produto = $this->findModel($id);
         /* It's a query to find all products with the same category as the current product. */
-        $relatedProducts = Produto::find()->where(["idCategoria" => $produto->idCategoria])->andWhere(["<>", "id", $produto->id])->limit(4)->all();
+        $relatedProducts = Produto::find()->where(["id_Categoria" => $produto->id_Categoria])->andWhere(["<>", "id", $produto->id])->limit(4)->all();
         
         return $this->render('view', [
             'produto' => $produto,
