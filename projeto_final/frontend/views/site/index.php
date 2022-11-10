@@ -32,11 +32,20 @@ $this->title = 'My Yii Application';
                         </a>
                         <!-- Product price-->
                         <?php echo $produto->preco ?>€
+                        <br>
+                        <br>
+                        <?php
+                        if (sizeof($produto->stocks) > 0) {
+                            echo "<h6 style='color:green'>Em Stock</h6>";
+                        } else {
+                            echo "<h6 style='color:red'>Esgotado</h6>";
+                        }
+                        ?>
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
-    <?php } ?>
-    </div>
-    </div>
+<?php } ?>
+</div>
+</div>
 </section>
