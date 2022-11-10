@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use common\models\produto;
+use common\models\Produto;
 use backend\models\ProdutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -10,7 +10,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * ProdutoController implements the CRUD actions for produto model.
+ * ProdutoController implements the CRUD actions for Produto model.
  */
 class ProdutoController extends Controller
 {
@@ -42,7 +42,7 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Lists all produto models.
+     * Lists all Produto models.
      *
      * @return string
      */
@@ -58,7 +58,7 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Displays a single produto model.
+     * Displays a single Produto model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -71,13 +71,13 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Creates a new produto model.
+     * Creates a new Produto model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new produto();
+        $model = new Produto();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -93,7 +93,7 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Updates an existing produto model.
+     * Updates an existing Produto model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -113,7 +113,7 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Deletes an existing produto model.
+     * Deletes an existing Produto model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -121,24 +121,21 @@ class ProdutoController extends Controller
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
-        $model->Ativo = 0;
-        $model->save();
-
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the produto model based on its primary key value.
+     * Finds the Produto model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return produto the loaded model
+     * @return Produto the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = produto::findOne(['id' => $id])) !== null) {
+        if (($model = Produto::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

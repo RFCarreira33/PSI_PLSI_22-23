@@ -32,9 +32,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'id_Cliente',
+            //'nome',
+            'nif',
+            //'codPostal',
+            //'telefone',
+            //'morada',
+            'email:email',
             'dataFatura',
             'valorTotal',
-            'valorIva',
+            //'valorIva',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Fatura $model, $key, $index, $column) {

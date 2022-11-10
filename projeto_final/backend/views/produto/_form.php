@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\produto $model */
+/** @var common\models\Produto $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_Iva')->textInput() ?>
 
-    <?= $form->field($model, 'marca')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'id_Marca')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'descricao')->textarea(['rows' => 6]) ?>
 

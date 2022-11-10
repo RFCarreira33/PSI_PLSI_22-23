@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use common\models\marca;
+use common\models\Marca;
 use backend\models\MarcaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -10,7 +10,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * MarcaController implements the CRUD actions for marca model.
+ * MarcaController implements the CRUD actions for Marca model.
  */
 class MarcaController extends Controller
 {
@@ -42,7 +42,7 @@ class MarcaController extends Controller
     }
 
     /**
-     * Lists all marca models.
+     * Lists all Marca models.
      *
      * @return string
      */
@@ -58,7 +58,7 @@ class MarcaController extends Controller
     }
 
     /**
-     * Displays a single marca model.
+     * Displays a single Marca model.
      * @param string $nome Nome
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -71,13 +71,13 @@ class MarcaController extends Controller
     }
 
     /**
-     * Creates a new marca model.
+     * Creates a new Marca model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new marca();
+        $model = new Marca();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -93,7 +93,7 @@ class MarcaController extends Controller
     }
 
     /**
-     * Updates an existing marca model.
+     * Updates an existing Marca model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $nome Nome
      * @return string|\yii\web\Response
@@ -113,7 +113,7 @@ class MarcaController extends Controller
     }
 
     /**
-     * Deletes an existing marca model.
+     * Deletes an existing Marca model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $nome Nome
      * @return \yii\web\Response
@@ -127,15 +127,15 @@ class MarcaController extends Controller
     }
 
     /**
-     * Finds the marca model based on its primary key value.
+     * Finds the Marca model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $nome Nome
-     * @return marca the loaded model
+     * @return Marca the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($nome)
     {
-        if (($model = marca::findOne(['nome' => $nome])) !== null) {
+        if (($model = Marca::findOne(['nome' => $nome])) !== null) {
             return $model;
         }
 

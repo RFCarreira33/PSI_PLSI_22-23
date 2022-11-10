@@ -7,6 +7,7 @@ use backend\models\StockSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * StockController implements the CRUD actions for Stock model.
@@ -58,15 +59,15 @@ class StockController extends Controller
 
     /**
      * Displays a single Stock model.
-     * @param int $idLoja Id Loja
+     * @param int $id_Loja Id Loja
      * @param int $id_Produto Id Produto
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idLoja, $id_Produto)
+    public function actionView($id_Loja, $id_Produto)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idLoja, $id_Produto),
+            'model' => $this->findModel($id_Loja, $id_Produto),
         ]);
     }
 
@@ -81,7 +82,7 @@ class StockController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idLoja' => $model->idLoja, 'id_Produto' => $model->id_Produto]);
+                return $this->redirect(['view', 'id_Loja' => $model->id_Loja, 'id_Produto' => $model->id_Produto]);
             }
         } else {
             $model->loadDefaultValues();
@@ -95,17 +96,17 @@ class StockController extends Controller
     /**
      * Updates an existing Stock model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idLoja Id Loja
+     * @param int $id_Loja Id Loja
      * @param int $id_Produto Id Produto
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idLoja, $id_Produto)
+    public function actionUpdate($id_Loja, $id_Produto)
     {
-        $model = $this->findModel($idLoja, $id_Produto);
+        $model = $this->findModel($id_Loja, $id_Produto);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idLoja' => $model->idLoja, 'id_Produto' => $model->id_Produto]);
+            return $this->redirect(['view', 'id_Loja' => $model->id_Loja, 'id_Produto' => $model->id_Produto]);
         }
 
         return $this->render('update', [
@@ -116,14 +117,14 @@ class StockController extends Controller
     /**
      * Deletes an existing Stock model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idLoja Id Loja
+     * @param int $id_Loja Id Loja
      * @param int $id_Produto Id Produto
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idLoja, $id_Produto)
+    public function actionDelete($id_Loja, $id_Produto)
     {
-        $this->findModel($idLoja, $id_Produto)->delete();
+        $this->findModel($id_Loja, $id_Produto)->delete();
 
         return $this->redirect(['index']);
     }
@@ -131,14 +132,14 @@ class StockController extends Controller
     /**
      * Finds the Stock model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idLoja Id Loja
+     * @param int $id_Loja Id Loja
      * @param int $id_Produto Id Produto
      * @return Stock the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idLoja, $id_Produto)
+    protected function findModel($id_Loja, $id_Produto)
     {
-        if (($model = Stock::findOne(['idLoja' => $idLoja, 'id_Produto' => $id_Produto])) !== null) {
+        if (($model = Stock::findOne(['id_Loja' => $id_Loja, 'id_Produto' => $id_Produto])) !== null) {
             return $model;
         }
 

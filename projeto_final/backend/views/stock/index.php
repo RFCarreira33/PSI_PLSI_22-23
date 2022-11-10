@@ -21,8 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Stock', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -30,14 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idLoja',
+            'id_Loja',
             'id_Produto',
             'quantidade',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Stock $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'idLoja' => $model->idLoja, 'id_Produto' => $model->id_Produto]);
-                }
+                    return Url::toRoute([$action, 'id_Loja' => $model->id_Loja, 'id_Produto' => $model->id_Produto]);
+                 }
             ],
         ],
     ]); ?>

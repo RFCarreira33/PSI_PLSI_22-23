@@ -4,9 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var common\models\produto $model */
+/** @var common\models\Produto $model */
 
-$this->title = $model->Nome;
+$this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Produtos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'id_Categoria',
             'id_Iva',
-            'marca',
+            'id_Marca',
             'descricao:ntext',
             'imagem:ntext',
             'referencia',

@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use common\models\iva;
+use common\models\Iva;
 use backend\models\IvaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -10,7 +10,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * IvaController implements the CRUD actions for iva model.
+ * IvaController implements the CRUD actions for Iva model.
  */
 class IvaController extends Controller
 {
@@ -42,7 +42,7 @@ class IvaController extends Controller
     }
 
     /**
-     * Lists all iva models.
+     * Lists all Iva models.
      *
      * @return string
      */
@@ -58,7 +58,7 @@ class IvaController extends Controller
     }
 
     /**
-     * Displays a single iva model.
+     * Displays a single Iva model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -71,13 +71,13 @@ class IvaController extends Controller
     }
 
     /**
-     * Creates a new iva model.
+     * Creates a new Iva model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new iva();
+        $model = new Iva();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -93,7 +93,7 @@ class IvaController extends Controller
     }
 
     /**
-     * Updates an existing iva model.
+     * Updates an existing Iva model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -113,7 +113,7 @@ class IvaController extends Controller
     }
 
     /**
-     * Deletes an existing iva model.
+     * Deletes an existing Iva model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -125,20 +125,19 @@ class IvaController extends Controller
         $model->Ativo = 0;
         $model->save();
 
-
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the iva model based on its primary key value.
+     * Finds the Iva model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return iva the loaded model
+     * @return Iva the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = iva::findOne(['id' => $id])) !== null) {
+        if (($model = Iva::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

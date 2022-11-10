@@ -48,15 +48,17 @@ class SignupForm extends Model
 
             ['codPostal', 'trim'],
             ['codPostal', 'required'],
-            ['codPostal', 'match', 'pattern' => '^\d{4}-\d{3}?$'],
+            ['codPostal', 'match', 'pattern' => '^\d{4}-\d{3}?$^', 'message' => 'Invalid Postal Code'],
 
             ['telefone', 'trim'],
             ['telefone', 'required'],
-            ['telefone', 'integer', 'min' => 9, 'max' => 9],
+            ['telefone', 'match', 'pattern' => '^\d{9}?$^', 'message' => 'Invalid Phone Number'],
+            ['telefone', 'string', 'max' => 9, 'message' => 'Invalid Phone Number'],
 
             ['nif', 'trim'],
             ['nif', 'required'],
-            ['nif', 'integer', 'min' => 9, 'max' => 9],
+            ['nif', 'match', 'pattern' => '^\d{9}?$^', 'message' => 'Invalid NIF'],
+            ['nif', 'string', 'max' => 9, 'message' => 'Invalid NIF'],
 
             ['morada', 'trim'],
             ['morada', 'required'],
@@ -74,7 +76,7 @@ class SignupForm extends Model
             return null;
         }
 
-        $ficha = new Dados();
+        $dados = new Dados();
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
@@ -83,14 +85,13 @@ class SignupForm extends Model
         $user->generateEmailVerificationToken();
         $user->save();
 
-        $inf = new Cliente();
-        $inf->id_User = $user->id;
-        $inf->nome = $this->nome;
-        $inf->codPostal = $this->codPostal;
-        $inf->telefone = $this->telefone;
-        $inf->nif = $this->nif;
-        $inf->morada = $this->morada;
-        $inf->save();
+        $dados->id_User = $user->id;
+        $dados->nome = $this->nome;
+        $dados->codPostal = $this->codPostal;
+        $dados->telefone = $this->telefone;
+        $dados->nif = $this->nif;
+        $dados->morada = $this->morada;
+        $dados->save();
 
         $auth = \Yii::$app->authManager;
         $clienteRole = $auth->getRole('cliente');

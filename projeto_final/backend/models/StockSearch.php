@@ -17,7 +17,7 @@ class StockSearch extends Stock
     public function rules()
     {
         return [
-            [['idLoja', 'id_Produto', 'quantidade'], 'integer'],
+            [['id_Loja', 'id_Produto', 'quantidade'], 'integer'],
         ];
     }
 
@@ -57,7 +57,7 @@ class StockSearch extends Stock
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idLoja' => $this->idLoja,
+            'id_Loja' => $this->id_Loja,
             'id_Produto' => $this->id_Produto,
             'quantidade' => $this->quantidade,
         ]);

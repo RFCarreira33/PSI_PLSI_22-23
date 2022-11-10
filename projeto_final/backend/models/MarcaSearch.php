@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\marca;
+use common\models\Marca;
 
 /**
- * MarcaSearch represents the model behind the search form of `common\models\marca`.
+ * MarcaSearch represents the model behind the search form of `common\models\Marca`.
  */
-class MarcaSearch extends marca
+class MarcaSearch extends Marca
 {
     /**
      * {@inheritdoc}
@@ -39,7 +39,7 @@ class MarcaSearch extends marca
      */
     public function search($params)
     {
-        $query = marca::find();
+        $query = Marca::find();
 
         // add conditions that should always apply here
 

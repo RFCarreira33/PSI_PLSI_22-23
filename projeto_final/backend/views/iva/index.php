@@ -1,6 +1,6 @@
 <?php
 
-use common\models\iva;
+use common\models\Iva;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -10,6 +10,7 @@ use yii\grid\GridView;
 /** @var backend\models\IvaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
+$this->title = 'Ivas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="iva-index">
@@ -34,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Ativo',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, iva $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Iva $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }
             ],

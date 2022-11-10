@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\models\Stock $model */
 
-$this->title = 'Update Stock: ' . $model->idLoja;
+$this->title = 'Update Stock: ' . $model->id_Loja;
 $this->params['breadcrumbs'][] = ['label' => 'Stocks', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idLoja, 'url' => ['view', 'idLoja' => $model->idLoja, 'id_Produto' => $model->id_Produto]];
+$this->params['breadcrumbs'][] = ['label' => $model->id_Loja, 'url' => ['view', 'id_Loja' => $model->id_Loja, 'id_Produto' => $model->id_Produto]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="stock-update">

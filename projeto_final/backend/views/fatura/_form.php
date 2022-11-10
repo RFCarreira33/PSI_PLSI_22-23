@@ -14,6 +14,18 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_Cliente')->textInput() ?>
 
+    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'nif')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'codPostal')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'telefone')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'morada')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'dataFatura')->textInput() ?>
 
     <?= $form->field($model, 'valorTotal')->textInput(['maxlength' => true]) ?>

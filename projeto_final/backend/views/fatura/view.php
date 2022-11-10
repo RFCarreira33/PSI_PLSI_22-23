@@ -31,6 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'id_Cliente',
+            'nome',
+            'nif',
+            'codPostal',
+            'telefone',
+            'morada',
+            'email:email',
             'dataFatura',
             'valorTotal',
             'valorIva',

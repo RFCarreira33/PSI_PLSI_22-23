@@ -19,11 +19,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_Cliente') ?>
 
-    <?= $form->field($model, 'dataFatura') ?>
+    <?= $form->field($model, 'nome') ?>
 
-    <?= $form->field($model, 'valorTotal') ?>
+    <?= $form->field($model, 'nif') ?>
 
-    <?= $form->field($model, 'valorIva') ?>
+    <?= $form->field($model, 'codPostal') ?>
+
+    <?php // echo $form->field($model, 'telefone') ?>
+
+    <?php // echo $form->field($model, 'morada') ?>
+
+    <?php // echo $form->field($model, 'email') ?>
+
+    <?php // echo $form->field($model, 'dataFatura') ?>
+
+    <?php // echo $form->field($model, 'valorTotal') ?>
+
+    <?php // echo $form->field($model, 'valorIva') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

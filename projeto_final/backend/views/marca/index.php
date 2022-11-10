@@ -1,6 +1,6 @@
 <?php
 
-use common\models\marca;
+use common\models\Marca;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -10,6 +10,7 @@ use yii\grid\GridView;
 /** @var backend\models\MarcaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
+$this->title = 'Marcas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="marca-index">
@@ -32,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'nome',
             [
                 'class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}',
-                'urlCreator' => function ($action, marca $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Marca $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'nome' => $model->nome]);
                 }
             ],

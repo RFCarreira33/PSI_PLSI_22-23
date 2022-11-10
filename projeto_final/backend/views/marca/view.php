@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var common\models\marca $model */
+/** @var common\models\Marca $model */
 
 $this->title = $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Marcas', 'url' => ['index']];
@@ -17,7 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Update', ['update', 'nome' => $model->nome], ['class' => 'btn btn-primary']) ?>
-
     </p>
 
     <?= DetailView::widget([
