@@ -34,14 +34,22 @@ use yii\helpers\Url;
                         <span><?php echo $produto->preco ?>€</span>
                     </div>
                     <p class="lead"><?php echo $produto->descricao ?></p>
-                    <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= Url::toRoute(["carrinho/create", "id" => $produto->id, "quantidade" => 1]) ?>">
-                                    Adicionar ao carrinho<i class="bi-cart-fill me-1"></i>
-                                </a></div>
+                    <?php
+                    if (sizeof($produto->stocks) > 0) {
+                    ?>
+                        <div class="d-flex">
+                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= Url::toRoute(["carrinho/create", "id" => $produto->id, "quantidade" => 1]) ?>">
+                                        Adicionar ao carrinho<i class="bi-cart-fill me-1"></i>
+                                    </a></div>
+                            </div>
                         </div>
-                    </div>
+                    <?php
+                    } else {
+                        echo "<h6 style='color:red'>Esgotado</h6>";
+                    }
+                    ?>
                 </div>
             </div>
         </div>
