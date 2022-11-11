@@ -89,7 +89,7 @@ class CarrinhoController extends Controller
         }
         $carrinho->save();
         $carrinhos = $dados->getCarrinhos()->all();
-        return $this->render('view', ['carrinhos' => $carrinhos]);
+        return $this->redirect('view');
     }
 
     /**

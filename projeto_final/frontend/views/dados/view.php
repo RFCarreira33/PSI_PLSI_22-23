@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -12,7 +13,8 @@ use yii\widgets\DetailView;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Atualizar informções', ['update'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('As minha encomendas', Url::toRoute('fatura/index'),  ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([

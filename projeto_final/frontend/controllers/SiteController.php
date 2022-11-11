@@ -77,6 +77,10 @@ class SiteController extends Controller
         return $this->render('index', ['produtos' => $produtos]);
     }
 
+    public function actionHome()
+    {
+        $this->goHome();
+    }
     /**
      * Logs in a user.
      *
