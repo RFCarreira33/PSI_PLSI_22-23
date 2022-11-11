@@ -33,7 +33,7 @@ class ProdutoController extends Controller
         );
     }
 
-    public function actionIndex($category)
+    public function actionCategory($category)
     {
         //Gets category and it's children (if they exist), search for every product related with one of the categories and returns
         $parentCategory = Categoria::find()->select("id")->where(["nome" => $category]);

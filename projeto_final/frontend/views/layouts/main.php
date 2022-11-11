@@ -10,7 +10,7 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 use yii\helpers\Url;
-
+use yii\widgets\ActiveForm;
 
 AppAsset::register($this);
 ?>
@@ -58,6 +58,12 @@ AppAsset::register($this);
                         </ul>
                     </li>
                 </ul>
+
+                <form action="produto/search">
+                  <input type="text" placeholder="Search.." name="query">
+                  <button type="submit">🔍</button>
+                </form>
+
                 <form action="" class="d-flex">
                     <button class="btn btn-outline-dark" type="submit">
                         <i class="bi-cart-fill me-1"></i>
