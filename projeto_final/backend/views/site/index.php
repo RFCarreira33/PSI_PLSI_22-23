@@ -99,7 +99,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             'text' => 'Clientes Registados',
             'icon' => 'fas fa-user-plus',
             'linkText' => 'Ver Clientes',
-            'linkUrl' => Url::toRoute(["cliente/index"])
+            'linkUrl' => Url::toRoute(["dados/index"])
         ]) ?>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
