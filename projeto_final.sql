@@ -363,7 +363,14 @@ CREATE TABLE `stock` (
   `id_Loja` int(11) NOT NULL,
   `id_Produto` int(11) NOT NULL,
   `quantidade` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
+
+INSERT INTO `stock` (`id_Loja`, `id_Produto`, `quantidade`) VALUES
+(1,1,10);
+INSERT INTO `stock` (`id_Loja`, `id_Produto`, `quantidade`) VALUES
+(1,2,15);
+INSERT INTO `stock` (`id_Loja`, `id_Produto`, `quantidade`) VALUES
+(1,3,0);
 
 -- --------------------------------------------------------
 
