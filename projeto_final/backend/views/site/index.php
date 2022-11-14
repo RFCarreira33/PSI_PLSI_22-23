@@ -113,7 +113,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
-            'title' => $somaFatura,
+            'title' => $somaFatura . '€',
             'text' => 'Total Faturado',
             'icon' => 'far fa-copy',
             'linkText' => 'Ver Faturas',
