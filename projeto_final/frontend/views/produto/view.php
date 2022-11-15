@@ -47,13 +47,14 @@ use yii\helpers\Url;
                                         Adicionar ao carrinho<i class="bi-cart-fill me-1"></i>
                                     </a></div>
                             </div>
-                        <?php
+                        </div>
+                    <?php
                     } else {
                         echo "<h6 style='color:red'>Esgotado</h6>";
                     } ?>
-                        <br>
-                        <h5>Disponibilidade por Loja:</h5>
-
+                    <br>
+                    <div>
+                        <p>Disponibilidade por Loja:</p>
                         <?php
                         foreach ($produto->stocks as $stock) {
                             if ($stock->quantidade > 0) {
@@ -63,7 +64,7 @@ use yii\helpers\Url;
                             }
                         }
                         ?>
-                        </div>
+                    </div>
                 </div>
             </div>
     </section>
