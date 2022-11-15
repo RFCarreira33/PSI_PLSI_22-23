@@ -58,9 +58,9 @@ use yii\helpers\Url;
                     <?php
                     foreach ($produto->stocks as $stock) {
                         if ($stock->quantidade > 0) {
-                            echo $stock->loja->localidade . "<h6 style='color:green'>Em Stock</h6>";
+                            echo $stock->loja->localidade . " " . "<span style='color:green'>Em Stock</span><br>";
                         } else {
-                            echo $stock->loja->localidade . "<h6 style='color:red'>Esgotado</h6>";
+                            echo $stock->loja->localidade . " " . "<span style='color:red'>Esgotado</span>";
                         }
                     }
                     ?>
