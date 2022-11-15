@@ -15,6 +15,12 @@ use yii\widgets\ActiveForm;
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
+
+<?php
+    use common\models\Categoria;
+    $categorias = Categoria::find()->all();
+?>
+
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 
@@ -50,16 +56,18 @@ AppAsset::register($this);
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#!">All Products</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                            <?php
+                                foreach($categorias as $categoria)
+                                { ?>
+                                    <li><hr class="dropdown-divider"/></li>
+                                    <li><a class="dropdown-item" href="<?=Url::toRoute(['produto/category?category='.$categoria->nome])?>"><?=$categoria->nome?></a></li>
+                                <?php } 
+                                ?>
                         </ul>
                     </li>
                 </ul>
 
-                <form action="<?=Url::base().'/produto/search'?>">
+                <form action="<?=Url::toRoute(["produto/search"])?>">
                   <input type="text" placeholder="Search.." name="query">
                   <button type="submit">🔍</button>
                 </form>
