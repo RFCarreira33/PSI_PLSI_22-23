@@ -35,8 +35,11 @@ use yii\helpers\Url;
                     </div>
                     <p class="lead"><?php echo $produto->descricao ?></p>
                     <?php
-                    if (sizeof($produto->stocks) > 0) {
-                    ?>
+                    $quantidadeM = 0;
+                    foreach ($produto->stocks as $stock) {
+                        $quantidadeM += $stock->quantidade;
+                    }
+                    if ($quantidadeM > 0) { ?>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -48,6 +51,17 @@ use yii\helpers\Url;
                     <?php
                     } else {
                         echo "<h6 style='color:red'>Esgotado</h6>";
+                    } ?>
+                    <br>
+                    <h5>Disponibilidade por Loja:</h5>
+
+                    <?php
+                    foreach ($produto->stocks as $stock) {
+                        if ($stock->quantidade > 0) {
+                            echo $stock->loja->localidade . "<h6 style='color:green'>Em Stock</h6>";
+                        } else {
+                            echo $stock->loja->localidade . "<h6 style='color:red'>Esgotado</h6>";
+                        }
                     }
                     ?>
                 </div>

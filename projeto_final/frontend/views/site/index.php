@@ -35,7 +35,11 @@ $this->title = 'My Yii Application';
                         <br>
                         <br>
                         <?php
-                        if (sizeof($produto->stocks) > 0) {
+                        $quantidadeM = 0;
+                        foreach ($produto->stocks as $stock) {
+                            $quantidadeM += $stock->quantidade;
+                        }
+                        if ($quantidadeM > 0) {
                             echo "<h6 style='color:green'>Em Stock</h6>";
                         } else {
                             echo "<h6 style='color:red'>Esgotado</h6>";
