@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use \Yii;
 use common\models\Produto;
 use common\models\Categoria;
 use common\models\ProdutoSearch;
@@ -35,22 +36,107 @@ class ProdutoController extends Controller
 
     public function actionCategory($category)
     {
-        //Gets category and it's children (if they exist), search for every product related with one of the categories and returns
-        $parentCategory = Categoria::find()->select("id")->where(["nome" => $category]);
-        $childCategories = Categoria::find()->select("id")->where(["id_categoriaPai" => $parentCategory])->column();
-        
-        foreach($childCategories as $child)
+        /* It's a function to get the parameters from the URL. */
+        $query = explode('&', $_SERVER['QUERY_STRING']);
+        $params = array();
+
+        $categories = array();
+        $selectedCategories = array();
+        $brands = array();
+        $stocksFilter = "";
+        $sort = ["nome", "asc"];
+
+        foreach($query as $param)
         {
-            while(sizeof(Categoria::find()->select("id")->where(["id_categoriaPai" => $child])->column()) != 0)
+            if(count(explode('=', $param)) > 1)
             {
-                foreach(Categoria::find()->select("id")->where(["id_categoriaPai" => $child])->column() as $child)
+                list($name, $value) = explode('=', $param, 2);
+                $params[$name] = $value;
+
+                if($name == "category")
                 {
-                    $childCategories[] = $child;
+                    $selectedCategories = array_filter(explode('-', $value)); //Clears empty values
+                }
+                if($name == "brand")
+                {
+                    $brands = array_filter(explode('-', $value)); //Clears empty values
+                }
+                if($name == "stock")
+                {
+                    $stocks = array_filter(explode('-', $value, 2)); //Clears empty values
+                    foreach($stocks as $stock)
+                    {
+                        if($stock == "em_stock")
+                        {
+                            $stocksFilter .= ">";
+                        }
+                        else if($stock == "sem_stock")
+                        {
+                            $stocksFilter .= "=";
+                        }
+                        else
+                        {
+                            $stocksFilter .= "";
+                        }
+                    }
+                }
+                if($name == "sort")
+                {
+                    if(count(explode('-', $param)) > 1)
+                    {
+                        $sort = array_filter(explode('-', $value, 2)); //Clears empty values
+                        
+                        $table = Yii::$app->db->schema->getTableSchema('Produto');
+                        if (!isset($table->columns[$sort[0]])) 
+                        {
+                            $sort[0] = "nome";
+                        }
+
+                        switch($sort[1])
+                        {
+                            case 'asc': $sort[1] = SORT_ASC; break;
+                            case 'desc': $sort[1] = SORT_DESC; break;
+                            default: $sort[1] = SORT_ASC; break;
+                        }
+                    }
                 }
             }
         }
 
-        $produtos = Produto::find()->where(["id_Categoria" => $parentCategory])->orWhere(["id_Categoria" => $childCategories]);
+        //Corrects $stocksFilter incorrect expressions
+        switch ($stocksFilter) 
+        {
+            case '': 
+            case '=>': $stocksFilter = ">="; break;
+            case '>>': $stocksFilter = ">"; break;
+            case '==': $stocksFilter = "="; break;
+            default: break;
+        }
+
+        //Gets category and its children, search for every product related with one of the categories and returns     
+        foreach($selectedCategories as $category)
+        {
+            $parentCategory = Categoria::find()->select("id")->where(["nome" => $category]);
+            $childCategories = Categoria::find()->select("id")->where(["id_categoriaPai" => $parentCategory])->column();    
+            $categories = array_merge($categories, $parentCategory->column());
+            
+            foreach($childCategories as $child)
+            {
+                $categories[] = $child;
+
+                while(sizeof(Categoria::find()->select("id")->where(["id_categoriaPai" => $child])->column()) != 0)
+                {
+                    foreach(Categoria::find()->select("id")->where(["id_categoriaPai" => $child])->column() as $child)
+                    {
+                        $categories[] = $child;
+                    }
+                }
+            }
+        }
+
+        $produtos = Produto::find()->innerJoin("stock", "stock.id_Produto = produto.id")
+                                   ->orderBy([$sort[0] => $sort[1]])
+                                   ->filterWhere(["id_Categoria" => $categories])->andFilterWhere(["id_marca" => $brands])->andFilterWhere([$stocksFilter, "quantidade", 0]);
 
         $countQuery = clone $produtos;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 2]);

@@ -59,7 +59,7 @@ AppAsset::register($this);
                     </li>
                 </ul>
 
-                <form action="produto/search">
+                <form action="<?=Url::base().'/produto/search'?>">
                   <input type="text" placeholder="Search.." name="query">
                   <button type="submit">🔍</button>
                 </form>
