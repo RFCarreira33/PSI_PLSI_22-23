@@ -68,5 +68,10 @@ class RbacController extends Controller
         $permission->description = "Alterar os dados da Empresa";
         $auth->add($permission);
         $auth->addChild($admin, $permission);
+
+        $permission = $auth->createPermission("AdminCreate");
+        $permission->description = "Permissão para criar uma conta de Admin";
+        $auth->add($permission);
+        $auth->addChild($admin, $permission);
     }
 }

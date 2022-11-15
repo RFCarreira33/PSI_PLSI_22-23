@@ -7,10 +7,9 @@
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 
-$this->title = 'Signup';
+$this->title = 'Create a new account';
 ?>
 <div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Please fill out the following fields to signup:</p>
 
@@ -24,12 +23,28 @@ $this->title = 'Signup';
 
             <?= $form->field($model, 'password')->passwordInput() ?>
 
-            <?= $form->field($model, 'role')->dropdownList(
+            <?= $form->field($model, 'nome') ?>
+
+            <?= $form->field($model, 'codPostal') ?>
+
+            <?= $form->field($model, 'telefone') ?>
+
+            <?= $form->field($model, 'nif') ?>
+
+            <?= $form->field($model, 'morada') ?>
+
+            <?php
+            $disable = true;
+            if (\Yii::$app->user->can('AdminCreate')) {
+                $disable = false;
+            }
+
+            echo $form->field($model, 'role')->dropdownList(
                 [
-                    1 => 'Cliente',
-                    2 => 'Funcionário'
+                    1 => 'Funcionário',
+                    2 => 'Admin'
                 ],
-                ['prompt' => 'Select a Role']
+                ['prompt' => 'Select a Role (Defaults to Funcionário)', 'disabled' => $disable]
             ) ?>
 
             <div class="form-group">

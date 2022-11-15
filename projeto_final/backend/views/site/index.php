@@ -1,14 +1,16 @@
 <?php
 
+use common\models\Dados;
 use yii\helpers\Url;
 
 $this->title = 'Starter Page';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
+$username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 ?>
 <div class="col-lg-6">
     <?= \hail812\adminlte\widgets\Alert::widget([
         'type' => 'success',
-        'body' => '<h3>Congratulations!</h3>',
+        'body' => "Bem vindo(a) $username->nome !",
     ]) ?>
     <?= \hail812\adminlte\widgets\Callout::widget([
         'type' => 'danger',

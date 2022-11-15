@@ -19,6 +19,6 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             <?= nl2br(Html::encode($message)) ?>
         </p>
 
-        <?= Html::a('Go back', ['site/index']) ?>
+        <?= Html::a('Go back', ['site/home']) ?>
     </div>
 </div>
