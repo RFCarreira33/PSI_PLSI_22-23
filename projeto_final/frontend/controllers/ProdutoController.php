@@ -34,17 +34,18 @@ class ProdutoController extends Controller
         );
     }
 
-    public function actionCategory($category)
+    public function actionSearch()
     {
         /* It's a function to get the parameters from the URL. */
         $query = explode('&', $_SERVER['QUERY_STRING']);
         $params = array();
-
+        
         $categories = array();
         $selectedCategories = array();
         $brands = array();
         $stocksFilter = "";
         $sort = ["nome", "asc"];
+        $search = "";
 
         foreach($query as $param)
         {
@@ -100,9 +101,13 @@ class ProdutoController extends Controller
                         }
                     }
                 }
+                if($name == "query")
+                {
+                    $search = $value;
+                }
             }
         }
-
+        
         //Corrects $stocksFilter incorrect expressions
         switch ($stocksFilter) 
         {
@@ -133,24 +138,13 @@ class ProdutoController extends Controller
                 }
             }
         }
-
+        
         $produtos = Produto::find()->innerJoin("stock", "stock.id_Produto = produto.id")
                                    ->orderBy([$sort[0] => $sort[1]])
-                                   ->filterWhere(["id_Categoria" => $categories])->andFilterWhere(["id_marca" => $brands])->andFilterWhere([$stocksFilter, "quantidade", 0]);
-
-        $countQuery = clone $produtos;
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 2]);
-        $models = $produtos->offset($pages->offset)
-            ->limit($pages->limit)
-            ->all();
-
-        return $this->render('index', ['produtos' => $models, 'pages' => $pages]);
-    }
-
-    public function actionSearch($query)
-    {
-        $produtos = Produto::find()->where(['like', 'nome', '%' . $query . '%', false])->orWhere(['like', 'referencia', '%' . $query . '%', false]);
-
+                                   ->filterWhere(['like', 'nome', '%' . $search . '%', false])->orFilterWhere(['like', 'referencia', '%' . $search . '%', false])
+                                   ->andfilterWhere(["id_Categoria" => $categories])->andFilterWhere(["id_marca" => $brands])->andFilterWhere([$stocksFilter, "quantidade", 0]);
+                    
+        print_r($produtos);
         $countQuery = clone $produtos;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 2]);
         $models = $produtos->offset($pages->offset)

@@ -60,7 +60,7 @@ AppAsset::register($this);
                                 foreach($categorias as $categoria)
                                 { ?>
                                     <li><hr class="dropdown-divider"/></li>
-                                    <li><a class="dropdown-item" href="<?=Url::toRoute(['produto/category?category='.$categoria->nome])?>"><?=$categoria->nome?></a></li>
+                                    <li><a class="dropdown-item" href="<?=Url::toRoute(['produto/search?category='.$categoria->nome])?>"><?=$categoria->nome?></a></li>
                                 <?php } 
                                 ?>
                         </ul>
