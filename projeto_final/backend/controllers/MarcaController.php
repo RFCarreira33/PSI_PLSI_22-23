@@ -56,20 +56,6 @@ class MarcaController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
-    /**
-     * Displays a single Marca model.
-     * @param string $nome Nome
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($nome)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($nome),
-        ]);
-    }
-
     /**
      * Creates a new Marca model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -110,20 +96,6 @@ class MarcaController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
-    }
-
-    /**
-     * Deletes an existing Marca model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $nome Nome
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($nome)
-    {
-        $this->findModel($nome)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

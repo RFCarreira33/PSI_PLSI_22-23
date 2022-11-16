@@ -17,9 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Fatura', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
@@ -31,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'id_Cliente',
-            //'nome',
+            //'id_Cliente',
+            'nome',
             'nif',
             //'codPostal',
             //'telefone',
@@ -42,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'valorTotal',
             //'valorIva',
             [
-                'class' => ActionColumn::className(),
+                'class' => 'yii\grid\ActionColumn', 'template' => '{view}',
                 'urlCreator' => function ($action, Fatura $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }
