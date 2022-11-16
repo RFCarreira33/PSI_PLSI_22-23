@@ -52,4 +52,6 @@ $this->title = 'My Yii Application';
         'firstPageLabel' => true,
         'lastPageLabel' => true
     ]);
+
+    include __DIR__ . '/../layouts/filters.php';
 ?>

@@ -68,7 +68,7 @@ AppAsset::register($this);
                 </ul>
 
                 <form action="<?=Url::toRoute(["produto/search"])?>">
-                  <input type="text" placeholder="Search.." name="query">
+                  <input id="searchBar" type="text" placeholder="Search..." name="query">
                   <button type="submit">🔍</button>
                 </form>
 
