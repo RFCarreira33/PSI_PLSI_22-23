@@ -67,7 +67,15 @@ use yii\helpers\Url;
                                                 <h6 class="text-muted"><?php echo $carrinho->produto->nome ?></h6>
                                             </div>
                                             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                <a data-method="POST" style='text-decoration:none;font-size: 50px;text-align:center;' href="<?= Url::toRoute(["carrinho/tirar", 'id_Produto' => $carrinho->id_Produto]) ?>">
+                                                    -
+                                                </a>
+                                                <br>
                                                 <?php echo $carrinho->Quantidade ?>
+                                                <br>
+                                                <a data-method="POST" style='text-decoration:none;font-size: 50px;text-align:center;' href="<?= Url::toRoute(["carrinho/adicionar", 'id_Produto' => $carrinho->id_Produto]) ?>">
+                                                    +
+                                                </a>
                                             </div>
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                 <h6 class="mb-0">

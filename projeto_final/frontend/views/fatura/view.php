@@ -38,7 +38,7 @@ use yii\widgets\DetailView;
                     <td><?= $linha->produto->preco ?>€</td>
                     <td><?= $linha->produto->iva->percentagem ?>%</td>
                     <td><?= $linha->valorIva ?>€</td>
-                    <td><?= $linha->valor ?>€</td>
+                    <td><?= $linha->quantidade * $linha->valor ?>€</td>
                 </tr>
             <?php } ?>
         </tbody>
