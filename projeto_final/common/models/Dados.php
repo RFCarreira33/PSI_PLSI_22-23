@@ -98,4 +98,9 @@ class Dados extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'id_User']);
     }
+
+    public static function findIdentity()
+    {
+        return Yii::$app->user->id;
+    }
 }

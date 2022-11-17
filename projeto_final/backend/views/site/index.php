@@ -12,88 +12,8 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
         'type' => 'success',
         'body' => "Bem vindo(a) $username->nome !",
     ]) ?>
-    <?= \hail812\adminlte\widgets\Callout::widget([
-        'type' => 'danger',
-        'head' => 'I am a danger callout!',
-        'body' => 'There is a problem that we need to fix. A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.'
-    ]) ?>
 </div>
-<div class="col-md-4 col-sm-6 col-12">
-    <?= \hail812\adminlte\widgets\InfoBox::widget([
-        'text' => 'Uploads',
-        'number' => '13,648',
-        'theme' => 'gradient-warning',
-        'icon' => 'far fa-copy',
-    ]) ?>
-</div>
-<div class="row">
-    <div class="col-12 col-sm-6 col-md-3">
-        <?= \hail812\adminlte\widgets\InfoBox::widget([
-            'text' => 'CPU Traffic',
-            'number' => '10 <small>%</small>',
-            'icon' => 'fas fa-cog',
-        ]) ?>
-    </div>
 
-    <div class="col-md-4 col-sm-6 col-12">
-        <?= \hail812\adminlte\widgets\InfoBox::widget([
-            'text' => 'Messages',
-            'number' => '1,410',
-            'icon' => 'far fa-envelope',
-        ]) ?>
-    </div>
-    <div class="col-md-4 col-sm-6 col-12">
-        <?= \hail812\adminlte\widgets\InfoBox::widget([
-            'text' => 'Bookmarks',
-            'number' => '410',
-            'theme' => 'success',
-            'icon' => 'far fa-flag',
-        ]) ?>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-4 col-sm-6 col-12">
-        <?= \hail812\adminlte\widgets\InfoBox::widget([
-            'text' => 'Events',
-            'number' => '41,410',
-            'theme' => 'gradient-warning',
-            'icon' => 'far fa-calendar-alt',
-            'progress' => [
-                'width' => '70%',
-                'description' => '70% Increase in 30 Days'
-            ],
-        ]) ?>
-    </div>
-    <div class="col-md-4 col-sm-6 col-12">
-        <?= \hail812\adminlte\widgets\InfoBox::widget([
-            'text' => 'Bookmarks',
-            'number' => '41,410',
-            'icon' => 'far fa-bookmark',
-            'progress' => [
-                'width' => '70%',
-                'description' => '70% Increase in 30 Days'
-            ]
-        ]) ?>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-12">
-        <?php $infoBox = \hail812\adminlte\widgets\InfoBox::begin([
-            'text' => 'Likes',
-            'number' => '41,410',
-            'theme' => 'success',
-            'icon' => 'far fa-thumbs-up',
-            'progress' => [
-                'width' => '70%',
-                'description' => '70% Increase in 30 Days'
-            ]
-        ]) ?>
-        <?= \hail812\adminlte\widgets\Ribbon::widget([
-            'id' => $infoBox->id . '-ribbon',
-            'text' => 'Ribbon',
-        ]) ?>
-        <?php \hail812\adminlte\widgets\InfoBox::end() ?>
-    </div>
-</div>
 <div class="row">
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
@@ -101,7 +21,7 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
             'text' => 'Clientes Registados',
             'icon' => 'fas fa-user-plus',
             'linkText' => 'Ver Clientes',
-            'linkUrl' => Url::toRoute(["dados/index"])
+            'linkUrl' => Url::toRoute(["dados/index", 'role' => 'cliente']),
         ]) ?>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">

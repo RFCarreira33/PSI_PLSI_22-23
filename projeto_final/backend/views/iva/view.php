@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
+use yii\grid\GridView;
+use common\models\Produto;
+use common\models\Iva;
 
 /** @var yii\web\View $this */
 /** @var common\models\Iva $model */
@@ -29,10 +33,37 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'percentagem',
-            'Ativo',
+            'Ativo' => [
+                'label' => 'Estado',
+                'attribute' => 'Ativo',
+                'value' => function (Iva $model) {
+                    if ($model->Ativo == 1) {
+                        return 'Ativo';
+                    }
+                    return 'Inativo';
+                }
+            ],
+
         ],
     ]) ?>
 
+    <br>
+    <h2><?= Html::a("Produtos", Url::toRoute('produto/index')) ?> com a esta taxa de Iva </h2>
+    <br>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'nome',
+            [
+                'class' => 'yii\grid\ActionColumn', 'template' => '{view}{update}',
+                'urlCreator' => function ($action, Produto $model, $key, $index, $column) {
+                    return Url::toRoute(['produto/view', 'id' => $model->id]);
+                }
+            ],
+        ],
+    ]); ?>
 </div>

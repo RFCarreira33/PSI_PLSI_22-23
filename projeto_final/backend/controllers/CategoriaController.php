@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
 
 /**
  * CategoriaController implements the CRUD actions for Categoria model.
@@ -65,8 +66,13 @@ class CategoriaController extends Controller
      */
     public function actionView($id)
     {
+        $categoria = Categoria::findOne(['id' => $id]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $categoria->getProdutos(),
+        ]);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -78,7 +84,6 @@ class CategoriaController extends Controller
     public function actionCreate()
     {
         $model = new Categoria();
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -121,7 +126,7 @@ class CategoriaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $categoria = $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }

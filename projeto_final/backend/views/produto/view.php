@@ -1,12 +1,14 @@
 <?php
 
 use yii\helpers\Html;
+use common\models\Produto;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var common\models\Produto $model */
 
-$this->title = $model->id;
+$this->title = $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Produtos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -29,16 +31,56 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'id_Categoria',
-            'id_Iva',
-            'id_Marca',
-            'descricao:ntext',
-            'imagem:ntext',
-            'referencia',
-            'preco',
             'nome',
-            'Ativo',
+            'preco' => [
+                'label' => 'Preço',
+                'attribute' => 'preco',
+                'value' => function (Produto $model) {
+                    return $model->preco . '€';
+                }
+            ],
+            'referencia',
+            'Ativo' => [
+                'label' => 'Estado',
+                'attribute' => 'Ativo',
+                'value' => function (Produto $model) {
+                    if ($model->Ativo == 1) {
+                        return 'Ativo';
+                    }
+                    return 'Inativo';
+                }
+            ],
+            'id_Categoria' => [
+                'label' => Html::a('Categoria', Url::to(['categoria/view', 'id' => $model->id_Categoria])),
+                'attribute' => 'id_Categoria',
+                'value' => function (Produto $model) {
+                    return $model->categoria->nome;
+                },
+            ],
+
+            'id_Marca' => [
+                'label' => Html::a('Marca', Url::to(['marca/view', 'nome' => $model->marca->nome])),
+                'attribute' => 'id_Marca',
+                'value' => function (Produto $model) {
+                    return $model->marca->nome;
+                },
+                'urlExpression' => Url::toRoute(['marca/view', 'id' => $model->id_Marca]),
+            ],
+            'id_Iva' => [
+                'label' => Html::a('Taxa IVA', Url::to(['iva/view', 'id' => $model->id_Iva])),
+                'attribute' => 'id_Iva',
+                'value' => function (Produto $model) {
+                    return $model->iva->percentagem . '%';
+                }
+            ],
+            'descricao:ntext' => [
+                'label' => 'Descrição',
+                'attribute' => 'descricao',
+                'value' => function (Produto $model) {
+                    return $model->descricao;
+                }
+            ],
+            'imagem:ntext',
         ],
     ]) ?>
 

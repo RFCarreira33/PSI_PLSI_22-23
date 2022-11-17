@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\models\Stock;
+use common\models\Loja;
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
@@ -81,6 +83,14 @@ class ProdutoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $lojas = Loja::find()->all();
+                foreach ($lojas as $loja) {
+                    $stock = new Stock();
+                    $stock->id_Produto = $model->id;
+                    $stock->id_Loja = $loja->id;
+                    $stock->quantidade = 0;
+                    $stock->save();
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {

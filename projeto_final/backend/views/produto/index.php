@@ -30,16 +30,38 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'nome',
-            //'id_Categoria',
+            'id_Categoria' => [
+                'label' => 'Categoria',
+                'attribute' => 'id_Categoria',
+                'value' => function (Produto $model) {
+                    return $model->categoria->nome;
+                }
+            ],
+
             //'id_Iva',
-            'id_Marca',
+            'id_Marca' => [
+                'label' => 'Marca',
+                'attribute' => 'id_Marca',
+                'value' => function (Produto $model) {
+                    return $model->marca->nome;
+                }
+            ],
             //'descricao:ntext',
             //'imagem:ntext',
             //'referencia',
             'preco',
-            'Ativo',
+            'Ativo' => [
+                'label' => 'Estado',
+                'attribute' => 'Ativo',
+                'value' => function (Produto $model) {
+                    if ($model->Ativo == 1) {
+                        return 'Ativo';
+                    }
+                    return 'Inativo';
+                }
+            ],
+
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Produto $model, $key, $index, $column) {

@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Iva;
 use backend\models\IvaSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,7 +66,12 @@ class IvaController extends Controller
      */
     public function actionView($id)
     {
+        $iva = Iva::findOne(['id' => $id]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $iva->getProdutos(),
+        ]);
         return $this->render('view', [
+            'dataProvider' => $dataProvider,
             'model' => $this->findModel($id),
         ]);
     }

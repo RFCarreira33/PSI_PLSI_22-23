@@ -51,6 +51,7 @@ class Produto extends \yii\db\ActiveRecord
             [['id_Iva'], 'exist', 'skipOnError' => true, 'targetClass' => Iva::class, 'targetAttribute' => ['id_Iva' => 'id']],
             [['id_Marca'], 'exist', 'skipOnError' => true, 'targetClass' => Marca::class, 'targetAttribute' => ['id_Marca' => 'nome']],
             [['id_Categoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['id_Categoria' => 'id']],
+            [['Ativo'], 'in', 'range' => [0, 1]],
         ];
     }
 

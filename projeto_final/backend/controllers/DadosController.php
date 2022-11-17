@@ -51,7 +51,7 @@ class DadosController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($role)
     {
         $searchModel = new DadosSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);

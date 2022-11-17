@@ -6,6 +6,7 @@ use common\models\Marca;
 use backend\models\MarcaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
@@ -53,6 +54,24 @@ class MarcaController extends Controller
 
         return $this->render('index', [
             'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    /**
+     * Displays a single Marca model.
+     * @param string $nome Nome
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($nome)
+    {
+
+        $marca = Marca::findOne(['nome' => $nome]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $marca->getProdutos(),
+        ]);
+        return $this->render('view', [
+            'model' => $this->findModel($nome),
             'dataProvider' => $dataProvider,
         ]);
     }

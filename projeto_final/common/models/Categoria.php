@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\validators\when;
 
 /**
  * This is the model class for table "categoria".
@@ -35,6 +36,12 @@ class Categoria extends \yii\db\ActiveRecord
             [['nome'], 'required'],
             [['nome'], 'string', 'max' => 45],
             [['id_CategoriaPai'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['id_CategoriaPai' => 'id']],
+            [['id_CategoriaPai'], 'exist', 'when' => function ($model, $attribute) {
+                if ($model->$attribute == $model->id) {
+                    $this->addError($attribute, 'A categoria pai não pode ser a mesma que a categoria');
+                    return false;
+                }
+            }],
         ];
     }
 

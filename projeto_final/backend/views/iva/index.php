@@ -30,9 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'percentagem',
-            'Ativo',
+            'Ativo' => [
+                'label' => 'Estado',
+                'attribute' => 'Ativo',
+                'value' => function (Iva $model) {
+                    if ($model->Ativo == 1) {
+                        return 'Ativo';
+                    }
+                    return 'Inativo';
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Iva $model, $key, $index, $column) {
