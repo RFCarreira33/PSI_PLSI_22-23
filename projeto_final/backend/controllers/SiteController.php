@@ -99,7 +99,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if (AuthAssignment::checkAccess() == 'cliente') {
+            if (AuthAssignment::isCliente()) {
                 return $this->redirect('logout');
             }
             return $this->goBack();

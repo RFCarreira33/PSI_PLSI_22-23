@@ -2,8 +2,10 @@
 
 use yii\helpers\Html;
 use common\models\Produto;
+use common\models\Stock;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
+use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var common\models\Produto $model */
@@ -15,11 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="produto-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Apagar', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -39,7 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->preco . '€';
                 }
             ],
-            'referencia',
+            'referencia' => [
+                'label' => 'Referência',
+                'attribute' => 'referencia',
+                'value' => function (Produto $model) {
+                    return $model->referencia;
+                }
+            ],
             'Ativo' => [
                 'label' => 'Estado',
                 'attribute' => 'Ativo',
@@ -83,5 +89,30 @@ $this->params['breadcrumbs'][] = $this->title;
             'imagem:ntext',
         ],
     ]) ?>
+
+    <br>
+    <h2><?= Html::a("Stock", Url::toRoute('produto/index')) ?> de <?= $model->nome ?> nas várias lojas</h2>
+    <br>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'id_Loja' => [
+                'label' => 'Loja',
+                'attribute' => 'id_Loja',
+                'value' => function (Stock $model) {
+                    return $model->loja->localidade;
+                }
+            ],
+
+            'quantidade',
+            [
+                'class' => 'yii\grid\ActionColumn', 'template' => '{update}',
+                'urlCreator' => function ($action, Stock $model, $key, $index, $column) {
+                    return Url::toRoute(['stock/update', 'id_Loja' => $model->id_Loja, 'id_Produto' => $model->id_Produto]);
+                }
+            ],
+        ],
+    ]); ?>
 
 </div>

@@ -48,6 +48,9 @@ class EmpresaController extends Controller
      */
     public function actionView()
     {
+        if (!\Yii::$app->user->can('ReadEmpresa')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         return $this->render('view', [
             'model' => $this->findModel(1),
         ]);
@@ -61,10 +64,9 @@ class EmpresaController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (!\Yii::$app->user->can('updateEmpresa')) {
-            return $this->goHome();
+        if (!\Yii::$app->user->can('UpdateEmpresa')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
-
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {

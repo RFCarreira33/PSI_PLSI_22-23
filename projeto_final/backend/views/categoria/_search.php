@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Categoria;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -15,15 +16,12 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'id_CategoriaPai') ?>
+    <?= $form->field($model, 'id_CategoriaPai')->dropDownList(Categoria::find()->select(['nome', 'id'])->indexBy('id')->column(), ['prompt' => 'Todas'])->label('Categoria Pai') ?>
 
     <?= $form->field($model, 'nome') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

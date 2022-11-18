@@ -60,10 +60,30 @@ class AuthAssignment extends \yii\db\ActiveRecord
     }
 
 
-    public static function checkAccess()
+    public static function isCliente()
     {
         $user = AuthAssignment::find()->where(['user_id' => Yii::$app->user->id])->one();
+        if ($user->item_name == 'cliente') {
+            return true;
+        }
+        return false;
+    }
 
-        return $user->item_name;
+    public static function isAdmin()
+    {
+        $user = AuthAssignment::find()->where(['user_id' => Yii::$app->user->id])->one();
+        if ($user->item_name == 'admin') {
+            return true;
+        }
+        return false;
+    }
+
+    public static function getIds($role)
+    {
+        $users = AuthAssignment::findAll(['item_name' => $role]);
+        foreach ($users as $user) {
+            $ids[] = $user->user_id;
+        }
+        return $ids;
     }
 }

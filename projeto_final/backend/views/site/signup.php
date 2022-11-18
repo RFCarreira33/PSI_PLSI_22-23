@@ -35,7 +35,7 @@ $this->title = 'Create a new account';
 
             <?php
             $disable = true;
-            if (\Yii::$app->user->can('AdminCreate')) {
+            if (\Yii::$app->user->can('createAdmin')) {
                 $disable = false;
             }
 

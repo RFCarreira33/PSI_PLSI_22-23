@@ -49,6 +49,9 @@ class CategoriaController extends Controller
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ReadCategoria')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $searchModel = new CategoriaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -66,6 +69,9 @@ class CategoriaController extends Controller
      */
     public function actionView($id)
     {
+        if (!\Yii::$app->user->can('ReadCategoria')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $categoria = Categoria::findOne(['id' => $id]);
         $dataProvider = new ActiveDataProvider([
             'query' => $categoria->getProdutos(),
@@ -83,6 +89,9 @@ class CategoriaController extends Controller
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('CreateCategoria')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = new Categoria();
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -106,6 +115,9 @@ class CategoriaController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!\Yii::$app->user->can('UpdateCategoria')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -126,6 +138,9 @@ class CategoriaController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!\Yii::$app->user->can('DeleteCategoria')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $categoria = $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

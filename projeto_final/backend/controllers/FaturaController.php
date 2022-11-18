@@ -48,6 +48,9 @@ class FaturaController extends Controller
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ReadFatura')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $searchModel = new FaturaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -65,6 +68,9 @@ class FaturaController extends Controller
      */
     public function actionView($id)
     {
+        if (!\Yii::$app->user->can('ReadFatura')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

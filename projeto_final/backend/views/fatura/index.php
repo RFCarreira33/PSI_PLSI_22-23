@@ -15,9 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fatura-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
 
@@ -27,17 +24,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            //'id_Cliente',
             'nome',
             'nif',
-            //'codPostal',
-            //'telefone',
-            //'morada',
             'email:email',
-            'dataFatura',
-            'valorTotal',
-            //'valorIva',
+            'dataFatura' => [
+                'attribute' => 'dataFatura',
+                'label' => 'Data de Emisão',
+                'format' => ['datetime', 'php:d-m-Y H:i:s']
+            ],
+            'valorTotal' => [
+                'attribute' => 'valorTotal',
+                'label' => 'Valor Total',
+                'value' => function (Fatura $model) {
+                    return $model->valorTotal . '€';
+                }
+            ],
             [
                 'class' => 'yii\grid\ActionColumn', 'template' => '{view}',
                 'urlCreator' => function ($action, Fatura $model, $key, $index, $column) {

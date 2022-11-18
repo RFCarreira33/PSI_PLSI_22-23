@@ -16,10 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="marca-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'nome' => $model->nome], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Atualizar', ['update', 'nome' => $model->nome], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([

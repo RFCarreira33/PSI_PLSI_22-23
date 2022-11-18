@@ -10,14 +10,18 @@ use yii\widgets\ActiveForm;
 
 <div class="iva-form">
 
+
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'percentagem')->textInput() ?>
+    <?= $form->field($model, 'percentagem') ?>
+    <?= $form->field($model, 'Ativo')->dropDownList(
+        ['1' => 'Ativo', '0' => 'Inativo'],
+    )->label('Estado') ?>
 
-    <?= $form->field($model, 'Ativo')->textInput() ?>
+
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

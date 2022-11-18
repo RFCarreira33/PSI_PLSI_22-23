@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\Dados;
 
 /** @var yii\web\View $this */
 /** @var common\models\Dados $model */
@@ -13,10 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="dados-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id_User' => $model->id_User], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Atualizar', ['update', 'id_User' => $model->id_User], ['class' => 'btn btn-primary']) ?>
         <?php if ($status == null) {
             echo Html::a('Reativar Conta', ['change', 'id_User' => $model->id_User], ['class' => 'btn btn-primary']);
         } else {
@@ -27,12 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_User',
             'nome',
             'telefone',
             'nif',
             'morada',
-            'codPostal',
+            'codPostal' => [
+                'label' => 'Código Postal',
+                'attribute' => 'codPostal',
+                'value' => function (Dados $model) {
+                    return $model->codPostal;
+                }
+            ],
         ],
     ]) ?>
 

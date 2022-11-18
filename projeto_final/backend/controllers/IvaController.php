@@ -49,6 +49,9 @@ class IvaController extends Controller
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ReadIva')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $searchModel = new IvaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -66,6 +69,9 @@ class IvaController extends Controller
      */
     public function actionView($id)
     {
+        if (!\Yii::$app->user->can('ReadIva')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $iva = Iva::findOne(['id' => $id]);
         $dataProvider = new ActiveDataProvider([
             'query' => $iva->getProdutos(),
@@ -83,7 +89,11 @@ class IvaController extends Controller
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('CreateIva')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = new Iva();
+
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -107,6 +117,9 @@ class IvaController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!\Yii::$app->user->can('UpdateIva')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -127,6 +140,9 @@ class IvaController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!\Yii::$app->user->can('DeleteIva')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = $this->findModel($id);
         $model->Ativo = 0;
         $model->save();

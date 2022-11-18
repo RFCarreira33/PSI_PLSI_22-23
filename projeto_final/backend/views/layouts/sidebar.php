@@ -2,6 +2,7 @@
 
 use yii\helpers\Url;
 use common\models\Dados;
+use backend\models\AuthAssignment;
 
 $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 ?>
@@ -29,25 +30,28 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <?php
+            $admin = AuthAssignment::isAdmin();
+
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
                     ['label' => 'Atalhos', 'header' => true],
-                    ['label' => 'Criar uma conta', 'url' => ['site/signup'], 'iconStyle' => 'far'],
+                    ['label' => 'Criar uma conta', 'url' => ['site/signup']],
                     ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
-                    ['label' => 'Gestão ', 'header' => true],
                     [
                         'label' => 'Perfis e contas',
                         'items' => [
 
-                            ['label' => 'Clientes',  'icon' => 'far', 'url' => ['/dados/index', 'role' => 'cliente']],
-                            ['label' => 'Funcionários',  'icon' => 'far', 'url' => ['/dados/index', 'role' => 'funcionario']],
-                            ['label' => 'Administradores',  'icon' => 'far', 'url' => ['/dados/index', 'role' => 'admin']],
+                            ['label' => 'Clientes',  'iconStyle' => 'far', 'url' => ['/dados/index', 'role' => 'cliente']],
+                            ['label' => 'Funcionários',  'iconStyle' => 'far', 'url' => ['/dados/index', 'role' => 'funcionario']],
+                            ['label' => 'Administradores',  'iconStyle' => 'far', 'url' => ['/dados/index', 'role' => 'admin'], 'visible' => $admin],
 
                         ]
                     ],
-                    ['label' => 'Empresa',  'icon' => 'th', 'url' => ['/empresa/view'], 'target' => '_blank'],
+                    ['label' => 'Gestão ', 'header' => true],
+                    ['label' => 'Empresa',  'icon' => 'th', 'url' => ['/empresa/view'], 'target' => '_blank', 'visible' => $admin],
                     ['label' => 'Produtos',  'icon' => 'th', 'url' => ['/produto/index'], 'target' => '_blank'],
-                    ['label' => 'Iva',  'icon' => 'th', 'url' => ['/iva/index'], 'target' => '_blank'],
+                    ['label' => 'Stocks',  'icon' => 'th', 'url' => ['/stock/index'], 'target' => '_blank'],
+                    ['label' => 'Taxas de Iva',  'icon' => 'th', 'url' => ['/iva/index'], 'target' => '_blank'],
                     ['label' => 'Marcas',  'icon' => 'th', 'url' => ['/marca/index'], 'target' => '_blank'],
                     ['label' => 'Faturas',  'icon' => 'th', 'url' => ['/fatura/index'], 'target' => '_blank'],
                     ['label' => 'Categorias',  'icon' => 'th', 'url' => ['/categoria/index'], 'target' => '_blank'],

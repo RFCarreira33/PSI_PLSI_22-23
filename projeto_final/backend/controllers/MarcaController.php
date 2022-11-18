@@ -49,6 +49,9 @@ class MarcaController extends Controller
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ReadMarca')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $searchModel = new MarcaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -66,6 +69,9 @@ class MarcaController extends Controller
     public function actionView($nome)
     {
 
+        if (!\Yii::$app->user->can('ReadMarca')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $marca = Marca::findOne(['nome' => $nome]);
         $dataProvider = new ActiveDataProvider([
             'query' => $marca->getProdutos(),
@@ -82,6 +88,9 @@ class MarcaController extends Controller
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('CreateMarca')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = new Marca();
 
         if ($this->request->isPost) {
@@ -106,6 +115,9 @@ class MarcaController extends Controller
      */
     public function actionUpdate($nome)
     {
+        if (!\Yii::$app->user->can('UpdateMarca')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = $this->findModel($nome);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {

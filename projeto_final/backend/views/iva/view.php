@@ -10,18 +10,16 @@ use common\models\Iva;
 /** @var yii\web\View $this */
 /** @var common\models\Iva $model */
 
-$this->title = $model->id;
+$this->title = "Taxa de $model->percentagem%";
 $this->params['breadcrumbs'][] = ['label' => 'Ivas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="iva-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['deactivate', 'id' => $model->id], [
+        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Apagar', ['deactivate', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to deactivate this item?',

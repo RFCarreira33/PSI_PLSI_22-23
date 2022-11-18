@@ -10,15 +10,10 @@ use yii\grid\GridView;
 /** @var backend\models\DadosSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-
+$this->title = "Perfis e Contas de $role";
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="dados-index">
-
-    <h1><?= Html::encode('Clientes') ?></h1>
-
-    <p>
-        <?= Html::a('Create Client', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
@@ -29,12 +24,17 @@ use yii\grid\GridView;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_User',
             'nome',
             'telefone',
             'nif',
             'morada',
-            'codPostal',
+            'codPostal' => [
+                'label' => 'Código Postal',
+                'attribute' => 'codPostal',
+                'value' => function (Dados $model) {
+                    return $model->codPostal;
+                }
+            ],
             [
                 'class' => 'yii\grid\ActionColumn', 'template' => '{view}',
                 'urlCreator' => function ($action, Dados $model, $key, $index, $column) {

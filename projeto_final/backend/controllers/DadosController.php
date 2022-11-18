@@ -2,9 +2,12 @@
 
 namespace backend\controllers;
 
+use backend\models\AuthAssignment;
 use common\models\dados;
 use backend\models\DadosSearch;
 use common\models\User;
+use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -53,12 +56,30 @@ class DadosController extends Controller
      */
     public function actionIndex($role)
     {
+        if ($role == 'admin' && !Yii::$app->user->can('updateEmpresa')) {
+            return $this->goHome();
+        }
+        $ids = AuthAssignment::getIds($role);
+        $dataProvider = new ActiveDataProvider([
+            'query' => dados::find()->where(['id_user' => $ids]),
+        ]);
+
+        switch ($role) {
+            case 'admin':
+                $role = 'Administradores';
+                break;
+            case 'funcionario':
+                $role = 'Funcionários';
+                break;
+            default:
+                $role = 'Clientes';
+        }
         $searchModel = new DadosSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'role' => $role,
         ]);
     }
 

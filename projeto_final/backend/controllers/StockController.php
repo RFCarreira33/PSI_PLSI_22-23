@@ -48,6 +48,9 @@ class StockController extends Controller
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ReadStock')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $searchModel = new StockSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -56,43 +59,6 @@ class StockController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
-    /**
-     * Displays a single Stock model.
-     * @param int $id_Loja Id Loja
-     * @param int $id_Produto Id Produto
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id_Loja, $id_Produto)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id_Loja, $id_Produto),
-        ]);
-    }
-
-    /**
-     * Creates a new Stock model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
-     */
-    public function actionCreate()
-    {
-        $model = new Stock();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_Loja' => $model->id_Loja, 'id_Produto' => $model->id_Produto]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
     /**
      * Updates an existing Stock model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -103,6 +69,9 @@ class StockController extends Controller
      */
     public function actionUpdate($id_Loja, $id_Produto)
     {
+        if (!\Yii::$app->user->can('UpdateStock')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = $this->findModel($id_Loja, $id_Produto);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -112,21 +81,6 @@ class StockController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
-    }
-
-    /**
-     * Deletes an existing Stock model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id_Loja Id Loja
-     * @param int $id_Produto Id Produto
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id_Loja, $id_Produto)
-    {
-        $this->findModel($id_Loja, $id_Produto)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

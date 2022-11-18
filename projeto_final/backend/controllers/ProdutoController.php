@@ -7,6 +7,7 @@ use backend\models\ProdutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use common\models\Stock;
 use common\models\Loja;
@@ -50,6 +51,9 @@ class ProdutoController extends Controller
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ReadProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -67,8 +71,16 @@ class ProdutoController extends Controller
      */
     public function actionView($id)
     {
+        if (!\Yii::$app->user->can('ReadProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+        $produto = Produto::findOne(['id' => $id]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $produto->getStocks(),
+        ]);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -79,6 +91,9 @@ class ProdutoController extends Controller
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('CreateProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = new Produto();
 
         if ($this->request->isPost) {
@@ -111,6 +126,9 @@ class ProdutoController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!\Yii::$app->user->can('UpdateProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -131,6 +149,9 @@ class ProdutoController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!\Yii::$app->user->can('DeleteProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\Empresa;
 
 /** @var yii\web\View $this */
 /** @var common\models\Empresa $model */
@@ -14,23 +15,32 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'designacaoSocial',
+            'designacaoSocial' => [
+                'label' => 'Designação Social',
+                'attribute' => 'designacaoSocial',
+                'value' => function (Empresa $model) {
+                    return $model->designacaoSocial;
+                }
+            ],
             'email:email',
             'telefone',
             'nif',
             'morada',
-            'codPostal',
+            'codPostal' => [
+                'label' => 'Código Postal',
+                'attribute' => 'codPostal',
+                'value' => function (Empresa $model) {
+                    return $model->codPostal;
+                }
+            ],
             'localidade',
             'capitalSocial',
-            'imgBanner',
-            'imgLogo',
         ],
     ]) ?>
 

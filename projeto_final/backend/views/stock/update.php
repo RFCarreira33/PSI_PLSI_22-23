@@ -1,21 +1,26 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var common\models\Stock $model */
 
-$this->title = 'Update Stock: ' . $model->id_Loja;
+$this->title = 'Atualizar o Stock de ' . $model->produto->nome . ' na loja de ' . $model->loja->localidade;
 $this->params['breadcrumbs'][] = ['label' => 'Stocks', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id_Loja, 'url' => ['view', 'id_Loja' => $model->id_Loja, 'id_Produto' => $model->id_Produto]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="stock-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'quantidade') ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
 
 </div>
