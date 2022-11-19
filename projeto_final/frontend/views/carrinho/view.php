@@ -54,9 +54,16 @@ use yii\helpers\Url;
                                     <div class="d-flex justify-content-between align-items-center mb-5">
                                         <h1 class="fw-bold mb-0 text-black">Carrinho de Compras</h1>
                                     </div>
-                                    <?php $precoTotal = 0; ?>
-                                    <?php foreach ($carrinhos as $carrinho) {
+                                    <?php
+                                    $precoTotal = 0;
+                                    foreach ($carrinhos as $carrinho) {
                                         $precoTotal += $carrinho->produto->preco * $carrinho->Quantidade;
+                                        $esgotado = true;
+                                        foreach ($carrinho->produto->stocks as $stock) {
+                                            if ($stock->quantidade > 0) {
+                                                $esgotado = false;
+                                            }
+                                        }
                                     ?>
                                     <hr class="my-4">
                                     <div class="row mb-4 d-flex justify-content-between align-items-center">
@@ -66,6 +73,12 @@ use yii\helpers\Url;
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-3">
                                             <h6 class="text-muted"><?= $carrinho->produto->nome ?></h6>
+                                            <?php if ($esgotado) {
+                                                    echo '<span class="text-danger">Esgotado</span>';
+                                                } else {
+                                                    echo '<span class="text-success">Em Stock</span>';
+                                                }
+                                                ?>
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                                             <?= $carrinho->Quantidade ?>

@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\BaseUrl;
 use yii\helpers\Url;
 ?>
 
@@ -33,11 +34,17 @@ use yii\helpers\Url;
                     </div>
                     <p class="lead"><?= $produto->descricao ?></p>
                     <?php
-                    $quantidadeM = 0;
+                    $esgotado = true;
+                    //Verificar se o produto está esgotado
                     foreach ($produto->stocks as $stock) {
-                        $quantidadeM += $stock->quantidade;
+                        if ($stock->quantidade > 0) {
+                            $esgotado = false;
+                        }
                     }
-                    if ($quantidadeM > 0) { ?>
+                    if ($esgotado) {
+                        echo "<h6 style='color:red'>Esgotado</h6>";
+                    } else { ?>
+                    <br>
                     <div class="d-flex">
                         <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
                             style="max-width: 3rem" />
@@ -48,21 +55,18 @@ use yii\helpers\Url;
                                 </a></div>
                         </div>
                     </div>
-                    <?php
-                    } else {
-                        echo "<h6 style='color:red'>Esgotado</h6>";
-                    } ?>
                     <br>
                     <div>
                         <p>Disponibilidade por Loja:</p>
                         <?php
                         foreach ($produto->stocks as $stock) {
                             if ($stock->quantidade > 0) {
-                                echo $stock->loja->localidade . " " . "<span style='color:green'>Em Stock</span><br>";
+                                echo $stock->loja->localidade . " <span style='color:green'><b>Em Stock</b></span><br>";
                             } else {
-                                echo $stock->loja->localidade . " " . "<span style='color:red'>Esgotado</span>";
+                                echo $stock->loja->localidade . " <span style='color:red'><b>Esgotado</b></span>";
                             }
                         }
+                    }
                         ?>
                     </div>
                 </div>
@@ -72,27 +76,40 @@ use yii\helpers\Url;
     <section class="py-5 bg-light">
         <div class="container px-4 px-lg-5 mt-5">
             <?php
+
             if (count($relatedProducts) > 0) {  ?>
-            <h2 class="fw-bolder mb-4">Related products</h2> <?php } ?>
+            <h2 class="fw-bolder mb-4">Produtos Relacionados</h2> <?php } ?>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <?php
-                for ($i = 0; $i < count($relatedProducts); $i++) { ?>
+                foreach ($relatedProducts as $produto) { ?>
                 <div class="col mb-5">
                     <div class="card h-100">
                         <a style="text-decoration: none;color:black;"
-                            href="<?= Url::toRoute(["produto/view", "id" => $relatedProducts[$i]->id]) ?>">
+                            href="<?= Url::toRoute(["produto/view", "id" => $produto->id]) ?>">
                             <!-- Product image-->
                             <img class="card-img-top" style="width:220px;height:220px;"
-                                src="/img/<?= $relatedProducts[$i]->imagem ?>" alt="..." />
+                                src="/img/<?= $produto->imagem ?>" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder"><?= $relatedProducts[$i]->nome ?></h5>
+                                    <h5 class="fw-bolder"><?= $produto->nome ?></h5>
                         </a>
                         <!-- Product price-->
-                        <?= $relatedProducts[$i]->preco ?>€
-
+                        <?= $produto->preco ?>€
+                        <?php
+                            $esgotado = true;
+                            foreach ($produto->stocks as $stock) {
+                                if ($stock->quantidade > 0) {
+                                    $esgotado = false;
+                                }
+                            }
+                            if ($esgotado) {
+                                echo "<h6 style='color:red'>Esgotado</h6>";
+                            } else {
+                                echo "<h6 style='color:green'>Em Stock</h6>";
+                            }
+                            ?>
                     </div>
                 </div>
             </div>

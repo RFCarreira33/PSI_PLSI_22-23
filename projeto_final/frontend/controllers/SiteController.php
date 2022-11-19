@@ -73,7 +73,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $produtos = Produto::find()->limit(4)->all();
+        $produtos = Produto::find()->where(['Ativo' => 1])->limit(4)->all();
         return $this->render('index', ['produtos' => $produtos]);
     }
 
