@@ -3,11 +3,15 @@
 namespace frontend\controllers;
 
 use common\models\Fatura;
+use common\models\Dados;
+use common\models\Carrinho;
 use common\models\FaturaSearch;
+use common\models\LinhaFatura;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii;
 
 /**
  * FaturaController implements the CRUD actions for Fatura model.
@@ -80,19 +84,44 @@ class FaturaController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Fatura();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
+        $carrinhos = Carrinho::find()->where(['id_Cliente' =>  Yii::$app->user->id])->all();
+
+        $valorTotal = 0;
+        $ivaP = 0;
+        $valorIva = 0;
+
+        foreach ($carrinhos as $carrinho) {
+            $ivaP = $carrinho->produto->iva->percentagem;
+            $valorIva += $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100);
+            $valorTotal += $carrinho->Quantidade * $carrinho->produto->preco;
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        $fatura = new Fatura;
+        $fatura->id_Cliente = $dados->id_User;
+        $fatura->nome = $dados->nome;
+        $fatura->nif = $dados->nif;
+        $fatura->codPostal = $dados->codPostal;
+        $fatura->telefone = $dados->telefone;
+        $fatura->morada = $dados->morada;
+        $fatura->email = $dados->user->email;
+        $fatura->dataFatura = date("Y-m-d H:i:s");
+        $fatura->valorIva = $valorIva;
+        $fatura->valorTotal = $valorTotal;
+        $fatura->save();
+
+        foreach ($carrinhos as $carrinho) {
+            $linhaFatura = new LinhaFatura;
+            $linhaFatura->id_Fatura = $fatura->id;
+            $linhaFatura->id_Produto = $carrinho->id_Produto;
+            $linhaFatura->quantidade = $carrinho->Quantidade;
+            $linhaFatura->valor = $carrinho->produto->preco;
+            $ivaP = $carrinho->produto->iva->percentagem;
+            $linhaFatura->valorIva = $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100);
+            $linhaFatura->save();
+        }
+        $this->redirect('/carrinho/clear');
     }
 
     /**

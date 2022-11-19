@@ -33,8 +33,11 @@ use yii\helpers\Url;
                     </div>
                     <p class="lead"><?= $produto->descricao ?></p>
                     <?php
+                    $quantidadeM = 0;
                     foreach ($produto->stocks as $stock) {
-                        if ($stock->quantidade > 0) { ?>
+                        $quantidadeM += $stock->quantidade;
+                    }
+                    if ($quantidadeM > 0) { ?>
                     <div class="d-flex">
                         <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
                             style="max-width: 3rem" />
@@ -46,14 +49,24 @@ use yii\helpers\Url;
                         </div>
                     </div>
                     <?php
-                        } else {
-                            echo "<h6 style='color:red'>Esgotado</h6>";
+                    } else {
+                        echo "<h6 style='color:red'>Esgotado</h6>";
+                    } ?>
+                    <br>
+                    <div>
+                        <p>Disponibilidade por Loja:</p>
+                        <?php
+                        foreach ($produto->stocks as $stock) {
+                            if ($stock->quantidade > 0) {
+                                echo $stock->loja->localidade . " " . "<span style='color:green'>Em Stock</span><br>";
+                            } else {
+                                echo $stock->loja->localidade . " " . "<span style='color:red'>Esgotado</span>";
+                            }
                         }
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
     </section>
     <!-- Related items section-->
     <section class="py-5 bg-light">

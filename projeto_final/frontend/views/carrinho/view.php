@@ -117,9 +117,14 @@ use yii\helpers\Url;
                                         <h5 class="text-uppercase">Total</h5>
                                         <h5><?= $precoTotal ?>€</h5>
                                     </div>
-
-                                    <button type="button" class="btn btn-dark btn-block btn-lg"
-                                        data-mdb-ripple-color="dark">Comprar</button>
+                                    <?php
+                                    if (!empty($carrinhos)) {
+                                    ?>
+                                    <a data-method="POST" class="btn btn-dark btn-block btn-lg"
+                                        href="<?= Url::toRoute("fatura/create") ?>">Comprar</a></h6>
+                                    <?php
+                                    }
+                                    ?>
 
                                 </div>
                             </div>
