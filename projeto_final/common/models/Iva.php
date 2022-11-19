@@ -56,4 +56,12 @@ class Iva extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Produto::class, ['id_Iva' => 'id']);
     }
+
+    public function canDeactivate()
+    {
+        if (count($this->produtos) == 0) {
+            return true;
+        }
+        return false;
+    }
 }

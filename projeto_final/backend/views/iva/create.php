@@ -12,8 +12,16 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="iva-create">
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'percentagem') ?>
+    <?= $form->field($model, 'Ativo')->dropDownList(
+        ['1' => 'Ativo', '0' => 'Inativo'],
+    )->label('Estado') ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>
+    </div>
+    <?php ActiveForm::end(); ?>
 
 </div>

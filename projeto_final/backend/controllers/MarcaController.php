@@ -72,7 +72,7 @@ class MarcaController extends Controller
         if (!\Yii::$app->user->can('ReadMarca')) {
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
-        $marca = Marca::findOne(['nome' => $nome]);
+        $marca = $this->findModel($nome);
         $dataProvider = new ActiveDataProvider([
             'query' => $marca->getProdutos(),
         ]);
@@ -129,6 +129,20 @@ class MarcaController extends Controller
         ]);
     }
 
+    public function actionDelete($nome)
+    {
+        if (!\Yii::$app->user->can('DeleteMarca')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+
+        $marca = $this->findModel($nome);
+
+        if ($marca->canDelete()) {
+            $marca->delete();
+            return $this->redirect(['index']);
+        }
+        throw new \yii\web\HttpException(400, 'Não é possível eliminar a marca, pois existem produtos associados.');
+    }
     /**
      * Finds the Marca model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

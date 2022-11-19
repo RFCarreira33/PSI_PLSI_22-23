@@ -13,7 +13,13 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="iva-update">
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'percentagem') ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>
+    </div>
+    <?php ActiveForm::end(); ?>
+
 </div>

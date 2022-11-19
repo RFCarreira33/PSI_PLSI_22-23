@@ -19,12 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Criar Produto', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    <?php echo $this->render('_search', ['model' => $searchModel]);
     ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -47,7 +46,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'descricao:ntext',
             //'imagem:ntext',
-            //'referencia',
+            'referencia' => [
+                'label' => 'Referência',
+                'attribute' => 'referencia',
+                'value' => function (Produto $model) {
+                    return $model->referencia;
+                }
+            ],
             'preco' => [
                 'label' => 'Preço',
                 'attribute' => 'preco',
@@ -67,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
-                'class' => ActionColumn::className(),
+                'class' => 'yii\grid\ActionColumn', 'template' => '{view}{update}',
                 'urlCreator' => function ($action, Produto $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }

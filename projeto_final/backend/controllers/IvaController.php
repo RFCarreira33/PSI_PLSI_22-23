@@ -138,16 +138,28 @@ class IvaController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionChange($id)
     {
-        if (!\Yii::$app->user->can('DeleteIva')) {
+        if (!\Yii::$app->user->can('DeactivateIva')) {
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
         $model = $this->findModel($id);
-        $model->Ativo = 0;
-        $model->save();
+        switch ($model->Ativo) {
+            case 1:
+                if ($model->canDeactivate()) {
+                    $model->Ativo = 0;
+                    $model->save();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                throw new \yii\web\HttpException(400, 'Não é possível desativar esta taxa de Iva, pois existem produtos associados.');
+                break;
 
-        return $this->redirect(['index']);
+            case 0:
+                $model->Ativo = 1;
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+                break;
+        }
     }
 
     /**

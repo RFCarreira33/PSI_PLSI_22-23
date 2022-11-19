@@ -18,6 +18,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Atualizar', ['update', 'nome' => $model->nome], ['class' => 'btn btn-primary']) ?>
+        <?php if ($model->canDelete())
+            echo Html::a('Apagar', ['delete', 'nome' => $model->nome], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Tem a certeza que quer apagar este item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
     </p>
 
     <?= DetailView::widget([

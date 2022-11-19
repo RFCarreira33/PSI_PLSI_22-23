@@ -19,13 +19,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Apagar', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php $model->Ativo == 1 ? $label = 'Desativar' : $label = 'Ativar';
+        if (Yii::$app->user->can('DeactivateProduto')) {
+            echo Html::a("$label Produto", ['change', 'id' => $model->id], [
+                'class' => 'btn btn-primary',
+            ]);
+        } ?>
+        <?php if (Yii::$app->user->can('DeleteProduto')) {
+            echo Html::a('Apagar', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Tem a certeza que pretende apagar este produto?',
+                    'method' => 'post',
+                ],
+            ]);
+        } ?>
     </p>
 
     <?= DetailView::widget([

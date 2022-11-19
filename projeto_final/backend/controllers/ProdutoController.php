@@ -141,8 +141,40 @@ class ProdutoController extends Controller
     }
 
     /**
+     * Deactivates an existing Produto model.
+     * And deletes existing Carrinhos.
+     * @param int $id ID
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionChange($id)
+    {
+        if (!\Yii::$app->user->can('DeactivateProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+        $model = $this->findModel($id);
+        switch ($model->Ativo) {
+            case 1:
+                $carrinhos = $model->carrinhos;
+                foreach ($carrinhos as $carrinho) {
+                    $carrinho->delete();
+                }
+                $model->Ativo = 0;
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+                break;
+
+            case 0:
+                $model->Ativo = 1;
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+                break;
+        }
+    }
+
+    /**
      * Deletes an existing Produto model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * And deletes existing Carrinhos and Stocks.
      * @param int $id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
@@ -152,11 +184,21 @@ class ProdutoController extends Controller
         if (!\Yii::$app->user->can('DeleteProduto')) {
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $carrinhos = $model->carrinhos;
+        $stocks = $model->stocks;
 
+        foreach ($stocks as $stock) {
+            $stock->delete();
+        }
+
+        foreach ($carrinhos as $carrinho) {
+            $carrinho->delete();
+        }
+
+        $model->delete();
         return $this->redirect(['index']);
     }
-
     /**
      * Finds the Produto model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

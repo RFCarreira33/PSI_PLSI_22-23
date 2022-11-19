@@ -19,13 +19,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Apagar', ['deactivate', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to deactivate this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+
+        <?php $model->Ativo == 1 ? $label = 'Desativar' : $label = 'Ativar';
+        if (Yii::$app->user->can('DeactivateIva') && $model->canDeactivate()) {
+            echo Html::a("$label Taxa de Iva", ['change', 'id' => $model->id], [
+                'class' => 'btn btn-primary',
+            ]);
+        } ?>
+
     </p>
 
     <?= DetailView::widget([

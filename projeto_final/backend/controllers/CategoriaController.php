@@ -72,7 +72,7 @@ class CategoriaController extends Controller
         if (!\Yii::$app->user->can('ReadCategoria')) {
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
-        $categoria = Categoria::findOne(['id' => $id]);
+        $categoria = $this->findModel($id);
         $dataProvider = new ActiveDataProvider([
             'query' => $categoria->getProdutos(),
         ]);
@@ -141,9 +141,14 @@ class CategoriaController extends Controller
         if (!\Yii::$app->user->can('DeleteCategoria')) {
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
-        $categoria = $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        $categoria = $this->findModel($id);
+
+        if ($categoria->canDelete()) {
+            $categoria->delete();
+            return $this->redirect(['index']);
+        }
+        throw new \yii\web\HttpException(400, 'Não é possível eliminar uma categoria que tenha produtos ou subcategorias.');
     }
 
     /**

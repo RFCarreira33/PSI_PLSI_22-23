@@ -86,4 +86,12 @@ class Categoria extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Produto::class, ['id_Categoria' => 'id']);
     }
+
+    public function canDelete()
+    {
+        if (count($this->produtos) == 0 && count($this->categorias) == 0) {
+            return true;
+        }
+        return false;
+    }
 }
