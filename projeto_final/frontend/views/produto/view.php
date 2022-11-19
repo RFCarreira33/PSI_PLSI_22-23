@@ -11,7 +11,6 @@ use yii\helpers\Url;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Shop Item - Start Bootstrap Template</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -25,26 +24,27 @@ use yii\helpers\Url;
     <section class="py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
-                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/img/<?php echo $produto->imagem ?>" /></div>
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/img/<?= $produto->imagem ?>" /></div>
                 <div class="col-md-6">
-                    <div class="small mb-1">REF: <?php echo $produto->referencia ?></div>
-                    <h1 class="display-5 fw-bolder"><?php echo $produto->nome ?></h1>
+                    <div class="small mb-1">REF: <?= $produto->referencia ?></div>
+                    <h1 class="display-5 fw-bolder"><?= $produto->nome ?></h1>
                     <div class="fs-5 mb-5">
-                        <span class="text-decoration-line-through"><?php echo $produto->preco + 20 ?>€</span>
-                        <span><?php echo $produto->preco ?>€</span>
+                        <span><?= $produto->preco ?>€</span>
                     </div>
-                    <p class="lead"><?php echo $produto->descricao ?></p>
+                    <p class="lead"><?= $produto->descricao ?></p>
                     <?php
                     foreach ($produto->stocks as $stock) {
                         if ($stock->quantidade > 0) { ?>
-                            <div class="d-flex">
-                                <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= Url::toRoute(["carrinho/create", "id" => $produto->id, "quantidade" => 1]) ?>">
-                                            Adicionar ao carrinho<i class="bi-cart-fill me-1"></i>
-                                        </a></div>
-                                </div>
-                            </div>
+                    <div class="d-flex">
+                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
+                            style="max-width: 3rem" />
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                    href="<?= Url::toRoute(["carrinho/create", "id" => $produto->id, "quantidade" => 1]) ?>">
+                                    Adicionar ao carrinho<i class="bi-cart-fill me-1"></i>
+                                </a></div>
+                        </div>
+                    </div>
                     <?php
                         } else {
                             echo "<h6 style='color:red'>Esgotado</h6>";
@@ -60,31 +60,33 @@ use yii\helpers\Url;
         <div class="container px-4 px-lg-5 mt-5">
             <?php
             if (count($relatedProducts) > 0) {  ?>
-                <h2 class="fw-bolder mb-4">Related products</h2> <?php } ?>
+            <h2 class="fw-bolder mb-4">Related products</h2> <?php } ?>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <?php
                 for ($i = 0; $i < count($relatedProducts); $i++) { ?>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <a style="text-decoration: none;color:black;" href="<?= Url::toRoute(["produto/view", "id" => $relatedProducts[$i]->id]) ?>">
-                                <!-- Product image-->
-                                <img class="card-img-top" style="width:220px;height:220px;" src="/img/<?= $relatedProducts[$i]->imagem ?>" alt="..." />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h5 class="fw-bolder"><?= $relatedProducts[$i]->nome ?></h5>
-                            </a>
-                            <!-- Product price-->
-                            <?= $relatedProducts[$i]->preco ?>€
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <a style="text-decoration: none;color:black;"
+                            href="<?= Url::toRoute(["produto/view", "id" => $relatedProducts[$i]->id]) ?>">
+                            <!-- Product image-->
+                            <img class="card-img-top" style="width:220px;height:220px;"
+                                src="/img/<?= $relatedProducts[$i]->imagem ?>" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder"><?= $relatedProducts[$i]->nome ?></h5>
+                        </a>
+                        <!-- Product price-->
+                        <?= $relatedProducts[$i]->preco ?>€
 
-                        </div>
                     </div>
+                </div>
             </div>
         </div>
-    <?php } ?>
-    </div>
-    </div>
+        <?php } ?>
+        </div>
+        </div>
     </section>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

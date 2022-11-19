@@ -62,10 +62,9 @@ class CarrinhoController extends Controller
      */
     public function actionView()
     {
-        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
-        $carrinhos = $dados->getCarrinhos()->all();
-        $nItens = count($carrinhos);
-        return $this->render('view', ['carrinhos' => $carrinhos, 'nItens' => $nItens]);
+        $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
+        $carrinhos = $dados->carrinhos;
+        return $this->render('view', ['carrinhos' => $carrinhos]);
     }
 
     /**
@@ -76,8 +75,8 @@ class CarrinhoController extends Controller
     public function actionCreate($id, $quantidade)
     {
 
-        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
-        $carrinho = $dados->getCarrinhos()->where(['id_Produto' => $id])->one();
+        $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
+        $carrinho = Carrinho::findOne(['id_Cliente' => $dados->id_User, 'id_Produto' => $id]);
 
         if ($carrinho == null) {
             $carrinho = new Carrinho;
@@ -88,7 +87,6 @@ class CarrinhoController extends Controller
             $carrinho->Quantidade += $quantidade;
         }
         $carrinho->save();
-        $carrinhos = $dados->getCarrinhos()->all();
         return $this->redirect('view');
     }
 
@@ -123,15 +121,14 @@ class CarrinhoController extends Controller
      */
     public function actionDelete($id_Produto)
     {
-        $id_Cliente = Yii::$app->user->id;
-        $this->findModel($id_Cliente, $id_Produto)->delete();
+        $this->findModel(Yii::$app->user->id, $id_Produto)->delete();
 
         return $this->redirect(['carrinho/view']);
     }
 
     public function actionClear()
     {
-        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
+        $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
         $carrinho = $dados->carrinhos;
         foreach ($carrinho as $carrinhos) {
             $carrinhos->delete();

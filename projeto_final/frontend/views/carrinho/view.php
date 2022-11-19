@@ -52,7 +52,7 @@ use yii\helpers\Url;
                             <div class="col-lg-8">
                                 <div class="p-5">
                                     <div class="d-flex justify-content-between align-items-center mb-5">
-                                        <h1 class="fw-bold mb-0 text-black">Carrinho de compras</h1>
+                                        <h1 class="fw-bold mb-0 text-black">Carrinho de Compras</h1>
                                     </div>
                                     <?php $precoTotal = 0; ?>
                                     <?php foreach ($carrinhos as $carrinho) {
@@ -61,18 +61,18 @@ use yii\helpers\Url;
                                     <hr class="my-4">
                                     <div class="row mb-4 d-flex justify-content-between align-items-center">
                                         <div class="col-md-2 col-lg-2 col-xl-2">
-                                            <img src="/img/<?php echo $carrinho->produto->imagem ?>"
+                                            <img src="/img/<?= $carrinho->produto->imagem ?>"
                                                 class="img-fluid rounded-3">
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-3">
-                                            <h6 class="text-muted"><?php echo $carrinho->produto->nome ?></h6>
+                                            <h6 class="text-muted"><?= $carrinho->produto->nome ?></h6>
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <?php echo $carrinho->Quantidade ?>
+                                            <?= $carrinho->Quantidade ?>
                                         </div>
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                             <h6 class="mb-0">
-                                                <?php echo $carrinho->produto->preco *  $carrinho->Quantidade ?>€</h6>
+                                                <?= $carrinho->produto->preco *  $carrinho->Quantidade ?>€</h6>
                                         </div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                             <a data-method="POST" style='text-decoration:none '
@@ -95,22 +95,14 @@ use yii\helpers\Url;
                             </div>
                             <div class="col-lg-4 bg-grey">
                                 <div class="p-5">
-                                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summario</h3>
+                                    <h3 class="fw-bold mb-5 mt-2 pt-1">Sumário</h3>
                                     <hr class="my-4">
 
                                     <div class="d-flex justify-content-between mb-4">
-                                        <h5 class=""> Numero de Artigos: <?php echo sizeof($carrinhos) ?></h5>
+                                        <h5 class=""> Número de Artigos: <?= sizeof($carrinhos) ?></h5>
                                     </div>
 
-                                    <h5 class="text-uppercase mb-3">Metodo de entrega</h5>
-
-                                    <div class="mb-4 pb-2">
-                                        <select class="select">
-                                            <option value="1">Free</option>
-                                        </select>
-                                    </div>
-
-                                    <h5 class="text-uppercase mb-3">Codigo de Desconto</h5>
+                                    <h5 class="mb-3">Código de Desconto</h5>
 
                                     <div class="mb-5">
                                         <div class="form-outline">
@@ -122,8 +114,8 @@ use yii\helpers\Url;
                                     <hr class="my-4">
 
                                     <div class="d-flex justify-content-between mb-5">
-                                        <h5 class="text-uppercase">Preço Total</h5>
-                                        <h5><?php echo $precoTotal ?>€</h5>
+                                        <h5 class="text-uppercase">Total</h5>
+                                        <h5><?= $precoTotal ?>€</h5>
                                     </div>
 
                                     <button type="button" class="btn btn-dark btn-block btn-lg"
