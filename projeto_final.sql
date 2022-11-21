@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10-Nov-2022 às 20:30
--- Versão do servidor: 10.4.24-MariaDB
+-- Tempo de geração: 21-Nov-2022 às 20:44
+-- Versão do servidor: 8.0.31
 -- versão do PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `projeto_final`
 --
-CREATE DATABASE IF NOT EXISTS `projeto_final` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE IF NOT EXISTS `projeto_final` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE `projeto_final`;
 
 -- --------------------------------------------------------
@@ -30,19 +30,19 @@ USE `projeto_final`;
 --
 
 CREATE TABLE `auth_assignment` (
-  `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `item_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `user_id` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `created_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Extraindo dados da tabela `auth_assignment`
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-('admin', '1', 1667235820),
-('cliente', '2', 1667235820),
-('funcionario', '3', 1667235820);
+('admin', '1', 1669041804),
+('cliente', '2', 1669041804),
+('funcionario', '3', 1669041804);
 
 -- --------------------------------------------------------
 
@@ -51,27 +51,59 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 --
 
 CREATE TABLE `auth_item` (
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `type` smallint(6) NOT NULL,
-  `description` text COLLATE utf8_unicode_ci DEFAULT NULL,
-  `rule_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `data` blob DEFAULT NULL,
-  `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `type` smallint NOT NULL,
+  `description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
+  `rule_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `data` blob,
+  `created_at` int DEFAULT NULL,
+  `updated_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Extraindo dados da tabela `auth_item`
 --
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
-('admin', 1, NULL, NULL, NULL, 1667235820, 1667235820),
-('cliente', 1, NULL, NULL, NULL, 1667235820, 1667235820),
-('funcionario', 1, NULL, NULL, NULL, 1667235820, 1667235820),
-('ReadCategoria', 2, 'Read Categoria', NULL, NULL, 1667235820, 1667235820),
-('ReadFatura', 2, 'Visualizar Fatura', NULL, NULL, 1667235820, 1667235820),
-('ReadProduto', 2, 'Visualizar Produto', NULL, NULL, 1667235820, 1667235820),
-('VerFaturas', 2, 'Verifica de a fatura pertence ao user', NULL, NULL, 1667235820, 1667235820);
+('admin', 1, NULL, NULL, NULL, 1669041804, 1669041804),
+('cliente', 1, NULL, NULL, NULL, 1669041804, 1669041804),
+('Comprador', 2, 'Ver faturas', 'Comprador', NULL, 1669041804, 1669041804),
+('createAdmin', 2, 'Permissão para criar uma conta de Admin', NULL, NULL, 1669041804, 1669041804),
+('CreateCategoria', 2, 'Create Categoria', NULL, NULL, 1669041804, 1669041804),
+('CreateFatura', 2, 'Create Fatura', NULL, NULL, 1669041804, 1669041804),
+('CreateIva', 2, 'Create Iva', NULL, NULL, 1669041804, 1669041804),
+('CreateMarca', 2, 'Create Marca', NULL, NULL, 1669041804, 1669041804),
+('CreateProduto', 2, 'Create Produto', NULL, NULL, 1669041804, 1669041804),
+('CreateStock', 2, 'Create Stock', NULL, NULL, 1669041804, 1669041804),
+('DeactivateCategoria', 2, 'Deactivate Categoria', NULL, NULL, 1669041804, 1669041804),
+('DeactivateFatura', 2, 'Deactivate Fatura', NULL, NULL, 1669041804, 1669041804),
+('DeactivateIva', 2, 'Deactivate Iva', NULL, NULL, 1669041804, 1669041804),
+('DeactivateMarca', 2, 'Deactivate Marca', NULL, NULL, 1669041804, 1669041804),
+('DeactivateProduto', 2, 'Deactivate Produto', NULL, NULL, 1669041804, 1669041804),
+('DeactivateStock', 2, 'Deactivate Stock', NULL, NULL, 1669041804, 1669041804),
+('DeleteCategoria', 2, 'Permission to delete Categoria', NULL, NULL, 1669041804, 1669041804),
+('DeleteFatura', 2, 'Permission to delete Fatura', NULL, NULL, 1669041804, 1669041804),
+('DeleteIva', 2, 'Permission to delete Iva', NULL, NULL, 1669041804, 1669041804),
+('DeleteMarca', 2, 'Permission to delete Marca', NULL, NULL, 1669041804, 1669041804),
+('DeleteProduto', 2, 'Permission to delete Produto', NULL, NULL, 1669041804, 1669041804),
+('DeleteStock', 2, 'Permission to delete Stock', NULL, NULL, 1669041804, 1669041804),
+('FrontendReadFatura', 2, 'Permite ao cliente visualizar Fatura', NULL, NULL, 1669041804, 1669041804),
+('FrontendReadProduto', 2, 'Permite ao cliente visualizar Produto', NULL, NULL, 1669041804, 1669041804),
+('funcionario', 1, NULL, NULL, NULL, 1669041804, 1669041804),
+('ReadCategoria', 2, 'Read Categoria', NULL, NULL, 1669041804, 1669041804),
+('ReadEmpresa', 2, 'Alterar os dados da Empresa', NULL, NULL, 1669041804, 1669041804),
+('ReadFatura', 2, 'Read Fatura', NULL, NULL, 1669041804, 1669041804),
+('ReadIva', 2, 'Read Iva', NULL, NULL, 1669041804, 1669041804),
+('ReadMarca', 2, 'Read Marca', NULL, NULL, 1669041804, 1669041804),
+('ReadProduto', 2, 'Read Produto', NULL, NULL, 1669041804, 1669041804),
+('ReadStock', 2, 'Read Stock', NULL, NULL, 1669041804, 1669041804),
+('UpdateCategoria', 2, 'Update Categoria', NULL, NULL, 1669041804, 1669041804),
+('UpdateEmpresa', 2, 'Alterar os dados da Empresa', NULL, NULL, 1669041804, 1669041804),
+('UpdateFatura', 2, 'Update Fatura', NULL, NULL, 1669041804, 1669041804),
+('UpdateIva', 2, 'Update Iva', NULL, NULL, 1669041804, 1669041804),
+('UpdateMarca', 2, 'Update Marca', NULL, NULL, 1669041804, 1669041804),
+('UpdateProduto', 2, 'Update Produto', NULL, NULL, 1669041804, 1669041804),
+('UpdateStock', 2, 'Update Stock', NULL, NULL, 1669041804, 1669041804);
 
 -- --------------------------------------------------------
 
@@ -80,20 +112,52 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 --
 
 CREATE TABLE `auth_item_child` (
-  `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `parent` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `child` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Extraindo dados da tabela `auth_item_child`
 --
 
 INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
+('cliente', 'Comprador'),
+('admin', 'createAdmin'),
+('funcionario', 'CreateCategoria'),
+('funcionario', 'CreateFatura'),
+('funcionario', 'CreateIva'),
+('funcionario', 'CreateMarca'),
+('funcionario', 'CreateProduto'),
+('funcionario', 'CreateStock'),
+('funcionario', 'DeactivateCategoria'),
+('funcionario', 'DeactivateFatura'),
+('funcionario', 'DeactivateIva'),
+('funcionario', 'DeactivateMarca'),
+('funcionario', 'DeactivateProduto'),
+('funcionario', 'DeactivateStock'),
+('admin', 'DeleteCategoria'),
+('admin', 'DeleteFatura'),
+('admin', 'DeleteIva'),
+('admin', 'DeleteMarca'),
+('admin', 'DeleteProduto'),
+('admin', 'DeleteStock'),
+('cliente', 'FrontendReadFatura'),
+('cliente', 'FrontendReadProduto'),
 ('admin', 'funcionario'),
-('cliente', 'ReadFatura'),
-('cliente', 'ReadProduto'),
-('cliente', 'VerFaturas'),
-('funcionario', 'ReadCategoria');
+('funcionario', 'ReadCategoria'),
+('admin', 'ReadEmpresa'),
+('funcionario', 'ReadFatura'),
+('funcionario', 'ReadIva'),
+('funcionario', 'ReadMarca'),
+('funcionario', 'ReadProduto'),
+('funcionario', 'ReadStock'),
+('funcionario', 'UpdateCategoria'),
+('admin', 'UpdateEmpresa'),
+('funcionario', 'UpdateFatura'),
+('funcionario', 'UpdateIva'),
+('funcionario', 'UpdateMarca'),
+('funcionario', 'UpdateProduto'),
+('funcionario', 'UpdateStock');
 
 -- --------------------------------------------------------
 
@@ -102,18 +166,18 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 --
 
 CREATE TABLE `auth_rule` (
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `data` blob DEFAULT NULL,
-  `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `data` blob,
+  `created_at` int DEFAULT NULL,
+  `updated_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Extraindo dados da tabela `auth_rule`
 --
 
 INSERT INTO `auth_rule` (`name`, `data`, `created_at`, `updated_at`) VALUES
-('Comprador', 0x4f3a32353a22636f6e736f6c655c6d6f64656c735c46617475726152756c65223a333a7b733a343a226e616d65223b733a393a22436f6d707261646f72223b733a393a22637265617465644174223b693a313636373233353832303b733a393a22757064617465644174223b693a313636373233353832303b7d, 1667235820, 1667235820);
+('Comprador', 0x4f3a32353a22636f6e736f6c655c6d6f64656c735c46617475726152756c65223a333a7b733a343a226e616d65223b733a393a22436f6d707261646f72223b733a393a22637265617465644174223b693a313636393034313830343b733a393a22757064617465644174223b693a313636393034313830343b7d, 1669041804, 1669041804);
 
 -- --------------------------------------------------------
 
@@ -122,10 +186,17 @@ INSERT INTO `auth_rule` (`name`, `data`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `carrinho` (
-  `id_Cliente` int(11) NOT NULL,
-  `id_Produto` int(11) NOT NULL,
-  `Quantidade` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_Cliente` int NOT NULL,
+  `id_Produto` int NOT NULL,
+  `Quantidade` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `carrinho`
+--
+
+INSERT INTO `carrinho` (`id_Cliente`, `id_Produto`, `Quantidade`) VALUES
+(2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -134,10 +205,10 @@ CREATE TABLE `carrinho` (
 --
 
 CREATE TABLE `categoria` (
-  `id` int(11) NOT NULL,
-  `id_CategoriaPai` int(11) DEFAULT NULL,
+  `id` int NOT NULL,
+  `id_CategoriaPai` int DEFAULT NULL,
   `nome` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `categoria`
@@ -153,20 +224,21 @@ INSERT INTO `categoria` (`id`, `id_CategoriaPai`, `nome`) VALUES
 --
 
 CREATE TABLE `dados` (
-  `id_User` int(11) NOT NULL,
+  `id_User` int NOT NULL,
   `nome` varchar(45) NOT NULL,
   `telefone` varchar(9) NOT NULL,
   `nif` varchar(9) NOT NULL,
   `morada` varchar(45) NOT NULL,
   `codPostal` varchar(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `dados`
 --
 
 INSERT INTO `dados` (`id_User`, `nome`, `telefone`, `nif`, `morada`, `codPostal`) VALUES
-(2, 'test', '123123123', '123123123', 'yse', '123123123');
+(1, 'admin', '123123123', '123123123', '123', '123123123'),
+(2, 'Joao Jesus', '960234654', '231056345', 'Vila Nova de Monsarros', '3780-566');
 
 -- --------------------------------------------------------
 
@@ -175,7 +247,7 @@ INSERT INTO `dados` (`id_User`, `nome`, `telefone`, `nif`, `morada`, `codPostal`
 --
 
 CREATE TABLE `empresa` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `designacaoSocial` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `telefone` varchar(9) NOT NULL,
@@ -183,10 +255,10 @@ CREATE TABLE `empresa` (
   `morada` varchar(45) NOT NULL,
   `codPostal` varchar(9) NOT NULL,
   `localidade` varchar(45) NOT NULL,
-  `capitalSocial` int(11) NOT NULL,
+  `capitalSocial` int NOT NULL,
   `imgBanner` varchar(255) NOT NULL,
-  `imgLogo` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `imgLogo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `empresa`
@@ -202,25 +274,18 @@ INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `mo
 --
 
 CREATE TABLE `fatura` (
-  `id` int(11) NOT NULL,
-  `id_Cliente` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_Cliente` int NOT NULL,
   `nome` varchar(45) NOT NULL,
   `nif` varchar(9) NOT NULL,
   `codPostal` varchar(9) NOT NULL,
   `telefone` varchar(9) NOT NULL,
   `morada` varchar(45) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `dataFatura` timestamp NOT NULL DEFAULT current_timestamp(),
+  `dataFatura` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `valorTotal` decimal(11,2) NOT NULL,
   `valorIva` decimal(11,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `fatura`
---
-
-INSERT INTO `fatura` (`id`, `id_Cliente`, `nome`, `nif`, `codPostal`, `telefone`, `morada`, `email`, `dataFatura`, `valorTotal`, `valorIva`) VALUES
-(2, 2, '', '', '', '', '', '', '2022-10-31 16:28:51', '20.00', '20.00');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -229,10 +294,10 @@ INSERT INTO `fatura` (`id`, `id_Cliente`, `nome`, `nif`, `codPostal`, `telefone`
 --
 
 CREATE TABLE `iva` (
-  `id` int(11) NOT NULL,
-  `percentagem` int(11) NOT NULL,
-  `Ativo` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id` int NOT NULL,
+  `percentagem` int NOT NULL,
+  `Ativo` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `iva`
@@ -248,20 +313,14 @@ INSERT INTO `iva` (`id`, `percentagem`, `Ativo`) VALUES
 --
 
 CREATE TABLE `linhafatura` (
-  `id` int(11) NOT NULL,
-  `id_Fatura` int(11) NOT NULL,
-  `id_Produto` int(11) NOT NULL,
-  `quantidade` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_Fatura` int NOT NULL,
+  `produto_nome` varchar(45) NOT NULL,
+  `produto_referencia` varchar(45) NOT NULL,
+  `quantidade` int NOT NULL,
   `valor` decimal(11,2) NOT NULL,
   `valorIva` decimal(11,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `linhafatura`
---
-
-INSERT INTO `linhafatura` (`id`, `id_Fatura`, `id_Produto`, `quantidade`, `valor`, `valorIva`) VALUES
-(1, 2, 1, 20, '20.00', '20.00');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -270,17 +329,18 @@ INSERT INTO `linhafatura` (`id`, `id_Fatura`, `id_Produto`, `quantidade`, `valor
 --
 
 CREATE TABLE `loja` (
-  `id` int(11) NOT NULL,
-  `id_Empresa` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_Empresa` int NOT NULL,
   `localidade` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `loja`
 --
 
 INSERT INTO `loja` (`id`, `id_Empresa`, `localidade`) VALUES
-(1, 1, 'Leiria');
+(1, 1, 'Leiria'),
+(2, 1, 'Aveiro');
 
 -- --------------------------------------------------------
 
@@ -290,7 +350,7 @@ INSERT INTO `loja` (`id`, `id_Empresa`, `localidade`) VALUES
 
 CREATE TABLE `marca` (
   `nome` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `marca`
@@ -308,8 +368,8 @@ INSERT INTO `marca` (`nome`) VALUES
 
 CREATE TABLE `migration` (
   `version` varchar(180) NOT NULL,
-  `apply_time` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `apply_time` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `migration`
@@ -332,26 +392,27 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 --
 
 CREATE TABLE `produto` (
-  `id` int(11) NOT NULL,
-  `id_Categoria` int(11) NOT NULL,
-  `id_Iva` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_Categoria` int NOT NULL,
+  `id_Iva` int NOT NULL,
   `id_Marca` varchar(45) NOT NULL,
   `descricao` text NOT NULL,
   `imagem` text NOT NULL,
   `referencia` varchar(45) NOT NULL,
   `preco` decimal(11,2) NOT NULL,
   `nome` varchar(50) DEFAULT NULL,
-  `Ativo` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Ativo` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `produto`
 --
 
 INSERT INTO `produto` (`id`, `id_Categoria`, `id_Iva`, `id_Marca`, `descricao`, `imagem`, `referencia`, `preco`, `nome`, `Ativo`) VALUES
-(1, 1, 1, 'AMD', 'BESATS', 'gpu.jpg', 'qwdasa', '15.00', 'GTX 1060', 0),
-(2, 1, 1, 'Nvidia', 'ewfdsds', 'cooler.jpg', 'sadd', '20.00', 'GTX 1070', 0),
-(3, 1, 1, 'Nvidia', 'sadsad', 'gt 730.jpg', 'asdsad', '50.00', 'GTX 1080', 0);
+(1, 1, 1, 'AMD', 'Motor Gráfico: NVIDIA® GeForce® GTX 1060 \r\n<br>\r\nBus: PCI Express x16 3.0\r\n<br>\r\nClock GPU: Base: 1530 MHz, Boost: 1785 MHz\r\n<br>\r\nClock de Memória: 14000 MHz\r\n<br>\r\nNúcleos CUDA: 1408\r\n<br>\r\nMemória: 6GB GDDR6\r\n<br>\r\nInterface de Memória: 192 Bits\r\n<br>\r\nInterface I/O:\r\n<br>\r\n3 x DisplayPort (v1.4)\r\n<br>\r\n1 x HDMI 2.0b\r\n<br>\r\nSuporte HDCP 2.2\r\n<br>\r\nVersão DirectX: 12\r\n<br>\r\nVersão OpenGL: 4.5\r\n<br>\r\nDimensões do produto: 204 x 128 x 42 mm\r\n<br>\r\nPeso do produto: 669 g', 'gpu.jpg', 'qwdasa', '15.00', 'GTX 1060', 1),
+(2, 1, 1, 'Nvidia', 'Motor Gráfico: NVIDIA® GeForce® GTX 1070 \r\n<br>\r\nBus: PCI Express x16 3.0\r\n<br>\r\nClock GPU: Base: 1530 MHz, Boost: 1785 MHz\r\n<br>\r\nClock de Memória: 14000 MHz\r\n<br>\r\nNúcleos CUDA: 1408\r\n<br>\r\nMemória: 6GB GDDR6\r\n<br>\r\nInterface de Memória: 192 Bits\r\n<br>\r\nInterface I/O:\r\n<br>\r\n3 x DisplayPort (v1.4)\r\n<br>\r\n1 x HDMI 2.0b\r\n<br>\r\nSuporte HDCP 2.2\r\n<br>\r\nVersão DirectX: 12\r\n<br>\r\nVersão OpenGL: 4.5\r\n<br>\r\nDimensões do produto: 204 x 128 x 42 mm\r\n<br>\r\nPeso do produto: 669 g', 'cooler.jpg', 'sadd', '20.00', 'GTX 1070', 1),
+(3, 1, 1, 'Nvidia', 'Motor Gráfico: NVIDIA® GeForce® GTX 1080\r\n<br>\r\nBus: PCI Express x16 3.0\r\n<br>\r\nClock GPU: Base: 1530 MHz, Boost: 1785 \r\nMHz\r\n<br>\r\nClock de Memória: 14000 MHz\r\n<br>\r\nNúcleos CUDA: 1408\r\n<br>\r\nMemória: 6GB GDDR6\r\n<br>\r\nInterface de Memória: 192 Bits\r\n<br>\r\nInterface I/O:\r\n<br>\r\n3 x DisplayPort (v1.4)\r\n<br>\r\n1 x HDMI 2.0b\r\n<br>\r\nSuporte HDCP 2.2\r\n<br>\r\nVersão DirectX: 12\r\n<br>\r\nVersão OpenGL: 4.5\r\n<br>\r\nDimensões do produto: 204 x 128 x 42 mm\r\n<br>\r\nPeso do produto: 669 g', 'gt 730.jpg', 'asdsad', '50.00', 'GTX 1080', 1),
+(4, 1, 1, 'AMD', 'aa', 'logo.png', 'aa', '12.00', 'aa', 0);
 
 -- --------------------------------------------------------
 
@@ -360,17 +421,22 @@ INSERT INTO `produto` (`id`, `id_Categoria`, `id_Iva`, `id_Marca`, `descricao`, 
 --
 
 CREATE TABLE `stock` (
-  `id_Loja` int(11) NOT NULL,
-  `id_Produto` int(11) NOT NULL,
-  `quantidade` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
+  `id_Loja` int NOT NULL,
+  `id_Produto` int NOT NULL,
+  `quantidade` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `stock`
+--
 
 INSERT INTO `stock` (`id_Loja`, `id_Produto`, `quantidade`) VALUES
-(1,1,10);
-INSERT INTO `stock` (`id_Loja`, `id_Produto`, `quantidade`) VALUES
-(1,2,15);
-INSERT INTO `stock` (`id_Loja`, `id_Produto`, `quantidade`) VALUES
-(1,3,0);
+(1, 1, 10),
+(1, 2, 15),
+(1, 3, 0),
+(1, 4, 0),
+(2, 1, 0),
+(2, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -379,17 +445,17 @@ INSERT INTO `stock` (`id_Loja`, `id_Produto`, `quantidade`) VALUES
 --
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `username` varchar(255) NOT NULL,
   `auth_key` varchar(32) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
   `password_reset_token` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
-  `status` smallint(6) NOT NULL DEFAULT 10,
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL,
+  `status` smallint NOT NULL DEFAULT '10',
+  `created_at` int NOT NULL,
+  `updated_at` int NOT NULL,
   `verification_token` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Extraindo dados da tabela `user`
@@ -479,8 +545,7 @@ ALTER TABLE `iva`
 --
 ALTER TABLE `linhafatura`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `idFatura` (`id_Fatura`),
-  ADD KEY `idProduto` (`id_Produto`);
+  ADD KEY `idFatura` (`id_Fatura`);
 
 --
 -- Índices para tabela `loja`
@@ -535,49 +600,49 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `fatura`
 --
 ALTER TABLE `fatura`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `iva`
 --
 ALTER TABLE `iva`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `linhafatura`
 --
 ALTER TABLE `linhafatura`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `loja`
 --
 ALTER TABLE `loja`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restrições para despejos de tabelas
@@ -631,8 +696,7 @@ ALTER TABLE `fatura`
 -- Limitadores para a tabela `linhafatura`
 --
 ALTER TABLE `linhafatura`
-  ADD CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`id_Fatura`) REFERENCES `fatura` (`id`),
-  ADD CONSTRAINT `linhafatura_ibfk_2` FOREIGN KEY (`id_Produto`) REFERENCES `produto` (`id`);
+  ADD CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`id_Fatura`) REFERENCES `fatura` (`id`);
 
 --
 -- Limitadores para a tabela `loja`
