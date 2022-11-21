@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Dados;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -22,9 +23,21 @@ use yii\widgets\DetailView;
         'attributes' => [
             'nome',
             'telefone',
-            'nif',
+            'nif' => [
+                'label' => 'NIF',
+                'attribute' => 'nif',
+                'value' => function (Dados $model) {
+                    return $model->nif;
+                }
+            ],
             'morada',
-            'codPostal',
+            'codPostal'  => [
+                'label' => 'Código Postal',
+                'attribute' => 'codPostal',
+                'value' => function (Dados $model) {
+                    return $model->codPostal;
+                }
+            ],
         ],
     ]) ?>
 

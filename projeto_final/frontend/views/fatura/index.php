@@ -1,9 +1,7 @@
 <?php
 
 use common\models\Fatura;
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
@@ -18,7 +16,13 @@ use yii\grid\GridView;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
+            'id' => [
+                'label' => 'Nº Fatura',
+                'attribute' => 'id',
+                'value' => function (Fatura $model) {
+                    return $model->id;
+                },
+            ],
             'dataFatura',
             'valorTotal',
             [

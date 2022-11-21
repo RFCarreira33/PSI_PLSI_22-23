@@ -111,7 +111,7 @@ use yii\helpers\Url;
 
                                     <div class="mb-4 pb-2">
                                         <select class="select">
-                                            <option value="1">Free</option>
+                                            <option value="1">CTT</option>
                                         </select>
                                     </div>
 

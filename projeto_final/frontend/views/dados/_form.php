@@ -13,17 +13,17 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
-
+    <br>
     <?= $form->field($model, 'telefone')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'nif')->textInput(['maxlength' => true]) ?>
-
+    <br>
+    <?= $form->field($model, 'nif')->textInput(['maxlength' => true])->label("NIF") ?>
+    <br>
     <?= $form->field($model, 'morada')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'codPostal')->textInput(['maxlength' => true]) ?>
+    <br>
+    <?= $form->field($model, 'codPostal')->textInput(['maxlength' => true])->label("Código Postal") ?>
     <br>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
