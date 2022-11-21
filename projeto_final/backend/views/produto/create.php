@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="produto-create">
     <?= $this->render('_form', [
         'model' => $model,
+        'modelUpload' => $modelUpload
     ]) ?>
 
 

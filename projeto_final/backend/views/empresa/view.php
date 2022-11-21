@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'localidade',
             'capitalSocial',
+            'imgLogo'
         ],
     ]) ?>
 

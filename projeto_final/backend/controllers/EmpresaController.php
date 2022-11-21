@@ -8,6 +8,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
+use common\models\UploadForm;
+use Yii;
 
 /**
  * EmpresaController implements the CRUD actions for Empresa model.
@@ -68,8 +71,13 @@ class EmpresaController extends Controller
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
         $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        $modelUpload = new UploadForm();
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'imgLogo');
+            $modelUpload->upload();
+            $model->imgLogo = $modelUpload->imageFile->name;
+            $model->imgBanner = 0;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
