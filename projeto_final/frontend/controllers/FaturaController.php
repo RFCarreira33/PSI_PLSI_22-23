@@ -61,6 +61,7 @@ class FaturaController extends Controller
         ]);
     }
 
+
     /**
      * Displays a single Fatura model.
      * @param int $id ID
@@ -70,7 +71,7 @@ class FaturaController extends Controller
     public function actionView($id)
     {
         $fatura =  $this->findModel($id);
-        return $this->render('view', ['model' => $fatura]);
+        return $this->renderPartial('view', ['model' => $fatura]);
     }
 
     /**
