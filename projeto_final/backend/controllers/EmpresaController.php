@@ -72,13 +72,17 @@ class EmpresaController extends Controller
         }
         $model = $this->findModel($id);
         $modelUpload = new UploadForm();
-        if ($this->request->isPost && $model->load($this->request->post())) {
-            $modelUpload->imageFile = UploadedFile::getInstance($model, 'imgLogo');
-            $modelUpload->upload();
-            $model->imgLogo = $modelUpload->imageFile->name;
-            $model->imgBanner = 0;
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imgLogo');
+                $modelUpload->upload();
+                $model->imgLogo = $modelUpload->imageFile->name;
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imgBanner');
+                $modelUpload->upload();
+                $model->imgBanner = $modelUpload->imageFile->name;
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [

@@ -116,9 +116,9 @@ class ProdutoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imagem');
                 $modelUpload->upload();
-                $model->imagem = UploadedFile::getInstance($modelUpload, 'imageFile')->name;
+                $model->imagem = $modelUpload->imageFile->name;
                 //dd($model);
                 $model->Ativo = 0;
                 $model->save();
@@ -155,13 +155,21 @@ class ProdutoController extends Controller
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
         $model = $this->findModel($id);
+        $modelUpload = new UploadForm();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imagem');
+                $modelUpload->upload();
+                $model->imagem = $modelUpload->imageFile->name;
+                $model->save();
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelUpload' => $modelUpload
         ]);
     }
 

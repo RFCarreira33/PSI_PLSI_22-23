@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = 'Atualizar';
     <?= $form->field($model, 'localidade')->label('Localidade') ?>
     <?= $form->field($model, 'capitalSocial')->label('Capital Social') ?>
     <?= $form->field($model, 'imgLogo')->fileInput() ?>
+    <?= $form->field($model, 'imgBanner')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>

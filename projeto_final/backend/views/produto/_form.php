@@ -23,7 +23,7 @@ use common\models\Marca;
     <?= $form->field($model, 'id_Iva')->dropDownList(Iva::find()->select(['percentagem', 'id'])->indexBy('id')->column())->label('Taxa de Iva') ?>
     <?= $form->field($model, 'id_Marca')->dropDownList(Marca::find()->select(['nome'])->indexBy('nome')->column())->label('Marca') ?>
     <?= $form->field($model, 'id_Categoria')->dropDownList(Categoria::find()->select(['nome', 'id'])->indexBy('id')->column())->label('Marca') ?>
-    <?= $form->field($modelUpload, 'imageFile')->fileInput() ?>
+    <?= $form->field($model, 'imagem')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>
