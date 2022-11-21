@@ -56,7 +56,7 @@ class DadosController extends Controller
      */
     public function actionIndex($role)
     {
-        if ($role == 'admin' && !Yii::$app->user->can('updateEmpresa')) {
+        if ($role == 'admin' && !Yii::$app->user->can('CreateAdmin')) {
             return $this->goHome();
         }
         $ids = AuthAssignment::getIds($role);

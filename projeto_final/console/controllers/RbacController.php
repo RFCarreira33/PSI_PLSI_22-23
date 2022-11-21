@@ -64,6 +64,7 @@ class RbacController extends Controller
         //criar permissoes admin
         $auth->addChild($admin, $funcionario);
 
+        //Delete apenas para admins
         foreach ($tabelas as $tabela) {
             $permission = $auth->createPermission("Delete$tabela");
             $permission->description = "Permission to delete $tabela";
@@ -81,7 +82,7 @@ class RbacController extends Controller
         $auth->add($permission);
         $auth->addChild($admin, $permission);
 
-        $permission = $auth->createPermission("createAdmin");
+        $permission = $auth->createPermission("CreateAdmin");
         $permission->description = "Permissão para criar uma conta de Admin";
         $auth->add($permission);
         $auth->addChild($admin, $permission);

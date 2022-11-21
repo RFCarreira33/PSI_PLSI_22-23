@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'nome',
             [
-                'class' => 'yii\grid\ActionColumn', 'template' => '{view}{update}',
+                'class' => 'yii\grid\ActionColumn', 'template' => '{view}',
                 'urlCreator' => function ($action, Marca $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'nome' => $model->nome]);
                 }

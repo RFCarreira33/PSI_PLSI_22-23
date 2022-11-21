@@ -16,9 +16,9 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id_CategoriaPai')->dropDownList(Categoria::find()->select(['nome', 'id'])->indexBy('id')->column(), ['prompt' => 'Todas'])->label('Categoria Pai') ?>
-
     <?= $form->field($model, 'nome') ?>
+    <?= $form->field($model, 'id_CategoriaPai')->dropDownList(Categoria::find()->where([])->select(['nome', 'id'])->indexBy('id')->column(), ['prompt' => 'Qualquer uma'])->label('Categoria Pai') ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>

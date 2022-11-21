@@ -15,19 +15,17 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="marca-view">
-
     <p>
-        <?= Html::a('Atualizar', ['update', 'nome' => $model->nome], ['class' => 'btn btn-primary']) ?>
-        <?php if ($model->canDelete())
+        <?php if (Yii::$app->user->can('DeleteMarca') && $model->canDelete()) {
             echo Html::a('Apagar', ['delete', 'nome' => $model->nome], [
                 'class' => 'btn btn-danger',
                 'data' => [
-                    'confirm' => 'Tem a certeza que quer apagar este item?',
+                    'confirm' => 'Tem a certeza que pretende apagar esta Marca?',
                     'method' => 'post',
                 ],
-            ]) ?>
+            ]);
+        } ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

@@ -104,7 +104,7 @@ class SignupForm extends Model
 
         $auth = \Yii::$app->authManager;
 
-        if ($this->role == self::ADMIN && \Yii::$app->user->can("AdminCreate")) {
+        if ($this->role == self::ADMIN && \Yii::$app->user->can("CreateAdmin")) {
             $role = $auth->getRole('admin');
         } else {
             $role = $auth->getRole('funcionario');

@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            'nome',
             'id_CategoriaPai' => [
                 'label' => 'Categoria Pai',
                 'attribute' => 'id_CategoriaPai',
@@ -37,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->categoriaPai->nome;
                 }
             ],
-            'nome',
             [
                 'class' => 'yii\grid\ActionColumn', 'template' => '{view}{update}',
                 'urlCreator' => function ($action, Categoria $model, $key, $index, $column) {

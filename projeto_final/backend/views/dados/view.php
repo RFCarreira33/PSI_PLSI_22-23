@@ -8,7 +8,6 @@ use common\models\Dados;
 /** @var common\models\Dados $model */
 
 $this->title = $model->nome;
-$this->params['breadcrumbs'][] = ['label' => 'Dados', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

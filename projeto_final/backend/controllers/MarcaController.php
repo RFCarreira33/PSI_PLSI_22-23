@@ -106,29 +106,6 @@ class MarcaController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing Marca model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $nome Nome
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($nome)
-    {
-        if (!\Yii::$app->user->can('UpdateMarca')) {
-            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
-        }
-        $model = $this->findModel($nome);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'nome' => $model->nome]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
     public function actionDelete($nome)
     {
         if (!\Yii::$app->user->can('DeleteMarca')) {

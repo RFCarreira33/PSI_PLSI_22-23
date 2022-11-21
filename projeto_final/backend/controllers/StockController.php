@@ -75,7 +75,7 @@ class StockController extends Controller
         $model = $this->findModel($id_Loja, $id_Produto);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_Loja' => $model->id_Loja, 'id_Produto' => $model->id_Produto]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
