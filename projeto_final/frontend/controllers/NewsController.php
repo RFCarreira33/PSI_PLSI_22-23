@@ -7,9 +7,14 @@ use yii\data\Pagination;
 
 class NewsController extends Controller
 {
+    public static function getAPIKey()
+    {
+        return 'pub_13552db86f5a60ad9b627ee202d815acff527'; //APIKEY
+    }
+
     public function actionIndex()
     {
-        $APIKEY = 'pub_13552db86f5a60ad9b627ee202d815acff527';
+        /* Getting the news from the API and returning it to the view. */
         $query = explode('&', $_SERVER['QUERY_STRING']);
         $params = array();
 
@@ -28,6 +33,7 @@ class NewsController extends Controller
             }
         }
 
+        $APIKEY = $this->getAPIKey();
         $response = file_get_contents('https://newsdata.io/api/1/news?apikey='.$APIKEY.'&country=pt&language=pt&category=technology&page='.$page);
         $response = json_decode($response);
         $news = [];
@@ -41,5 +47,4 @@ class NewsController extends Controller
 
         return $this->render('index', ['news' => $news, 'pages' => $pages]);
     }
-
 }
