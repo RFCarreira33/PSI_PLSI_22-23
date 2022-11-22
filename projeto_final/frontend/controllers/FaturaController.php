@@ -12,6 +12,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii;
+use yii\helpers\Url;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * FaturaController implements the CRUD actions for Fatura model.
@@ -73,11 +76,34 @@ class FaturaController extends Controller
 
         $fatura =  $this->findModel($id);
         if (\Yii::$app->user->can('Comprador', ['fatura' => $fatura])) {
-            return $this->render('view', ['model' => $fatura]);
+            return $this->renderPartial('view', ['model' => $fatura]);
         }
-        return $this->renderPartial('view', ['model' => $fatura]);
+        return $this->render('index');
     }
 
+    public function actionPdf($id)
+    {
+        $model = $this->findModel($id);
+        if (!Yii::$app->user->can('Comprador', ['fatura' => $model])) {
+            return $this->render('index');
+        }
+        //convert to pdf
+        $options = new Options();
+        $options->setIsRemoteEnabled(true);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($this->renderPartial('print', [
+            'model' => $model,
+        ]));
+        $dompdf->render();
+        ob_end_clean();
+        $dompdf->stream(
+            "Fatura_Nº$model->id.pdf",
+            [
+                'Attachment' => false,
+                'chroot' => Yii::getAlias('@webroot'),
+            ]
+        );
+    }
     /**
      * Creates a new Fatura model.
      * If creation is successful, the browser will be redirected to the 'view' page.

@@ -18,34 +18,37 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php echo $this->render('_search', ['model' => $searchModel]);
     ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?= GridView::widget(
+        [
+            'dataProvider' => $dataProvider,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            'nome',
-            'nif',
-            'email:email',
-            'dataFatura' => [
-                'attribute' => 'dataFatura',
-                'label' => 'Data de Emisão',
-                'format' => ['datetime', 'php:d-m-Y H:i:s']
-            ],
-            'valorTotal' => [
-                'attribute' => 'valorTotal',
-                'label' => 'Valor Total',
-                'value' => function (Fatura $model) {
-                    return $model->valorTotal . '€';
-                }
-            ],
-            [
-                'class' => 'yii\grid\ActionColumn', 'template' => '{view}',
-                'urlCreator' => function ($action, Fatura $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                }
+                'nome',
+                'nif',
+                'email:email',
+                'dataFatura' => [
+                    'attribute' => 'dataFatura',
+                    'label' => 'Data de Emisão',
+                    'format' => ['datetime', 'php:d-m-Y H:i:s']
+                ],
+                'valorTotal' => [
+                    'attribute' => 'valorTotal',
+                    'label' => 'Valor Total',
+                    'value' => function (Fatura $model) {
+                        return $model->valorTotal . '€';
+                    }
+                ],
+                [
+                    'attribute' => 'Ações',
+                    'format' => 'raw',
+                    'value' => function (Fatura $model) {
+                        return Html::a('Ver', ['view', 'id' => $model->id], ['class' => 'btn btn-primary']) . " " . Html::a('PDF', ['pdf', 'id' => $model->id], ['class' => 'btn btn-danger']);
+                    },
+                ],
             ],
         ],
-    ]); ?>
+    ); ?>
 
 
 </div>
