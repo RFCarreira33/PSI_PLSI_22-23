@@ -140,9 +140,10 @@ class FaturaController extends Controller
         foreach ($carrinhos as $carrinho) {
             $linhaFatura = new LinhaFatura;
             $linhaFatura->id_Fatura = $fatura->id;
-            $linhaFatura->id_Produto = $carrinho->id_Produto;
+            $linhaFatura->produto_nome = $carrinho->produto->nome;
+            $linhaFatura->produto_referencia = $carrinho->produto->referencia;
             $linhaFatura->quantidade = $carrinho->Quantidade;
-            $linhaFatura->valor = $carrinho->produto->preco;
+            $linhaFatura->valor = $carrinho->produto->preco * $carrinho->Quantidade;
             $ivaP = $carrinho->produto->iva->percentagem;
             $linhaFatura->valorIva = $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100);
             $linhaFatura->save();

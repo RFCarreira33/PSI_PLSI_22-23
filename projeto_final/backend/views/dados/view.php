@@ -15,10 +15,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Atualizar', ['update', 'id_User' => $model->id_User], ['class' => 'btn btn-primary']) ?>
-        <?php if ($status == null) {
-            echo Html::a('Reativar Conta', ['change', 'id_User' => $model->id_User], ['class' => 'btn btn-primary']);
-        } else {
-            echo Html::a('Desativar Conta', ['change', 'id_User' => $model->id_User], ['class' => 'btn btn-danger']);
+        <?php
+        if ($model->id_User != Yii::$app->user->id) {
+            if ($status == null) {
+                echo Html::a('Reativar Conta', ['change', 'id_User' => $model->id_User], ['class' => 'btn btn-primary']);
+            } else {
+                echo Html::a('Desativar Conta', ['change', 'id_User' => $model->id_User], ['class' => 'btn btn-danger']);
+            }
         } ?>
     </p>
 
