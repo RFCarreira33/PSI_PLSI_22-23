@@ -52,4 +52,17 @@ class Marca extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Produto::class, ['id_Marca' => 'nome']);
     }
+
+    public function canDelete()
+    {
+        if (count($this->produtos) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function getCountMarcas()
+    {
+        return self::find()->count();
+    }
 }

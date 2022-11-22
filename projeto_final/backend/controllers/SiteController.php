@@ -7,6 +7,10 @@ use backend\models\AuthAssignment;
 use common\models\LoginForm;
 use common\models\User;
 use backend\models\SignupForm;
+use common\models\Categoria;
+use common\models\Produto;
+use common\models\Loja;
+use common\models\Marca;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -26,9 +30,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
+                'only' => ['login', 'logout', 'index', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -57,7 +62,6 @@ class SiteController extends Controller
      */
     public function actions()
     {
-
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -73,14 +77,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $nClientes = AuthAssignment::find()->where(["item_name" => "cliente"])->count();
-        $nFaturas = Fatura::find()->count();
-        $faturas = Fatura::find()->all();
-        $soma = 0;
-        foreach ($faturas as $fatura) {
-            $soma += $fatura->valorTotal;
-        }
-        return $this->render('index', ['nClientes' => $nClientes, 'nFaturas' => $nFaturas, 'somaFatura' => $soma]);
+        return $this->render('index', [
+            'nClientes' => AuthAssignment::getCountClientes(),
+            'nFaturas' => Fatura::find()->count(),
+            'somaFatura' => Fatura::getTotalFaturado(),
+            'nFuncionarios' => AuthAssignment::getCountFuncionarios(),
+            'nProdutos' => Produto::getCountProdutos(),
+            'nProdutosAtivos' => Produto::getCountProdutosAtivos(),
+            'nMarcas' => Marca::getCountMarcas(),
+            'nLojas' => Loja::getCountLojas(),
+            'nCategorias' => Categoria::getCountCategorias(),
+        ]);
     }
 
     /**
@@ -98,7 +105,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if (AuthAssignment::checkAccess() == 'cliente') {
+            if (AuthAssignment::isCliente()) {
                 return $this->redirect('logout');
             }
             return $this->goBack();
@@ -121,6 +128,11 @@ class SiteController extends Controller
         return $this->render('signup', [
             'model' => $model,
         ]);
+    }
+
+    public function actionHome()
+    {
+        $this->goHome();
     }
 
     /**

@@ -38,9 +38,16 @@ class Dados extends \yii\db\ActiveRecord
             [['id_User', 'nome', 'telefone', 'nif', 'morada', 'codPostal'], 'required'],
             [['id_User'], 'integer'],
             [['nome', 'morada'], 'string', 'max' => 45],
-            [['telefone', 'nif', 'codPostal'], 'string', 'max' => 9],
+            [['nif', 'codPostal'], 'string', 'max' => 9],
             [['id_User'], 'unique'],
             [['id_User'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_User' => 'id']],
+            ['codPostal', 'match', 'pattern' => '^\d{4}-\d{3}?$^', 'message' => 'Código de Postal Inválido'],
+            ['telefone', 'match', 'pattern' => '^\d{9}?$^', 'message' => 'número de telefone inválido'],
+            ['telefone', 'string', 'max' => 9, 'message' => 'número de telefone com mais de 9 digitos'],
+            ['nif', 'match', 'pattern' => '^\d{9}?$^', 'message' => 'NIF Inválido'],
+            ['nif', 'string', 'max' => 9, 'message' => 'NIF com mais de 9 digitos'],
+            [['nif', 'codPostal', 'telefone'], 'trim'],
+
         ];
     }
 
@@ -97,5 +104,10 @@ class Dados extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'id_User']);
+    }
+
+    public static function findIdentity()
+    {
+        return Yii::$app->user->id;
     }
 }

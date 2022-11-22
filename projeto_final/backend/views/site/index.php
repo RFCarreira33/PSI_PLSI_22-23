@@ -1,97 +1,19 @@
 <?php
 
+use common\models\Dados;
 use yii\helpers\Url;
 
 $this->title = 'Starter Page';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
+$username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 ?>
 <div class="col-lg-6">
     <?= \hail812\adminlte\widgets\Alert::widget([
         'type' => 'success',
-        'body' => '<h3>Congratulations!</h3>',
-    ]) ?>
-    <?= \hail812\adminlte\widgets\Callout::widget([
-        'type' => 'danger',
-        'head' => 'I am a danger callout!',
-        'body' => 'There is a problem that we need to fix. A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.'
+        'body' => "Bem vindo(a) $username->nome !",
     ]) ?>
 </div>
-<div class="col-md-4 col-sm-6 col-12">
-    <?= \hail812\adminlte\widgets\InfoBox::widget([
-        'text' => 'Uploads',
-        'number' => '13,648',
-        'theme' => 'gradient-warning',
-        'icon' => 'far fa-copy',
-    ]) ?>
-</div>
-<div class="row">
-    <div class="col-12 col-sm-6 col-md-3">
-        <?= \hail812\adminlte\widgets\InfoBox::widget([
-            'text' => 'CPU Traffic',
-            'number' => '10 <small>%</small>',
-            'icon' => 'fas fa-cog',
-        ]) ?>
-    </div>
 
-    <div class="col-md-4 col-sm-6 col-12">
-        <?= \hail812\adminlte\widgets\InfoBox::widget([
-            'text' => 'Messages',
-            'number' => '1,410',
-            'icon' => 'far fa-envelope',
-        ]) ?>
-    </div>
-    <div class="col-md-4 col-sm-6 col-12">
-        <?= \hail812\adminlte\widgets\InfoBox::widget([
-            'text' => 'Bookmarks',
-            'number' => '410',
-            'theme' => 'success',
-            'icon' => 'far fa-flag',
-        ]) ?>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-4 col-sm-6 col-12">
-        <?= \hail812\adminlte\widgets\InfoBox::widget([
-            'text' => 'Events',
-            'number' => '41,410',
-            'theme' => 'gradient-warning',
-            'icon' => 'far fa-calendar-alt',
-            'progress' => [
-                'width' => '70%',
-                'description' => '70% Increase in 30 Days'
-            ],
-        ]) ?>
-    </div>
-    <div class="col-md-4 col-sm-6 col-12">
-        <?= \hail812\adminlte\widgets\InfoBox::widget([
-            'text' => 'Bookmarks',
-            'number' => '41,410',
-            'icon' => 'far fa-bookmark',
-            'progress' => [
-                'width' => '70%',
-                'description' => '70% Increase in 30 Days'
-            ]
-        ]) ?>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-12">
-        <?php $infoBox = \hail812\adminlte\widgets\InfoBox::begin([
-            'text' => 'Likes',
-            'number' => '41,410',
-            'theme' => 'success',
-            'icon' => 'far fa-thumbs-up',
-            'progress' => [
-                'width' => '70%',
-                'description' => '70% Increase in 30 Days'
-            ]
-        ]) ?>
-        <?= \hail812\adminlte\widgets\Ribbon::widget([
-            'id' => $infoBox->id . '-ribbon',
-            'text' => 'Ribbon',
-        ]) ?>
-        <?php \hail812\adminlte\widgets\InfoBox::end() ?>
-    </div>
-</div>
 <div class="row">
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
@@ -99,13 +21,22 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             'text' => 'Clientes Registados',
             'icon' => 'fas fa-user-plus',
             'linkText' => 'Ver Clientes',
-            'linkUrl' => Url::toRoute(["dados/index"])
+            'linkUrl' => Url::toRoute(["dados/index", 'role' => 'cliente']),
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <?= \hail812\adminlte\widgets\SmallBox::widget([
+            'title' => $nClientes,
+            'text' => 'Funcionários Registados',
+            'icon' => 'fas fa-user-plus',
+            'linkText' => 'Ver Clientes',
+            'linkUrl' => Url::toRoute(["dados/index", 'role' => 'funcionario']),
         ]) ?>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
             'title' => $nFaturas,
-            'text' => 'Numero de Faturas',
+            'text' => 'Número de Faturas',
             'icon' => 'far fa-copy',
             'linkText' => 'Ver Faturas',
             'linkUrl' => Url::toRoute(["fatura/index"])
@@ -118,5 +49,50 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             'icon' => 'far fa-copy',
             'linkText' => 'Ver Faturas',
             'linkUrl' => Url::toRoute(["fatura/index"])
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <?= \hail812\adminlte\widgets\SmallBox::widget([
+            'title' => $nProdutos,
+            'text' => 'Total de Produtos Registados',
+            'icon' => 'fas fa-tag',
+            'linkText' => 'Ver Produtos',
+            'linkUrl' => Url::toRoute(["produto/index"]),
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <?= \hail812\adminlte\widgets\SmallBox::widget([
+            'title' => $nProdutosAtivos,
+            'text' => 'Produtos Ativos',
+            'icon' => 'fas fa-tag',
+            'linkText' => 'Ver Produtos',
+            'linkUrl' => Url::toRoute(["produto/index"]),
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <?= \hail812\adminlte\widgets\SmallBox::widget([
+            'title' => $nLojas,
+            'text' => 'número de Lojas',
+            'icon' => 'fas fa-home',
+            'linkText' => 'Ver Lojas e Stocks',
+            'linkUrl' => Url::toRoute(["stock/index"]),
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <?= \hail812\adminlte\widgets\SmallBox::widget([
+            'title' => $nCategorias,
+            'text' => 'número de Categorias',
+            'icon' => 'fas fa-industry',
+            'linkText' => 'Ver Categorias',
+            'linkUrl' => Url::toRoute(["categoria/index"]),
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <?= \hail812\adminlte\widgets\SmallBox::widget([
+            'title' => $nMarcas,
+            'text' => 'número de Marcas',
+            'icon' => 'fas fa-industry',
+            'linkText' => 'Ver Marcas',
+            'linkUrl' => Url::toRoute(["marca/index"]),
         ]) ?>
     </div>

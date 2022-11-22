@@ -8,6 +8,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
+use common\models\UploadForm;
+use Yii;
 
 /**
  * EmpresaController implements the CRUD actions for Empresa model.
@@ -40,23 +43,6 @@ class EmpresaController extends Controller
             ]
         );
     }
-
-    /**
-     * Lists all Empresa models.
-     *
-     * @return string
-
-    public function actionIndex()
-    {
-        $searchModel = new DadosSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
     /**
      * Displays a single Empresa model.
      * @param int $id ID
@@ -65,35 +51,15 @@ class EmpresaController extends Controller
      */
     public function actionView()
     {
+        if (!\Yii::$app->user->can('ReadEmpresa')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         return $this->render('view', [
             'model' => $this->findModel(1),
         ]);
     }
 
-    /**
-     * Creates a new Empresa model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
-
-    public function actionCreate()
-    {
-        $model = new Empresa();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Empresa model.
+    /** * Updates an existing Empresa model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -101,10 +67,22 @@ class EmpresaController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!\Yii::$app->user->can('UpdateEmpresa')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $modelUpload = new UploadForm();
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imgLogo');
+                $modelUpload->upload();
+                $model->imgLogo = $modelUpload->imageFile->name;
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imgBanner');
+                $modelUpload->upload();
+                $model->imgBanner = $modelUpload->imageFile->name;
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -112,27 +90,6 @@ class EmpresaController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing Empresa model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Empresa model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Empresa the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Empresa::findOne(['id' => $id])) !== null) {

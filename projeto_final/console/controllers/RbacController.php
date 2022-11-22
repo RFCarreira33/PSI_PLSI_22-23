@@ -9,8 +9,8 @@ class RbacController extends Controller
 {
     public function actionInit()
     {
-        $Crud = ['Read', 'Update', 'Delete', 'Create']; // READ = VIEW + INDEX
-        $tabelasFuncionario = ['Categoria', 'Produto', 'Iva', 'Fatura', 'Marca', 'Stock'];
+        $Crud = ['Read', 'Update', 'Deactivate', 'Create']; // READ = VIEW + INDEX
+        $tabelas = ['Categoria', 'Produto', 'Iva', 'Fatura', 'Marca', 'Stock'];
         $tabelasCliente = ['Produto', 'Fatura'];
 
         $auth = Yii::$app->authManager;
@@ -53,7 +53,7 @@ class RbacController extends Controller
 
         //criar permissoes funcionario
         foreach ($Crud as $itemCrud) {
-            foreach ($tabelasFuncionario as $tabela) {
+            foreach ($tabelas as $tabela) {
                 $permission = $auth->createPermission("$itemCrud$tabela");
                 $permission->description = "$itemCrud $tabela";
                 $auth->add($permission);
@@ -64,8 +64,26 @@ class RbacController extends Controller
         //criar permissoes admin
         $auth->addChild($admin, $funcionario);
 
-        $permission = $auth->createPermission("EmpresaUpdate");
+        //Delete apenas para admins
+        foreach ($tabelas as $tabela) {
+            $permission = $auth->createPermission("Delete$tabela");
+            $permission->description = "Permission to delete $tabela";
+            $auth->add($permission);
+            $auth->addChild($admin, $permission);
+        }
+
+        $permission = $auth->createPermission("ReadEmpresa");
         $permission->description = "Alterar os dados da Empresa";
+        $auth->add($permission);
+        $auth->addChild($admin, $permission);
+
+        $permission = $auth->createPermission("UpdateEmpresa");
+        $permission->description = "Alterar os dados da Empresa";
+        $auth->add($permission);
+        $auth->addChild($admin, $permission);
+
+        $permission = $auth->createPermission("CreateAdmin");
+        $permission->description = "Permissão para criar uma conta de Admin";
         $auth->add($permission);
         $auth->addChild($admin, $permission);
     }

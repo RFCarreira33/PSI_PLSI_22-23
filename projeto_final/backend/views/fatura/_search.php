@@ -15,27 +15,25 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'id_Cliente') ?>
-
     <?= $form->field($model, 'nome') ?>
 
-    <?= $form->field($model, 'nif') ?>
+    <?= $form->field($model, 'nif')->label('NIF') ?>
 
-    <?= $form->field($model, 'codPostal') ?>
+    <?php // echo $form->field($model, 'telefone') 
+    ?>
 
-    <?php // echo $form->field($model, 'telefone') ?>
+    <?php // echo $form->field($model, 'morada') 
+    ?>
 
-    <?php // echo $form->field($model, 'morada') ?>
+    <?php echo $form->field($model, 'email') ?>
 
-    <?php // echo $form->field($model, 'email') ?>
+    <?php //echo $form->field($model, 'dataFatura') 
+    ?>
 
-    <?php // echo $form->field($model, 'dataFatura') ?>
+    <?php echo $form->field($model, 'valorTotal') ?>
 
-    <?php // echo $form->field($model, 'valorTotal') ?>
-
-    <?php // echo $form->field($model, 'valorIva') ?>
+    <?php // echo $form->field($model, 'valorIva') 
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

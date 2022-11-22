@@ -6,6 +6,7 @@ use common\models\Marca;
 use backend\models\MarcaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
@@ -48,6 +49,9 @@ class MarcaController extends Controller
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ReadMarca')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $searchModel = new MarcaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -56,7 +60,6 @@ class MarcaController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
     /**
      * Displays a single Marca model.
      * @param string $nome Nome
@@ -65,11 +68,19 @@ class MarcaController extends Controller
      */
     public function actionView($nome)
     {
+
+        if (!\Yii::$app->user->can('ReadMarca')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+        $marca = $this->findModel($nome);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $marca->getProdutos(),
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($nome),
+            'model' => $marca,
+            'dataProvider' => $dataProvider,
         ]);
     }
-
     /**
      * Creates a new Marca model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -77,6 +88,9 @@ class MarcaController extends Controller
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('CreateMarca')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = new Marca();
 
         if ($this->request->isPost) {
@@ -92,40 +106,20 @@ class MarcaController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing Marca model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $nome Nome
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($nome)
-    {
-        $model = $this->findModel($nome);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'nome' => $model->nome]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Marca model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $nome Nome
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($nome)
     {
-        $this->findModel($nome)->delete();
+        if (!\Yii::$app->user->can('DeleteMarca')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
 
-        return $this->redirect(['index']);
+        $marca = $this->findModel($nome);
+
+        if ($marca->canDelete()) {
+            $marca->delete();
+            return $this->redirect(['index']);
+        }
+        throw new \yii\web\HttpException(400, 'Não é possível eliminar a marca, pois existem produtos associados.');
     }
-
     /**
      * Finds the Marca model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

@@ -31,6 +31,7 @@ class Iva extends \yii\db\ActiveRecord
         return [
             [['percentagem', 'Ativo'], 'required'],
             [['percentagem', 'Ativo'], 'integer'],
+            [['Ativo'], 'in', 'range' => [0, 1]],
         ];
     }
 
@@ -54,5 +55,13 @@ class Iva extends \yii\db\ActiveRecord
     public function getProdutos()
     {
         return $this->hasMany(Produto::class, ['id_Iva' => 'id']);
+    }
+
+    public function canDeactivate()
+    {
+        if (count($this->produtos) == 0) {
+            return true;
+        }
+        return false;
     }
 }

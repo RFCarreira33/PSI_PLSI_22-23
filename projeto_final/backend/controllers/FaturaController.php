@@ -7,7 +7,9 @@ use backend\models\FaturaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use Dompdf\Dompdf;
 
 /**
  * FaturaController implements the CRUD actions for Fatura model.
@@ -41,6 +43,7 @@ class FaturaController extends Controller
         );
     }
 
+
     /**
      * Lists all Fatura models.
      *
@@ -48,6 +51,9 @@ class FaturaController extends Controller
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ReadFatura')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $searchModel = new FaturaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -55,6 +61,24 @@ class FaturaController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionPdf($id)
+    {
+        $model = $this->findModel($id);
+        //convert to pdf
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($this->renderPartial('print', [
+            'model' => $model,
+        ]));
+        $dompdf->render();
+        ob_end_clean();
+        $dompdf->stream(
+            "Fatura_Nº$model->id.pdf",
+            [
+                "Attachment" => false
+            ]
+        );
     }
 
     /**
@@ -65,65 +89,17 @@ class FaturaController extends Controller
      */
     public function actionView($id)
     {
+        if (!\Yii::$app->user->can('ReadFatura')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+        $fatura = $this->findModel($id);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $fatura->getLinhafaturas(),
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $fatura,
+            'dataProvider' => $dataProvider,
         ]);
-    }
-
-    /**
-     * Creates a new Fatura model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
-     */
-    public function actionCreate()
-    {
-        $model = new Fatura();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Fatura model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Fatura model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

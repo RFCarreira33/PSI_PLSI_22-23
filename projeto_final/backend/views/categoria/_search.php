@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Categoria;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -15,15 +16,13 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'id_CategoriaPai') ?>
-
     <?= $form->field($model, 'nome') ?>
+    <!-- getCategoriasPai filters categorias never used as Categoria Pai e devolve ids-->
+    <?= $form->field($model, 'id_CategoriaPai')->dropDownList(Categoria::find()->where(['id' => Categoria::getCategoriasPai()])->select(['nome', 'id'])->indexBy('id')->column(), ['prompt' => 'Qualquer uma'])->label('Categoria Pai') ?>
+
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

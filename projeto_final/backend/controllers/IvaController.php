@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Iva;
 use backend\models\IvaSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -48,6 +49,9 @@ class IvaController extends Controller
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ReadIva')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $searchModel = new IvaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -65,7 +69,15 @@ class IvaController extends Controller
      */
     public function actionView($id)
     {
+        if (!\Yii::$app->user->can('ReadIva')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+        $iva = Iva::findOne(['id' => $id]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $iva->getProdutos(),
+        ]);
         return $this->render('view', [
+            'dataProvider' => $dataProvider,
             'model' => $this->findModel($id),
         ]);
     }
@@ -77,7 +89,11 @@ class IvaController extends Controller
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('CreateIva')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = new Iva();
+
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -101,6 +117,9 @@ class IvaController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!\Yii::$app->user->can('UpdateIva')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -119,13 +138,28 @@ class IvaController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionChange($id)
     {
+        if (!\Yii::$app->user->can('DeactivateIva')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = $this->findModel($id);
-        $model->Ativo = 0;
-        $model->save();
+        switch ($model->Ativo) {
+            case 1:
+                if ($model->canDeactivate()) {
+                    $model->Ativo = 0;
+                    $model->save();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                throw new \yii\web\HttpException(400, 'Não é possível desativar esta taxa de Iva, pois existem produtos associados.');
+                break;
 
-        return $this->redirect(['index']);
+            case 0:
+                $model->Ativo = 1;
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+                break;
+        }
     }
 
     /**

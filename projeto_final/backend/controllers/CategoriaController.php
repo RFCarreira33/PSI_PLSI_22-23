@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
 
 /**
  * CategoriaController implements the CRUD actions for Categoria model.
@@ -48,6 +49,9 @@ class CategoriaController extends Controller
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ReadCategoria')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $searchModel = new CategoriaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -65,8 +69,16 @@ class CategoriaController extends Controller
      */
     public function actionView($id)
     {
+        if (!\Yii::$app->user->can('ReadCategoria')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+        $categoria = $this->findModel($id);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $categoria->getProdutos(),
+        ]);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -77,8 +89,10 @@ class CategoriaController extends Controller
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('CreateCategoria')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = new Categoria();
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -101,6 +115,9 @@ class CategoriaController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!\Yii::$app->user->can('UpdateCategoria')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -121,9 +138,17 @@ class CategoriaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (!\Yii::$app->user->can('DeleteCategoria')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
 
-        return $this->redirect(['index']);
+        $categoria = $this->findModel($id);
+
+        if ($categoria->canDelete()) {
+            $categoria->delete();
+            return $this->redirect(['index']);
+        }
+        throw new \yii\web\HttpException(400, 'Não é possível eliminar uma categoria que tenha produtos ou subcategorias.');
     }
 
     /**

@@ -7,7 +7,13 @@ use backend\models\ProdutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use common\models\Stock;
+use common\models\Loja;
+use yii\web\UploadedFile;
+use common\models\UploadForm;
+use Yii;
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
@@ -48,6 +54,9 @@ class ProdutoController extends Controller
      */
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ReadProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -55,6 +64,20 @@ class ProdutoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imagem');
+            if ($model->upload()) {
+                return;
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
     }
 
     /**
@@ -65,8 +88,16 @@ class ProdutoController extends Controller
      */
     public function actionView($id)
     {
+        if (!\Yii::$app->user->can('ReadProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+        $produto = Produto::findOne(['id' => $id]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $produto->getStocks(),
+        ]);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -77,10 +108,27 @@ class ProdutoController extends Controller
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('CreateProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = new Produto();
+        $modelUpload = new UploadForm();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imagem');
+                $modelUpload->upload();
+                $model->imagem = $modelUpload->imageFile->name;
+                $model->Ativo = 0;
+                $model->save();
+                $lojas = Loja::find()->all();
+                foreach ($lojas as $loja) {
+                    $stock = new Stock();
+                    $stock->id_Produto = $model->id;
+                    $stock->id_Loja = $loja->id;
+                    $stock->quantidade = 0;
+                    $stock->save();
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -89,6 +137,7 @@ class ProdutoController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelUpload' => $modelUpload
         ]);
     }
 
@@ -101,31 +150,87 @@ class ProdutoController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!\Yii::$app->user->can('UpdateProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
         $model = $this->findModel($id);
+        $modelUpload = new UploadForm();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imagem');
+                $modelUpload->upload();
+                $model->imagem = $modelUpload->imageFile->name;
+                $model->save();
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelUpload' => $modelUpload
         ]);
     }
 
     /**
+     * Deactivates an existing Produto model.
+     * And deletes existing Carrinhos.
+     * @param int $id ID
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionChange($id)
+    {
+        if (!\Yii::$app->user->can('DeactivateProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+        $model = $this->findModel($id);
+        switch ($model->Ativo) {
+            case 1:
+                $carrinhos = $model->carrinhos;
+                foreach ($carrinhos as $carrinho) {
+                    $carrinho->delete();
+                }
+                $model->Ativo = 0;
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+                break;
+
+            case 0:
+                $model->Ativo = 1;
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+                break;
+        }
+    }
+
+    /**
      * Deletes an existing Produto model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * And deletes existing Carrinhos and Stocks.
      * @param int $id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (!\Yii::$app->user->can('DeleteProduto')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+        $model = $this->findModel($id);
+        $carrinhos = $model->carrinhos;
+        $stocks = $model->stocks;
 
+        foreach ($stocks as $stock) {
+            $stock->delete();
+        }
+
+        foreach ($carrinhos as $carrinho) {
+            $carrinho->delete();
+        }
+
+        $model->delete();
         return $this->redirect(['index']);
     }
-
     /**
      * Finds the Produto model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

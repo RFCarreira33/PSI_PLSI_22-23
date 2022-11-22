@@ -1,14 +1,17 @@
 <?php
 
 use yii\helpers\Url;
+use common\models\Dados;
+use backend\models\AuthAssignment;
+
+$username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 ?>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?= Url::toRoute('site/index') ?>" class="brand-link">
-        <img src="<?= $assetDir ?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <img src="<?= $assetDir ?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">GlobalDiga</span>
     </a>
 
     <!-- Sidebar -->
@@ -16,66 +19,40 @@ use yii\helpers\Url;
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?= $assetDir ?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="/img/admin.jpg">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="<?= Url::toRoute(['dados/view', 'id_User' => Dados::findIdentity()]) ?>" class="d-block"><?= $username->nome ?></a>
             </div>
         </div>
-
-        <!-- SidebarSearch Form -->
-        <!-- href be escaped -->
-        <!-- <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-        </div> -->
-
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <?php
+            $admin = AuthAssignment::isAdmin();
+
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
-                    [
-                        'label' => 'Starter Pages',
-                        'icon' => 'tachometer-alt',
-                        'badge' => '<span class="right badge badge-info">2</span>',
-                        'items' => [
-                            ['label' => 'Active Page', 'url' => ['site/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Inactive Page', 'iconStyle' => 'far'],
-                            ['label' => 'Criar uma conta', 'url' => ['site/signup'], 'iconStyle' => 'far'],
-
-                        ]
-                    ],
-                    ['label' => 'Yii2 PROVIDED', 'header' => true],
+                    ['label' => 'Atalhos', 'header' => true],
+                    ['label' => 'Criar uma conta', 'url' => ['site/signup']],
                     ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
-                    ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
-                    ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
-                    ['label' => 'MULTI LEVEL EXAMPLE', 'header' => true],
-                    ['label' => 'Empresa',  'icon' => 'th', 'url' => ['/empresa/view'], 'target' => '_blank'],
-                    ['label' => 'Clientes',  'icon' => 'th', 'url' => ['/dados/index'], 'target' => '_blank'],
-                    ['label' => 'Produtos',  'icon' => 'th', 'url' => ['/produto/index'], 'target' => '_blank'],
-                    ['label' => 'Iva',  'icon' => 'th', 'url' => ['/iva/index'], 'target' => '_blank'],
-                    ['label' => 'Marcas',  'icon' => 'th', 'url' => ['/marca/index'], 'target' => '_blank'],
-                    ['label' => 'Faturas',  'icon' => 'th', 'url' => ['/fatura/index'], 'target' => '_blank'],
-                    ['label' => 'Categorias',  'icon' => 'th', 'url' => ['/categoria/index'], 'target' => '_blank'],
-                    ['label' => 'Cliente', 'iconStyle' => 'far'],
                     [
-                        'label' => 'Cliente',
+                        'label' => 'Perfis e contas',
                         'items' => [
-                            [
-                                'label' => 'Listar Clientes', 'icon' => 'th',
-                                'label' => 'Atualizar Cliente', 'icon' => 'th'
-                            ]
+
+                            ['label' => 'Clientes',  'iconStyle' => 'far', 'url' => ['/dados/index', 'role' => 'cliente']],
+                            ['label' => 'Funcionários',  'iconStyle' => 'far', 'url' => ['/dados/index', 'role' => 'funcionario']],
+                            ['label' => 'Administradores',  'iconStyle' => 'far', 'url' => ['/dados/index', 'role' => 'admin'], 'visible' => $admin],
 
                         ]
                     ],
-                    ['label' => 'Level1'],
+                    ['label' => 'Gestão ', 'header' => true],
+                    ['label' => 'Empresa',  'icon' => 'th', 'url' => ['/empresa/view'], 'visible' => $admin],
+                    ['label' => 'Produtos',  'icon' => 'th', 'url' => ['/produto/index']],
+                    ['label' => 'Stocks',  'icon' => 'th', 'url' => ['/stock/index']],
+                    ['label' => 'Taxas de Iva',  'icon' => 'th', 'url' => ['/iva/index']],
+                    ['label' => 'Marcas',  'icon' => 'th', 'url' => ['/marca/index']],
+                    ['label' => 'Faturas',  'icon' => 'th', 'url' => ['/fatura/index']],
+                    ['label' => 'Categorias',  'icon' => 'th', 'url' => ['/categoria/index']],
                 ],
             ]);
             ?>

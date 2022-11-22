@@ -129,6 +129,28 @@ class CarrinhoController extends Controller
         return $this->redirect(['carrinho/view']);
     }
 
+    public function actionAdicionar($id_Produto)
+    {
+        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
+        $carrinho = $dados->getCarrinhos()->where(['id_Produto' => $id_Produto])->one();
+        $carrinho->Quantidade +=  1;
+        $carrinho->save();
+        return $this->redirect(['carrinho/view']);
+    }
+
+    public function actionTirar($id_Produto)
+    {
+        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
+        $carrinho = $dados->getCarrinhos()->where(['id_Produto' => $id_Produto])->one();
+        if ($carrinho->Quantidade == 1) {
+            $this->actionDelete($id_Produto);
+            return $this->redirect('view');
+        }
+        $carrinho->Quantidade -=  1;
+        $carrinho->save();
+        return $this->redirect(['carrinho/view']);
+    }
+
     public function actionClear()
     {
         $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();

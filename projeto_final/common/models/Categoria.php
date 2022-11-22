@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\validators\when;
 
 /**
  * This is the model class for table "categoria".
@@ -35,6 +36,12 @@ class Categoria extends \yii\db\ActiveRecord
             [['nome'], 'required'],
             [['nome'], 'string', 'max' => 45],
             [['id_CategoriaPai'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['id_CategoriaPai' => 'id']],
+            [['id_CategoriaPai'], 'exist', 'when' => function ($model, $attribute) {
+                if ($model->$attribute == $model->id) {
+                    $this->addError($attribute, 'A categoria pai não pode ser a mesma que a categoria');
+                    return false;
+                }
+            }],
         ];
     }
 
@@ -78,5 +85,31 @@ class Categoria extends \yii\db\ActiveRecord
     public function getProdutos()
     {
         return $this->hasMany(Produto::class, ['id_Categoria' => 'id']);
+    }
+
+    public function canDelete()
+    {
+        if (count($this->produtos) == 0 && count($this->categorias) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function getCountCategorias()
+    {
+        return Categoria::find()->count();
+    }
+
+    public static function getCategoriasPai()
+    {
+        $categorias = Categoria::find()->all();
+        foreach ($categorias as $categoria) {
+            $categoriasFilho = Categoria::find()->where(['id_CategoriaPai' => $categoria->id])->all();
+            if (count($categoriasFilho) > 0) {
+                $categoriasPai[] = $categoria->id;
+            }
+        }
+        // query for categorias that are used as Categoria Pai
+        return $categoriasPai;
     }
 }

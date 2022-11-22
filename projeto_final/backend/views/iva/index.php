@@ -10,31 +10,36 @@ use yii\grid\GridView;
 /** @var backend\models\IvaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Ivas';
+$this->title = 'Taxas de Iva';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="iva-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create Iva', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar uma taxa de Iva', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    <?php echo $this->render('_search', ['model' => $searchModel]);
     ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'percentagem',
-            'Ativo',
+            'Ativo' => [
+                'label' => 'Estado',
+                'attribute' => 'Ativo',
+                'value' => function (Iva $model) {
+                    if ($model->Ativo == 1) {
+                        return 'Ativo';
+                    }
+                    return 'Inativo';
+                }
+            ],
             [
-                'class' => ActionColumn::className(),
+                'class' => 'yii\grid\ActionColumn', 'template' => '{view}{update}',
                 'urlCreator' => function ($action, Iva $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }

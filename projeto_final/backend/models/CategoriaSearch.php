@@ -19,6 +19,7 @@ class CategoriaSearch extends Categoria
         return [
             [['id', 'id_CategoriaPai'], 'integer'],
             [['nome'], 'safe'],
+            [['id_CategoriaPai'], 'exist', 'message' => 'Categoria Inválida'],
         ];
     }
 

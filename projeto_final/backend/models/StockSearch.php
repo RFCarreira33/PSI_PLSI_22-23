@@ -18,6 +18,7 @@ class StockSearch extends Stock
     {
         return [
             [['id_Loja', 'id_Produto', 'quantidade'], 'integer'],
+            [['id_Loja'], 'exist', 'message' => 'Loja Inválida'],
         ];
     }
 

@@ -31,9 +31,10 @@ class Stock extends \yii\db\ActiveRecord
     {
         return [
             [['id_Loja', 'id_Produto', 'quantidade'], 'required'],
-            [['id_Loja', 'id_Produto', 'quantidade'], 'integer'],
+            [['id_Loja', 'id_Produto'], 'integer'],
             [['id_Loja'], 'exist', 'skipOnError' => true, 'targetClass' => Loja::class, 'targetAttribute' => ['id_Loja' => 'id']],
             [['id_Produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['id_Produto' => 'id']],
+            [['quantidade'], 'integer', 'min' => 0, 'message' => 'Quantidade Inválida'],
         ];
     }
 
