@@ -44,13 +44,10 @@ class ProdutoController extends Controller
         $parentCategory = Categoria::find()->select("id")->where(["nome" => $category]);
         $childCategories = Categoria::find()->select("id")->where(["id_CategoriaPai" => $parentCategory])->column();
         $i = sizeof($childCategories);
-        
-        foreach($childCategories as $child)
-        {
-            while(sizeof(Categoria::find()->select("id")->where(["id_CategoriaPai" => $child])->column()) != 0)
-            {
-                foreach(Categoria::find()->select("id")->where(["id_CategoriaPai" => $child])->column() as $child)
-                {
+
+        foreach ($childCategories as $child) {
+            while (sizeof(Categoria::find()->select("id")->where(["id_CategoriaPai" => $child])->column()) != 0) {
+                foreach (Categoria::find()->select("id")->where(["id_CategoriaPai" => $child])->column() as $child) {
                     $childCategories[] = $child;
                     $i = sizeof($childCategories);
                 }
@@ -78,7 +75,7 @@ class ProdutoController extends Controller
     {
         $produto = $this->findModel($id);
         /* It's a query to find all products with the same category as the current product. */
-        $relatedProducts = Produto::find()->where(["id_Categoria" => $produto->id_Categoria])->andWhere(["<>", "id", $produto->id])->limit(4)->all();
+        $relatedProducts = Produto::find()->where(["id_Categoria" => $produto->id_Categoria, 'Ativo' => 1])->andWhere(["<>", "id", $produto->id])->limit(4)->all();
 
         return $this->render('view', [
             'produto' => $produto,
@@ -94,10 +91,5 @@ class ProdutoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function getRelatedProducts($category)
-    {
-        $relatedProducts = array();
     }
 }

@@ -70,8 +70,12 @@ class FaturaController extends Controller
      */
     public function actionView($id)
     {
+
         $fatura =  $this->findModel($id);
-        return $this->renderPartial('view', ['model' => $fatura]);
+        if (\Yii::$app->user->can('Comprador', ['fatura' => $fatura])) {
+            return $this->render('view', ['model' => $fatura]);
+        }
+        return $this->render('view', ['model' => $fatura]);
     }
 
     /**
@@ -82,16 +86,15 @@ class FaturaController extends Controller
     public function actionCreate()
     {
 
-        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
-        $carrinhos = Carrinho::find()->where(['id_Cliente' =>  Yii::$app->user->id])->all();
+        $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
+        $carrinhos = Carrinho::findAll(['id_Cliente' => $dados->id_User]);
 
         $valorTotal = 0;
-        $ivaP = 0;
         $valorIva = 0;
 
         foreach ($carrinhos as $carrinho) {
-            $ivaP = $carrinho->produto->iva->percentagem;
-            $valorIva += $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100);
+            $ivaP = $carrinho->produto->iva->percentagem / 100;
+            $valorIva += $carrinho->Quantidade * $carrinho->produto->preco * $ivaP;
             $valorTotal += $carrinho->Quantidade * $carrinho->produto->preco;
         }
 

@@ -5,6 +5,7 @@ namespace common\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Fatura;
+use Yii;
 
 /**
  * FaturaSearch represents the model behind the search form of `common\models\Fatura`.
@@ -60,7 +61,7 @@ class FaturaSearch extends Fatura
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_Cliente' => $this->id_Cliente,
+            'id_Cliente' => Yii::$app->user->id,
             'dataFatura' => $this->dataFatura,
             'valorTotal' => $this->valorTotal,
             'valorIva' => $this->valorIva,

@@ -43,10 +43,11 @@ class RbacController extends Controller
         //Ver faturas apenas que pertencem ao utilizador
         $rule = new \console\models\FaturaRule();
         $auth->add($rule);
-        $permission = $auth->createPermission("VerFaturas");
-        $permission->description = "Verifica de a fatura pertence ao user";
-        $auth->add($permission);
+
+        $permission = $auth->createPermission("Comprador");
+        $permission->description = "Ver faturas";
         $permission->ruleName = $rule->name;
+        $auth->add($permission);
         $auth->addChild($cliente, $permission);
 
 
