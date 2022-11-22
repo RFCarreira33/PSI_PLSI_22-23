@@ -32,6 +32,7 @@ class Carrinho extends \yii\db\ActiveRecord
         return [
             [['id_Cliente', 'id_Produto', 'Quantidade'], 'required'],
             [['id_Cliente', 'id_Produto', 'Quantidade'], 'integer'],
+            ['Quantidade', 'integer', 'max' => 20, 'message' => 'Quantidade máxima atingida'],
             [['id_Cliente', 'id_Produto'], 'unique', 'targetAttribute' => ['id_Cliente', 'id_Produto']],
             [['id_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Dados::class, 'targetAttribute' => ['id_Cliente' => 'id_User']],
             [['id_Produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['id_Produto' => 'id']],

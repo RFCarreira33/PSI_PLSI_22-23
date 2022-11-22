@@ -2,6 +2,7 @@
 
 use yii\helpers\BaseUrl;
 use yii\helpers\Url;
+use yii\helpers\Html;
 ?>
 
 <!DOCTYPE html>
@@ -46,13 +47,14 @@ use yii\helpers\Url;
                     } else { ?>
                     <br>
                     <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
-                            style="max-width: 3rem" />
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto"
-                                    href="<?= Url::toRoute(["carrinho/create", "id" => $produto->id, "quantidade" => 1]) ?>">
-                                    Adicionar ao carrinho<i class="bi-cart-fill me-1"></i>
-                                </a></div>
+                            <form action="<?= Url::toRoute(["carrinho/create"]) ?>" method="POST">
+                                <input type="hidden" name="id" value="<?= $produto->id ?>">
+                                <input class=" text-center me-3" style="width:4rem; padding:6px" id="quantidade"
+                                    type="number" name="quantidade" value=1 max=20 min=1>
+                                <button class="btn btn-outline-dark" type="submit">Adicionar ao Carrinho<i
+                                        class="bi-cart-fill me-1"></i></button>
+                            </form>
                         </div>
                     </div>
                     <br>

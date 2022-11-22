@@ -12,6 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
+
 /**
  * CarrinhoController implements the CRUD actions for Carrinho model.
  */
@@ -37,11 +38,17 @@ class CarrinhoController extends Controller
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
-                        'delete' => ['POST'],
+                        'create' => ['POST'],
                     ],
                 ],
             ]
         );
+    }
+
+    public function beforeAction($action)
+    {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
     }
 
     /**
@@ -72,8 +79,10 @@ class CarrinhoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate($id, $quantidade)
+    public function actionCreate()
     {
+        $quantidade = Yii::$app->request->post('quantidade');
+        $id = Yii::$app->request->post('id');
 
         $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
         $carrinho = Carrinho::findOne(['id_Cliente' => $dados->id_User, 'id_Produto' => $id]);
@@ -86,8 +95,11 @@ class CarrinhoController extends Controller
         } else {
             $carrinho->Quantidade += $quantidade;
         }
-        $carrinho->save();
-        return $this->redirect('view');
+        if ($carrinho->save()) {
+            return $this->redirect('view');
+        }
+        Yii::$app->session->setFlash('error', 'Quantidade de máxima de 20 atingida');
+        return $this->redirect(['produto/view', 'id' => $id]);
     }
 
     /**

@@ -42,6 +42,7 @@ class Empresa extends \yii\db\ActiveRecord
             [['designacaoSocial', 'email', 'morada', 'localidade'], 'string', 'max' => 45],
             [['telefone', 'nif', 'codPostal'], 'string', 'max' => 9],
             [['imgBanner', 'imgLogo'], 'string', 'max' => 255],
+            [['imgBanner', 'imgLogo'], 'match', 'pattern' => "^\.(?:jpe?g|png)$^", 'message' => 'Formato de imagem inválido']
         ];
     }
 
