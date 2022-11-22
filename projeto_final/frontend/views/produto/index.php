@@ -25,13 +25,16 @@ $this->title = 'My Yii Application';
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <?php
-            if (sizeof($produtos) == 0)  include __DIR__ . '/../layouts/notFound.php';
+            if (sizeof($produtos) == 0) {
+                include __DIR__ . '/../layouts/notFound.php';
+                return;
+            }
             foreach ($produtos as $produto) { ?>
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
                         <a style="text-decoration: none;color:black;" href="<?= Url::toRoute(["produto/view", "id" => $produto->id]) ?>">
-                            <img class="card-img-top" src="/img/<?php echo $produto->imagem ?>" alt="..." />
+                            <img class="card-img-top" style="width:220px;height:220px;" src="/img/<?php echo $produto->imagem ?>" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -40,6 +43,21 @@ $this->title = 'My Yii Application';
                         </a>
                         <!-- Product price-->
                         <?php echo $produto->preco ?>€
+                        <br>
+                        <br>
+                        <?php
+                        $esgotado = true;
+                        foreach ($produto->stocks as $stock) {
+                            if ($stock->quantidade > 0) {
+                                $esgotado = false;
+                            }
+                        }
+                        if ($esgotado) {
+                            echo "<h6 style='color:red'>Esgotado</h6>";
+                        } else {
+                            echo "<h6 style='color:green'>Em Stock</h6>";
+                        }
+                        ?>
                     </div>
                 </div>
         </div>
