@@ -59,6 +59,10 @@ AppAsset::register($this);
                             <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">   
+                        <a class="nav-link" href="<?= Url::toRoute("news/index") ?>" role="button">News</a>
+                        
+                    </li>
                 </ul>
                 <form action="" class="d-flex">
                     <a class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
