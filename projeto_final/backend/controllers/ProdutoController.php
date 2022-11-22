@@ -95,7 +95,6 @@ class ProdutoController extends Controller
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
         $model = new Produto();
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 $lojas = Loja::find()->all();

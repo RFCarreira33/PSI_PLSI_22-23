@@ -86,4 +86,14 @@ class AuthAssignment extends \yii\db\ActiveRecord
         }
         return $ids;
     }
+
+    public static function getCountClientes()
+    {
+        return AuthAssignment::find()->where(["item_name" => "cliente"])->count();
+    }
+
+    public static function getCountFuncionarios()
+    {
+        return AuthAssignment::find()->where(["item_name" => "funcionario"])->count();
+    }
 }

@@ -48,13 +48,13 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
                         ]
                     ],
                     ['label' => 'Gestão ', 'header' => true],
-                    ['label' => 'Empresa',  'icon' => 'th', 'url' => ['/empresa/view'], 'target' => '_blank', 'visible' => $admin],
-                    ['label' => 'Produtos',  'icon' => 'th', 'url' => ['/produto/index'], 'target' => '_blank'],
-                    ['label' => 'Stocks',  'icon' => 'th', 'url' => ['/stock/index'], 'target' => '_blank'],
-                    ['label' => 'Taxas de Iva',  'icon' => 'th', 'url' => ['/iva/index'], 'target' => '_blank'],
-                    ['label' => 'Marcas',  'icon' => 'th', 'url' => ['/marca/index'], 'target' => '_blank'],
-                    ['label' => 'Faturas',  'icon' => 'th', 'url' => ['/fatura/index'], 'target' => '_blank'],
-                    ['label' => 'Categorias',  'icon' => 'th', 'url' => ['/categoria/index'], 'target' => '_blank'],
+                    ['label' => 'Empresa',  'icon' => 'th', 'url' => ['/empresa/view'], 'visible' => $admin],
+                    ['label' => 'Produtos',  'icon' => 'th', 'url' => ['/produto/index']],
+                    ['label' => 'Stocks',  'icon' => 'th', 'url' => ['/stock/index']],
+                    ['label' => 'Taxas de Iva',  'icon' => 'th', 'url' => ['/iva/index']],
+                    ['label' => 'Marcas',  'icon' => 'th', 'url' => ['/marca/index']],
+                    ['label' => 'Faturas',  'icon' => 'th', 'url' => ['/fatura/index']],
+                    ['label' => 'Categorias',  'icon' => 'th', 'url' => ['/categoria/index']],
                 ],
             ]);
             ?>

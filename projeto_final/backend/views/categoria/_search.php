@@ -17,7 +17,8 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'nome') ?>
-    <?= $form->field($model, 'id_CategoriaPai')->dropDownList(Categoria::find()->where([])->select(['nome', 'id'])->indexBy('id')->column(), ['prompt' => 'Qualquer uma'])->label('Categoria Pai') ?>
+    <!-- getCategoriasPai filters categorias never used as Categoria Pai e devolve ids-->
+    <?= $form->field($model, 'id_CategoriaPai')->dropDownList(Categoria::find()->where(['id' => Categoria::getCategoriasPai()])->select(['nome', 'id'])->indexBy('id')->column(), ['prompt' => 'Qualquer uma'])->label('Categoria Pai') ?>
 
 
     <div class="form-group">

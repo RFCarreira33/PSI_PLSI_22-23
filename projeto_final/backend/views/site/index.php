@@ -30,15 +30,13 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
             'text' => 'Funcionários Registados',
             'icon' => 'fas fa-user-plus',
             'linkText' => 'Ver Clientes',
-            'linkUrl' => Url::toRoute(["dados/index", 'role' => 'cliente']),
+            'linkUrl' => Url::toRoute(["dados/index", 'role' => 'funcionario']),
         ]) ?>
     </div>
-</div>
-<div class="row">
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
             'title' => $nFaturas,
-            'text' => 'Numero de Faturas',
+            'text' => 'Número de Faturas',
             'icon' => 'far fa-copy',
             'linkText' => 'Ver Faturas',
             'linkUrl' => Url::toRoute(["fatura/index"])
@@ -55,28 +53,46 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
-            'title' => $nClientes,
+            'title' => $nProdutos,
             'text' => 'Total de Produtos Registados',
-            'icon' => 'fas fa-user-plus',
-            'linkText' => 'Ver Clientes',
-            'linkUrl' => Url::toRoute(["dados/index", 'role' => 'cliente']),
+            'icon' => 'fas fa-tag',
+            'linkText' => 'Ver Produtos',
+            'linkUrl' => Url::toRoute(["produto/index"]),
         ]) ?>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
-            'title' => $nClientes,
+            'title' => $nProdutosAtivos,
             'text' => 'Produtos Ativos',
-            'icon' => 'fas fa-user-plus',
-            'linkText' => 'Ver Clientes',
-            'linkUrl' => Url::toRoute(["dados/index", 'role' => 'cliente']),
+            'icon' => 'fas fa-tag',
+            'linkText' => 'Ver Produtos',
+            'linkUrl' => Url::toRoute(["produto/index"]),
         ]) ?>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
-            'title' => $nClientes,
-            'text' => 'Numero de Marcas',
-            'icon' => 'fas fa-user-plus',
-            'linkText' => 'Ver Clientes',
-            'linkUrl' => Url::toRoute(["dados/index", 'role' => 'cliente']),
+            'title' => $nLojas,
+            'text' => 'número de Lojas',
+            'icon' => 'fas fa-home',
+            'linkText' => 'Ver Lojas e Stocks',
+            'linkUrl' => Url::toRoute(["stock/index"]),
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <?= \hail812\adminlte\widgets\SmallBox::widget([
+            'title' => $nCategorias,
+            'text' => 'número de Categorias',
+            'icon' => 'fas fa-industry',
+            'linkText' => 'Ver Categorias',
+            'linkUrl' => Url::toRoute(["categoria/index"]),
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <?= \hail812\adminlte\widgets\SmallBox::widget([
+            'title' => $nMarcas,
+            'text' => 'número de Marcas',
+            'icon' => 'fas fa-industry',
+            'linkText' => 'Ver Marcas',
+            'linkUrl' => Url::toRoute(["marca/index"]),
         ]) ?>
     </div>

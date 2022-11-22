@@ -99,7 +99,7 @@ use yii\helpers\Url;
                                     <hr class="my-4">
 
                                     <div class="d-flex justify-content-between mb-4">
-                                        <h5 class=""> Numero de Artigos: <?php echo sizeof($carrinhos) ?></h5>
+                                        <h5 class=""> número de Artigos: <?php echo sizeof($carrinhos) ?></h5>
                                     </div>
 
                                     <h5 class="text-uppercase mb-3">Metodo de entrega</h5>

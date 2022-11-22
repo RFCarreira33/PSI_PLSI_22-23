@@ -90,4 +90,9 @@ class Fatura extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Linhafatura::class, ['id_Fatura' => 'id']);
     }
+    public static function getTotalFaturado()
+    {
+        $total = Fatura::find()->sum('valorTotal');
+        return $total;
+    }
 }

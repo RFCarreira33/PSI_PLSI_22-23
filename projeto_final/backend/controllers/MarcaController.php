@@ -77,7 +77,7 @@ class MarcaController extends Controller
             'query' => $marca->getProdutos(),
         ]);
         return $this->render('view', [
-            'model' => $this->findModel($nome),
+            'model' => $marca,
             'dataProvider' => $dataProvider,
         ]);
     }

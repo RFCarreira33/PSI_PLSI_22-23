@@ -68,4 +68,9 @@ class Loja extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Stock::class, ['id_Loja' => 'id']);
     }
+
+    public static function getCountLojas()
+    {
+        return self::find()->count();
+    }
 }

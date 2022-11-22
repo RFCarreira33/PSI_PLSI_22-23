@@ -94,4 +94,22 @@ class Categoria extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    public static function getCountCategorias()
+    {
+        return Categoria::find()->count();
+    }
+
+    public static function getCategoriasPai()
+    {
+        $categorias = Categoria::find()->all();
+        foreach ($categorias as $categoria) {
+            $categoriasFilho = Categoria::find()->where(['id_CategoriaPai' => $categoria->id])->all();
+            if (count($categoriasFilho) > 0) {
+                $categoriasPai[] = $categoria->id;
+            }
+        }
+        // query for categorias that are used as Categoria Pai
+        return $categoriasPai;
+    }
 }

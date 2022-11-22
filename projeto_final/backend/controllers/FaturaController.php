@@ -7,6 +7,7 @@ use backend\models\FaturaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 
 /**
@@ -60,6 +61,17 @@ class FaturaController extends Controller
         ]);
     }
 
+    public function actionPrint($id)
+    {
+        if (!\Yii::$app->user->can('ReadFatura')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+        //TODO Frontend Fatura View
+        return $this->render('print', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
     /**
      * Displays a single Fatura model.
      * @param int $id ID
@@ -71,8 +83,13 @@ class FaturaController extends Controller
         if (!\Yii::$app->user->can('ReadFatura')) {
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
+        $fatura = $this->findModel($id);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $fatura->getLinhafaturas(),
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $fatura,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

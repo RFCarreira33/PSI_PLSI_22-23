@@ -22,7 +22,7 @@ use Yii;
  * @property Categoria $categoria
  * @property User[] $clientes
  * @property Iva $iva
- * @property Linhafatura[] $linhafaturas
+ * @property Loja[] $lojas
  * @property Marca $marca
  * @property Stock[] $stocks
  */
@@ -42,7 +42,7 @@ class Produto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_Categoria', 'id_Iva', 'id_Marca', 'descricao', 'imagem', 'referencia', 'preco', 'Ativo'], 'required'],
+            [['id_Categoria', 'id_Iva', 'id_Marca', 'descricao', 'imagem', 'referencia', 'preco'], 'required'],
             [['id_Categoria', 'id_Iva', 'Ativo'], 'integer'],
             [['descricao', 'imagem'], 'string'],
             [['preco'], 'number'],
@@ -115,13 +115,13 @@ class Produto extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Linhafaturas]].
+     * Gets query for [[Lojas]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLinhafaturas()
+    public function getLojas()
     {
-        return $this->hasMany(Linhafatura::class, ['id_Produto' => 'id']);
+        return $this->hasMany(Loja::class, ['id' => 'id_Loja'])->viaTable('stock', ['id_Produto' => 'id']);
     }
 
     /**
@@ -142,5 +142,14 @@ class Produto extends \yii\db\ActiveRecord
     public function getStocks()
     {
         return $this->hasMany(Stock::class, ['id_Produto' => 'id']);
+    }
+    public static function getCountProdutosAtivos()
+    {
+        return static::find()->where(['Ativo' => 1])->count();
+    }
+
+    public static function getCountProdutos()
+    {
+        return static::find()->count();
     }
 }
