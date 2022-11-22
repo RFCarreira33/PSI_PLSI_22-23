@@ -11,7 +11,7 @@ use yii\helpers\Html;
 
 ?>
 <div class="fatura-index">
-
+    <br>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
@@ -34,6 +34,5 @@ use yii\helpers\Html;
             ],
         ],
     ]); ?>
-
-
+    <br>
 </div>

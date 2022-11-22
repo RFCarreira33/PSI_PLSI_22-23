@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 <div class="dados-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
+    <br>
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
     <br>
     <?= $form->field($model, 'telefone')->textInput(['maxlength' => true]) ?>
@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
-
+    <br>
     <?php ActiveForm::end(); ?>
 
 </div>

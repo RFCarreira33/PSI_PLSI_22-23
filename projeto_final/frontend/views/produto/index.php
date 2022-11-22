@@ -8,13 +8,25 @@ use yii\widgets\LinkPager;
 
 $this->title = 'My Yii Application';
 ?>
-<!-- Section--> 
+<!-- Section-->
 <section class="py-5">
+
+    <?php
+    include __DIR__ . '/../layouts/filters.php';
+    echo LinkPager::widget([
+        'pagination' => $pages,
+        'hideOnSinglePage' => true,
+        'maxButtonCount' => 5,
+        'disableCurrentPageButton' => true,
+        'firstPageLabel' => true,
+        'lastPageLabel' => true
+    ]);
+    ?>
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <?php 
-                if(sizeof($produtos) == 0)  include __DIR__ . '/../layouts/notFound.php';
-                foreach ($produtos as $produto) { ?>
+            <?php
+            if (sizeof($produtos) == 0)  include __DIR__ . '/../layouts/notFound.php';
+            foreach ($produtos as $produto) { ?>
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
@@ -36,16 +48,3 @@ $this->title = 'My Yii Application';
 </div>
 </div>
 </section>
-
-<?php
-    echo LinkPager::widget([
-        'pagination' => $pages,
-        'hideOnSinglePage' => true,
-        'maxButtonCount' => 5,
-        'disableCurrentPageButton' => true,
-        'firstPageLabel' => true,
-        'lastPageLabel' => true
-    ]);
-
-    include __DIR__ . '/../layouts/filters.php';
-?>
