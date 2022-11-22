@@ -41,8 +41,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'localidade',
             'capitalSocial',
-            'imgLogo',
-            'imgBanner'
+            'imgLogo' => [
+                'label' => 'Logo',
+                'attribute' => 'imagem',
+                'value' => '/img/' . $model->imgLogo,
+                'format' => ['image', ['width' => '20%', 'height' => '20%']],
+            ],
+            'imgBanner' => [
+                'label' => 'Banner',
+                'attribute' => 'imagem',
+                'value' => '/img/' . $model->imgBanner,
+                'format' => ['image', ['width' => '20%', 'height' => '20%']],
+            ],
         ],
     ]) ?>
 

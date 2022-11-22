@@ -18,6 +18,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\Empresa;
 
 /**
  * Site controller
@@ -74,7 +75,8 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $produtos = Produto::find()->limit(4)->all();
-        return $this->render('index', ['produtos' => $produtos]);
+        $empresa = Empresa::findOne(1);
+        return $this->render('index', ['produtos' => $produtos, 'empresa' => $empresa]);
     }
 
     public function actionHome()

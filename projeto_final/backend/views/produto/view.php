@@ -94,7 +94,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->descricao;
                 }
             ],
-            'imagem:ntext',
+            'imagem' => [
+                'label' => 'Imagem',
+                'attribute' => 'imagem',
+                'value' => '/img/' . $model->imagem,
+                'format' => ['image', ['width' => '230', 'height' => '230']],
+            ],
         ],
     ]) ?>
 
