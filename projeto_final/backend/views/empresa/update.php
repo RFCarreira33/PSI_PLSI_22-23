@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="empresa-update">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'designacaoSocial')->label('Designação Social') ?>
     <?= $form->field($model, 'email')->label('Email') ?>
@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = 'Atualizar';
     <?= $form->field($model, 'codPostal')->label('Código Postal') ?>
     <?= $form->field($model, 'localidade')->label('Localidade') ?>
     <?= $form->field($model, 'capitalSocial')->label('Capital Social') ?>
+    <?= $form->field($model, 'imgLogo')->fileInput() ?>
+    <?= $form->field($model, 'imgBanner')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>

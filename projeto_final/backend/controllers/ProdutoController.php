@@ -11,6 +11,9 @@ use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use common\models\Stock;
 use common\models\Loja;
+use yii\web\UploadedFile;
+use common\models\UploadForm;
+use Yii;
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
@@ -63,6 +66,20 @@ class ProdutoController extends Controller
         ]);
     }
 
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imagem');
+            if ($model->upload()) {
+                return;
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
+    }
+
     /**
      * Displays a single Produto model.
      * @param int $id ID
@@ -95,8 +112,15 @@ class ProdutoController extends Controller
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
         $model = new Produto();
+        $modelUpload = new UploadForm();
+
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imagem');
+                $modelUpload->upload();
+                $model->imagem = $modelUpload->imageFile->name;
+                $model->Ativo = 0;
+                $model->save();
                 $lojas = Loja::find()->all();
                 foreach ($lojas as $loja) {
                     $stock = new Stock();
@@ -113,6 +137,7 @@ class ProdutoController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelUpload' => $modelUpload
         ]);
     }
 
@@ -129,13 +154,21 @@ class ProdutoController extends Controller
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
         $model = $this->findModel($id);
+        $modelUpload = new UploadForm();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $modelUpload->imageFile = UploadedFile::getInstance($model, 'imagem');
+                $modelUpload->upload();
+                $model->imagem = $modelUpload->imageFile->name;
+                $model->save();
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelUpload' => $modelUpload
         ]);
     }
 
