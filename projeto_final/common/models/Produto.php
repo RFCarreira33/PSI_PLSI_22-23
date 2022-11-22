@@ -42,7 +42,7 @@ class Produto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_Categoria', 'id_Iva', 'id_Marca', 'descricao', 'imagem', 'referencia', 'preco'], 'required'],
+            [['id_Categoria', 'id_Iva', 'id_Marca', 'descricao', 'imagem', 'referencia', 'preco', 'imagem'], 'required'],
             [['id_Categoria', 'id_Iva', 'Ativo'], 'integer'],
             [['descricao', 'imagem'], 'string'],
             [['preco'], 'number'],
@@ -52,6 +52,7 @@ class Produto extends \yii\db\ActiveRecord
             [['id_Marca'], 'exist', 'skipOnError' => true, 'targetClass' => Marca::class, 'targetAttribute' => ['id_Marca' => 'nome']],
             [['id_Categoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['id_Categoria' => 'id']],
             [['Ativo'], 'in', 'range' => [0, 1]],
+            ['imagem', 'match', 'pattern' => "^\.(?:jpe?g|png)$^", 'message' => 'Formato de imagem inválido']
         ];
     }
 

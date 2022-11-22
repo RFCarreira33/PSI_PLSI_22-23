@@ -77,7 +77,7 @@ class ProdutoController extends Controller
             }
         }
 
-        return $this->render('upload', ['model' => $model]);
+        return $this->goHome();
     }
 
     /**
@@ -119,7 +119,6 @@ class ProdutoController extends Controller
                 $modelUpload->imageFile = UploadedFile::getInstance($model, 'imagem');
                 $modelUpload->upload();
                 $model->imagem = $modelUpload->imageFile->name;
-                $model->Ativo = 0;
                 $model->save();
                 $lojas = Loja::find()->all();
                 foreach ($lojas as $loja) {
