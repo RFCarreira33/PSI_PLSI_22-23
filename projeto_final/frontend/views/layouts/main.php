@@ -10,11 +10,17 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 use yii\helpers\Url;
-
+use yii\widgets\ActiveForm;
 
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
+
+<?php
+    use common\models\Categoria;
+    $categorias = Categoria::find()->all();
+?>
+
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 
@@ -52,14 +58,22 @@ AppAsset::register($this);
                             data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#!">All Products</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                            <?php
+                                foreach($categorias as $categoria)
+                                { ?>
+                                    <li><hr class="dropdown-divider"/></li>
+                                    <li><a class="dropdown-item" href="<?=Url::toRoute(['produto/search?category='.$categoria->nome])?>"><?=$categoria->nome?></a></li>
+                                <?php } 
+                                ?>
                         </ul>
                     </li>
                 </ul>
+
+                <form action="<?=Url::toRoute(["produto/search"])?>">
+                  <input id="searchBar" type="text" placeholder="Search..." name="query">
+                  <button type="submit">🔍</button>
+                </form>
+
                 <form action="" class="d-flex">
                     <a class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
                         <i class="bi-cart-fill me-1"></i>
