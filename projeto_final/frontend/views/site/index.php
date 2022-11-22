@@ -11,7 +11,7 @@ $this->title = 'My Yii Application';
 <header>
 
     <div class="text-center text-white">
-        <img src="img/ok.jpg" style="width:1300px;height:300px;">
+        <img src="img/<?= $empresa->imgBanner ?>" style="width:1300px;height:300px;">
     </div>
 
 </header>
@@ -35,12 +35,14 @@ $this->title = 'My Yii Application';
                         <br>
                         <br>
                         <?php
+                        $quantidadeM = 0;
                         foreach ($produto->stocks as $stock) {
-                            if ($stock->quantidade > 0) {
-                                echo "<h6 style='color:green'>Em Stock</h6>";
-                            } else {
-                                echo "<h6 style='color:red'>Esgotado</h6>";
-                            }
+                            $quantidadeM += $stock->quantidade;
+                        }
+                        if ($quantidadeM > 0) {
+                            echo "<h6 style='color:green'>Em Stock</h6>";
+                        } else {
+                            echo "<h6 style='color:red'>Esgotado</h6>";
                         }
                         ?>
                     </div>

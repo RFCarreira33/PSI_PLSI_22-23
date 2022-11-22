@@ -29,31 +29,43 @@ use yii\helpers\Url;
                 <div class="col-md-6">
                     <div class="small mb-1">REF: <?php echo $produto->referencia ?></div>
                     <h1 class="display-5 fw-bolder"><?php echo $produto->nome ?></h1>
+                    <br>
                     <div class="fs-5 mb-5">
-                        <span class="text-decoration-line-through"><?php echo $produto->preco + 20 ?>€</span>
                         <span><?php echo $produto->preco ?>€</span>
                     </div>
                     <p class="lead"><?php echo $produto->descricao ?></p>
                     <?php
+                    $quantidadeM = 0;
                     foreach ($produto->stocks as $stock) {
-                        if ($stock->quantidade > 0) { ?>
-                            <div class="d-flex">
-                                <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= Url::toRoute(["carrinho/create", "id" => $produto->id, "quantidade" => 1]) ?>">
-                                            Adicionar ao carrinho<i class="bi-cart-fill me-1"></i>
-                                        </a></div>
-                                </div>
-                            </div>
-                    <?php
-                        } else {
-                            echo "<h6 style='color:red'>Esgotado</h6>";
-                        }
+                        $quantidadeM += $stock->quantidade;
                     }
-                    ?>
+                    if ($quantidadeM > 0) { ?>
+                        <div class="d-flex">
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div style="padding-top:10px" class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= Url::toRoute(["carrinho/create", "id" => $produto->id, "quantidade" => 1]) ?>">
+                                        Adicionar ao carrinho <i class="bi-cart-fill me-1"></i>
+                                    </a></div>
+                            </div>
+                        </div>
+                    <?php
+                    } else {
+                        echo "<h6 style='color:red'>Esgotado</h6>";
+                    } ?>
+                    <br>
+                    <div>
+                        <p>Disponibilidade por Loja:</p>
+                        <?php
+                        foreach ($produto->stocks as $stock) {
+                            if ($stock->quantidade > 0) {
+                                echo $stock->loja->localidade . " " . "<span style='color:green'>Em Stock</span><br>";
+                            } else {
+                                echo $stock->loja->localidade . " " . "<span style='color:red'>Esgotado</span>";
+                            }
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
     </section>
     <!-- Related items section-->
     <section class="py-5 bg-light">
