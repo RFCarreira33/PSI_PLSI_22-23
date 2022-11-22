@@ -12,7 +12,7 @@ use yii\widgets\DetailView;
 <div class="dados-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <br>
     <p>
         <?= Html::a('Atualizar informações', ['update'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('As minha encomendas', Url::toRoute('fatura/index'),  ['class' => 'btn btn-primary']) ?>
@@ -40,5 +40,5 @@ use yii\widgets\DetailView;
             ],
         ],
     ]) ?>
-
+    <br>
 </div>
