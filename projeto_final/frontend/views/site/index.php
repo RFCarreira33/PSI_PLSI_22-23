@@ -11,7 +11,7 @@ $this->title = 'My Yii Application';
 <header>
 
     <div class="text-center text-white">
-        <img src="img/ok.jpg" style="width:1300px;height:300px;">
+        <img src="img/<?= $empresa->imgBanner ?>" style="width:1300px;height:300px;">
     </div>
 
 </header>
