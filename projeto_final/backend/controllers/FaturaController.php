@@ -42,6 +42,7 @@ class FaturaController extends Controller
         );
     }
 
+
     /**
      * Lists all Fatura models.
      *
@@ -66,8 +67,7 @@ class FaturaController extends Controller
         if (!\Yii::$app->user->can('ReadFatura')) {
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
-        //TODO Frontend Fatura View
-        return $this->render('print', [
+        return $this->renderPartial('print', [
             'model' => $this->findModel($id),
         ]);
     }
