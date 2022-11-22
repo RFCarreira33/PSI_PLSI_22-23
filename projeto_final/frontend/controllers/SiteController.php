@@ -18,6 +18,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\controllers\NewsController;
 
 /**
  * Site controller
@@ -74,7 +75,18 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $produtos = Produto::find()->limit(4)->all();
-        return $this->render('index', ['produtos' => $produtos]);
+
+        $APIKEY = NewsController::getAPIKey();
+        $response = file_get_contents('https://newsdata.io/api/1/news?apikey='.$APIKEY.'&country=pt&language=pt&category=technology');
+        $response = json_decode($response);
+        $news = [];
+
+        for($i = 0; $i < 4; $i++)
+        {
+            $news[] = $response->results[$i];
+        }
+
+        return $this->render('index', ['produtos' => $produtos, 'news' => $news]);
     }
 
     public function actionHome()

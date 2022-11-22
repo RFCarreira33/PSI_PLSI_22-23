@@ -67,6 +67,10 @@ AppAsset::register($this);
                                 ?>
                         </ul>
                     </li>
+                    <li class="nav-item">   
+                        <a class="nav-link" href="<?= Url::toRoute("news/index") ?>" role="button">News</a>
+                        
+                    </li>
                 </ul>
 
                 <form action="<?=Url::toRoute(["produto/search"])?>">
