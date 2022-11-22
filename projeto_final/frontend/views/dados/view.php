@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Dados;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -13,7 +14,7 @@ use yii\widgets\DetailView;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Atualizar informções', ['update'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Atualizar informações', ['update'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('As minha encomendas', Url::toRoute('fatura/index'),  ['class' => 'btn btn-primary']) ?>
     </p>
 
@@ -22,9 +23,21 @@ use yii\widgets\DetailView;
         'attributes' => [
             'nome',
             'telefone',
-            'nif',
+            'nif' => [
+                'label' => 'NIF',
+                'attribute' => 'nif',
+                'value' => function (Dados $model) {
+                    return $model->nif;
+                }
+            ],
             'morada',
-            'codPostal',
+            'codPostal'  => [
+                'label' => 'Código Postal',
+                'attribute' => 'codPostal',
+                'value' => function (Dados $model) {
+                    return $model->codPostal;
+                }
+            ],
         ],
     ]) ?>
 

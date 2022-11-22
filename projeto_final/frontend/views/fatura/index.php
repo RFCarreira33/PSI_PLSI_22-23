@@ -1,10 +1,9 @@
 <?php
 
 use common\models\Fatura;
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var common\models\FaturaSearch $searchModel */
@@ -15,17 +14,23 @@ use yii\grid\GridView;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
+            'id' => [
+                'label' => 'Nº Fatura',
+                'attribute' => 'id',
+                'value' => function (Fatura $model) {
+                    return $model->id;
+                },
+            ],
             'dataFatura',
             'valorTotal',
             [
-                'class' => 'yii\grid\ActionColumn', 'template' => '{view}',
-                'urlCreator' => function ($action, Fatura $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                }
+                'attribute' => '',
+                'format' => 'raw',
+                'value' => function (Fatura $model) {
+                    return Html::a('PDF', ['pdf', 'id' => $model->id], ['class' => 'btn btn-danger']);
+                },
             ],
         ],
     ]); ?>

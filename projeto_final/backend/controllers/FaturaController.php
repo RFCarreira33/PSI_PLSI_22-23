@@ -9,6 +9,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use Dompdf\Dompdf;
 
 /**
  * FaturaController implements the CRUD actions for Fatura model.
@@ -62,14 +63,22 @@ class FaturaController extends Controller
         ]);
     }
 
-    public function actionPrint($id)
+    public function actionPdf($id)
     {
-        if (!\Yii::$app->user->can('ReadFatura')) {
-            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
-        }
-        return $this->renderPartial('print', [
-            'model' => $this->findModel($id),
-        ]);
+        $model = $this->findModel($id);
+        //convert to pdf
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($this->renderPartial('print', [
+            'model' => $model,
+        ]));
+        $dompdf->render();
+        ob_end_clean();
+        $dompdf->stream(
+            "Fatura_Nº$model->id.pdf",
+            [
+                "Attachment" => false
+            ]
+        );
     }
 
     /**
