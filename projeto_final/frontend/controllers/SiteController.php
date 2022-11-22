@@ -86,6 +86,7 @@ class SiteController extends Controller
             $news[] = $response->results[$i];
         }
 
+        $produtos = Produto::find()->where(['Ativo' => 1])->limit(4)->all();
         $empresa = Empresa::findOne(1);
         return $this->render('index', ['produtos' => $produtos, 'empresa' => $empresa, 'news' => $news]);
     }

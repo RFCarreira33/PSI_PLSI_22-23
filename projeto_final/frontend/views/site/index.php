@@ -35,14 +35,16 @@ $this->title = 'My Yii Application';
                         <br>
                         <br>
                         <?php
-                        $quantidadeM = 0;
+                        $esgotado = true;
                         foreach ($produto->stocks as $stock) {
-                            $quantidadeM += $stock->quantidade;
+                            if ($stock->quantidade > 0) {
+                                $esgotado = false;
+                            }
                         }
-                        if ($quantidadeM > 0) {
-                            echo "<h6 style='color:green'>Em Stock</h6>";
-                        } else {
+                        if ($esgotado) {
                             echo "<h6 style='color:red'>Esgotado</h6>";
+                        } else {
+                            echo "<h6 style='color:green'>Em Stock</h6>";
                         }
                         ?>
                     </div>
@@ -61,17 +63,17 @@ $this->title = 'My Yii Application';
             <?php foreach ($news as $new) { ?>
                 <div class="col mb-5">
                     <div class="card h-100">
-                            <div class="card-body p-4">
-                                <?= $new->source_id ?>
-                                <div class="text-center">
-                                    <h5 class="fw-bolder"><?= $new->description ?></h5>
-                        <br>
-                        <span> <a class="row-article-link mt-3" rel="noreferrer" href="<?= $new->link ?>" target="_blank">Continuar a ler</a></span>
+                        <div class="card-body p-4">
+                            <?= $new->source_id ?>
+                            <div class="text-center">
+                                <h5 class="fw-bolder"><?= $new->description ?></h5>
+                                <br>
+                                <span> <a class="row-article-link mt-3" rel="noreferrer" href="<?= $new->link ?>" target="_blank">Continuar a ler</a></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            <?php } ?>
         </div>
     </div>
-<?php } ?>
-</div>
-</div>
 </section>
