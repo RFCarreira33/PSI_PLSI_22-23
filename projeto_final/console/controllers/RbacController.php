@@ -61,6 +61,15 @@ class RbacController extends Controller
             }
         }
 
+        //Verifies if logged user has a higher role than the one passed as parameter
+        $rule = new \console\models\SuperiorRule();
+        $auth->add($rule);
+
+        $permission = $auth->createPermission("SuperiorRole");
+        $permission->ruleName = $rule->name;
+        $auth->add($permission);
+        $auth->addChild($funcionario, $permission);
+
         //criar permissoes admin
         $auth->addChild($admin, $funcionario);
 

@@ -155,10 +155,26 @@ class DadosController extends Controller
      */
     public function actionChange($id_User)
     {
-        $user = User::findOne(['id' => $id_User]);
-        $user->status == self::STATUS_ACTIVE ? $user->status = self::STATUS_DELETED : $user->status = self::STATUS_ACTIVE;
-        $user->save();
-        return $this->redirect(['index']);
+        try {
+
+            if (Yii::$app->user->id == $id_User) {
+                throw new \Exception('Não pode alterar o seu próprio estado');
+            }
+
+            $role = AuthAssignment::find()->where(['user_id' => $id_User])->one();
+            $role = $role->item_name;
+
+            if (!Yii::$app->user->can('SuperiorRole', ['role' => $role])) {
+                throw new \Exception('Não pode alterar o estado de um utilizador com um cargo superior');
+            }
+            $user = User::findOne(['id' => $id_User]);
+            $user->status == self::STATUS_ACTIVE ? $user->status = self::STATUS_DELETED : $user->status = self::STATUS_ACTIVE;
+            $user->save();
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->goHome();
+        }
+        return $this->redirect(['dados/view', 'id_User' => $id_User]);
     }
 
     /**

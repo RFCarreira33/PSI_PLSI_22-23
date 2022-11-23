@@ -7,12 +7,22 @@ $this->title = 'Starter Page';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
 $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 ?>
+<?php if (Yii::$app->session->getFlash('error') !== null) { ?>
 <div class="col-lg-6">
     <?= \hail812\adminlte\widgets\Alert::widget([
-        'type' => 'success',
-        'body' => "Bem vindo(a) $username->nome !",
-    ]) ?>
+            'type' => 'danger',
+            'body' => Yii::$app->session->getFlash('error'),
+        ]) ?>
 </div>
+<?php } ?>
+<?php if (Yii::$app->session->getFlash('success') !== null) { ?>
+<div class="col-lg-6">
+    <?= \hail812\adminlte\widgets\Alert::widget([
+            'type' => 'success',
+            'body' => "Bem vindo(a) $username->nome !",
+        ]) ?>
+</div>
+<?php } ?>
 
 <div class="row">
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">

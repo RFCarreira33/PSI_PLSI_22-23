@@ -108,6 +108,7 @@ class SiteController extends Controller
             if (AuthAssignment::isCliente()) {
                 return $this->redirect('logout');
             }
+            Yii::$app->session->setFlash('success', 'Bem-vindo ');
             return $this->goBack();
         }
 
