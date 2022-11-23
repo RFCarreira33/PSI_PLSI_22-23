@@ -39,22 +39,28 @@ $categorias = Categoria::find()->all();
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             <a href="<?= Url::home() ?>">
-                <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>" style="width:175px;height:50px;">
+                <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>"
+                    style="width:175px;height:50px;">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <!-- <li class="nav-item"><a class="nav-link" href="#!">About</a></li> -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#!">All Products</a></li>
                             <?php
                             foreach ($categorias as $categoria) { ?>
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-                                <li><a class="dropdown-item" href="<?= Url::toRoute(['produto/search?category=' . $categoria->nome]) ?>"><?= $categoria->nome ?></a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="<?= Url::toRoute(['produto/search?category=' . $categoria->nome]) ?>"><?= $categoria->nome ?></a>
+                            </li>
                             <?php }
                             ?>
                         </ul>
@@ -65,9 +71,10 @@ $categorias = Categoria::find()->all();
                     </li>
                 </ul>
 
-                <form action="<?= Url::toRoute(["produto/search"]) ?>">
-                    <input id="searchBar" type="text" placeholder="Search..." name="query">
-                    <button class="btn btn-outline-dark" type="submit">🔍</button>
+                <form action="<?= Url::toRoute(["produto/search"]) ?>" class="d-flex">
+                    <input id="searchBar" style="padding:4px;width:25rem;" type="text" placeholder="Search..."
+                        name="query">
+                    <button class="btn btn-outline-dark" type="submit"><i class="bi bi-search"></i></button>
                 </form>
                 <form action="" class="d-flex">
                     <a class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
@@ -83,9 +90,9 @@ $categorias = Categoria::find()->all();
                 </form>
                 <?php
                 if (Yii::$app->user->isGuest ? $session = "in" : $session = "out") { ?>
-                    <a href="<?= Url::toRoute(["site/log$session"]) ?>">
-                        <button type="button" class="btn btn-outline-dark"><?= "Log$session" ?></button>
-                    </a>
+                <a href="<?= Url::toRoute(["site/log$session"]) ?>">
+                    <button type="button" class="btn btn-outline-dark"><?= "Log$session" ?></button>
+                </a>
                 <?php
                 } ?>
             </div>
@@ -105,7 +112,8 @@ $categorias = Categoria::find()->all();
         <section class="d-flex justify-content-between p-4" style="background-color: #6351ce">
             <div class="me-5">
                 <a href="<?= Url::home() ?>">
-                    <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>" style="width:175px;height:50px;">
+                    <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>"
+                        style="width:175px;height:50px;">
                 </a>
             </div>
             <div>
@@ -137,7 +145,8 @@ $categorias = Categoria::find()->all();
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
 
                         <h6 class="text-uppercase fw-bold">GlobalDiga</h6>
-                        <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
                         <p>
                             GLOBALDIGA Online - Nº1 em Informática em Portugal
                         </p>
@@ -145,7 +154,8 @@ $categorias = Categoria::find()->all();
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
                         <h6 class="text-uppercase fw-bold">Produtos</h6>
-                        <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
                         <p>
                             <a href="#!" class="text-white">Placas Graficas</a>
                         </p>
@@ -162,7 +172,8 @@ $categorias = Categoria::find()->all();
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 
                         <h6 class="text-uppercase fw-bold">Useful links</h6>
-                        <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
                         <p>
                             <a href="<?= Url::toRoute(["site/login"]) ?>" class="text-white">Login</a>
                         </p>
@@ -173,7 +184,8 @@ $categorias = Categoria::find()->all();
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
 
                         <h6 class="text-uppercase fw-bold">Contactos</h6>
-                        <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
                         <p><i class="fas fa-home mr-3"></i> Rua António do Espírito Santo, Nº94, Lt.4, Estr. da Estação
                             A, 2415-408 Leiria</p>
                         <p><i class="fas fa-envelope mr-3"></i> globaldiga@gmail.com</p>

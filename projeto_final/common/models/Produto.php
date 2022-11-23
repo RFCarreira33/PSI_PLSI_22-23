@@ -144,6 +144,16 @@ class Produto extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Stock::class, ['id_Produto' => 'id']);
     }
+
+    public function getStockTotal()
+    {
+        $stock = 0;
+        foreach ($this->stocks as $s) {
+            $stock += $s->quantidade;
+        }
+        return $stock;
+    }
+
     public static function getCountProdutosAtivos()
     {
         return static::find()->where(['Ativo' => 1])->count();

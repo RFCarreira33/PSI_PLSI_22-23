@@ -10,7 +10,8 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?= Url::toRoute('site/index') ?>" class="brand-link">
-        <img src="<?= $assetDir ?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="<?= $assetDir ?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8">
         <span class="brand-text font-weight-light">GlobalDiga</span>
     </a>
 
@@ -22,7 +23,8 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
                 <img src="/img/admin.jpg">
             </div>
             <div class="info">
-                <a href="<?= Url::toRoute(['dados/view', 'id_User' => Dados::findIdentity()]) ?>" class="d-block"><?= $username->nome ?></a>
+                <a href="<?= Url::toRoute(['dados/view', 'id_User' => Dados::findIdentity()]) ?>"
+                    class="d-block"><?= $username->nome ?></a>
             </div>
         </div>
         <!-- Sidebar Menu -->
@@ -36,7 +38,7 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
                     ['label' => 'Criar uma conta', 'url' => ['site/signup']],
                     ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
                     [
-                        'label' => 'Perfis e contas',
+                        'label' => 'Perfis e contas', 'iconStyle' => 'fa fa-users',
                         'items' => [
 
                             ['label' => 'Clientes',  'iconStyle' => 'far', 'url' => ['/dados/index', 'role' => 'cliente']],

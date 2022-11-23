@@ -124,6 +124,19 @@ class FaturaController extends Controller
             $valorTotal += $carrinho->Quantidade * $carrinho->produto->preco;
         }
 
+        try {
+            foreach ($carrinhos as $carrinho) {
+                $stock = $carrinho->produto->getStockTotal();
+                if ($stock < $carrinho->Quantidade) {
+                    throw new \Exception("Stock insuficiente para " . $carrinho->produto->nome);
+                }
+            }
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(URL::toRoute(['carrinho/view']));
+        }
+
+        //Create Fatura
         $fatura = new Fatura;
         $fatura->id_Cliente = $dados->id_User;
         $fatura->nome = $dados->nome;
@@ -137,6 +150,7 @@ class FaturaController extends Controller
         $fatura->valorTotal = $valorTotal;
         $fatura->save();
 
+        //Create Linhas Fatura
         foreach ($carrinhos as $carrinho) {
             $linhaFatura = new LinhaFatura;
             $linhaFatura->id_Fatura = $fatura->id;

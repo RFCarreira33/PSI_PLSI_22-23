@@ -6,6 +6,7 @@ use common\models\Produto;
 use common\models\Carrinho;
 use common\models\Dados;
 use frontend\models\CarrinhoSearch;
+use common\models\Stock;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,15 +53,6 @@ class CarrinhoController extends Controller
     }
 
     /**
-     * Lists all Carrinho models.
-     *
-     * @return string
-     *
-    public function actionIndex()
-    {
-    }
-
-    /**
      * Displays a single Carrinho model.
      * @param int $id_Cliente Id Cliente
      * @param int $id_Produto Id Produto
@@ -71,6 +63,7 @@ class CarrinhoController extends Controller
     {
         $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
         $carrinhos = $dados->carrinhos;
+
         return $this->render('view', ['carrinhos' => $carrinhos]);
     }
 
@@ -87,19 +80,37 @@ class CarrinhoController extends Controller
         $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
         $carrinho = Carrinho::findOne(['id_Cliente' => $dados->id_User, 'id_Produto' => $id]);
 
-        if ($carrinho == null) {
-            $carrinho = new Carrinho;
-            $carrinho->id_Cliente = $dados->id_User;
-            $carrinho->id_Produto = $id;
-            $carrinho->Quantidade = $quantidade;
-        } else {
-            $carrinho->Quantidade += $quantidade;
-        }
-        if ($carrinho->save()) {
+        try {
+            if ($quantidade <= 0) {
+                throw new \Exception('Quantidade inválida');
+            }
+            //If there is already a product in the cart, update the quantity 
+            if ($carrinho == null) {
+                $carrinho = new Carrinho;
+                $carrinho->id_Cliente = $dados->id_User;
+                $carrinho->id_Produto = $id;
+                $carrinho->Quantidade = $quantidade;
+            } else {
+                $carrinho->Quantidade += $quantidade;
+            }
+            //Verifies if produto is Ativo
+            if ($carrinho->produto->Ativo == 0) {
+                return $this->goHome();
+            }
+            //Doesn't allow more then 20 units of the same product
+            if ($carrinho->Quantidade > 20) {
+                throw new \Exception('Não é possível adicionar mais de 20 unidades do mesmo produto');
+            }
+            if ($carrinho->Quantidade > $carrinho->produto->getStockTotal()) {
+                throw new \Exception('Não foi possivel adicionar o produto ao carrinho, a quantidade pretendida é superior ao stock disponível');
+            }
+            // If all the verifications are passed, save the product in the cart
+            $carrinho->save();
             return $this->redirect('view');
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(['produto/view', 'id' => $id]);
         }
-        Yii::$app->session->setFlash('error', 'Quantidade de máxima de 20 atingida');
-        return $this->redirect(['produto/view', 'id' => $id]);
     }
 
     /**
