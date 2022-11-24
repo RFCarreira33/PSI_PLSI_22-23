@@ -9,13 +9,15 @@ class NewsController extends Controller
 {
     public static function getAPIKey()
     {
-        return 'pub_13552db86f5a60ad9b627ee202d815acff527'; //APIKEY
+        return 'pub_13778ac600aae41d5c2a39773882a75d42627'; //APIKEY
     }
 
     public function actionIndex()
     {
         /* Getting the news from the API and returning it to the view. */
-        $query = explode('&', $_SERVER['QUERY_STRING']);
+        $query = array();
+        if(isset($_SERVER['QUERY_STRING'])){ $query = explode('&', $_SERVER['QUERY_STRING']); }
+
         $params = array();
 
         $page = 1;
