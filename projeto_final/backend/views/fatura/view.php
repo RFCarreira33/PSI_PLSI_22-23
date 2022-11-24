@@ -17,8 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="fatura-view">
 
     <p>
-        <?= Html::a('Ver em formato de Impressão', ['print', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Converter para PDF', ['pdf', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
+        <?= Html::a('Ver em formato PDF', ['pdf', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
     </p>
 
     <?= DetailView::widget([

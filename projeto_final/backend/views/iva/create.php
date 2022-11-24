@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var common\models\Iva $model */
@@ -12,7 +12,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="iva-create">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'layout' => 'horizontal',
+        'class' => 'form-horizontal',
+    ]); ?>
 
     <?= $form->field($model, 'percentagem') ?>
     <?= $form->field($model, 'Ativo')->dropDownList(

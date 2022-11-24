@@ -15,29 +15,27 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'nome') ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'nome') ?>
 
-    <?= $form->field($model, 'nif')->label('NIF') ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'nif')->label('NIF') ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <?php echo $form->field($model, 'email') ?>
+        </div>
+        <div class="col-md-6">
 
-    <?php // echo $form->field($model, 'telefone') 
-    ?>
-
-    <?php // echo $form->field($model, 'morada') 
-    ?>
-
-    <?php echo $form->field($model, 'email') ?>
-
-    <?php //echo $form->field($model, 'dataFatura') 
-    ?>
-
-    <?php echo $form->field($model, 'valorTotal') ?>
-
-    <?php // echo $form->field($model, 'valorIva') 
-    ?>
+            <?php echo $form->field($model, 'valorTotal') ?>
+        </div>
+    </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

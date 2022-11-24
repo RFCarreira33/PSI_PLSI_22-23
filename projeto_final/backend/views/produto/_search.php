@@ -18,13 +18,31 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'nome') ?>
-    <?= $form->field($model, 'referencia')->label('Referência') ?>
-    <?= $form->field($model, 'id_Marca')->dropDownList(Marca::find()->select(['nome'])->indexBy('nome')->column(), ['prompt' => 'Todas'])->label('Marca') ?>
-    <?= $form->field($model, 'id_Categoria')->dropDownList(Categoria::find()->select(['nome', 'id'])->indexBy('id')->column(), ['prompt' => 'Todas'])->label('Categoria') ?>
-    <?= $form->field($model, 'Ativo')->dropDownList([1 => 'Ativo', 0 => 'Inativo'], ['prompt' => 'Qualquer Estado'])->label('Estado') ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'referencia')->label('Referência') ?>
+        </div>
+
+        <div class="col-md-6">
+            <?= $form->field($model, 'id_Marca')->dropDownList(Marca::find()->select(['nome'])->indexBy('nome')->column(), ['prompt' => 'Todas'])->label('Marca') ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+
+            <?= $form->field($model, 'id_Categoria')->dropDownList(Categoria::find()->select(['nome', 'id'])->indexBy('id')->column(), ['prompt' => 'Todas'])->label('Categoria') ?>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <?= $form->field($model, 'Ativo')->dropDownList([1 => 'Ativo', 0 => 'Inativo'], ['prompt' => 'Qualquer Estado'])->label('Estado') ?>
+
+        </div>
+    </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

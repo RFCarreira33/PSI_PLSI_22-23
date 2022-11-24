@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var common\models\Iva $model */
@@ -13,7 +13,10 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="iva-update">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'layout' => 'horizontal',
+        'class' => 'form-horizontal',
+    ]); ?>
 
     <?= $form->field($model, 'percentagem') ?>
 

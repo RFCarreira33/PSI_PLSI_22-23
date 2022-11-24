@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var common\models\Empresa $model */
@@ -12,7 +12,11 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="empresa-update">
 
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data'],
+        'layout' => 'horizontal',
+        'class' => 'form-horizontal',
+    ]); ?>
 
     <?= $form->field($model, 'designacaoSocial')->label('Designação Social') ?>
     <?= $form->field($model, 'email')->label('Email') ?>

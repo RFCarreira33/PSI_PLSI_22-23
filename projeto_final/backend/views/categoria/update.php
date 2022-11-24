@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use common\models\Categoria;
 
 /** @var yii\web\View $this */
@@ -14,7 +14,10 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="categoria-update">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'layout' => 'horizontal',
+        'class' => 'form-horizontal',
+    ]); ?>
 
     <?= $form->field($model, 'nome') ?>
     <?= $form->field($model, 'id_CategoriaPai')->dropDownList(

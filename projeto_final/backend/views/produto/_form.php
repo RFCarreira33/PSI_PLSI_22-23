@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use common\models\Iva;
 use common\models\Categoria;
 use common\models\Marca;
@@ -14,7 +14,11 @@ use common\models\Marca;
 <div class="produto-form">
 
 
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data'],
+        'layout' => 'horizontal',
+        'class' => 'form-horizontal',
+    ]); ?>
 
     <?= $form->field($model, 'nome')->label('Nome') ?>
     <?= $form->field($model, 'referencia')->label('Referência') ?>

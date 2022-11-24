@@ -2,7 +2,7 @@
 
 use common\models\Categoria;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var common\models\Categoria $model */
@@ -13,7 +13,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categoria-create">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'layout' => 'horizontal',
+        'class' => 'form-horizontal',
+    ]); ?>
 
     <?= $form->field($model, 'nome') ?>
     <?= $form->field($model, 'id_CategoriaPai')->dropDownList(Categoria::find()->select(['nome', 'id'])->indexBy('id')->column(), ['prompt' => 'Nenhuma'])->label('Categoria Pai') ?>

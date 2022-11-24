@@ -103,6 +103,7 @@ class Categoria extends \yii\db\ActiveRecord
     public static function getCategoriasPai()
     {
         $categorias = Categoria::find()->all();
+        $categoriasPai = [];
         foreach ($categorias as $categoria) {
             $categoriasFilho = Categoria::find()->where(['id_CategoriaPai' => $categoria->id])->all();
             if (count($categoriasFilho) > 0) {
