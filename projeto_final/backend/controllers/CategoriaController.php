@@ -77,7 +77,7 @@ class CategoriaController extends Controller
             'query' => $categoria->getProdutos(),
         ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $categoria,
             'dataProvider' => $dataProvider,
         ]);
     }

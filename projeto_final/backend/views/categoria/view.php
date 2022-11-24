@@ -17,11 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categoria-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?php if ($model->canDelete())
+        <?php if ($model->canDelete() && Yii::$app->user->can('DeleteCategoria'))
             echo Html::a('Apagar', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [

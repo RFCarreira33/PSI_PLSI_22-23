@@ -72,13 +72,13 @@ class IvaController extends Controller
         if (!\Yii::$app->user->can('ReadIva')) {
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
-        $iva = Iva::findOne(['id' => $id]);
+        $iva = $this->findModel($id);
         $dataProvider = new ActiveDataProvider([
             'query' => $iva->getProdutos(),
         ]);
         return $this->render('view', [
             'dataProvider' => $dataProvider,
-            'model' => $this->findModel($id),
+            'model' => $iva,
         ]);
     }
 

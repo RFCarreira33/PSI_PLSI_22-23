@@ -91,12 +91,12 @@ class ProdutoController extends Controller
         if (!\Yii::$app->user->can('ReadProduto')) {
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
-        $produto = Produto::findOne(['id' => $id]);
+        $produto = $this->findModel($id);
         $dataProvider = new ActiveDataProvider([
             'query' => $produto->getStocks(),
         ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $produto,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -116,6 +116,10 @@ class ProdutoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                //verifies if the iva is active
+                if ($model->iva->Ativo == 0) {
+                    throw new yii\web\HttpException(400, 'Taxa de IVA inativa.');
+                }
                 $modelUpload->imageFile = UploadedFile::getInstance($model, 'imagem');
                 $modelUpload->upload();
                 $model->imagem = $modelUpload->imageFile->name;
@@ -157,6 +161,10 @@ class ProdutoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                //verifies if the iva is active
+                if ($model->iva->Ativo == 0) {
+                    throw new yii\web\HttpException(400, 'Taxa de IVA inativa.');
+                }
                 $modelUpload->imageFile = UploadedFile::getInstance($model, 'imagem');
                 $modelUpload->upload();
                 $model->imagem = $modelUpload->imageFile->name;

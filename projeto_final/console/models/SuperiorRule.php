@@ -22,11 +22,11 @@ class SuperiorRule extends Rule
      */
     public function execute($user, $item, $params)
     {
-        $loggedUser = Yii::$app->user->identity->username;
+        $loggedUser = AuthAssignment::findOne(['user_id' => $user])->item_name;
         if ($loggedUser == 'admin') {
             return true;
         }
-        if ($loggedUser == 'funcionario' && $params['role'] == 'cliente') {
+        if ($loggedUser == 'funcionario' && $params['role'] != 'admin') {
             return true;
         }
         return false;

@@ -91,33 +91,19 @@ class DadosController extends Controller
      */
     public function actionView($id_User)
     {
+        if ($id_User != Yii::$app->user->id) {
+            $role = AuthAssignment::find()->where(['user_id' => $id_User])->one();
+            $role = $role->item_name;
+            if (!Yii::$app->user->can('SuperiorRole', ['role' => $role])) {
+                return $this->goHome();
+            }
+        }
         return $this->render('view', [
             'model' => $this->findModel($id_User),
             'status' => User::findIdentity($id_User)
         ]);
     }
 
-    /**
-     * Creates a new dados model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
-     */
-    public function actionCreate()
-    {
-        $model = new dados();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_User' => $model->id_User]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Updates an existing dados model.
@@ -128,6 +114,9 @@ class DadosController extends Controller
      */
     public function actionUpdate($id_User)
     {
+        if (!Yii::$app->user->can('SuperiorRole', ['role' => AuthAssignment::findOne(['user_id' => $id_User])->item_name])) {
+            return $this->goHome();
+        }
         $model = $this->findModel($id_User);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
