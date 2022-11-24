@@ -138,10 +138,10 @@ class ProdutoController extends Controller
                 }
             }
         }
-        
+
         $produtos = Produto::find()->innerJoin("stock", "stock.id_Produto = produto.id")
                                    ->filterWhere(['like', 'nome', '%' . $search . '%', false])->orFilterWhere(['like', 'referencia', '%' . $search . '%', false])
-                                   ->andfilterWhere(["id_Categoria" => $categories])->andFilterWhere(["id_marca" => $brands])->andFilterWhere([$stocksFilter, "quantidade", 0])->andWhere(["ativo" => "1"])
+                                   ->andfilterWhere(["id_Categoria" => $categories])->andFilterWhere(["id_marca" => $brands])->andWhere(["ativo" => "1"])->groupBy("produto.id")->having("sum(quantidade) ". $stocksFilter . " 0")
                                    ->orderBy([$sort[0] => $sort[1]]);
         $countQuery = clone $produtos;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 2]);
