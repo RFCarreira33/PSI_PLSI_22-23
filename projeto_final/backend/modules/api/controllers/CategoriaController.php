@@ -11,6 +11,7 @@ class CategoriaController extends ActiveController
     public function actions()
     {
         $actions = parent::actions();
+        //no use
         unset($actions['update']);
         unset($actions['delete']);
         unset($actions['create']);

@@ -11,9 +11,11 @@ class MarcaController extends ActiveController
     public function actions()
     {
         $actions = parent::actions();
+        //no use
         unset($actions['update']);
         unset($actions['delete']);
         unset($actions['create']);
+        unset($actions['view']);
         return $actions;
     }
     protected function verbs()
@@ -21,7 +23,6 @@ class MarcaController extends ActiveController
         $verbs = parent::verbs();
         $verbs =  [
             'index' => ['GET', 'POST', 'HEAD'],
-            'view' => ['GET', 'HEAD'],
         ];
         return $verbs;
     }
