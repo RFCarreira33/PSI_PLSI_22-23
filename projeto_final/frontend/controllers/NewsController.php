@@ -15,8 +15,13 @@ class NewsController extends Controller
     public function actionIndex()
     {
         /* Getting the news from the API and returning it to the view. */
-        $query = explode('&', $_SERVER['QUERY_STRING']);
+        $query = array();
         $params = array();
+
+        if($_SERVER['QUERY_STRING'] != null)
+        {
+            $query = explode('&', $_SERVER['QUERY_STRING']);
+        }
 
         $page = 1;
         foreach($query as $param)
