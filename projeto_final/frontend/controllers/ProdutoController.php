@@ -34,19 +34,20 @@ class ProdutoController extends Controller
         );
     }
 
-    public function actionSearch()
+    public function actionSearch() /* It's a function to get the parameters from the URL. */
     {
-        /* It's a function to get the parameters from the URL. */
-        $query = explode('&', $_SERVER['QUERY_STRING']);
+        $query = array();
         $params = array();
-        
         $categories = array();
         $selectedCategories = array();
         $brands = array();
+
         $stocksFilter = "";
         $sort = ["nome", "asc"];
         $search = "";
 
+        $query = explode('&', Yii::$app->request->getQueryString());
+        
         foreach($query as $param)
         {
             if(count(explode('=', $param)) > 1)
