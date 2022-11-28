@@ -95,8 +95,10 @@ class ProdutoController extends ActiveController
                 $query->andWhere(['like', 'nome', $queryArray['nome']]);
             }
             //verifies if order is valid otherwise orders by name (default)
-            if (isset($queryArray['order']) && $queryArray['order'] == 'desc' || $queryArray['order'] == 'asc') {
-                $query->orderBy('preco ' . $queryArray['order']);
+            if (isset($queryArray['order'])) {
+                if ($queryArray['order'] == 'desc' || $queryArray['order'] == 'asc') {
+                    $query->orderBy('preco ' . $queryArray['order']);
+                }
             } else {
                 $query->orderBy('nome ASC');
             }
