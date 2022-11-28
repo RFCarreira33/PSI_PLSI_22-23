@@ -9,11 +9,11 @@ $this->title = 'My Yii Application';
 ?>
 <!-- Section-->
 <header>
-
+    <br>
+    <br>
     <div class="text-center text-white">
         <img src="/img/<?= $empresa->imgBanner ?>" style="width:1300px;height:300px;">
     </div>
-
 </header>
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
@@ -66,11 +66,13 @@ $this->title = 'My Yii Application';
                         <div class="card-body p-4">
                             <?= $new->source_id ?>
                             <div class="text-center">
-                                <h5 class="fw-bolder"><?= $new->description ?></h5>
                                 <br>
-                                <span> <a class="row-article-link mt-3" rel="noreferrer" href="<?= $new->link ?>" target="_blank">Continuar a ler</a></span>
+                                <h5 class="text-body"><?= $new->title ?></h5>
+                                <br>
                             </div>
                         </div>
+                        <span class=text-center> <a style="text-decoration:none;font-weight:bold;color:black;" href="<?= $new->link ?>" target="_blank">Continuar a ler</a></span>
+                        <br>
                     </div>
                 </div>
             <?php } ?>

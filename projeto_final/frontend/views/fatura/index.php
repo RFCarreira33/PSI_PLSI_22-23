@@ -15,17 +15,35 @@ use yii\helpers\Html;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
             'id' => [
                 'label' => 'Nº Fatura',
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-center'],
                 'attribute' => 'id',
                 'value' => function (Fatura $model) {
                     return $model->id;
                 },
             ],
-            'dataFatura',
-            'valorTotal',
+            'dataFatura' => [
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-center'],
+                'attribute' => 'dataFatura',
+                'value' => function (Fatura $model) {
+                    return $model->dataFatura;
+                },
+            ],
+            'valorTotal' => [
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-center'],
+                'attribute' => 'valorTotal',
+                'value' => function (Fatura $model) {
+                    return $model->valorTotal;
+                },
+            ],
             [
+                'label' => 'PDF',
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-center'],
                 'attribute' => '',
                 'format' => 'raw',
                 'value' => function (Fatura $model) {
