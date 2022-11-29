@@ -149,26 +149,30 @@ class CarrinhoController extends Controller
         return $this->redirect(['carrinho/view']);
     }
 
-    public function actionAdicionar($id_Produto)
+    /**
+     * It changes the quantity of a product in the cart and returns the total price of the product, the
+     * total stock of the product, the total number of products in the cart and the total price of all
+     * products in the cart
+     */
+    public function actionChangequantity()
     {
-        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
-        $carrinho = $dados->getCarrinhos()->where(['id_Produto' => $id_Produto])->one();
-        $carrinho->Quantidade +=  1;
-        $carrinho->save();
-        return $this->redirect(['carrinho/view']);
-    }
+        if (Yii::$app->request->isAjax) 
+        {
+            $data = Yii::$app->request->post();
+            $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
+            $carrinho = $dados->getCarrinhos()->where(['id_Produto' => $data['id_Produto']])->one();
+            $carrinho->Quantidade = $data['value'];
+            $carrinho->save();
 
-    public function actionTirar($id_Produto)
-    {
-        $dados = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
-        $carrinho = $dados->getCarrinhos()->where(['id_Produto' => $id_Produto])->one();
-        if ($carrinho->Quantidade == 1) {
-            $this->actionDelete($id_Produto);
-            return $this->redirect('view');
+            $result = [
+                'total' => Produto::findOne($data['id_Produto'])->preco * $data['value'],
+                'stock' => Produto::findOne($data['id_Produto'])->getStockTotal(),
+                'totalProducts' => $dados->getCarrinhos()->sum("quantidade"),
+                'totalPrice' => $dados->getCarrinhos()->innerJoin("produto", "id = id_produto")->sum("quantidade * preco"),
+            ];
+            
+            return json_encode($result);
         }
-        $carrinho->Quantidade -=  1;
-        $carrinho->save();
-        return $this->redirect(['carrinho/view']);
     }
 
     public function actionClear()
