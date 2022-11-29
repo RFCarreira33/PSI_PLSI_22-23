@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 21-Nov-2022 às 20:44
+-- Tempo de geração: 29-Nov-2022 às 01:49
 -- Versão do servidor: 8.0.31
--- versão do PHP: 8.1.6
+-- versão do PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `projeto_final`
 --
-CREATE DATABASE IF NOT EXISTS `projeto_final` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `projeto_final`;
 
 -- --------------------------------------------------------
 
@@ -40,9 +38,9 @@ CREATE TABLE `auth_assignment` (
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-('admin', '1', 1669041804),
-('cliente', '2', 1669041804),
-('funcionario', '3', 1669041804);
+('admin', '1', 1669125447),
+('cliente', '2', 1669125447),
+('funcionario', '3', 1669125447);
 
 -- --------------------------------------------------------
 
@@ -65,45 +63,45 @@ CREATE TABLE `auth_item` (
 --
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
-('admin', 1, NULL, NULL, NULL, 1669041804, 1669041804),
-('cliente', 1, NULL, NULL, NULL, 1669041804, 1669041804),
-('Comprador', 2, 'Ver faturas', 'Comprador', NULL, 1669041804, 1669041804),
-('createAdmin', 2, 'Permissão para criar uma conta de Admin', NULL, NULL, 1669041804, 1669041804),
-('CreateCategoria', 2, 'Create Categoria', NULL, NULL, 1669041804, 1669041804),
-('CreateFatura', 2, 'Create Fatura', NULL, NULL, 1669041804, 1669041804),
-('CreateIva', 2, 'Create Iva', NULL, NULL, 1669041804, 1669041804),
-('CreateMarca', 2, 'Create Marca', NULL, NULL, 1669041804, 1669041804),
-('CreateProduto', 2, 'Create Produto', NULL, NULL, 1669041804, 1669041804),
-('CreateStock', 2, 'Create Stock', NULL, NULL, 1669041804, 1669041804),
-('DeactivateCategoria', 2, 'Deactivate Categoria', NULL, NULL, 1669041804, 1669041804),
-('DeactivateFatura', 2, 'Deactivate Fatura', NULL, NULL, 1669041804, 1669041804),
-('DeactivateIva', 2, 'Deactivate Iva', NULL, NULL, 1669041804, 1669041804),
-('DeactivateMarca', 2, 'Deactivate Marca', NULL, NULL, 1669041804, 1669041804),
-('DeactivateProduto', 2, 'Deactivate Produto', NULL, NULL, 1669041804, 1669041804),
-('DeactivateStock', 2, 'Deactivate Stock', NULL, NULL, 1669041804, 1669041804),
-('DeleteCategoria', 2, 'Permission to delete Categoria', NULL, NULL, 1669041804, 1669041804),
-('DeleteFatura', 2, 'Permission to delete Fatura', NULL, NULL, 1669041804, 1669041804),
-('DeleteIva', 2, 'Permission to delete Iva', NULL, NULL, 1669041804, 1669041804),
-('DeleteMarca', 2, 'Permission to delete Marca', NULL, NULL, 1669041804, 1669041804),
-('DeleteProduto', 2, 'Permission to delete Produto', NULL, NULL, 1669041804, 1669041804),
-('DeleteStock', 2, 'Permission to delete Stock', NULL, NULL, 1669041804, 1669041804),
-('FrontendReadFatura', 2, 'Permite ao cliente visualizar Fatura', NULL, NULL, 1669041804, 1669041804),
-('FrontendReadProduto', 2, 'Permite ao cliente visualizar Produto', NULL, NULL, 1669041804, 1669041804),
-('funcionario', 1, NULL, NULL, NULL, 1669041804, 1669041804),
-('ReadCategoria', 2, 'Read Categoria', NULL, NULL, 1669041804, 1669041804),
-('ReadEmpresa', 2, 'Alterar os dados da Empresa', NULL, NULL, 1669041804, 1669041804),
-('ReadFatura', 2, 'Read Fatura', NULL, NULL, 1669041804, 1669041804),
-('ReadIva', 2, 'Read Iva', NULL, NULL, 1669041804, 1669041804),
-('ReadMarca', 2, 'Read Marca', NULL, NULL, 1669041804, 1669041804),
-('ReadProduto', 2, 'Read Produto', NULL, NULL, 1669041804, 1669041804),
-('ReadStock', 2, 'Read Stock', NULL, NULL, 1669041804, 1669041804),
-('UpdateCategoria', 2, 'Update Categoria', NULL, NULL, 1669041804, 1669041804),
-('UpdateEmpresa', 2, 'Alterar os dados da Empresa', NULL, NULL, 1669041804, 1669041804),
-('UpdateFatura', 2, 'Update Fatura', NULL, NULL, 1669041804, 1669041804),
-('UpdateIva', 2, 'Update Iva', NULL, NULL, 1669041804, 1669041804),
-('UpdateMarca', 2, 'Update Marca', NULL, NULL, 1669041804, 1669041804),
-('UpdateProduto', 2, 'Update Produto', NULL, NULL, 1669041804, 1669041804),
-('UpdateStock', 2, 'Update Stock', NULL, NULL, 1669041804, 1669041804);
+('admin', 1, NULL, NULL, NULL, 1669125447, 1669125447),
+('cliente', 1, NULL, NULL, NULL, 1669125447, 1669125447),
+('Comprador', 2, 'Ver faturas', 'Comprador', NULL, 1669125447, 1669125447),
+('CreateAdmin', 2, 'Permissão para criar uma conta de Admin', NULL, NULL, 1669125447, 1669125447),
+('CreateCategoria', 2, 'Create Categoria', NULL, NULL, 1669125447, 1669125447),
+('CreateFatura', 2, 'Create Fatura', NULL, NULL, 1669125447, 1669125447),
+('CreateIva', 2, 'Create Iva', NULL, NULL, 1669125447, 1669125447),
+('CreateMarca', 2, 'Create Marca', NULL, NULL, 1669125447, 1669125447),
+('CreateProduto', 2, 'Create Produto', NULL, NULL, 1669125447, 1669125447),
+('CreateStock', 2, 'Create Stock', NULL, NULL, 1669125447, 1669125447),
+('DeactivateCategoria', 2, 'Deactivate Categoria', NULL, NULL, 1669125447, 1669125447),
+('DeactivateFatura', 2, 'Deactivate Fatura', NULL, NULL, 1669125447, 1669125447),
+('DeactivateIva', 2, 'Deactivate Iva', NULL, NULL, 1669125447, 1669125447),
+('DeactivateMarca', 2, 'Deactivate Marca', NULL, NULL, 1669125447, 1669125447),
+('DeactivateProduto', 2, 'Deactivate Produto', NULL, NULL, 1669125447, 1669125447),
+('DeactivateStock', 2, 'Deactivate Stock', NULL, NULL, 1669125447, 1669125447),
+('DeleteCategoria', 2, 'Permission to delete Categoria', NULL, NULL, 1669125447, 1669125447),
+('DeleteFatura', 2, 'Permission to delete Fatura', NULL, NULL, 1669125447, 1669125447),
+('DeleteIva', 2, 'Permission to delete Iva', NULL, NULL, 1669125447, 1669125447),
+('DeleteMarca', 2, 'Permission to delete Marca', NULL, NULL, 1669125447, 1669125447),
+('DeleteProduto', 2, 'Permission to delete Produto', NULL, NULL, 1669125447, 1669125447),
+('DeleteStock', 2, 'Permission to delete Stock', NULL, NULL, 1669125447, 1669125447),
+('FrontendReadFatura', 2, 'Permite ao cliente visualizar Fatura', NULL, NULL, 1669125447, 1669125447),
+('FrontendReadProduto', 2, 'Permite ao cliente visualizar Produto', NULL, NULL, 1669125447, 1669125447),
+('funcionario', 1, NULL, NULL, NULL, 1669125447, 1669125447),
+('ReadCategoria', 2, 'Read Categoria', NULL, NULL, 1669125447, 1669125447),
+('ReadEmpresa', 2, 'Alterar os dados da Empresa', NULL, NULL, 1669125447, 1669125447),
+('ReadFatura', 2, 'Read Fatura', NULL, NULL, 1669125447, 1669125447),
+('ReadIva', 2, 'Read Iva', NULL, NULL, 1669125447, 1669125447),
+('ReadMarca', 2, 'Read Marca', NULL, NULL, 1669125447, 1669125447),
+('ReadProduto', 2, 'Read Produto', NULL, NULL, 1669125447, 1669125447),
+('ReadStock', 2, 'Read Stock', NULL, NULL, 1669125447, 1669125447),
+('UpdateCategoria', 2, 'Update Categoria', NULL, NULL, 1669125447, 1669125447),
+('UpdateEmpresa', 2, 'Alterar os dados da Empresa', NULL, NULL, 1669125447, 1669125447),
+('UpdateFatura', 2, 'Update Fatura', NULL, NULL, 1669125447, 1669125447),
+('UpdateIva', 2, 'Update Iva', NULL, NULL, 1669125447, 1669125447),
+('UpdateMarca', 2, 'Update Marca', NULL, NULL, 1669125447, 1669125447),
+('UpdateProduto', 2, 'Update Produto', NULL, NULL, 1669125447, 1669125447),
+('UpdateStock', 2, 'Update Stock', NULL, NULL, 1669125447, 1669125447);
 
 -- --------------------------------------------------------
 
@@ -122,7 +120,7 @@ CREATE TABLE `auth_item_child` (
 
 INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('cliente', 'Comprador'),
-('admin', 'createAdmin'),
+('admin', 'CreateAdmin'),
 ('funcionario', 'CreateCategoria'),
 ('funcionario', 'CreateFatura'),
 ('funcionario', 'CreateIva'),
@@ -177,7 +175,7 @@ CREATE TABLE `auth_rule` (
 --
 
 INSERT INTO `auth_rule` (`name`, `data`, `created_at`, `updated_at`) VALUES
-('Comprador', 0x4f3a32353a22636f6e736f6c655c6d6f64656c735c46617475726152756c65223a333a7b733a343a226e616d65223b733a393a22436f6d707261646f72223b733a393a22637265617465644174223b693a313636393034313830343b733a393a22757064617465644174223b693a313636393034313830343b7d, 1669041804, 1669041804);
+('Comprador', 0x4f3a32353a22636f6e736f6c655c6d6f64656c735c46617475726152756c65223a333a7b733a343a226e616d65223b733a393a22436f6d707261646f72223b733a393a22637265617465644174223b693a313636393132353434373b733a393a22757064617465644174223b693a313636393132353434373b7d, 1669125447, 1669125447);
 
 -- --------------------------------------------------------
 
@@ -196,6 +194,7 @@ CREATE TABLE `carrinho` (
 --
 
 INSERT INTO `carrinho` (`id_Cliente`, `id_Produto`, `Quantidade`) VALUES
+(2, 1, 1),
 (2, 2, 1);
 
 -- --------------------------------------------------------
@@ -215,7 +214,9 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id`, `id_CategoriaPai`, `nome`) VALUES
-(1, NULL, 'OPGG');
+(1, NULL, 'OPGG'),
+(3, 1, 'KK'),
+(4, NULL, 'QQ');
 
 -- --------------------------------------------------------
 
@@ -265,7 +266,7 @@ CREATE TABLE `empresa` (
 --
 
 INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`) VALUES
-(1, 'GlobalDiga', 'globaldiga@gmail.com', '244501812', '503503503', 'Rua do', '2410-367', 'Leiria', 28654876, '', '');
+(1, 'GlobalDiga', 'globaldiga@gmail.com', '244501812', '503503503', 'Rua do', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png');
 
 -- --------------------------------------------------------
 
@@ -286,6 +287,14 @@ CREATE TABLE `fatura` (
   `valorTotal` decimal(11,2) NOT NULL,
   `valorIva` decimal(11,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `fatura`
+--
+
+INSERT INTO `fatura` (`id`, `id_Cliente`, `nome`, `nif`, `codPostal`, `telefone`, `morada`, `email`, `dataFatura`, `valorTotal`, `valorIva`) VALUES
+(9, 2, 'Joao Jesus', '231056345', '3780-566', '960234654', 'Vila Nova de Monsarros', 'cliente@gmail.com', '2022-11-24 10:39:49', '40.00', '9.20'),
+(10, 2, 'Joao Jesus', '231056345', '3780-566', '960234654', 'Vila Nova de Monsarros', 'cliente@gmail.com', '2022-11-24 11:59:29', '35.00', '8.05');
 
 -- --------------------------------------------------------
 
@@ -321,6 +330,15 @@ CREATE TABLE `linhafatura` (
   `valor` decimal(11,2) NOT NULL,
   `valorIva` decimal(11,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `linhafatura`
+--
+
+INSERT INTO `linhafatura` (`id`, `id_Fatura`, `produto_nome`, `produto_referencia`, `quantidade`, `valor`, `valorIva`) VALUES
+(9, 9, 'GTX 1070', 'sadd', 2, '40.00', '9.20'),
+(10, 10, 'GTX 1060', 'qwdasa', 1, '15.00', '3.45'),
+(11, 10, 'GTX 1070', 'sadd', 1, '20.00', '4.60');
 
 -- --------------------------------------------------------
 
@@ -411,8 +429,7 @@ CREATE TABLE `produto` (
 INSERT INTO `produto` (`id`, `id_Categoria`, `id_Iva`, `id_Marca`, `descricao`, `imagem`, `referencia`, `preco`, `nome`, `Ativo`) VALUES
 (1, 1, 1, 'AMD', 'Motor Gráfico: NVIDIA® GeForce® GTX 1060 \r\n<br>\r\nBus: PCI Express x16 3.0\r\n<br>\r\nClock GPU: Base: 1530 MHz, Boost: 1785 MHz\r\n<br>\r\nClock de Memória: 14000 MHz\r\n<br>\r\nNúcleos CUDA: 1408\r\n<br>\r\nMemória: 6GB GDDR6\r\n<br>\r\nInterface de Memória: 192 Bits\r\n<br>\r\nInterface I/O:\r\n<br>\r\n3 x DisplayPort (v1.4)\r\n<br>\r\n1 x HDMI 2.0b\r\n<br>\r\nSuporte HDCP 2.2\r\n<br>\r\nVersão DirectX: 12\r\n<br>\r\nVersão OpenGL: 4.5\r\n<br>\r\nDimensões do produto: 204 x 128 x 42 mm\r\n<br>\r\nPeso do produto: 669 g', 'gpu.jpg', 'qwdasa', '15.00', 'GTX 1060', 1),
 (2, 1, 1, 'Nvidia', 'Motor Gráfico: NVIDIA® GeForce® GTX 1070 \r\n<br>\r\nBus: PCI Express x16 3.0\r\n<br>\r\nClock GPU: Base: 1530 MHz, Boost: 1785 MHz\r\n<br>\r\nClock de Memória: 14000 MHz\r\n<br>\r\nNúcleos CUDA: 1408\r\n<br>\r\nMemória: 6GB GDDR6\r\n<br>\r\nInterface de Memória: 192 Bits\r\n<br>\r\nInterface I/O:\r\n<br>\r\n3 x DisplayPort (v1.4)\r\n<br>\r\n1 x HDMI 2.0b\r\n<br>\r\nSuporte HDCP 2.2\r\n<br>\r\nVersão DirectX: 12\r\n<br>\r\nVersão OpenGL: 4.5\r\n<br>\r\nDimensões do produto: 204 x 128 x 42 mm\r\n<br>\r\nPeso do produto: 669 g', 'cooler.jpg', 'sadd', '20.00', 'GTX 1070', 1),
-(3, 1, 1, 'Nvidia', 'Motor Gráfico: NVIDIA® GeForce® GTX 1080\r\n<br>\r\nBus: PCI Express x16 3.0\r\n<br>\r\nClock GPU: Base: 1530 MHz, Boost: 1785 \r\nMHz\r\n<br>\r\nClock de Memória: 14000 MHz\r\n<br>\r\nNúcleos CUDA: 1408\r\n<br>\r\nMemória: 6GB GDDR6\r\n<br>\r\nInterface de Memória: 192 Bits\r\n<br>\r\nInterface I/O:\r\n<br>\r\n3 x DisplayPort (v1.4)\r\n<br>\r\n1 x HDMI 2.0b\r\n<br>\r\nSuporte HDCP 2.2\r\n<br>\r\nVersão DirectX: 12\r\n<br>\r\nVersão OpenGL: 4.5\r\n<br>\r\nDimensões do produto: 204 x 128 x 42 mm\r\n<br>\r\nPeso do produto: 669 g', 'gt 730.jpg', 'asdsad', '50.00', 'GTX 1080', 1),
-(4, 1, 1, 'AMD', 'aa', 'logo.png', 'aa', '12.00', 'aa', 0);
+(3, 1, 1, 'Nvidia', 'Motor Gráfico: NVIDIA® GeForce® GTX 1080\r\n<br>\r\nBus: PCI Express x16 3.0\r\n<br>\r\nClock GPU: Base: 1530 MHz, Boost: 1785 \r\nMHz\r\n<br>\r\nClock de Memória: 14000 MHz\r\n<br>\r\nNúcleos CUDA: 1408\r\n<br>\r\nMemória: 6GB GDDR6\r\n<br>\r\nInterface de Memória: 192 Bits\r\n<br>\r\nInterface I/O:\r\n<br>\r\n3 x DisplayPort (v1.4)\r\n<br>\r\n1 x HDMI 2.0b\r\n<br>\r\nSuporte HDCP 2.2\r\n<br>\r\nVersão DirectX: 12\r\n<br>\r\nVersão OpenGL: 4.5\r\n<br>\r\nDimensões do produto: 204 x 128 x 42 mm\r\n<br>\r\nPeso do produto: 669 g', 'gt 730.jpg', 'asdsad', '50.00', 'GTX 1080', 1);
 
 -- --------------------------------------------------------
 
@@ -431,12 +448,10 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`id_Loja`, `id_Produto`, `quantidade`) VALUES
-(1, 1, 10),
+(1, 1, 1),
 (1, 2, 15),
 (1, 3, 0),
-(1, 4, 0),
-(2, 1, 0),
-(2, 4, 0);
+(2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -600,7 +615,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `empresa`
@@ -612,7 +627,7 @@ ALTER TABLE `empresa`
 -- AUTO_INCREMENT de tabela `fatura`
 --
 ALTER TABLE `fatura`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `iva`
@@ -624,7 +639,7 @@ ALTER TABLE `iva`
 -- AUTO_INCREMENT de tabela `linhafatura`
 --
 ALTER TABLE `linhafatura`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `loja`
