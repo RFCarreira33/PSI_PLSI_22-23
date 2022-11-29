@@ -52,8 +52,8 @@ use yii\helpers\Html;
                                 <input type="hidden" name="id" value="<?= $produto->id ?>">
                                 <input class=" text-center me-3" style="width:4rem; padding:6px" id="quantidade"
                                     type="number" name="quantidade" value=1 max=20 min=1>
-                                <button class="btn btn-outline-dark" type="submit">Adicionar ao Carrinho<i
-                                        class="bi-cart-fill me-1"></i></button>
+                                <button class="btn btn-outline-dark" name="add-to-cart" type="submit">Adicionar ao
+                                    Carrinho<i id="add" class="bi-cart-fill me-1"></i></button>
                             </form>
                         </div>
                     </div>

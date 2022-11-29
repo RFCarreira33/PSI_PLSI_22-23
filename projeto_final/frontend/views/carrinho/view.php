@@ -7,40 +7,40 @@ use yii\helpers\Url;
 
 <head>
     <style>
-        @media (min-width: 1025px) {
-            .h-custom {
-                height: 125vh !important;
-            }
+    @media (min-width: 1025px) {
+        .h-custom {
+            height: 125vh !important;
         }
+    }
 
-        .card-registration .select-input.form-control[readonly]:not([disabled]) {
-            font-size: 1rem;
-            line-height: 2.15;
-            padding-left: .75em;
-            padding-right: .75em;
-        }
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+        font-size: 1rem;
+        line-height: 2.15;
+        padding-left: .75em;
+        padding-right: .75em;
+    }
 
-        .card-registration .select-arrow {
-            top: 13px;
-        }
+    .card-registration .select-arrow {
+        top: 13px;
+    }
 
-        .bg-grey {
-            background-color: #eae8e8;
-        }
+    .bg-grey {
+        background-color: #eae8e8;
+    }
 
-        @media (min-width: 992px) {
-            .card-registration-2 .bg-grey {
-                border-top-right-radius: 16px;
-                border-bottom-right-radius: 16px;
-            }
+    @media (min-width: 992px) {
+        .card-registration-2 .bg-grey {
+            border-top-right-radius: 16px;
+            border-bottom-right-radius: 16px;
         }
+    }
 
-        @media (max-width: 991px) {
-            .card-registration-2 .bg-grey {
-                border-bottom-left-radius: 16px;
-                border-bottom-right-radius: 16px;
-            }
+    @media (max-width: 991px) {
+        .card-registration-2 .bg-grey {
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
         }
+    }
     </style>
 </head>
 
@@ -63,16 +63,18 @@ use yii\helpers\Url;
                                         $esgotado = true;
                                         $stock = $carrinho->produto->getStockTotal();
                                     ?>
-                                        <hr class="my-4">
-                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                            <div class="col-md-2 col-lg-2 col-xl-2">
-                                                <img src="/img/<?= $carrinho->produto->imagem ?>" class="img-fluid rounded-3">
-                                            </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-3">
-                                                <a href="<?= Url::toRoute(['produto/view', 'id' => $carrinho->produto->id]) ?>" style="text-decoration:none">
-                                                    <h6 class="text-muted"><?= $carrinho->produto->nome ?></h6>
-                                                </a>
-                                                <?php
+                                    <hr class="my-4">
+                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <img src="/img/<?= $carrinho->produto->imagem ?>"
+                                                class="img-fluid rounded-3">
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <a href="<?= Url::toRoute(['produto/view', 'id' => $carrinho->produto->id]) ?>"
+                                                style="text-decoration:none">
+                                                <h6 class="text-muted"><?= $carrinho->produto->nome ?></h6>
+                                            </a>
+                                            <?php
                                                 switch ($stock) {
                                                     case $stock < $carrinho->Quantidade:
                                                         echo '<p class="text-warning">Apenas ' . $stock . ' unidades em stock</p>';
@@ -85,24 +87,26 @@ use yii\helpers\Url;
                                                         break;
                                                 }
                                                 ?>
-                                            </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                <?= $carrinho->Quantidade ?>
-                                            </div>
-                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h6 class="mb-0">
-                                                    <?= $carrinho->produto->preco *  $carrinho->Quantidade ?>€</h6>
-                                            </div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                <a data-method="POST" style='text-decoration:none ' href="<?= Url::toRoute(["carrinho/delete", 'id_Produto' => $carrinho->id_Produto]) ?>">
-                                                    X
-                                                </a>
-                                            </div>
                                         </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                            <?= $carrinho->Quantidade ?>
+                                        </div>
+                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                            <h6 class="mb-0">
+                                                <?= $carrinho->produto->preco *  $carrinho->Quantidade ?>€</h6>
+                                        </div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <a data-method="POST" style='text-decoration:none '
+                                                href="<?= Url::toRoute(["carrinho/delete", 'id_Produto' => $carrinho->id_Produto]) ?>">
+                                                X
+                                            </a>
+                                        </div>
+                                    </div>
                                     <?php } ?>
                                     <hr class="my-4">
                                     <div class="pt-5">
-                                        <h6 class="mb-0"><a data-method="POST" class="text-body" href="<?= Url::toRoute("carrinho/clear") ?>">Limpar Carrinho</a></h6>
+                                        <h6 class="mb-0"><a data-method="POST" class="text-body"
+                                                href="<?= Url::toRoute("carrinho/clear") ?>">Limpar Carrinho</a></h6>
                                     </div>
                                     <div class="pt-5">
                                         <h6 class="mb-0"><a href="<?= Url::home() ?>" class="text-body">Voltar a
@@ -128,7 +132,8 @@ use yii\helpers\Url;
 
                                     <div class="mb-5">
                                         <div class="form-outline">
-                                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                                            <input type="text" id="form3Examplea2"
+                                                class="form-control form-control-lg" />
                                         </div>
                                     </div>
 
@@ -141,7 +146,8 @@ use yii\helpers\Url;
                                     <?php
                                     if (!empty($carrinhos)) {
                                     ?>
-                                        <a data-method="POST" class="btn btn-dark btn-block btn-lg" href="<?= Url::toRoute("fatura/create") ?>">Comprar</a></h6>
+                                    <a data-method="POST" id="comprar" class="btn btn-dark btn-block btn-lg"
+                                        href="<?= Url::toRoute("fatura/create") ?>">Comprar</a></h6>
                                     <?php
                                     }
                                     ?>
