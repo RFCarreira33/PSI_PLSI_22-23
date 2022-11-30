@@ -20,7 +20,7 @@ class ProdutoTest extends \Codeception\Test\Unit
     {
     }
 
-    public function testModeloProduto()
+    public function testProduto()
     {
         //Ir buscar a empresa
         $empresa = $this->tester->grabRecord('common\models\Empresa', array('designacaoSocial' => 'GlobalDiga'));

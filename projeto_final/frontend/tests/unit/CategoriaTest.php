@@ -15,7 +15,7 @@ class CategoriaTest extends \Codeception\Test\Unit
     {
     }
 
-    public function testModeloCategoria()
+    public function testCategoria()
     {
         //instanciar a categoria
         $categoria = new Categoria();

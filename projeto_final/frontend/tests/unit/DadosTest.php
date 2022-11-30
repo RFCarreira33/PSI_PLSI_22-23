@@ -16,7 +16,7 @@ class DadosTest extends \Codeception\Test\Unit
     {
     }
 
-    function testModeloDados()
+    function testDados()
     {
         //criação de um user 
         $user = new User();

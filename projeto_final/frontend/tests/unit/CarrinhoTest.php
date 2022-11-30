@@ -10,6 +10,9 @@ use common\models\User;
 use common\models\Loja;
 use common\models\Stock;
 use common\models\Dados;
+use common\models\Iva;
+use common\models\Marca;
+use common\models\Categoria;
 
 class CarrinhoTest extends \Codeception\Test\Unit
 {
@@ -18,9 +21,15 @@ class CarrinhoTest extends \Codeception\Test\Unit
 
     protected function _before()
     {
+    }
+
+    // tests
+    public function testCarrrinho()
+    {
+
+        $empresa = $this->tester->grabRecord('common\models\Empresa', array('designacaoSocial' => 'GlobalDiga'));
 
         $user = new User();
-        $user->id = 4;
         $user->username = "jj";
         $user->email = "jj@gmail.com";
         $user->setPassword("123456789");
@@ -29,28 +38,43 @@ class CarrinhoTest extends \Codeception\Test\Unit
         $user->save();
 
         $dados = new Dados();
-        $dados->id_User = 4;
+        $dados->id_User = $user->id;
         $dados->nome = "joao";
         $dados->nif = "222222222";
         $dados->telefone = "999999999";
-        $dados->morada = "ok";
+        $dados->morada = "Rua do lis";
         $dados->codPostal = "3780-566";
         $dados->save();
 
         $loja = new Loja();
-        $loja->id = 4;
-        $loja->id_Empresa = 1;
+        $loja->id_Empresa = $empresa->id;
         $loja->localidade = "Coimbra";
         $loja->save();
 
+        //criar categoria
+        $categoria = new Categoria();
+        $categoria->id_CategoriaPai = null;
+        $categoria->nome = "placas";
+        $categoria->save();
+
+        //criar iva
+        $iva = new Iva();
+        $iva->percentagem = 13;
+        $iva->Ativo = 1;
+        $iva->save();
+
+        //criar Marca
+        $marca = new Marca();
+        $marca->nome = "INTEL";
+        $marca->save();
+
         $produto = new Produto();
-        $produto->id = 4;
-        $produto->id_Categoria = 1;
-        $produto->id_Iva = 1;
-        $produto->id_Marca = "AMD";
-        $produto->descricao = "okkkkk";
+        $produto->id_Categoria = $categoria->id;
+        $produto->id_Iva = $iva->id;
+        $produto->id_Marca = $marca->nome;
+        $produto->descricao = "GTX1080";
         $produto->imagem = "logo.jpg";
-        $produto->referencia = "ok2";
+        $produto->referencia = "ADFRG";
         $produto->preco = 12;
         $produto->save();
 
@@ -59,12 +83,11 @@ class CarrinhoTest extends \Codeception\Test\Unit
         $stock->id_Loja = $loja->id;
         $stock->quantidade = 0;
         $stock->save();
-    }
 
-    // tests
-    public function testModeloCarrrinho()
-    {
+        //instanciar carrinho
         $carrinho = new Carrinho();
+
+        //Despoletar todas as regras de validação (introduzindo dados erróneos);
 
         //required no modelo
         $carrinho->id_Cliente = null;
@@ -89,45 +112,35 @@ class CarrinhoTest extends \Codeception\Test\Unit
         $this->assertFalse($carrinho->save());
 
         //assert true
-        $carrinho->id_Cliente = 4;
+        $carrinho->id_Cliente = $dados->id_User;
         $this->assertTrue($carrinho->validate(['id_Cliente']));
-        $carrinho->id_Produto = 4;
+        $carrinho->id_Produto = $produto->id;
         $this->assertTrue($carrinho->validate(['id_Produto']));
         $carrinho->Quantidade = 10;
         $this->assertTrue($carrinho->validate(['Quantidade']));
-    }
 
-    public function testSavingCarrrinho()
-    {
+        //Criar um registo válido e guardar na BD e Ver se o registo válido se encontra na BD
         $carrinho = new Carrinho();
-        $carrinho->id_Cliente = 4;
-        $carrinho->id_Produto = 4;
+        $carrinho->id_Cliente = $dados->id_User;
+        $carrinho->id_Produto = $produto->id;
         $carrinho->Quantidade = 10;
         $carrinho->save();
 
-        $this->tester->seeRecord('common\models\Carrinho', array('id_Cliente' => 4, 'id_Produto' => 4, 'Quantidade' => 10));
-    }
+        $this->tester->seeRecord('common\models\Carrinho', array('id_Cliente' => $dados->id_User, 'id_Produto' => $produto->id, 'Quantidade' => 10));
 
-    public function testUpdateCarrrinho()
-    {
-        $this->testSavingCarrrinho();
-        $carrinho = $this->tester->grabRecord('common\models\Carrinho', array('id_Cliente' => 4));
-        $carrinho->id_Cliente = 4;
-        $carrinho->id_Produto = 4;
-        $carrinho->Quantidade = 15;
-        $carrinho->save();
+        //Ler o registo anterior e aplicar um update e Ver se o registo atualizado se encontra na BD
+        $carrinhoUpdate = $this->tester->grabRecord('common\models\Carrinho', array('id_Cliente' => $dados->id_User));
+        $carrinhoUpdate->id_Cliente = $dados->id_User;
+        $carrinhoUpdate->id_Produto = $produto->id;
+        $carrinhoUpdate->Quantidade = 15;
+        $carrinhoUpdate->save();
 
-        $this->tester->seeRecord('common\models\Carrinho', array('id_Cliente' => 4, 'id_Produto' => 4, 'Quantidade' => 15));
-    }
+        $this->tester->seeRecord('common\models\Carrinho', array('id_Cliente' => $dados->id_User, 'id_Produto' => $produto->id, 'Quantidade' => 15));
 
-    public function testDeleteCarrrinho()
-    {
-        $this->testSavingCarrrinho();
-        $this->testUpdateCarrrinho();
+        //Apagar o registo e Verificar que o registo não se encontra na BD
+        $carrinhoDelete = $this->tester->grabRecord('common\models\Carrinho', array('id_Cliente' => $dados->id_User));
+        $carrinhoDelete->delete();
 
-        $carrinho = $this->tester->grabRecord('common\models\Carrinho', array('id_Cliente' => 4));
-        $carrinho->delete();
-
-        $this->tester->dontSeeRecord('common\models\Carrinho', array('id_Cliente' => 4, 'id_Produto' => 4, 'Quantidade' => 15));
+        $this->tester->dontSeeRecord('common\models\Carrinho', array('id_Cliente' => $dados->id_User, 'id_Produto' => $produto->id, 'Quantidade' => 15));
     }
 }
