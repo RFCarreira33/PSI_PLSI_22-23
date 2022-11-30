@@ -160,7 +160,7 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        return $this->render('about');
+        return $this->redirect('https://github.com/RFCarreira33/PSI_PLSI_22-23');
     }
 
     /**
