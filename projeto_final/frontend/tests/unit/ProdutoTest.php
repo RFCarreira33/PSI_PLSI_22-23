@@ -5,6 +5,8 @@ namespace frontend\tests\Unit;
 
 use frontend\tests\UnitTester;
 use common\models\Produto;
+use common\models\Loja;
+use common\models\Stock;
 
 class ProdutoTest extends \Codeception\Test\Unit
 {
@@ -13,6 +15,11 @@ class ProdutoTest extends \Codeception\Test\Unit
 
     protected function _before()
     {
+        $loja = new Loja();
+        $loja->id = 4;
+        $loja->id_Empresa = 1;
+        $loja->localidade = "Coimbra";
+        $loja->save();
     }
 
     public function testModeloProduto()
@@ -84,6 +91,8 @@ class ProdutoTest extends \Codeception\Test\Unit
 
     function testSavingProduto()
     {
+        $loja = $this->tester->grabRecord('common\models\Loja', array('localidade' => 'Coimbra'));
+
         $produto = new Produto();
         $produto->id_Categoria = 1;
         $produto->id_Iva = 1;
@@ -93,6 +102,14 @@ class ProdutoTest extends \Codeception\Test\Unit
         $produto->referencia = "ok2";
         $produto->preco = 12;
         $produto->save();
+
+        $stock = new Stock();
+        $stock->id_Produto = $produto->id;
+        $stock->id_Loja = $loja->id;
+        $stock->quantidade = 0;
+        $stock->save();
+
+        $this->tester->seeRecord('common\models\Stock', array('id_Loja' => $stock->id_Loja, 'id_Produto' => $stock->id_Produto, 'quantidade' => 0));
         $this->tester->seeRecord('common\models\Produto', array('id_Categoria' => 1, 'id_Iva' => 1, 'id_Marca' => "AMD", 'descricao' => "okkkkk", 'referencia' => "ok2", 'imagem' => "logo.jpg", 'preco' => 12));
     }
 
@@ -108,6 +125,12 @@ class ProdutoTest extends \Codeception\Test\Unit
         $produtoUpdate->referencia = "ok3";
         $produtoUpdate->preco = 15;
         $produtoUpdate->save();
+
+        $stockUpdate = $this->tester->grabRecord('common\models\Stock', array('id_Loja' => 4));
+        $stockUpdate->quantidade = 15;
+        $stockUpdate->save();
+
+        $this->tester->seeRecord('common\models\Stock', array('quantidade' => 15));
         $this->tester->seeRecord('common\models\Produto', array('id_Categoria' => 3, 'id_Iva' => 1, 'id_Marca' => "Nvidia", 'descricao' => "ok2", 'referencia' => "ok3", 'imagem' => "banner.png", 'preco' => 15));
     }
 
@@ -116,6 +139,8 @@ class ProdutoTest extends \Codeception\Test\Unit
         $this->testSavingProduto();
         $this->testUpdateProduto();
         $produtoDelete = $this->tester->grabRecord('common\models\Produto', array('referencia' => 'ok3'));
+        $stockDelete = $this->tester->grabRecord('common\models\Stock', array('id_Loja' => 4));
+        $stockDelete->delete();
         $produtoDelete->delete();
         $this->tester->dontSeeRecord('common\models\Produto', array('id_Categoria' => 3, 'id_Iva' => 1, 'id_Marca' => "Nvidia", 'descricao' => "ok2", 'referencia' => "ok3", 'imagem' => "banner.png", 'preco' => 15));
     }
