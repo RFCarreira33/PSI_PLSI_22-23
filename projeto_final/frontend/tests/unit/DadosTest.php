@@ -20,7 +20,6 @@ class DadosTest extends \Codeception\Test\Unit
     {
         //criação de um user 
         $user = new User();
-        $user->id = 4;
         $user->username = "jj";
         $user->email = "jj@gmail.com";
         $user->setPassword("123456789");
@@ -30,7 +29,9 @@ class DadosTest extends \Codeception\Test\Unit
 
         $dados = new Dados();
 
-        //Required no modelo
+        //Despoletar todas as regras de validação (introduzindo dados erróneos);
+
+        //required no modelo
         $dados->id_User = null;
         $this->assertFalse($dados->validate(['id_User']));
         $dados->nome = null;
@@ -48,18 +49,18 @@ class DadosTest extends \Codeception\Test\Unit
         $dados->id_User = "a";
         $this->assertFalse($dados->validate(['id_User']));
 
-        //morada e nome max 9 caracteres
-        $dados->morada = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        //morada e nome max 45 caracteres
+        $dados->morada = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; //50 caracteres
         $this->assertFalse($dados->validate(['morada']));
-        $dados->nome = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        $dados->nome = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; //50 caracteres
         $this->assertFalse($dados->validate(['nome']));
 
         //nif , codpostal e telefone max 9 caracteres
-        $dados->nif = "1111111111";
+        $dados->nif = "1111111111"; //10 caracteres
         $this->assertFalse($dados->validate(['nif']));
-        $dados->codPostal = "aaaaaaaaaa";
+        $dados->codPostal = "aaaaaaaaaa"; //10 caracteres
         $this->assertFalse($dados->validate(['codPostal']));
-        $dados->telefone = "1111111111";
+        $dados->telefone = "1111111111"; //10 caracteres
         $this->assertFalse($dados->validate(['telefone']));
 
         //Regex validação
@@ -71,7 +72,7 @@ class DadosTest extends \Codeception\Test\Unit
         $this->assertFalse($dados->validate(['nif']));
 
         //assert trues
-        $dados->id_User = 4;
+        $dados->id_User = $user->id;
         $this->assertTrue($dados->validate(['id_User']));
         $dados->nome = "joao";
         $this->assertTrue($dados->validate(['nome']));
@@ -79,7 +80,7 @@ class DadosTest extends \Codeception\Test\Unit
         $this->assertTrue($dados->validate(['nif']));
         $dados->telefone = "123123123";
         $this->assertTrue($dados->validate(['telefone']));
-        $dados->morada = "ok";
+        $dados->morada = "Rua da Igreja";
         $this->assertTrue($dados->validate(['morada']));
         $dados->codPostal = "3780-566";
         $this->assertTrue($dados->validate(['codPostal']));
@@ -90,24 +91,24 @@ class DadosTest extends \Codeception\Test\Unit
         $dados->nome = "joao";
         $dados->nif = "222222222";
         $dados->telefone = "999999999";
-        $dados->morada = "ok";
+        $dados->morada = "Rua da Igreja";
         $dados->codPostal = "3780-566";
         $dados->save();
-        $this->tester->seeRecord('common\models\Dados', array('id_user' => $user->id, 'nome' => "joao", 'nif' => "222222222", 'telefone' => "999999999", 'morada' => "ok", 'codPostal' => "3780-566"));
+        $this->tester->seeRecord('common\models\Dados', array('id_user' => $user->id, 'nome' => "joao", 'nif' => "222222222", 'telefone' => "999999999", 'morada' => "Rua da Igreja", 'codPostal' => "3780-566"));
 
         //Ler o registo anterior e aplicar um update e Ver se o registo atualizado se encontra na BD
         $dadosUpdate = $this->tester->grabRecord('common\models\Dados', array('nif' => '222222222'));
         $dadosUpdate->nome = "pedro";
         $dadosUpdate->nif = "111111111";
         $dadosUpdate->telefone = "111111111";
-        $dadosUpdate->morada = "ok2";
+        $dadosUpdate->morada = "Rua dos pousos";
         $dadosUpdate->codPostal = "3780-567";
         $dadosUpdate->save();
-        $this->tester->seeRecord('common\models\Dados', array('id_user' => $user->id, 'nome' => "pedro", 'nif' => "111111111", 'telefone' => "111111111", 'morada' => "ok2", 'codPostal' => "3780-567"));
+        $this->tester->seeRecord('common\models\Dados', array('id_user' => $user->id, 'nome' => "pedro", 'nif' => "111111111", 'telefone' => "111111111", 'morada' => "Rua dos pousos", 'codPostal' => "3780-567"));
 
         //Apagar o registo e Verificar que o registo não se encontra na BD
         $dadosDelete = $this->tester->grabRecord('common\models\Dados', array('nif' => '111111111'));
         $dadosDelete->delete();
-        $this->tester->dontSeeRecord('common\models\Dados', array('id_user' => $user->id, 'nome' => "pedro", 'nif' => "111111111", 'telefone' => "111111111", 'morada' => "ok2", 'codPostal' => "3780-567"));
+        $this->tester->dontSeeRecord('common\models\Dados', array('id_user' => $user->id, 'nome' => "pedro", 'nif' => "111111111", 'telefone' => "111111111", 'morada' => "Rua dos pousos", 'codPostal' => "3780-567"));
     }
 }
