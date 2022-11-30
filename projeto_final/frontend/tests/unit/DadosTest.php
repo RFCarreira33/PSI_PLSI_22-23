@@ -14,6 +14,11 @@ class DadosTest extends \Codeception\Test\Unit
 
     protected function _before()
     {
+    }
+
+    function testModeloDados()
+    {
+        //criação de um user 
         $user = new User();
         $user->id = 4;
         $user->username = "jj";
@@ -22,10 +27,7 @@ class DadosTest extends \Codeception\Test\Unit
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
         $user->save();
-    }
 
-    function testModeloDados()
-    {
         $dados = new Dados();
 
         //Required no modelo
@@ -81,24 +83,19 @@ class DadosTest extends \Codeception\Test\Unit
         $this->assertTrue($dados->validate(['morada']));
         $dados->codPostal = "3780-566";
         $this->assertTrue($dados->validate(['codPostal']));
-    }
 
-    function testSavingDados()
-    {
+        //Criar um registo válido e guardar na BD e Ver se o registo válido se encontra na BD
         $dados = new Dados();
-        $dados->id_User = 4;
+        $dados->id_User = $user->id;
         $dados->nome = "joao";
         $dados->nif = "222222222";
         $dados->telefone = "999999999";
         $dados->morada = "ok";
         $dados->codPostal = "3780-566";
         $dados->save();
-        $this->tester->seeRecord('common\models\Dados', array('id_user' => 4, 'nome' => "joao", 'nif' => "222222222", 'telefone' => "999999999", 'morada' => "ok", 'codPostal' => "3780-566"));
-    }
+        $this->tester->seeRecord('common\models\Dados', array('id_user' => $user->id, 'nome' => "joao", 'nif' => "222222222", 'telefone' => "999999999", 'morada' => "ok", 'codPostal' => "3780-566"));
 
-    function testUpdateDados()
-    {
-        $this->testSavingDados();
+        //Ler o registo anterior e aplicar um update e Ver se o registo atualizado se encontra na BD
         $dadosUpdate = $this->tester->grabRecord('common\models\Dados', array('nif' => '222222222'));
         $dadosUpdate->nome = "pedro";
         $dadosUpdate->nif = "111111111";
@@ -106,15 +103,11 @@ class DadosTest extends \Codeception\Test\Unit
         $dadosUpdate->morada = "ok2";
         $dadosUpdate->codPostal = "3780-567";
         $dadosUpdate->save();
-        $this->tester->seeRecord('common\models\Dados', array('id_user' => 4, 'nome' => "pedro", 'nif' => "111111111", 'telefone' => "111111111", 'morada' => "ok2", 'codPostal' => "3780-567"));
-    }
+        $this->tester->seeRecord('common\models\Dados', array('id_user' => $user->id, 'nome' => "pedro", 'nif' => "111111111", 'telefone' => "111111111", 'morada' => "ok2", 'codPostal' => "3780-567"));
 
-    function testDeleteDados()
-    {
-        $this->testSavingDados();
-        $this->testUpdateDados();
+        //Apagar o registo e Verificar que o registo não se encontra na BD
         $dadosDelete = $this->tester->grabRecord('common\models\Dados', array('nif' => '111111111'));
         $dadosDelete->delete();
-        $this->tester->dontSeeRecord('common\models\Dados', array('id_user' => 4, 'nome' => "pedro", 'nif' => "111111111", 'telefone' => "111111111", 'morada' => "ok2", 'codPostal' => "3780-567"));
+        $this->tester->dontSeeRecord('common\models\Dados', array('id_user' => $user->id, 'nome' => "pedro", 'nif' => "111111111", 'telefone' => "111111111", 'morada' => "ok2", 'codPostal' => "3780-567"));
     }
 }
