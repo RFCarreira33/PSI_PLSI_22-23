@@ -30,8 +30,8 @@ class CarrinhoTest extends \Codeception\Test\Unit
         $empresa = $this->tester->grabRecord('common\models\Empresa', array('designacaoSocial' => 'GlobalDiga'));
 
         $user = new User();
-        $user->username = "jj";
-        $user->email = "jj@gmail.com";
+        $user->username = "pp";
+        $user->email = "pp@gmail.com";
         $user->setPassword("123456789");
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
@@ -76,6 +76,7 @@ class CarrinhoTest extends \Codeception\Test\Unit
         $produto->imagem = "logo.jpg";
         $produto->referencia = "ADFRG";
         $produto->preco = 12;
+        $produto->nome = "GTX4080";
         $produto->save();
 
         $stock = new Stock();

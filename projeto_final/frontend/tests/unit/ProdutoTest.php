@@ -68,6 +68,8 @@ class ProdutoTest extends \Codeception\Test\Unit
         $this->assertFalse($produto->validate(['referencia']));
         $produto->preco = null;
         $this->assertFalse($produto->validate(['preco']));
+        $produto->nome = null;
+        $this->assertFalse($produto->validate(['nome']));
 
         //id Categoria, id Iva, Ativo Integer
         $produto->id_Categoria = 1.2;
@@ -114,6 +116,8 @@ class ProdutoTest extends \Codeception\Test\Unit
         $this->assertTrue($produto->validate(['referencia']));
         $produto->preco = 12;
         $this->assertTrue($produto->validate(['preco']));
+        $produto->nome = "GTX4080";
+        $this->assertTrue($produto->validate(['nome']));
 
         //Criar um registo válido e guardar na BD e Ver se o registo válido se encontra na BD
         $produto = new Produto();
@@ -124,6 +128,7 @@ class ProdutoTest extends \Codeception\Test\Unit
         $produto->imagem = "logo.jpg";
         $produto->referencia = "RKFGD";
         $produto->preco = 12;
+        $produto->nome = "GTX4080";
         $produto->save();
 
         $stock = new Stock();

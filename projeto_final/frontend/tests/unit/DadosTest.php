@@ -85,8 +85,9 @@ class DadosTest extends \Codeception\Test\Unit
         $dados->codPostal = "3780-566";
         $this->assertTrue($dados->validate(['codPostal']));
 
-        //Criar um registo válido e guardar na BD e Ver se o registo válido se encontra na BD
         $dados = new Dados();
+
+        //Criar um registo válido e guardar na BD e Ver se o registo válido se encontra na BD
         $dados->id_User = $user->id;
         $dados->nome = "joao";
         $dados->nif = "222222222";
@@ -98,6 +99,7 @@ class DadosTest extends \Codeception\Test\Unit
 
         //Ler o registo anterior e aplicar um update e Ver se o registo atualizado se encontra na BD
         $dadosUpdate = $this->tester->grabRecord('common\models\Dados', array('nif' => '222222222'));
+        $dadosUpdate->id_User = $user->id;
         $dadosUpdate->nome = "pedro";
         $dadosUpdate->nif = "111111111";
         $dadosUpdate->telefone = "111111111";

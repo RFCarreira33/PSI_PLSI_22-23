@@ -3,9 +3,7 @@ actor: UnitTester
 modules:
   enabled:
     - Yii2:
-        part: [orm, email, fixtures]
+      part: [orm, email, fixtures]
+      configFile: "config/test.php"
+      cleanup: false
     - Asserts
-    - Db:
-        dsn: "mysql:host=localhost;dbname=yii2advanced_test"
-        user: "root"
-        password: "root"
