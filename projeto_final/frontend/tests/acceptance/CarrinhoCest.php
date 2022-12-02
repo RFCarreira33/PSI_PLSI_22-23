@@ -5,7 +5,7 @@ namespace frontend\tests\Acceptance;
 
 use frontend\tests\AcceptanceTester;
 
-class LoginCest
+class CarrinhoCest
 {
     public function _before(AcceptanceTester $I)
     {
@@ -28,7 +28,19 @@ class LoginCest
         $I->wait(3);
         $I->click('button[name="add-to-cart"]');
         $I->wait(3);
-        $I->see('GTX 1060');
+        $I->see('Carrinho de Compras');
+        $I->wait(3);
+        $I->click('.card-img-top');
+        $I->wait(3);
+        $I->click('#produtoDetails2');
+        $I->see('Adicionar ao Carrinho');
+        $I->wait(3);
+        $I->fillField('input[name="quantidade"]', '3');
+        $I->wait(3);
+        $I->click('button[name="add-to-cart"]');
+        $I->wait(3);
+        $I->see('90€');
+        $I->wait(3);
         $I->click('a[data-method="POST"]');
         $I->wait(3);
         $I->click('.card-img-top');

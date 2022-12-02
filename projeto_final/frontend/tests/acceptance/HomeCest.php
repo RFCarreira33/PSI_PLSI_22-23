@@ -11,7 +11,7 @@ class HomeCest
     {
         $I->amOnPage('/site/index');
         $I->wait(2);
-        $I->see('News');
+        $I->see('Novas Notícias');
         $I->wait(2); // wait for page to be opened
     }
 }
