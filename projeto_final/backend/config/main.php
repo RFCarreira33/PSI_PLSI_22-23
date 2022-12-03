@@ -64,6 +64,8 @@ return [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/fatura'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/categoria'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/marca'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/user'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/dados'],
             ],
         ],
     ],
