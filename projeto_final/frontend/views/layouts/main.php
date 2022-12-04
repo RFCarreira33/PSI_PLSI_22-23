@@ -18,7 +18,22 @@ AppAsset::register($this);
 
 <?php
     use common\models\Categoria;
-    $categorias = Categoria::find()->all();
+    $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all();
+
+    function checkChildren($category)
+    {
+        foreach($category->categorias as $child)
+        {
+            ?>
+            <li><a class="dropdown-item" href="<?=Url::toRoute(['produto/search?category='.$child->nome])?>"><?=$child->nome?></a></li>
+            <ul>
+            <?php
+            if(sizeof($child->categorias) > 0) { checkChildren($child); }
+            ?>
+            </ul>
+            <?php
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -56,12 +71,31 @@ AppAsset::register($this);
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#!">All Products</a></li>
-                            <?php
-                                foreach($categorias as $categoria)
-                                { ?>
+                            <?php 
+                                foreach($parentCategories as $parent)
+                                {
+                                    ?>
                                     <li><hr class="dropdown-divider"/></li>
-                                    <li><a class="dropdown-item" href="<?=Url::toRoute(['produto/search?category='.$categoria->nome])?>"><?=$categoria->nome?></a></li>
-                                <?php } 
+                                    <li><a class="dropdown-item" href="<?=Url::toRoute(['produto/search?category='.$parent->nome])?>"><?=$parent->nome?></a></li>
+                                    <ul>
+                                    <?php
+
+                                    foreach($parent->categorias as $child)
+                                    {
+                                        ?>
+                                        <li><a class="dropdown-item" href="<?=Url::toRoute(['produto/search?category='.$child->nome])?>"><?=$child->nome?></a></li>
+                                        <ul>
+                                        <?php
+                                        checkChildren($child);
+                                        ?>
+                                        </ul>
+                                        <?php
+                                    }
+                                    
+                                    ?>
+                                    </ul>
+                                    <?php
+                                }
                                 ?>
                         </ul>
                     </li>
