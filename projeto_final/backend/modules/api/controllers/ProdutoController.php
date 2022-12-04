@@ -113,28 +113,4 @@ class ProdutoController extends ActiveController
         ]);
         return $activeData;
     }
-
-    /*
-    public function actionCategoria()
-    {
-        $activeData = new ActiveDataProvider([
-            //filters produto by Ativo and id
-            'query' => Produto::find()->where(['Ativo' => 1, 'id_Categoria' => Yii::$app->request->get('id')]),
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
-    }
-
-    public function actionMarca()
-    {
-        $activeData = new ActiveDataProvider([
-            //filters produto by Ativo and id
-            'query' => Produto::find()->where(['Ativo' => 1, 'id_Marca' => Yii::$app->request->get('id')]),
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
-    }
-    */
 }
