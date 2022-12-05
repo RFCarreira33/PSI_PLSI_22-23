@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use backend\models\AuthAssignment;
 use common\models\Categoria;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -108,7 +109,9 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            if (AuthAssignment::findOne(['user_id' => Yii::$app->user->id])->item_name == 'cliente') {
+                return $this->goBack();
+            }
         }
 
         $model->password = '';

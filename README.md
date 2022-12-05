@@ -94,13 +94,13 @@ Editar o ficheiro de configuração e executar
     -type, pode ser ignorado    Executa apenas testes do tipo especificado
     -file, pode ser ignorado    Executa apenas o teste com o nome especificado
 
-Para executar os testes de aceitação ( `Acceptance` ) será necessário instalar `Selenium-Standalone` e um Webdriver para o browser e `Nodejs` caso não instalado.
+Para executar os testes de aceitação ( `Acceptance` ) será necessário instalar `Selenium-Standalone` e um `Webdriver` para o browser e `Nodejs` caso não instalado.
 [Mais opções](https://codeception.com/docs/AcceptanceTests)
 
     npm install selenium-standalone -g
-    selenium-standalone install
+    npx selenium-standalone install
 
 Iniciar `Selenium-Standalone` e efetuar quaisquer alterações necessárias ao ficheiro de configuração
 
-    selenium-standalone start
+    npx selenium-standalone start
     ../vendor/bin/codecept run acceptance
