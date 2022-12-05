@@ -5,7 +5,6 @@ namespace frontend\controllers;
 use yii\web\Controller;
 use Yii;
 use yii\data\Pagination;
-use Yii;
 
 class NewsController extends Controller
 {
