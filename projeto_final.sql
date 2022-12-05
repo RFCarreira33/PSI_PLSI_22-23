@@ -1,21 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Tempo de geração: 29-Nov-2022 às 01:49
--- Versão do servidor: 8.0.31
--- versão do PHP: 8.1.10
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+CREATE DATABASE if NOT EXISTS projeto_final;
+USE projeto_final;
 
 --
 -- Banco de dados: `projeto_final`
@@ -28,10 +12,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `auth_assignment` (
-  `item_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `user_id` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `item_name` varchar(64) CHARACTER SET utf8mb3 NOT NULL,
+  `user_id` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
   `created_at` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
 
 --
 -- Extraindo dados da tabela `auth_assignment`
@@ -49,14 +33,14 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 --
 
 CREATE TABLE `auth_item` (
-  `name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
   `type` smallint NOT NULL,
-  `description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
-  `rule_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb3 ,
+  `rule_name` varchar(64) CHARACTER SET utf8mb3  DEFAULT NULL,
   `data` blob,
   `created_at` int DEFAULT NULL,
   `updated_at` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
 
 --
 -- Extraindo dados da tabela `auth_item`
@@ -110,9 +94,9 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 --
 
 CREATE TABLE `auth_item_child` (
-  `parent` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `child` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `parent` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
+  `child` varchar(64) CHARACTER SET utf8mb3  NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
 
 --
 -- Extraindo dados da tabela `auth_item_child`
@@ -164,11 +148,11 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 --
 
 CREATE TABLE `auth_rule` (
-  `name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
   `data` blob,
   `created_at` int DEFAULT NULL,
   `updated_at` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
 
 --
 -- Extraindo dados da tabela `auth_rule`
@@ -187,7 +171,7 @@ CREATE TABLE `carrinho` (
   `id_Cliente` int NOT NULL,
   `id_Produto` int NOT NULL,
   `Quantidade` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `carrinho`
@@ -207,7 +191,7 @@ CREATE TABLE `categoria` (
   `id` int NOT NULL,
   `id_CategoriaPai` int DEFAULT NULL,
   `nome` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `categoria`
@@ -231,7 +215,7 @@ CREATE TABLE `dados` (
   `nif` varchar(9) NOT NULL,
   `morada` varchar(45) NOT NULL,
   `codPostal` varchar(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `dados`
@@ -259,7 +243,7 @@ CREATE TABLE `empresa` (
   `capitalSocial` int NOT NULL,
   `imgBanner` varchar(255) NOT NULL,
   `imgLogo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `empresa`
@@ -286,7 +270,7 @@ CREATE TABLE `fatura` (
   `dataFatura` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `valorTotal` decimal(11,2) NOT NULL,
   `valorIva` decimal(11,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `fatura`
@@ -306,7 +290,7 @@ CREATE TABLE `iva` (
   `id` int NOT NULL,
   `percentagem` int NOT NULL,
   `Ativo` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `iva`
@@ -329,7 +313,7 @@ CREATE TABLE `linhafatura` (
   `quantidade` int NOT NULL,
   `valor` decimal(11,2) NOT NULL,
   `valorIva` decimal(11,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `linhafatura`
@@ -350,7 +334,7 @@ CREATE TABLE `loja` (
   `id` int NOT NULL,
   `id_Empresa` int NOT NULL,
   `localidade` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `loja`
@@ -368,7 +352,7 @@ INSERT INTO `loja` (`id`, `id_Empresa`, `localidade`) VALUES
 
 CREATE TABLE `marca` (
   `nome` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `marca`
@@ -387,7 +371,7 @@ INSERT INTO `marca` (`nome`) VALUES
 CREATE TABLE `migration` (
   `version` varchar(180) NOT NULL,
   `apply_time` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `migration`
@@ -420,7 +404,7 @@ CREATE TABLE `produto` (
   `preco` decimal(11,2) NOT NULL,
   `nome` varchar(50) DEFAULT NULL,
   `Ativo` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `produto`
@@ -441,7 +425,7 @@ CREATE TABLE `stock` (
   `id_Loja` int NOT NULL,
   `id_Produto` int NOT NULL,
   `quantidade` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Extraindo dados da tabela `stock`
@@ -735,6 +719,1069 @@ ALTER TABLE `stock`
   ADD CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`id_Produto`) REFERENCES `produto` (`id`);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE DATABASE if NOT EXISTS projeto_final_teste;
+USE projeto_final_teste;
+
+--
+-- Banco de dados: `projeto_final_teste`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `auth_assignment`
+--
+
+CREATE TABLE `auth_assignment` (
+  `item_name` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
+  `user_id` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
+  `created_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `auth_item`
+--
+
+CREATE TABLE `auth_item` (
+  `name` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
+  `type` smallint NOT NULL,
+  `description` text CHARACTER SET utf8mb3 ,
+  `rule_name` varchar(64) CHARACTER SET utf8mb3  DEFAULT NULL,
+  `data` blob,
+  `created_at` int DEFAULT NULL,
+  `updated_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `auth_item_child`
+--
+
+CREATE TABLE `auth_item_child` (
+  `parent` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
+  `child` varchar(64) CHARACTER SET utf8mb3  NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `auth_rule`
+--
+
+CREATE TABLE `auth_rule` (
+  `name` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
+  `data` blob,
+  `created_at` int DEFAULT NULL,
+  `updated_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `carrinho`
+--
+
+CREATE TABLE `carrinho` (
+  `id_Cliente` int NOT NULL,
+  `id_Produto` int NOT NULL,
+  `Quantidade` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `categoria`
+--
+
+CREATE TABLE `categoria` (
+  `id` int NOT NULL,
+  `id_CategoriaPai` int DEFAULT NULL,
+  `nome` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+--
+-- Extraindo dados da tabela `categoria`
+--
+
+INSERT INTO `categoria` (`id`, `id_CategoriaPai`, `nome`) VALUES
+(6, NULL, 'OPGG');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `dados`
+--
+
+CREATE TABLE `dados` (
+  `id_User` int NOT NULL,
+  `nome` varchar(45) NOT NULL,
+  `telefone` varchar(9) NOT NULL,
+  `nif` varchar(9) NOT NULL,
+  `morada` varchar(45) NOT NULL,
+  `codPostal` varchar(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `empresa`
+--
+
+CREATE TABLE `empresa` (
+  `id` int NOT NULL,
+  `designacaoSocial` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `telefone` varchar(9) NOT NULL,
+  `nif` varchar(9) NOT NULL,
+  `morada` varchar(45) NOT NULL,
+  `codPostal` varchar(9) NOT NULL,
+  `localidade` varchar(45) NOT NULL,
+  `capitalSocial` int NOT NULL,
+  `imgBanner` varchar(255) NOT NULL,
+  `imgLogo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+--
+-- Extraindo dados da tabela `empresa`
+--
+
+INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`) VALUES
+(1, 'GlobalDiga', 'globaldiga@gmail.com', '244501812', '503503503', 'Rua do', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `fatura`
+--
+
+CREATE TABLE `fatura` (
+  `id` int NOT NULL,
+  `id_Cliente` int NOT NULL,
+  `nome` varchar(45) NOT NULL,
+  `nif` varchar(9) NOT NULL,
+  `codPostal` varchar(9) NOT NULL,
+  `telefone` varchar(9) NOT NULL,
+  `morada` varchar(45) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `dataFatura` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `valorTotal` decimal(11,2) NOT NULL,
+  `valorIva` decimal(11,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `iva`
+--
+
+CREATE TABLE `iva` (
+  `id` int NOT NULL,
+  `percentagem` int NOT NULL,
+  `Ativo` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+--
+-- Extraindo dados da tabela `iva`
+--
+
+INSERT INTO `iva` (`id`, `percentagem`, `Ativo`) VALUES
+(7, 23, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `linhafatura`
+--
+
+CREATE TABLE `linhafatura` (
+  `id` int NOT NULL,
+  `id_Fatura` int NOT NULL,
+  `produto_nome` varchar(45) NOT NULL,
+  `produto_referencia` varchar(45) NOT NULL,
+  `quantidade` int NOT NULL,
+  `valor` decimal(11,2) NOT NULL,
+  `valorIva` decimal(11,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `loja`
+--
+
+CREATE TABLE `loja` (
+  `id` int NOT NULL,
+  `id_Empresa` int NOT NULL,
+  `localidade` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `marca`
+--
+
+CREATE TABLE `marca` (
+  `nome` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+--
+-- Extraindo dados da tabela `marca`
+--
+
+INSERT INTO `marca` (`nome`) VALUES
+('AMD'),
+('Nvidia');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `migration`
+--
+
+CREATE TABLE `migration` (
+  `version` varchar(180) NOT NULL,
+  `apply_time` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `produto`
+--
+
+CREATE TABLE `produto` (
+  `id` int NOT NULL,
+  `id_Categoria` int NOT NULL,
+  `id_Iva` int NOT NULL,
+  `id_Marca` varchar(45) NOT NULL,
+  `descricao` text NOT NULL,
+  `imagem` text NOT NULL,
+  `referencia` varchar(45) NOT NULL,
+  `preco` decimal(11,2) NOT NULL,
+  `nome` varchar(50) DEFAULT NULL,
+  `Ativo` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `stock`
+--
+
+CREATE TABLE `stock` (
+  `id_Loja` int NOT NULL,
+  `id_Produto` int NOT NULL,
+  `quantidade` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `user`
+--
+
+CREATE TABLE `user` (
+  `id` int NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `auth_key` varchar(32) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `password_reset_token` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `status` smallint NOT NULL DEFAULT '10',
+  `created_at` int NOT NULL,
+  `updated_at` int NOT NULL,
+  `verification_token` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices para tabela `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD PRIMARY KEY (`item_name`,`user_id`),
+  ADD KEY `idx-auth_assignment-user_id` (`user_id`);
+
+--
+-- Índices para tabela `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD PRIMARY KEY (`name`),
+  ADD KEY `rule_name` (`rule_name`),
+  ADD KEY `idx-auth_item-type` (`type`);
+
+--
+-- Índices para tabela `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD PRIMARY KEY (`parent`,`child`),
+  ADD KEY `child` (`child`);
+
+--
+-- Índices para tabela `auth_rule`
+--
+ALTER TABLE `auth_rule`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Índices para tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD PRIMARY KEY (`id_Cliente`,`id_Produto`),
+  ADD KEY `idProduto` (`id_Produto`),
+  ADD KEY `idCliente` (`id_Cliente`,`id_Produto`),
+  ADD KEY `idCliente_2` (`id_Cliente`,`id_Produto`);
+
+--
+-- Índices para tabela `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `categoriaPai` (`id_CategoriaPai`);
+
+--
+-- Índices para tabela `dados`
+--
+ALTER TABLE `dados`
+  ADD PRIMARY KEY (`id_User`),
+  ADD KEY `idUser` (`id_User`);
+
+--
+-- Índices para tabela `empresa`
+--
+ALTER TABLE `empresa`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `fatura`
+--
+ALTER TABLE `fatura`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idCliente` (`id_Cliente`);
+
+--
+-- Índices para tabela `iva`
+--
+ALTER TABLE `iva`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `linhafatura`
+--
+ALTER TABLE `linhafatura`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idFatura` (`id_Fatura`);
+
+--
+-- Índices para tabela `loja`
+--
+ALTER TABLE `loja`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idEmpresa` (`id_Empresa`);
+
+--
+-- Índices para tabela `marca`
+--
+ALTER TABLE `marca`
+  ADD PRIMARY KEY (`nome`);
+
+--
+-- Índices para tabela `migration`
+--
+ALTER TABLE `migration`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Índices para tabela `produto`
+--
+ALTER TABLE `produto`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idIva` (`id_Iva`),
+  ADD KEY `idSubcategoria` (`id_Categoria`),
+  ADD KEY `marca` (`id_Marca`);
+
+--
+-- Índices para tabela `stock`
+--
+ALTER TABLE `stock`
+  ADD PRIMARY KEY (`id_Loja`,`id_Produto`),
+  ADD KEY `idLoja` (`id_Loja`),
+  ADD KEY `idProduto` (`id_Produto`);
+
+--
+-- Índices para tabela `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+
+--
+-- AUTO_INCREMENT de tabela `empresa`
+--
+ALTER TABLE `empresa`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `fatura`
+--
+ALTER TABLE `fatura`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT de tabela `iva`
+--
+ALTER TABLE `iva`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+
+--
+-- AUTO_INCREMENT de tabela `linhafatura`
+--
+ALTER TABLE `linhafatura`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT de tabela `loja`
+--
+ALTER TABLE `loja`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT de tabela `produto`
+--
+ALTER TABLE `produto`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT de tabela `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD CONSTRAINT `carrinho_ibfk_1` FOREIGN KEY (`id_Cliente`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `carrinho_ibfk_2` FOREIGN KEY (`id_Produto`) REFERENCES `produto` (`id`);
+
+--
+-- Limitadores para a tabela `categoria`
+--
+ALTER TABLE `categoria`
+  ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`id_CategoriaPai`) REFERENCES `categoria` (`id`);
+
+--
+-- Limitadores para a tabela `dados`
+--
+ALTER TABLE `dados`
+  ADD CONSTRAINT `dados_ibfk_1` FOREIGN KEY (`id_User`) REFERENCES `user` (`id`);
+
+--
+-- Limitadores para a tabela `fatura`
+--
+ALTER TABLE `fatura`
+  ADD CONSTRAINT `fatura_ibfk_1` FOREIGN KEY (`id_Cliente`) REFERENCES `dados` (`id_User`);
+
+--
+-- Limitadores para a tabela `linhafatura`
+--
+ALTER TABLE `linhafatura`
+  ADD CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`id_Fatura`) REFERENCES `fatura` (`id`);
+
+--
+-- Limitadores para a tabela `loja`
+--
+ALTER TABLE `loja`
+  ADD CONSTRAINT `loja_ibfk_1` FOREIGN KEY (`id_Empresa`) REFERENCES `empresa` (`id`);
+
+--
+-- Limitadores para a tabela `produto`
+--
+ALTER TABLE `produto`
+  ADD CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`id_Iva`) REFERENCES `iva` (`id`),
+  ADD CONSTRAINT `produto_ibfk_3` FOREIGN KEY (`id_Marca`) REFERENCES `marca` (`nome`),
+  ADD CONSTRAINT `produto_ibfk_4` FOREIGN KEY (`id_Categoria`) REFERENCES `categoria` (`id`);
+
+--
+-- Limitadores para a tabela `stock`
+--
+ALTER TABLE `stock`
+  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`id_Loja`) REFERENCES `loja` (`id`),
+  ADD CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`id_Produto`) REFERENCES `produto` (`id`);
+COMMIT;
+
+CREATE DATABASE if NOT EXISTS projeto_final_teste;
+USE projeto_final_teste;
+
+--
+-- Banco de dados: `projeto_final_teste`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `auth_assignment`
+--
+
+CREATE TABLE `auth_assignment` (
+  `item_name` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
+  `user_id` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
+  `created_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `auth_item`
+--
+
+CREATE TABLE `auth_item` (
+  `name` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
+  `type` smallint NOT NULL,
+  `description` text CHARACTER SET utf8mb3 ,
+  `rule_name` varchar(64) CHARACTER SET utf8mb3  DEFAULT NULL,
+  `data` blob,
+  `created_at` int DEFAULT NULL,
+  `updated_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `auth_item_child`
+--
+
+CREATE TABLE `auth_item_child` (
+  `parent` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
+  `child` varchar(64) CHARACTER SET utf8mb3  NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `auth_rule`
+--
+
+CREATE TABLE `auth_rule` (
+  `name` varchar(64) CHARACTER SET utf8mb3  NOT NULL,
+  `data` blob,
+  `created_at` int DEFAULT NULL,
+  `updated_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `carrinho`
+--
+
+CREATE TABLE `carrinho` (
+  `id_Cliente` int NOT NULL,
+  `id_Produto` int NOT NULL,
+  `Quantidade` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `categoria`
+--
+
+CREATE TABLE `categoria` (
+  `id` int NOT NULL,
+  `id_CategoriaPai` int DEFAULT NULL,
+  `nome` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+--
+-- Extraindo dados da tabela `categoria`
+--
+
+INSERT INTO `categoria` (`id`, `id_CategoriaPai`, `nome`) VALUES
+(6, NULL, 'OPGG');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `dados`
+--
+
+CREATE TABLE `dados` (
+  `id_User` int NOT NULL,
+  `nome` varchar(45) NOT NULL,
+  `telefone` varchar(9) NOT NULL,
+  `nif` varchar(9) NOT NULL,
+  `morada` varchar(45) NOT NULL,
+  `codPostal` varchar(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `empresa`
+--
+
+CREATE TABLE `empresa` (
+  `id` int NOT NULL,
+  `designacaoSocial` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `telefone` varchar(9) NOT NULL,
+  `nif` varchar(9) NOT NULL,
+  `morada` varchar(45) NOT NULL,
+  `codPostal` varchar(9) NOT NULL,
+  `localidade` varchar(45) NOT NULL,
+  `capitalSocial` int NOT NULL,
+  `imgBanner` varchar(255) NOT NULL,
+  `imgLogo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+--
+-- Extraindo dados da tabela `empresa`
+--
+
+INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`) VALUES
+(1, 'GlobalDiga', 'globaldiga@gmail.com', '244501812', '503503503', 'Rua do', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `fatura`
+--
+
+CREATE TABLE `fatura` (
+  `id` int NOT NULL,
+  `id_Cliente` int NOT NULL,
+  `nome` varchar(45) NOT NULL,
+  `nif` varchar(9) NOT NULL,
+  `codPostal` varchar(9) NOT NULL,
+  `telefone` varchar(9) NOT NULL,
+  `morada` varchar(45) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `dataFatura` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `valorTotal` decimal(11,2) NOT NULL,
+  `valorIva` decimal(11,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `iva`
+--
+
+CREATE TABLE `iva` (
+  `id` int NOT NULL,
+  `percentagem` int NOT NULL,
+  `Ativo` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+--
+-- Extraindo dados da tabela `iva`
+--
+
+INSERT INTO `iva` (`id`, `percentagem`, `Ativo`) VALUES
+(7, 23, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `linhafatura`
+--
+
+CREATE TABLE `linhafatura` (
+  `id` int NOT NULL,
+  `id_Fatura` int NOT NULL,
+  `produto_nome` varchar(45) NOT NULL,
+  `produto_referencia` varchar(45) NOT NULL,
+  `quantidade` int NOT NULL,
+  `valor` decimal(11,2) NOT NULL,
+  `valorIva` decimal(11,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `loja`
+--
+
+CREATE TABLE `loja` (
+  `id` int NOT NULL,
+  `id_Empresa` int NOT NULL,
+  `localidade` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `marca`
+--
+
+CREATE TABLE `marca` (
+  `nome` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+--
+-- Extraindo dados da tabela `marca`
+--
+
+INSERT INTO `marca` (`nome`) VALUES
+('AMD'),
+('Nvidia');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `migration`
+--
+
+CREATE TABLE `migration` (
+  `version` varchar(180) NOT NULL,
+  `apply_time` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `produto`
+--
+
+CREATE TABLE `produto` (
+  `id` int NOT NULL,
+  `id_Categoria` int NOT NULL,
+  `id_Iva` int NOT NULL,
+  `id_Marca` varchar(45) NOT NULL,
+  `descricao` text NOT NULL,
+  `imagem` text NOT NULL,
+  `referencia` varchar(45) NOT NULL,
+  `preco` decimal(11,2) NOT NULL,
+  `nome` varchar(50) DEFAULT NULL,
+  `Ativo` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `stock`
+--
+
+CREATE TABLE `stock` (
+  `id_Loja` int NOT NULL,
+  `id_Produto` int NOT NULL,
+  `quantidade` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `user`
+--
+
+CREATE TABLE `user` (
+  `id` int NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `auth_key` varchar(32) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `password_reset_token` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `status` smallint NOT NULL DEFAULT '10',
+  `created_at` int NOT NULL,
+  `updated_at` int NOT NULL,
+  `verification_token` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices para tabela `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD PRIMARY KEY (`item_name`,`user_id`),
+  ADD KEY `idx-auth_assignment-user_id` (`user_id`);
+
+--
+-- Índices para tabela `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD PRIMARY KEY (`name`),
+  ADD KEY `rule_name` (`rule_name`),
+  ADD KEY `idx-auth_item-type` (`type`);
+
+--
+-- Índices para tabela `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD PRIMARY KEY (`parent`,`child`),
+  ADD KEY `child` (`child`);
+
+--
+-- Índices para tabela `auth_rule`
+--
+ALTER TABLE `auth_rule`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Índices para tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD PRIMARY KEY (`id_Cliente`,`id_Produto`),
+  ADD KEY `idProduto` (`id_Produto`),
+  ADD KEY `idCliente` (`id_Cliente`,`id_Produto`),
+  ADD KEY `idCliente_2` (`id_Cliente`,`id_Produto`);
+
+--
+-- Índices para tabela `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `categoriaPai` (`id_CategoriaPai`);
+
+--
+-- Índices para tabela `dados`
+--
+ALTER TABLE `dados`
+  ADD PRIMARY KEY (`id_User`),
+  ADD KEY `idUser` (`id_User`);
+
+--
+-- Índices para tabela `empresa`
+--
+ALTER TABLE `empresa`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `fatura`
+--
+ALTER TABLE `fatura`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idCliente` (`id_Cliente`);
+
+--
+-- Índices para tabela `iva`
+--
+ALTER TABLE `iva`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `linhafatura`
+--
+ALTER TABLE `linhafatura`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idFatura` (`id_Fatura`);
+
+--
+-- Índices para tabela `loja`
+--
+ALTER TABLE `loja`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idEmpresa` (`id_Empresa`);
+
+--
+-- Índices para tabela `marca`
+--
+ALTER TABLE `marca`
+  ADD PRIMARY KEY (`nome`);
+
+--
+-- Índices para tabela `migration`
+--
+ALTER TABLE `migration`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Índices para tabela `produto`
+--
+ALTER TABLE `produto`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idIva` (`id_Iva`),
+  ADD KEY `idSubcategoria` (`id_Categoria`),
+  ADD KEY `marca` (`id_Marca`);
+
+--
+-- Índices para tabela `stock`
+--
+ALTER TABLE `stock`
+  ADD PRIMARY KEY (`id_Loja`,`id_Produto`),
+  ADD KEY `idLoja` (`id_Loja`),
+  ADD KEY `idProduto` (`id_Produto`);
+
+--
+-- Índices para tabela `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+
+--
+-- AUTO_INCREMENT de tabela `empresa`
+--
+ALTER TABLE `empresa`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `fatura`
+--
+ALTER TABLE `fatura`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT de tabela `iva`
+--
+ALTER TABLE `iva`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+
+--
+-- AUTO_INCREMENT de tabela `linhafatura`
+--
+ALTER TABLE `linhafatura`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT de tabela `loja`
+--
+ALTER TABLE `loja`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT de tabela `produto`
+--
+ALTER TABLE `produto`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT de tabela `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD CONSTRAINT `carrinho_ibfk_1` FOREIGN KEY (`id_Cliente`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `carrinho_ibfk_2` FOREIGN KEY (`id_Produto`) REFERENCES `produto` (`id`);
+
+--
+-- Limitadores para a tabela `categoria`
+--
+ALTER TABLE `categoria`
+  ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`id_CategoriaPai`) REFERENCES `categoria` (`id`);
+
+--
+-- Limitadores para a tabela `dados`
+--
+ALTER TABLE `dados`
+  ADD CONSTRAINT `dados_ibfk_1` FOREIGN KEY (`id_User`) REFERENCES `user` (`id`);
+
+--
+-- Limitadores para a tabela `fatura`
+--
+ALTER TABLE `fatura`
+  ADD CONSTRAINT `fatura_ibfk_1` FOREIGN KEY (`id_Cliente`) REFERENCES `dados` (`id_User`);
+
+--
+-- Limitadores para a tabela `linhafatura`
+--
+ALTER TABLE `linhafatura`
+  ADD CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`id_Fatura`) REFERENCES `fatura` (`id`);
+
+--
+-- Limitadores para a tabela `loja`
+--
+ALTER TABLE `loja`
+  ADD CONSTRAINT `loja_ibfk_1` FOREIGN KEY (`id_Empresa`) REFERENCES `empresa` (`id`);
+
+--
+-- Limitadores para a tabela `produto`
+--
+ALTER TABLE `produto`
+  ADD CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`id_Iva`) REFERENCES `iva` (`id`),
+  ADD CONSTRAINT `produto_ibfk_3` FOREIGN KEY (`id_Marca`) REFERENCES `marca` (`nome`),
+  ADD CONSTRAINT `produto_ibfk_4` FOREIGN KEY (`id_Categoria`) REFERENCES `categoria` (`id`);
+
+--
+-- Limitadores para a tabela `stock`
+--
+ALTER TABLE `stock`
+  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`id_Loja`) REFERENCES `loja` (`id`),
+  ADD CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`id_Produto`) REFERENCES `produto` (`id`);
+COMMIT;
+
+
+
