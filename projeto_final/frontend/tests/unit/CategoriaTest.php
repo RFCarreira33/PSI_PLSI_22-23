@@ -51,11 +51,10 @@ class CategoriaTest extends \Codeception\Test\Unit
         //Ler o registo anterior e aplicar um update e Ver se o registo atualizado se encontra na BD
         $categoriaUpdate = $this->tester->grabRecord('common\models\Categoria', array('nome' => 'placas'));
 
-        $categoriaUpdate->id_CategoriaPai = 1;
         $categoriaUpdate->nome = "processadores";
         $categoriaUpdate->save();
 
-        $this->tester->seeRecord('common\models\Categoria', array('id_CategoriaPai' => 1, 'nome' => "processadores"));
+        $this->tester->seeRecord('common\models\Categoria', array('nome' => "processadores"));
 
         //Apagar o registo e Verificar que o registo não se encontra na BD
         $categoriaDelete = $this->tester->grabRecord('common\models\Categoria', array('nome' => 'processadores'));

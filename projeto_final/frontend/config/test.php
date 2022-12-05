@@ -6,7 +6,7 @@ $config =  yii\helpers\ArrayHelper::merge(
         'id' => 'app-tests',
         'components' => [
             'db' => [
-                'dsn' => 'mysql:host=localhost;dbname=projeto_final',
+                'dsn' => 'mysql:host=localhost;dbname=projeto_final_teste',
                 'username' => 'root',
                 'password' => 'root',
                 'charset' => 'utf8',
