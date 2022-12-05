@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use yii\web\Controller;
+use Yii;
 use yii\data\Pagination;
 use Yii;
 
@@ -15,7 +16,7 @@ class NewsController extends Controller
 
     public function actionIndex()
     {
-
+        /* Getting the news from the API and returning it to the view. */
         $page = 1;
         $queryString = Yii::$app->request->getQueryString();
         //query string to array

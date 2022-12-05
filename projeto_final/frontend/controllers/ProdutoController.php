@@ -46,8 +46,8 @@ class ProdutoController extends Controller
         $sort = ["nome", "asc"];
         $search = "";
 
-
         $query = explode('&', Yii::$app->request->getQueryString());
+
         foreach ($query as $param) {
             if (count(explode('=', $param)) > 1) {
                 list($name, $value) = explode('=', $param, 2);
@@ -74,8 +74,8 @@ class ProdutoController extends Controller
                 if ($name == "sort") {
                     if (count(explode('-', $param)) > 1) {
                         $sort = array_filter(explode('-', $value, 2)); //Clears empty values
-                        $table = Yii::$app->db->schema->getTableSchema('Produto');
 
+                        $table = Yii::$app->db->schema->getTableSchema('Produto');
                         if (!isset($table->columns[$sort[0]])) {
                             $sort[0] = "nome";
                         }
@@ -137,7 +137,7 @@ class ProdutoController extends Controller
             ->andfilterWhere(["id_Categoria" => $categories])->andFilterWhere(["id_marca" => $brands])->andWhere(["ativo" => "1"])->groupBy("produto.id")->having("sum(quantidade) " . $stocksFilter . " 0")
             ->orderBy([$sort[0] => $sort[1]]);
         $countQuery = clone $produtos;
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 15]);
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 2]);
         $models = $produtos->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
@@ -155,7 +155,7 @@ class ProdutoController extends Controller
     {
         $produto = $this->findModel($id);
         /* It's a query to find all products with the same category as the current product. */
-        $relatedProducts = Produto::find()->where(["id_Categoria" => $produto->id_Categoria, 'Ativo' => 1])->andWhere(["<>", "id", $produto->id])->limit(4)->all();
+        $relatedProducts = Produto::find()->where(["id_Categoria" => $produto->id_Categoria])->andWhere(["<>", "id", $produto->id])->limit(4)->all();
 
         return $this->render('view', [
             'produto' => $produto,
@@ -233,5 +233,10 @@ class ProdutoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function getRelatedProducts($category)
+    {
+        $relatedProducts = array();
     }
 }

@@ -29,8 +29,9 @@ $categorias = Categoria::find()->all();
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="/css/styles.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 </head>
 
@@ -52,21 +53,16 @@ $categorias = Categoria::find()->all();
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">All Products</a></li>
                             <?php
-                            $i = 0;
-                            foreach ($categorias as $categoria) {
-                                if ($i != 0) { ?>
+                            foreach ($categorias as $categoria) { ?>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <?php
-                                }
-                                ?>
                             <li><a class="dropdown-item"
                                     href="<?= Url::toRoute(['produto/search?category=' . $categoria->nome]) ?>"><?= $categoria->nome ?></a>
                             </li>
-                            <?php $i++;
-                            }
+                            <?php }
                             ?>
                         </ul>
                     </li>
@@ -177,5 +173,6 @@ $categorias = Categoria::find()->all();
         </a>
     </div>
 </footer>
+<script src="/js/scripts.js"></script>
 
 </html>
