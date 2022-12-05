@@ -21,6 +21,12 @@ class CarrinhoCest
         $I->click('login-button');
         $I->wait(2);
         $I->see('Logout');
+        $I->click('a[id="carrinho"]');
+        $I->see('Limpar Carrinho');
+        $I->wait(1);
+        $I->click('a[id="clearCart"]');
+        $I->wait(1);
+        $I->click('.card-img-top');
         $I->click('#produtoDetails1');
         $I->see('Adicionar ao Carrinho');
         $I->wait(1);
@@ -41,7 +47,7 @@ class CarrinhoCest
         $I->wait(2);
         $I->see('90.00€');
         $I->wait(2);
-        $I->click('a[data-method="POST"]');
+        $I->click('a[id="comprar"]');
         $I->click('.card-img-top');
         $I->wait(2);
         $I->see('Novas Notícias');

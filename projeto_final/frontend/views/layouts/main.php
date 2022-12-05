@@ -80,7 +80,7 @@ $categorias = Categoria::find()->all();
                     <button class="btn btn-outline-dark" type="submit"><i class="bi bi-search"></i></button>
                 </form>
                 <form action="" class="d-flex">
-                    <a class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
+                    <a id="carrinho" class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
                         <i class="bi-cart-fill me-1"></i>
                     </a>
                 </form>

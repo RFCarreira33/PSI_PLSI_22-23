@@ -112,7 +112,7 @@ use yii\helpers\Url;
                                     <?php } ?>
                                     <hr class="my-4">
                                     <div class="pt-5">
-                                        <h6 class="mb-0"><a data-method="POST" class="text-body"
+                                        <h6 class="mb-0"><a id="clearCart" data-method="POST" class="text-body"
                                                 href="<?= Url::toRoute("carrinho/clear") ?>">Limpar Carrinho</a></h6>
                                     </div>
                                     <div class="pt-5">
