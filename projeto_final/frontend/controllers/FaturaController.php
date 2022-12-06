@@ -7,6 +7,7 @@ use common\models\Dados;
 use common\models\Carrinho;
 use common\models\FaturaSearch;
 use common\models\LinhaFatura;
+use common\models\Stock;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -118,20 +119,26 @@ class FaturaController extends Controller
         $valorTotal = 0;
         $valorIva = 0;
 
-        foreach ($carrinhos as $carrinho) {
+        foreach ($carrinhos as $carrinho) 
+        {
             $ivaP = $carrinho->produto->iva->percentagem / 100;
             $valorIva += $carrinho->Quantidade * $carrinho->produto->preco * $ivaP;
             $valorTotal += $carrinho->Quantidade * $carrinho->produto->preco;
         }
 
-        try {
-            foreach ($carrinhos as $carrinho) {
+        try 
+        {
+            foreach ($carrinhos as $carrinho) 
+            {
                 $stock = $carrinho->produto->getStockTotal();
-                if ($stock < $carrinho->Quantidade) {
+                if ($stock < $carrinho->Quantidade) 
+                {
                     throw new \Exception("Stock insuficiente para " . $carrinho->produto->nome);
                 }
             }
-        } catch (\Exception $e) {
+        } 
+        catch (\Exception $e) 
+        {
             Yii::$app->session->setFlash('error', $e->getMessage());
             return $this->redirect(URL::toRoute(['carrinho/view']));
         }
@@ -151,7 +158,8 @@ class FaturaController extends Controller
         $fatura->save();
 
         //Create Linhas Fatura
-        foreach ($carrinhos as $carrinho) {
+        foreach ($carrinhos as $carrinho) 
+        {
             $linhaFatura = new LinhaFatura;
             $linhaFatura->id_Fatura = $fatura->id;
             $linhaFatura->produto_nome = $carrinho->produto->nome;
@@ -161,6 +169,17 @@ class FaturaController extends Controller
             $ivaP = $carrinho->produto->iva->percentagem;
             $linhaFatura->valorIva = $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100);
             $linhaFatura->save();
+            
+            $stocks = Stock::find()->where(["id_produto" => $carrinho->produto->id])->all();
+
+            foreach($stocks as $stock)
+            {
+                if($stock->quantidade > 0)
+                {
+                    $carrinho->Quantidade <= $stock->quantidade ? $stock->quantidade -= $carrinho->Quantidade : $stock->quantidade -= $stock->quantidade;
+                    $stock->save();
+                }
+            }
         }
         $this->redirect('/carrinho/clear');
     }
