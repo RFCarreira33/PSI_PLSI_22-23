@@ -37,7 +37,7 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'text-center'],
                 'attribute' => 'valorTotal',
                 'value' => function (Fatura $model) {
-                    return $model->valorTotal;
+                    return $model->valorTotal . '€';
                 },
             ],
             [

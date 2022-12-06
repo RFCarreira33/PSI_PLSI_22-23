@@ -7,40 +7,40 @@ use yii\helpers\Url;
 
 <head>
     <style>
-    @media (min-width: 1025px) {
-        .h-custom {
-            height: 125vh !important;
+        @media (min-width: 1025px) {
+            .h-custom {
+                height: 125vh !important;
+            }
         }
-    }
 
-    .card-registration .select-input.form-control[readonly]:not([disabled]) {
-        font-size: 1rem;
-        line-height: 2.15;
-        padding-left: .75em;
-        padding-right: .75em;
-    }
-
-    .card-registration .select-arrow {
-        top: 13px;
-    }
-
-    .bg-grey {
-        background-color: #eae8e8;
-    }
-
-    @media (min-width: 992px) {
-        .card-registration-2 .bg-grey {
-            border-top-right-radius: 16px;
-            border-bottom-right-radius: 16px;
+        .card-registration .select-input.form-control[readonly]:not([disabled]) {
+            font-size: 1rem;
+            line-height: 2.15;
+            padding-left: .75em;
+            padding-right: .75em;
         }
-    }
 
-    @media (max-width: 991px) {
-        .card-registration-2 .bg-grey {
-            border-bottom-left-radius: 16px;
-            border-bottom-right-radius: 16px;
+        .card-registration .select-arrow {
+            top: 13px;
         }
-    }
+
+        .bg-grey {
+            background-color: #eae8e8;
+        }
+
+        @media (min-width: 992px) {
+            .card-registration-2 .bg-grey {
+                border-top-right-radius: 16px;
+                border-bottom-right-radius: 16px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .card-registration-2 .bg-grey {
+                border-bottom-left-radius: 16px;
+                border-bottom-right-radius: 16px;
+            }
+        }
     </style>
 </head>
 
@@ -63,18 +63,16 @@ use yii\helpers\Url;
                                         $esgotado = true;
                                         $stock = $carrinho->produto->getStockTotal();
                                     ?>
-                                    <hr class="my-4">
-                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                        <div class="col-md-2 col-lg-2 col-xl-2">
-                                            <img src="/img/<?= $carrinho->produto->imagem ?>"
-                                                class="img-fluid rounded-3">
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-3">
-                                            <a href="<?= Url::toRoute(['produto/view', 'id' => $carrinho->produto->id]) ?>"
-                                                style="text-decoration:none">
-                                                <h6 class="text-muted"><?= $carrinho->produto->nome ?></h6>
-                                            </a>
-                                            <?php
+                                        <hr class="my-4">
+                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                                <img src="/img/<?= $carrinho->produto->imagem ?>" class="img-fluid rounded-3">
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                                <a href="<?= Url::toRoute(['produto/view', 'id' => $carrinho->produto->id]) ?>" style="text-decoration:none">
+                                                    <h6 class="text-muted"><?= $carrinho->produto->nome ?></h6>
+                                                </a>
+                                                <?php
                                                 if ($stock == 0) {
                                                     echo '<p name="stockInfo" data-product="' . $carrinho->produto->id . '" class="text-danger">Produto esgotado</p>';
                                                 } else if ($stock < $carrinho->Quantidade) {
@@ -84,36 +82,29 @@ use yii\helpers\Url;
                                                 }
 
                                                 ?>
-                                        </div>
+                                            </div>
 
-                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <button class="btn btn-outline-dark"
-                                                data-product="<?= $carrinho->produto->id ?>"
-                                                onclick="changeQuantity(this, -1)">-</button>
-                                            <input style="max-width:4em ;" data-product="<?= $carrinho->produto->id ?>"
-                                                type="number" name="quantityInput" value="<?= $carrinho->Quantidade ?>">
-                                            <button class="btn btn-outline-dark"
-                                                data-product="<?= $carrinho->produto->id ?>"
-                                                onclick="changeQuantity(this, 1)">+</button>
-                                        </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                <button style="padding: 6px 15px;" class="btn btn-outline-dark" data-product="<?= $carrinho->produto->id ?>" onclick="changeQuantity(this, -1)">-</button>
+                                                <input style="max-width:4em;text-align:center;" data-product="<?= $carrinho->produto->id ?>" type="number" name="quantityInput" value="<?= $carrinho->Quantidade ?>">
+                                                <button class="btn btn-outline-dark" data-product="<?= $carrinho->produto->id ?>" onclick="changeQuantity(this, 1)">+</button>
+                                            </div>
 
-                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <h6 data-product="<?= $carrinho->produto->id ?>" name="price" class="mb-0">
-                                                <?= $carrinho->produto->preco *  $carrinho->Quantidade ?>€</h6>
-                                        </div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <a data-method="POST" style='text-decoration:none '
-                                                href="<?= Url::toRoute(["carrinho/delete", 'id_Produto' => $carrinho->id_Produto]) ?>">
-                                                <button class="btn btn-outline-danger">
-                                                    X</button>
-                                            </a>
+                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                <h6 data-product="<?= $carrinho->produto->id ?>" name="price" class="mb-0">
+                                                    <?= $carrinho->produto->preco *  $carrinho->Quantidade ?>€</h6>
+                                            </div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                <a data-method="POST" style='text-decoration:none ' href="<?= Url::toRoute(["carrinho/delete", 'id_Produto' => $carrinho->id_Produto]) ?>">
+                                                    <button class="btn btn-outline-danger">
+                                                        X</button>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
                                     <?php } ?>
                                     <hr class="my-4">
                                     <div class="pt-5">
-                                        <h6 class="mb-0"><a data-method="POST" class="text-body"
-                                                href="<?= Url::toRoute("carrinho/clear") ?>">Limpar Carrinho</a></h6>
+                                        <h6 class="mb-0"><a data-method="POST" class="text-body" href="<?= Url::toRoute("carrinho/clear") ?>">Limpar Carrinho</a></h6>
                                     </div>
                                     <div class="pt-5">
                                         <h6 class="mb-0"><a href="<?= Url::home() ?>" class="text-body">Voltar a
@@ -139,8 +130,7 @@ use yii\helpers\Url;
 
                                     <div class="mb-5">
                                         <div class="form-outline">
-                                            <input type="text" id="form3Examplea2"
-                                                class="form-control form-control-lg" />
+                                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
                                         </div>
                                     </div>
 
@@ -153,8 +143,7 @@ use yii\helpers\Url;
                                     <?php
                                     if (!empty($carrinhos)) {
                                     ?>
-                                    <a data-method="POST" class="btn btn-dark btn-block btn-lg"
-                                        href="<?= Url::toRoute("fatura/create") ?>">Comprar</a></h6>
+                                        <a data-method="POST" class="btn btn-dark btn-block btn-lg" href="<?= Url::toRoute("fatura/create") ?>">Comprar</a></h6>
                                     <?php
                                     }
                                     ?>
@@ -170,72 +159,72 @@ use yii\helpers\Url;
 </section>
 
 <script>
-function changeQuantity(el, value) {
-    var input = el.parentNode.querySelector("input[name='quantityInput']");
-    var newValue = parseInt(input.value) + value;
+    function changeQuantity(el, value) {
+        var input = el.parentNode.querySelector("input[name='quantityInput']");
+        var newValue = parseInt(input.value) + value;
 
-    if (newValue > 20) {
-        newValue = 20;
-        alert("Não foi possível adicionar o produto. O máximo disponível é 20.")
-    }
-    if (newValue < 1) {
-        newValue = 1;
-        alert("Introduza uma quantidade superior a zero.")
-    }
-
-    input.value = newValue;
-
-    callAjax(input.value, input.getAttribute("data-product"), );
-}
-
-var quantityInputs = document.getElementsByName("quantityInput");
-
-quantityInputs.forEach(function(input) {
-    input.addEventListener('input', function(e) {
-        if (e.srcElement.value > 20) {
-            e.srcElement.value = 20;
+        if (newValue > 20) {
+            newValue = 20;
             alert("Não foi possível adicionar o produto. O máximo disponível é 20.")
         }
-        if (e.srcElement.value < 1) {
-            e.srcElement.value = 1;
+        if (newValue < 1) {
+            newValue = 1;
             alert("Introduza uma quantidade superior a zero.")
         }
 
-        callAjax(e.srcElement.value, input.getAttribute("data-product"));
-    })
-})
+        input.value = newValue;
 
-function callAjax(value, product) {
-    if (isNaN(value) || value == "") {
-        return;
+        callAjax(input.value, input.getAttribute("data-product"), );
     }
 
-    $.ajax({
-        url: "<?= Url::toRoute("carrinho/changequantity") ?>",
-        type: "post",
-        data: {
-            value: value,
-            id_Produto: product
-        },
-        success: (result) => {
-            result = JSON.parse(result);
-            var stockInfoElement = $(`p[name='stockInfo'][data-product=${product}]`);
+    var quantityInputs = document.getElementsByName("quantityInput");
 
-            $(`h6[name='price'][data-product=${product}]`).text(result.total + "€");
-
-            if (result.stock > 0 && value > result.stock) {
-                stockInfoElement.removeClass("text-success");
-                stockInfoElement.addClass("text-warning");
-                stockInfoElement.text(`Apenas ${result.stock} unidades em stock`);
-            } else if (result.stock > 0 && value <= result.stock) {
-                stockInfoElement.removeClass("text-warning");
-                stockInfoElement.addClass("text-success");
-                stockInfoElement.text("Em stock");
+    quantityInputs.forEach(function(input) {
+        input.addEventListener('input', function(e) {
+            if (e.srcElement.value > 20) {
+                e.srcElement.value = 20;
+                alert("Não foi possível adicionar o produto. O máximo disponível é 20.")
+            }
+            if (e.srcElement.value < 1) {
+                e.srcElement.value = 1;
+                alert("Introduza uma quantidade superior a zero.")
             }
 
-            $("#totalProducts").text("Número de Artigos: " + result.totalProducts);
-            $("#totalPrice").text(result.totalPrice + "€");
+            callAjax(e.srcElement.value, input.getAttribute("data-product"));
+        })
+    })
+
+    function callAjax(value, product) {
+        if (isNaN(value) || value == "") {
+            return;
         }
-    });
-}
+
+        $.ajax({
+            url: "<?= Url::toRoute("carrinho/changequantity") ?>",
+            type: "post",
+            data: {
+                value: value,
+                id_Produto: product
+            },
+            success: (result) => {
+                result = JSON.parse(result);
+                var stockInfoElement = $(`p[name='stockInfo'][data-product=${product}]`);
+
+                $(`h6[name='price'][data-product=${product}]`).text(result.total + "€");
+
+                if (result.stock > 0 && value > result.stock) {
+                    stockInfoElement.removeClass("text-success");
+                    stockInfoElement.addClass("text-warning");
+                    stockInfoElement.text(`Apenas ${result.stock} unidades em stock`);
+                } else if (result.stock > 0 && value <= result.stock) {
+                    stockInfoElement.removeClass("text-warning");
+                    stockInfoElement.addClass("text-success");
+                    stockInfoElement.text("Em stock");
+                }
+
+                $("#totalProducts").text("Número de Artigos: " + result.totalProducts);
+                $("#totalPrice").text(result.totalPrice + "€");
+            }
+        });
+    }
 </script>
