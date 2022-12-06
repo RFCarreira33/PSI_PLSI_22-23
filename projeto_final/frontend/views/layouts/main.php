@@ -16,7 +16,27 @@ use common\models\Categoria;
 
 $empresa = Empresa::findOne(1);
 
-$categorias = Categoria::find()->all();
+$parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all();
+
+//recursive function to check if a category has children
+function checkchildren($category)
+{
+    foreach ($category->categorias as $child) {
+?>
+<li><a class="dropdown-item"
+        href="<?= Url::toRoute(['produto/search?category=' . $child->nome]) ?>"><?= $child->nome ?></a>
+</li>
+<ul>
+    <?php
+            if (sizeof($child->categorias) > 0) {
+                checkChildren($child);
+            }
+            ?>
+</ul>
+<?php
+    }
+}
+//end function
 ?>
 
 <!DOCTYPE html>
@@ -55,14 +75,34 @@ $categorias = Categoria::find()->all();
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#!">All Products</a></li>
                             <?php
-                            foreach ($categorias as $categoria) { ?>
+                            foreach ($parentCategories as $parent) {
+                            ?>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <li><a class="dropdown-item"
-                                    href="<?= Url::toRoute(['produto/search?category=' . $categoria->nome]) ?>"><?= $categoria->nome ?></a>
+                                    href="<?= Url::toRoute(['produto/search?category=' . $parent->nome]) ?>"><?= $parent->nome ?></a>
                             </li>
-                            <?php }
+                            <ul>
+                                <?php
+
+                                    foreach ($parent->categorias as $child) {
+                                    ?>
+                                <li><a class="dropdown-item"
+                                        href="<?= Url::toRoute(['produto/search?category=' . $child->nome]) ?>"><?= $child->nome ?></a>
+                                </li>
+                                <ul>
+                                    <?php
+                                            checkChildren($child);
+                                            ?>
+                                </ul>
+                                <?php
+                                    }
+
+                                    ?>
+                            </ul>
+                            <?php
+                            }
                             ?>
                         </ul>
                     </li>
