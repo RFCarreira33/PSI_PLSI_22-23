@@ -39,7 +39,7 @@ class ProdutoController extends ActiveController
     {
         $activeData = new ActiveDataProvider([
             // filters produtos dont add ->all() to the end of the query
-            'query' => Produto::find()->where(['Ativo' => 1]),
+            'query' => Produto::find()->where(['Ativo' => 1])->select('id, nome, preco, imagem'),
             //can add pagination here
             'pagination' => false
         ]);
