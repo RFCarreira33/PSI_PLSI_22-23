@@ -106,12 +106,6 @@ class CarrinhoTest extends \Codeception\Test\Unit
         $carrinho->Quantidade = "a";
         $this->assertFalse($carrinho->validate(['Quantidade']));
 
-        //idCliente e idProduto Unique
-        $carrinho->id_Cliente = 2; //ja existe
-        $carrinho->id_Produto = 2; //ja existe
-        $carrinho->Quantidade = 10;
-        $this->assertFalse($carrinho->save());
-
         //assert true
         $carrinho->id_Cliente = $dados->id_User;
         $this->assertTrue($carrinho->validate(['id_Cliente']));
