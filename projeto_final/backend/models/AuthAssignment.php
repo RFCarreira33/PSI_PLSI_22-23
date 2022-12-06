@@ -96,4 +96,12 @@ class AuthAssignment extends \yii\db\ActiveRecord
     {
         return AuthAssignment::find()->where(["item_name" => "funcionario"])->count();
     }
+
+
+    public static function getUserRole($id)
+    {
+        $user = AuthAssignment::find()->where(['user_id' => $id])->one();
+
+        return $user->item_name;
+    }
 }

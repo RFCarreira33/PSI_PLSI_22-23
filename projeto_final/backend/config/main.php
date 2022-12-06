@@ -11,7 +11,14 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'api' => [
+            'class' => 'backend\modules\api\ModuleAPI',
+        ],
+        'parsers' => [
+            'application/json' => 'yii\web\JsonParser',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -40,7 +47,26 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [],
+            'rules' => [
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/produto',
+                    //creates a new rule for the controller
+                    'extraPatterns' => [
+                        'GET category/{categoria}' => 'category',
+                        'GET search' => 'search',
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\w+>',
+                        '{categoria}' => '<categoria:\\w+>',
+                    ],
+                ],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/carrinho'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/fatura'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/categoria'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/marca'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/user'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/dados'],
+            ],
         ],
     ],
     'params' => $params,
