@@ -57,10 +57,11 @@ class SignupCest
             'email' => 'tester.email@example.com',
             'status' => \common\models\User::STATUS_ACTIVE
         ]);
+
         /*
         We dont use email verification
         $I->seeEmailIsSent();
         $I->see('Thank you for registration. Please check your inbox for verification email.');
-    */
+        */
     }
 }

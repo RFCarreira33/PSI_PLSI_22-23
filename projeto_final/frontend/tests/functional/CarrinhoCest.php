@@ -5,6 +5,7 @@ namespace frontend\tests\functional;
 
 use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
+use common\models\User;
 
 class CarrinhoCest
 {
@@ -22,6 +23,14 @@ class CarrinhoCest
 
     public function _before(FunctionalTester $I)
     {
+        $user = new User();
+        $user->username = "cliente";
+        $user->email = "cliente@gmail.com";
+        $user->setPassword("cliente123");
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        $user->save();
+
         $I->amOnRoute('/site/login');
     }
 
@@ -35,8 +44,9 @@ class CarrinhoCest
     //Verificar se esta acessivel depois de autenticado
     public function checkForAuthentication(FunctionalTester $I)
     {
-        $I->fillField('Username', 'erau');
-        $I->fillField('Password', 'password_0');
+        $I->see('Login');
+        $I->fillField('input[name="LoginForm[username]"]', 'cliente');
+        $I->fillField('input[name="LoginForm[password]"]', 'cliente123');
         $I->click('login-button');
         $I->see('Logout');
         $I->click('a[id="carrinho"]');
