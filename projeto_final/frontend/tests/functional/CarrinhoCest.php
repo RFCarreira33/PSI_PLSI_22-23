@@ -5,6 +5,7 @@ namespace frontend\tests\functional;
 
 use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
+use common\models\Dados;
 use common\models\User;
 
 class CarrinhoCest
@@ -24,12 +25,22 @@ class CarrinhoCest
     public function _before(FunctionalTester $I)
     {
         $user = new User();
+        $auth = \Yii::$app->authManager;
         $user->username = "cliente";
         $user->email = "cliente@gmail.com";
         $user->setPassword("cliente123");
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
         $user->save();
+        $auth->assign($auth->getRole('cliente'), $user->getId());
+        $dados = new Dados();
+        $dados->nome = "cliente";
+        $dados->codPostal = "2000-000";
+        $dados->telefone = "912345678";
+        $dados->nif = "123456789";
+        $dados->morada = "cliente morada";
+        $dados->id_User = $user->id;
+        $dados->save();
 
         $I->amOnRoute('/site/login');
     }
@@ -56,22 +67,10 @@ class CarrinhoCest
     //Efetuar uma compra valida
     public function checkValidBuy(FunctionalTester $I)
     {
-        //efeuar um registo
-        $I->click('Register now');
-        $I->submitForm($this->formId, [
-            'SignupForm[username]' => 'tester',
-            'SignupForm[email]' => 'tester.email@example.com',
-            'SignupForm[password]' => 'tester_password',
-            'SignupForm[nome]' => 'tester_nome',
-            'SignupForm[codPostal]' => '2000-000',
-            'SignupForm[telefone]' => '000000000',
-            'SignupForm[nif]' => '000000000',
-            'SignupForm[morada]' => 'tester_morada',
-        ]);
         //Efetuar login
         $I->click('Login');
-        $I->fillField('Username', 'tester');
-        $I->fillField('Password', 'tester_password');
+        $I->fillField('Username', 'cliente');
+        $I->fillField('Password', 'cliente123');
         $I->click('login-button');
         $I->see('Logout');
         $I->click('.card-img-top');
