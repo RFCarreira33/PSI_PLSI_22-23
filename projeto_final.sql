@@ -374,7 +374,7 @@ CREATE TABLE `produto` (
   `imagem` text NOT NULL,
   `referencia` varchar(45) NOT NULL,
   `preco` decimal(11,2) NOT NULL,
-  `nome` varchar(50) DEFAULT NULL,
+  `nome` VARCHAR(100) DEFAULT NULL,
   `Ativo` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
