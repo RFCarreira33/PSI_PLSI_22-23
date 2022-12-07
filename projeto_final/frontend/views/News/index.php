@@ -2,6 +2,7 @@
 
 use yii\widgets\LinkPager;
 ?>
+<br>
 <?php
 if (sizeof($news) == 0)  include __DIR__ . '/../layouts/notFound.php';
 foreach ($news as $new) { ?>
