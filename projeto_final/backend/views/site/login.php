@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 ?>
 <div class="card">
@@ -7,7 +8,7 @@ use yii\helpers\Html;
 
         <?php $form = \yii\bootstrap4\ActiveForm::begin(['id' => 'login-form']) ?>
 
-        <?= $form->field($model,'username', [
+        <?= $form->field($model, 'username', [
             'options' => ['class' => 'form-group has-feedback'],
             'inputTemplate' => '{input}<div class="input-group-append"><div class="input-group-text"><span class="fas fa-envelope"></span></div></div>',
             'template' => '{beginWrapper}{input}{error}{endWrapper}',
@@ -41,14 +42,6 @@ use yii\helpers\Html;
         </div>
 
         <?php \yii\bootstrap4\ActiveForm::end(); ?>
-
-                    
-        <p class="mb-1">
-            <a href="forgot-password.html">I forgot my password</a>
-        </p>
-        <p class="mb-0">
-            <a href="register.html" class="text-center">Register a new membership</a>
-        </p>
     </div>
     <!-- /.login-card-body -->
 </div>
