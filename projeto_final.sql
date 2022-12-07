@@ -177,10 +177,6 @@ CREATE TABLE `carrinho` (
 -- Extraindo dados da tabela `carrinho`
 --
 
-INSERT INTO `carrinho` (`id_Cliente`, `id_Produto`, `Quantidade`) VALUES
-(2, 1, 2),
-(2, 2, 3);
-
 -- --------------------------------------------------------
 
 --
@@ -196,11 +192,6 @@ CREATE TABLE `categoria` (
 --
 -- Extraindo dados da tabela `categoria`
 --
-
-INSERT INTO `categoria` (`id`, `id_CategoriaPai`, `nome`) VALUES
-(1, NULL, 'OPGG'),
-(3, 1, 'KK'),
-(4, NULL, 'QQ');
 
 -- --------------------------------------------------------
 
@@ -276,11 +267,6 @@ CREATE TABLE `fatura` (
 -- Extraindo dados da tabela `fatura`
 --
 
-INSERT INTO `fatura` (`id`, `id_Cliente`, `nome`, `nif`, `codPostal`, `telefone`, `morada`, `email`, `dataFatura`, `valorTotal`, `valorIva`) VALUES
-(9, 2, 'Joao Jesus', '231056345', '3780-566', '960234654', 'Vila Nova de Monsarros', 'cliente@gmail.com', '2022-11-24 10:39:49', '40.00', '9.20'),
-(10, 2, 'Joao Jesus', '231056345', '3780-566', '960234654', 'Vila Nova de Monsarros', 'cliente@gmail.com', '2022-11-24 11:59:29', '35.00', '8.05'),
-(11, 2, 'Joao Jesus', '231056345', '3780-566', '960234654', 'Vila Nova de Monsarros', 'cliente@gmail.com', '2022-12-06 01:42:52', '90.00', '20.70');
-
 -- --------------------------------------------------------
 
 --
@@ -296,9 +282,6 @@ CREATE TABLE `iva` (
 --
 -- Extraindo dados da tabela `iva`
 --
-
-INSERT INTO `iva` (`id`, `percentagem`, `Ativo`) VALUES
-(1, 23, 0);
 
 -- --------------------------------------------------------
 
@@ -320,13 +303,6 @@ CREATE TABLE `linhafatura` (
 -- Extraindo dados da tabela `linhafatura`
 --
 
-INSERT INTO `linhafatura` (`id`, `id_Fatura`, `produto_nome`, `produto_referencia`, `quantidade`, `valor`, `valorIva`) VALUES
-(9, 9, 'GTX 1070', 'sadd', 2, '40.00', '9.20'),
-(10, 10, 'GTX 1060', 'qwdasa', 1, '15.00', '3.45'),
-(11, 10, 'GTX 1070', 'sadd', 1, '20.00', '4.60'),
-(12, 11, 'GTX 1060', 'qwdasa', 2, '30.00', '6.90'),
-(13, 11, 'GTX 1070', 'sadd', 3, '60.00', '13.80');
-
 -- --------------------------------------------------------
 
 --
@@ -343,9 +319,6 @@ CREATE TABLE `loja` (
 -- Extraindo dados da tabela `loja`
 --
 
-INSERT INTO `loja` (`id`, `id_Empresa`, `localidade`) VALUES
-(1, 1, 'Leiria'),
-(2, 1, 'Aveiro');
 
 -- --------------------------------------------------------
 
@@ -360,10 +333,6 @@ CREATE TABLE `marca` (
 --
 -- Extraindo dados da tabela `marca`
 --
-
-INSERT INTO `marca` (`nome`) VALUES
-('AMD'),
-('Nvidia');
 
 -- --------------------------------------------------------
 
@@ -413,11 +382,6 @@ CREATE TABLE `produto` (
 -- Extraindo dados da tabela `produto`
 --
 
-INSERT INTO `produto` (`id`, `id_Categoria`, `id_Iva`, `id_Marca`, `descricao`, `imagem`, `referencia`, `preco`, `nome`, `Ativo`) VALUES
-(1, 1, 1, 'AMD', 'Motor Gráfico: NVIDIA® GeForce® GTX 1060 \r\n<br>\r\nBus: PCI Express x16 3.0\r\n<br>\r\nClock GPU: Base: 1530 MHz, Boost: 1785 MHz\r\n<br>\r\nClock de Memória: 14000 MHz\r\n<br>\r\nNúcleos CUDA: 1408\r\n<br>\r\nMemória: 6GB GDDR6\r\n<br>\r\nInterface de Memória: 192 Bits\r\n<br>\r\nInterface I/O:\r\n<br>\r\n3 x DisplayPort (v1.4)\r\n<br>\r\n1 x HDMI 2.0b\r\n<br>\r\nSuporte HDCP 2.2\r\n<br>\r\nVersão DirectX: 12\r\n<br>\r\nVersão OpenGL: 4.5\r\n<br>\r\nDimensões do produto: 204 x 128 x 42 mm\r\n<br>\r\nPeso do produto: 669 g', 'gpu.jpg', 'qwdasa', '15.00', 'GTX 1060', 1),
-(2, 1, 1, 'Nvidia', 'Motor Gráfico: NVIDIA® GeForce® GTX 1070 \r\n<br>\r\nBus: PCI Express x16 3.0\r\n<br>\r\nClock GPU: Base: 1530 MHz, Boost: 1785 MHz\r\n<br>\r\nClock de Memória: 14000 MHz\r\n<br>\r\nNúcleos CUDA: 1408\r\n<br>\r\nMemória: 6GB GDDR6\r\n<br>\r\nInterface de Memória: 192 Bits\r\n<br>\r\nInterface I/O:\r\n<br>\r\n3 x DisplayPort (v1.4)\r\n<br>\r\n1 x HDMI 2.0b\r\n<br>\r\nSuporte HDCP 2.2\r\n<br>\r\nVersão DirectX: 12\r\n<br>\r\nVersão OpenGL: 4.5\r\n<br>\r\nDimensões do produto: 204 x 128 x 42 mm\r\n<br>\r\nPeso do produto: 669 g', 'cooler.jpg', 'sadd', '20.00', 'GTX 1070', 1),
-(3, 1, 1, 'Nvidia', 'Motor Gráfico: NVIDIA® GeForce® GTX 1080\r\n<br>\r\nBus: PCI Express x16 3.0\r\n<br>\r\nClock GPU: Base: 1530 MHz, Boost: 1785 \r\nMHz\r\n<br>\r\nClock de Memória: 14000 MHz\r\n<br>\r\nNúcleos CUDA: 1408\r\n<br>\r\nMemória: 6GB GDDR6\r\n<br>\r\nInterface de Memória: 192 Bits\r\n<br>\r\nInterface I/O:\r\n<br>\r\n3 x DisplayPort (v1.4)\r\n<br>\r\n1 x HDMI 2.0b\r\n<br>\r\nSuporte HDCP 2.2\r\n<br>\r\nVersão DirectX: 12\r\n<br>\r\nVersão OpenGL: 4.5\r\n<br>\r\nDimensões do produto: 204 x 128 x 42 mm\r\n<br>\r\nPeso do produto: 669 g', 'gt 730.jpg', 'asdsad', '50.00', 'GTX 1080', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -434,11 +398,6 @@ CREATE TABLE `stock` (
 -- Extraindo dados da tabela `stock`
 --
 
-INSERT INTO `stock` (`id_Loja`, `id_Produto`, `quantidade`) VALUES
-(1, 1, 15),
-(1, 2, 15),
-(1, 3, 0),
-(2, 1, 0);
 
 -- --------------------------------------------------------
 
