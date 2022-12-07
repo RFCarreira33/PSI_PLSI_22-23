@@ -82,7 +82,7 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
             'title' => $nLojas,
-            'text' => 'número de Lojas',
+            'text' => 'Número de Lojas',
             'icon' => 'fas fa-home',
             'linkText' => 'Ver Lojas e Stocks',
             'linkUrl' => Url::toRoute(["stock/index"]),
@@ -91,7 +91,7 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
             'title' => $nCategorias,
-            'text' => 'número de Categorias',
+            'text' => 'Número de Categorias',
             'icon' => 'fas fa-industry',
             'linkText' => 'Ver Categorias',
             'linkUrl' => Url::toRoute(["categoria/index"]),
@@ -100,7 +100,7 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
             'title' => $nMarcas,
-            'text' => 'número de Marcas',
+            'text' => 'Número de Marcas',
             'icon' => 'fas fa-industry',
             'linkText' => 'Ver Marcas',
             'linkUrl' => Url::toRoute(["marca/index"]),
