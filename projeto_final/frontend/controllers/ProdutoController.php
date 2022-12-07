@@ -52,7 +52,8 @@ class ProdutoController extends Controller
             if (count(explode('=', $param)) > 1) {
                 list($name, $value) = explode('=', $param, 2);
                 $params[$name] = $value;
-
+                $value = urldecode($value);
+                $value = str_replace("_", " ", $value);
                 if ($name == "category") {
                     $selectedCategories = array_filter(explode('-', $value)); //Clears empty values
                 }
@@ -117,10 +118,6 @@ class ProdutoController extends Controller
 
         //Gets category and its children, search for every product related with one of the categories and returns     
         foreach ($selectedCategories as $category) {
-            echo "<script>console.log('" . json_encode($category) . "');";
-            $category = urldecode($category);
-            $category = str_replace("_", " ", $category);
-            echo "console.log('" . urldecode($category) . "');</script>";
             $parentCategory = Categoria::find()->select("id")->where(["nome" => $category]);
             $childCategories = Categoria::find()->select("id")->where(["id_categoriaPai" => $parentCategory])->column();
             $categories = array_merge($categories, $parentCategory->column());
