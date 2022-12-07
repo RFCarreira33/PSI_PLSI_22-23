@@ -47,93 +47,85 @@ class ProdutoController extends Controller
         $search = "";
 
         $query = explode('&', Yii::$app->request->getQueryString());
-        
-        foreach($query as $param)
-        {
-            if(count(explode('=', $param)) > 1)
-            {
+
+        foreach ($query as $param) {
+            if (count(explode('=', $param)) > 1) {
                 list($name, $value) = explode('=', $param, 2);
                 $params[$name] = $value;
 
-                if($name == "category")
-                {
+                if ($name == "category") {
                     $selectedCategories = array_filter(explode('-', $value)); //Clears empty values
                 }
-                if($name == "brand")
-                {
+                if ($name == "brand") {
                     $brands = array_filter(explode('-', $value)); //Clears empty values
                 }
-                if($name == "stock")
-                {
+                if ($name == "stock") {
                     $stocks = array_filter(explode('-', $value, 2)); //Clears empty values
-                    foreach($stocks as $stock)
-                    {
-                        if($stock == "em_stock")
-                        {
+                    foreach ($stocks as $stock) {
+                        if ($stock == "em_stock") {
                             $stocksFilter .= ">";
-                        }
-                        else if($stock == "sem_stock")
-                        {
+                        } else if ($stock == "sem_stock") {
                             $stocksFilter .= "=";
-                        }
-                        else
-                        {
+                        } else {
                             $stocksFilter .= "";
                         }
                     }
                 }
-                if($name == "sort")
-                {
-                    if(count(explode('-', $param)) > 1)
-                    {
+                if ($name == "sort") {
+                    if (count(explode('-', $param)) > 1) {
                         $sort = array_filter(explode('-', $value, 2)); //Clears empty values
-                        
+
                         $table = Yii::$app->db->schema->getTableSchema('Produto');
-                        if (!isset($table->columns[$sort[0]])) 
-                        {
+                        if (!isset($table->columns[$sort[0]])) {
                             $sort[0] = "nome";
                         }
 
-                        switch($sort[1])
-                        {
-                            case 'asc': $sort[1] = SORT_ASC; break;
-                            case 'desc': $sort[1] = SORT_DESC; break;
-                            default: $sort[1] = SORT_ASC; break;
+                        switch ($sort[1]) {
+                            case 'asc':
+                                $sort[1] = SORT_ASC;
+                                break;
+                            case 'desc':
+                                $sort[1] = SORT_DESC;
+                                break;
+                            default:
+                                $sort[1] = SORT_ASC;
+                                break;
                         }
                     }
                 }
-                if($name == "query")
-                {
+                if ($name == "query") {
                     $search = $value;
                 }
             }
         }
-        
+
         //Corrects $stocksFilter incorrect expressions
-        switch ($stocksFilter) 
-        {
-            case '': 
-            case '=>': $stocksFilter = ">="; break;
-            case '>>': $stocksFilter = ">"; break;
-            case '==': $stocksFilter = "="; break;
-            default: break;
+        switch ($stocksFilter) {
+            case '':
+            case '=>':
+                $stocksFilter = ">=";
+                break;
+            case '>>':
+                $stocksFilter = ">";
+                break;
+            case '==':
+                $stocksFilter = "=";
+                break;
+            default:
+                break;
         }
 
         //Gets category and its children, search for every product related with one of the categories and returns     
-        foreach($selectedCategories as $category)
-        {
+        foreach ($selectedCategories as $category) {
             $parentCategory = Categoria::find()->select("id")->where(["nome" => $category]);
-            $childCategories = Categoria::find()->select("id")->where(["id_categoriaPai" => $parentCategory])->column();    
+            $childCategories = Categoria::find()->select("id")->where(["id_categoriaPai" => $parentCategory])->column();
             $categories = array_merge($categories, $parentCategory->column());
-            
-            foreach($childCategories as $child)
-            {
+
+            foreach ($childCategories as $child) {
                 $categories[] = $child;
 
-                while(sizeof(Categoria::find()->select("id")->where(["id_categoriaPai" => $child])->column()) != 0)
-                {
-                    foreach(Categoria::find()->select("id")->where(["id_categoriaPai" => $child])->column() as $child)
-                    {
+                while (sizeof(Categoria::find()->select("id")->where(["id_categoriaPai" => $child])->column()) != 0) {
+                    foreach (Categoria::find()->select("id")->where(["id_categoriaPai" => $child])->column() as $child) {
                         $categories[] = $child;
                     }
                 }
@@ -141,11 +133,11 @@ class ProdutoController extends Controller
         }
 
         $produtos = Produto::find()->innerJoin("stock", "stock.id_Produto = produto.id")
-                                   ->filterWhere(['like', 'nome', '%' . $search . '%', false])->orFilterWhere(['like', 'referencia', '%' . $search . '%', false])
-                                   ->andfilterWhere(["id_Categoria" => $categories])->andFilterWhere(["id_marca" => $brands])->andWhere(["ativo" => "1"])->groupBy("produto.id")->having("sum(quantidade) ". $stocksFilter . " 0")
-                                   ->orderBy([$sort[0] => $sort[1]]);
+            ->filterWhere(['like', 'nome', '%' . $search . '%', false])->orFilterWhere(['like', 'referencia', '%' . $search . '%', false])
+            ->andfilterWhere(["id_Categoria" => $categories])->andFilterWhere(["id_marca" => $brands])->andWhere(["ativo" => "1"])->groupBy("produto.id")->having("sum(quantidade) " . $stocksFilter . " 0")
+            ->orderBy([$sort[0] => $sort[1]]);
         $countQuery = clone $produtos;
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 2]);
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 15]);
         $models = $produtos->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
@@ -164,7 +156,7 @@ class ProdutoController extends Controller
         $produto = $this->findModel($id);
         /* It's a query to find all products with the same category as the current product. */
         $relatedProducts = Produto::find()->where(["id_Categoria" => $produto->id_Categoria])->andWhere(["<>", "id", $produto->id])->limit(4)->all();
-        
+
         return $this->render('view', [
             'produto' => $produto,
             'relatedProducts' => $relatedProducts
