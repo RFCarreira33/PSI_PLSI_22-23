@@ -10,8 +10,11 @@ use Yii;
  * @property int $id
  * @property int $id_Empresa
  * @property string $localidade
+ * @property string|null $latitude
+ * @property string|null $longitude
  *
  * @property Empresa $empresa
+ * @property Produto[] $produtos
  * @property Stock[] $stocks
  */
 class Loja extends \yii\db\ActiveRecord
@@ -33,6 +36,7 @@ class Loja extends \yii\db\ActiveRecord
             [['id_Empresa', 'localidade'], 'required'],
             [['id_Empresa'], 'integer'],
             [['localidade'], 'string', 'max' => 45],
+            [['latitude', 'longitude'], 'string', 'max' => 255],
             [['id_Empresa'], 'exist', 'skipOnError' => true, 'targetClass' => Empresa::class, 'targetAttribute' => ['id_Empresa' => 'id']],
         ];
     }
@@ -46,6 +50,8 @@ class Loja extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_Empresa' => 'Id Empresa',
             'localidade' => 'Localidade',
+            'latitude' => 'Latitude',
+            'longitude' => 'Longitude',
         ];
     }
 
@@ -60,6 +66,16 @@ class Loja extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Produtos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProdutos()
+    {
+        return $this->hasMany(Produto::class, ['id' => 'id_Produto'])->viaTable('stock', ['id_Loja' => 'id']);
+    }
+
+    /**
      * Gets query for [[Stocks]].
      *
      * @return \yii\db\ActiveQuery
@@ -69,8 +85,9 @@ class Loja extends \yii\db\ActiveRecord
         return $this->hasMany(Stock::class, ['id_Loja' => 'id']);
     }
 
+
     public static function getCountLojas()
     {
-        return self::find()->count();
+        return static::find()->count();
     }
 }

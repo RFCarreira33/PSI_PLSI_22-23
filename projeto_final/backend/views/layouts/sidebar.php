@@ -51,6 +51,7 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
                     ['label' => 'Empresa',  'icon' => 'th', 'url' => ['/empresa/view'], 'visible' => $admin],
                     ['label' => 'Produtos',  'icon' => 'th', 'url' => ['/produto/index']],
                     ['label' => 'Stocks',  'icon' => 'th', 'url' => ['/stock/index']],
+                    ['label' => 'Lojas',  'icon' => 'th', 'url' => ['/loja/index'], 'visible' => $admin],
                     ['label' => 'Taxas de Iva',  'icon' => 'th', 'url' => ['/iva/index']],
                     ['label' => 'Marcas',  'icon' => 'th', 'url' => ['/marca/index']],
                     ['label' => 'Faturas',  'icon' => 'th', 'url' => ['/fatura/index']],
