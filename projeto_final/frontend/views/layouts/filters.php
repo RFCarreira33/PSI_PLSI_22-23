@@ -17,7 +17,7 @@ $brands = Marca::find()->all();
 </div>
 <br>
 <!-- generates the filters checkboxes. -->
-<div>
+<div style="  max-width: 40%; float: left; padding-right: 5px; flex-direction: column;">
     <h4>Stock</h4>
     <input type="checkbox" data-filter="stock" value="em_stock">Em Stock<br>
     <input type="checkbox" data-filter="stock" value="sem_stock">Sem Stock<br>

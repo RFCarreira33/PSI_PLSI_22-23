@@ -11288,3 +11288,16 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+.card-img{
+  text-decoration: none;
+  color:black;
+  text-align: center;
+}
+
+.col-filtros{
+  max-width: 40%;
+  float: left;
+  padding-right: 5px;
+  flex-direction: column;
+}
