@@ -46,9 +46,7 @@ class ProdutoController extends Controller
         $sort = ["nome", "asc"];
         $search = "";
 
-        if ($_SERVER['QUERY_STRING'] != null) {
-            $query = explode('&', $_SERVER['QUERY_STRING']);
-        }
+        $query = explode('&', Yii::$app->request->getQueryString());
 
         foreach ($query as $param) {
             if (count(explode('=', $param)) > 1) {

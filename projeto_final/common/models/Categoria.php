@@ -8,10 +8,10 @@ use Yii;
  * This is the model class for table "categoria".
  *
  * @property int $id
- * @property int|null $categoriaPai
+ * @property int|null $id_CategoriaPai
  * @property string $nome
  *
- * @property Categoria $categoriaPai0
+ * @property Categoria $categoriaPai
  * @property Categoria[] $categorias
  * @property Produto[] $produtos
  */
@@ -31,10 +31,10 @@ class Categoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['categoriaPai'], 'integer'],
+            [['id_CategoriaPai'], 'integer'],
             [['nome'], 'required'],
             [['nome'], 'string', 'max' => 45],
-            [['categoriaPai'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['categoriaPai' => 'id']],
+            [['id_CategoriaPai'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['id_CategoriaPai' => 'id']],
         ];
     }
 
@@ -45,19 +45,19 @@ class Categoria extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'categoriaPai' => 'Categoria Pai',
+            'id_CategoriaPai' => 'Id Categoria Pai',
             'nome' => 'Nome',
         ];
     }
 
     /**
-     * Gets query for [[CategoriaPai0]].
+     * Gets query for [[CategoriaPai]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCategoriaPai0()
+    public function getCategoriaPai()
     {
-        return $this->hasOne(Categoria::class, ['id' => 'categoriaPai']);
+        return $this->hasOne(Categoria::class, ['id' => 'id_CategoriaPai']);
     }
 
     /**
@@ -67,7 +67,7 @@ class Categoria extends \yii\db\ActiveRecord
      */
     public function getCategorias()
     {
-        return $this->hasMany(Categoria::class, ['categoriaPai' => 'id']);
+        return $this->hasMany(Categoria::class, ['id_CategoriaPai' => 'id']);
     }
 
     /**
@@ -77,6 +77,6 @@ class Categoria extends \yii\db\ActiveRecord
      */
     public function getProdutos()
     {
-        return $this->hasMany(Produto::class, ['idCategoria' => 'id']);
+        return $this->hasMany(Produto::class, ['id_Categoria' => 'id']);
     }
 }
