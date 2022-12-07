@@ -17,8 +17,10 @@ AppAsset::register($this);
 <?php $this->beginPage() ?>
 
 <?php
-    use common\models\Categoria;
-    $categorias = Categoria::find()->all();
+
+use common\models\Categoria;
+
+$categorias = Categoria::find()->all();
 ?>
 
 <!DOCTYPE html>
@@ -55,21 +57,22 @@ AppAsset::register($this);
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">All Products</a></li>
+                            <li><a class="dropdown-item" href="<?= URL::toRoute("produto/search"); ?>">Ver Todos</a></li>
                             <?php
-                                foreach($categorias as $categoria)
-                                { ?>
-                                    <li><hr class="dropdown-divider"/></li>
-                                    <li><a class="dropdown-item" href="<?=Url::toRoute(['produto/search?category='.$categoria->nome])?>"><?=$categoria->nome?></a></li>
-                                <?php } 
-                                ?>
+                            foreach ($categorias as $categoria) { ?>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li><a class="dropdown-item" href="<?= Url::toRoute(['produto/search?category=' . $categoria->nome]) ?>"><?= $categoria->nome ?></a></li>
+                            <?php }
+                            ?>
                         </ul>
                     </li>
                 </ul>
 
-                <form action="<?=Url::toRoute(["produto/search"])?>">
-                  <input id="searchBar" type="text" placeholder="Search..." name="query">
-                  <button type="submit">🔍</button>
+                <form action="<?= Url::toRoute(["produto/search"]) ?>">
+                    <input id="searchBar" type="text" placeholder="Search..." name="query">
+                    <button type="submit">🔍</button>
                 </form>
 
                 <form action="" class="d-flex">
