@@ -80,7 +80,7 @@ class ProdutoController extends ActiveController
         //query string to array
         parse_str($queryString, $queryArray);
         //default query
-        $query = Produto::find()->where(['Ativo' => 1]);
+        $query = Produto::find()->where(['Ativo' => 1])->select('id, nome, preco, imagem');
 
         try {
             if (isset($queryArray['categoria'])) {

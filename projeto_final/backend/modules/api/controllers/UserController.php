@@ -2,9 +2,11 @@
 
 namespace backend\modules\api\controllers;
 
+use common\models\Dados;
 use common\models\User;
 use yii\filters\auth\HttpBasicAuth;
-use backend\models\AuthAssignment;
+use frontend\models\SignupForm;
+use Yii;
 
 class UserController extends \yii\web\Controller
 {
@@ -28,15 +30,32 @@ class UserController extends \yii\web\Controller
         unset($actions['index']);
         unset($actions['update']);
         unset($actions['delete']);
-        unset($actions['create']);
         unset($actions['view']);
+        unset($actions['create']);
         return $actions;
+    }
+
+    public function beforeAction($action)
+    {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
+
+    protected function verbs()
+    {
+        $verbs = parent::verbs();
+        $verbs =  [
+            'login' => ['HEAD'],
+            'register' => ['POST'],
+        ];
+        return $verbs;
     }
 
     public function auth($username, $password)
     {
-        $user = $this->user = User::findByUsername($username);
+        $user = User::findByUsername($username);
         if ($user && $user->validatePassword($password)) {
+            $this->user = $user;
             return $user;
         }
         throw new \yii\web\ForbiddenHttpException('No authentication'); //403
@@ -45,5 +64,18 @@ class UserController extends \yii\web\Controller
     public function actionLogin()
     {
         return $this->user->auth_key;
+    }
+
+    public function actionRegister()
+    {
+        $model = new SignupForm();
+        $model->load(Yii::$app->request->post(), '');
+        if ($model->signup()) {
+            return "Sucesso";
+        }
+        //in case of 1+ errors from diferent models foreach will only return the first error
+        foreach ($model->errors as $error) {
+            return $error[0];
+        }
     }
 }
