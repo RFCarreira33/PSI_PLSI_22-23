@@ -5,45 +5,6 @@ use yii\helpers\Url;
 
 ?>
 
-<head>
-    <style>
-        @media (min-width: 1025px) {
-            .h-custom {
-                height: 125vh !important;
-            }
-        }
-
-        .card-registration .select-input.form-control[readonly]:not([disabled]) {
-            font-size: 1rem;
-            line-height: 2.15;
-            padding-left: .75em;
-            padding-right: .75em;
-        }
-
-        .card-registration .select-arrow {
-            top: 13px;
-        }
-
-        .bg-grey {
-            background-color: #eae8e8;
-        }
-
-        @media (min-width: 992px) {
-            .card-registration-2 .bg-grey {
-                border-top-right-radius: 16px;
-                border-bottom-right-radius: 16px;
-            }
-        }
-
-        @media (max-width: 991px) {
-            .card-registration-2 .bg-grey {
-                border-bottom-left-radius: 16px;
-                border-bottom-right-radius: 16px;
-            }
-        }
-    </style>
-</head>
-
 <section class="h-100 h-custom">
     <div class="container py-12 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
