@@ -52,7 +52,7 @@ class FaturaController extends ActiveController
     {
         $activeData = new ActiveDataProvider([
             // filters faturas by user id dont add ->all() to the end of the query
-            'query' => Fatura::find()->where(['id_Cliente' => Yii::$app->params['id']]),
+            'query' => Fatura::find()->where(['id_Cliente' => Yii::$app->params['id']])->select('nif, morada, dataFatura, valorTotal, valorIva'),
             //can add pagination here
             'pagination' => false
         ]);
@@ -68,7 +68,7 @@ class FaturaController extends ActiveController
             throw new \yii\web\UnauthorizedHttpException('Proibido - Fatura não pertence a este cliente');
         }
         $activeData = new ActiveDataProvider([
-            'query' => LinhaFatura::find(['id_Fatura' => Yii::$app->request->get('id')]),
+            'query' => LinhaFatura::find(['id_Fatura' => Yii::$app->request->get('id')])->select('produto_nome, produto_referencia, quantidade, valor, valorIva'),
             //can add pagination here
             'pagination' => false
         ]);

@@ -5,7 +5,11 @@ namespace backend\modules\api\controllers;
 use yii\rest\ActiveController;
 use backend\modules\api\components\CustomAuth;
 use common\models\Carrinho;
+use common\models\Dados;
+use common\models\Fatura;
+use common\models\Linhafatura;
 use common\models\Produto;
+use common\models\Stock;
 use Yii;
 use yii\data\ActiveDataProvider;
 
@@ -29,6 +33,7 @@ class CarrinhoController extends ActiveController
         $verbs =  [
             'index' => ['GET', 'POST', 'HEAD'],
             'create' => ['POST'],
+            'buy' => ['GET']
         ];
         return $verbs;
     }
@@ -39,10 +44,10 @@ class CarrinhoController extends ActiveController
         //no use
         unset($actions['update']);
         unset($actions['delete']);
+        unset($actions['view']);
         //unset to override
         unset($actions['create']);
         unset($actions['index']);
-        unset($actions['view']);
         return $actions;
     }
 
@@ -101,5 +106,78 @@ class CarrinhoController extends ActiveController
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
+    }
+
+    public function actionBuy()
+    {
+        $dados = Dados::findOne(['id_User' => Yii::$app->params['id']]);
+        $carrinhos = Carrinho::findAll(['id_Cliente' => $dados->id_User]);
+
+        $valorTotal = 0;
+        $valorIva = 0;
+
+        foreach ($carrinhos as $carrinho) {
+            $ivaP = $carrinho->produto->iva->percentagem / 100;
+            $valorIva += $carrinho->Quantidade * $carrinho->produto->preco * $ivaP;
+            $valorTotal += $carrinho->Quantidade * $carrinho->produto->preco;
+        }
+
+        try {
+            foreach ($carrinhos as $carrinho) {
+                $stock = $carrinho->produto->getStockTotal();
+                if ($stock < $carrinho->Quantidade) {
+                    throw new \Exception("Stock insuficiente para " . $carrinho->produto->nome);
+                }
+            }
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+        //Create Fatura
+        $fatura = new Fatura();
+        $fatura->id_Cliente = $dados->id_User;
+        $fatura->nome = $dados->nome;
+        $fatura->nif = $dados->nif;
+        $fatura->codPostal = $dados->codPostal;
+        $fatura->telefone = $dados->telefone;
+        $fatura->morada = $dados->morada;
+        $fatura->email = $dados->user->email;
+        $fatura->dataFatura = date("Y-m-d H:i:s");
+        $fatura->valorIva = $valorIva;
+        $fatura->valorTotal = $valorTotal;
+        $fatura->save();
+
+        //Create Linhas Fatura
+        foreach ($carrinhos as $carrinho) {
+            $linhaFatura = new Linhafatura();
+            $linhaFatura->id_Fatura = $fatura->id;
+            $linhaFatura->produto_nome = $carrinho->produto->nome;
+            $linhaFatura->produto_referencia = $carrinho->produto->referencia;
+            $linhaFatura->quantidade = $carrinho->Quantidade;
+            $linhaFatura->valor = $carrinho->produto->preco * $carrinho->Quantidade;
+            $ivaP = $carrinho->produto->iva->percentagem;
+            $linhaFatura->valorIva = $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100);
+            $linhaFatura->save();
+
+            $stocks = Stock::find()->where(["id_produto" => $carrinho->produto->id])->all();
+
+            foreach ($stocks as $stock) {
+                if ($stock->quantidade > 0) {
+                    $carrinho->Quantidade <= $stock->quantidade ? $stock->quantidade -= $carrinho->Quantidade : $stock->quantidade -= $stock->quantidade;
+                    $stock->save();
+                }
+            }
+        }
+        $this->actionClear();
+        return "Compra efetuada com sucesso";
+    }
+
+    public function actionClear()
+    {
+        $carrinhos = Carrinho::findAll(['id_Cliente' => Yii::$app->params['id']]);
+        foreach ($carrinhos as $carrinho) {
+            $carrinho->delete();
+        }
+        return "Carrinho limpo";
     }
 }
