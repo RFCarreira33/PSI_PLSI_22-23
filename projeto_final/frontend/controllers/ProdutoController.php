@@ -63,9 +63,9 @@ class ProdutoController extends Controller
                 if ($name == "stock") {
                     $stocks = array_filter(explode('-', $value, 2)); //Clears empty values
                     foreach ($stocks as $stock) {
-                        if ($stock == "em_stock") {
+                        if ($stock == "em stock") {
                             $stocksFilter .= ">";
-                        } else if ($stock == "sem_stock") {
+                        } else if ($stock == "sem stock") {
                             $stocksFilter .= "=";
                         } else {
                             $stocksFilter .= "";
