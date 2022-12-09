@@ -3,12 +3,16 @@
 
 namespace frontend\tests\Acceptance;
 
+use common\models\Produto;
+use Facebook\WebDriver\Chrome\ChromeDriver;
+use Facebook\WebDriver\Chrome\ChromeOptions;
 use frontend\tests\AcceptanceTester;
 
 class CarrinhoCest
 {
     public function _before(AcceptanceTester $I)
     {
+        $I->maximizeWindow();
     }
 
     public function tryToTest(AcceptanceTester $I)
@@ -30,6 +34,7 @@ class CarrinhoCest
         //voltar a pagina inicial e clicar no produto id=1
         $I->click('.card-img-top');
         $I->click('#produtoDetails1');
+        $preco1 = $I->grabTextFrom('span[id="preco"]');
         $I->see('Adicionar ao Carrinho');
         $I->wait(1);
         //Alterar quantidade
@@ -43,6 +48,7 @@ class CarrinhoCest
         $I->click('.card-img-top');
         $I->wait(2);
         $I->click('#produtoDetails2');
+        $preco2 = $I->grabTextFrom('span[id="preco"]');
         $I->see('Adicionar ao Carrinho');
         $I->wait(1);
         $I->fillField('input[name="quantidade"]', '3');
@@ -50,9 +56,10 @@ class CarrinhoCest
         $I->click('button[name="add-to-cart"]');
         $I->wait(2);
         //Verificar se o preço total está correto no carrinho
-        $I->see('90.00€');
+        $total = $preco1 * 2 + $preco2 * 3;
+        $I->see(number_format($total, 2, '.', ''));
         $I->wait(2);
-        $I->click('a[id="comprar"]');
+        $I->click('Comprar');
         //Verificar se a compra foi efetuada
         $I->see('0.00€');
         $I->wait(2);

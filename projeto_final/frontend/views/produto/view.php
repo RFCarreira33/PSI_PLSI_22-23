@@ -31,7 +31,7 @@ use yii\helpers\Html;
                     <div class="small mb-1">REF: <?= $produto->referencia ?></div>
                     <h1 class="display-5 fw-bolder"><?= $produto->nome ?></h1>
                     <div class="fs-5 mb-5">
-                        <span><?= $produto->preco ?>€</span>
+                        <span id="preco"><?= $produto->preco ?></span><span>€</span>
                     </div>
                     <p class="lead"><?= $produto->descricao ?></p>
                     <?php
