@@ -65,9 +65,9 @@ function checkchildren($category)
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <!-- <li class="nav-item"><a class="nav-link" href="#!">About</a></li> -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown dropright">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Produtos</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <ul class="dropdown-menu position-absolute rounded-0 border-0 m-0" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="<?= URL::toRoute("produto/search"); ?>">Ver Todos</a></li>
                             <?php
                             foreach ($parentCategories as $parent) {
