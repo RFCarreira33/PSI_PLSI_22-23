@@ -56,8 +56,8 @@ class CarrinhoCest
     public function checkForAuthentication(FunctionalTester $I)
     {
         $I->see('Login');
-        $I->fillField('input[name="LoginForm[username]"]', 'cliente');
-        $I->fillField('input[name="LoginForm[password]"]', 'cliente123');
+        $I->fillField('input[name="login-form[username]"]', 'cliente');
+        $I->fillField('input[name="login-form[password]"]', 'cliente123');
         $I->click('login-button');
         $I->see('Logout');
         $I->click('a[id="carrinho"]');
