@@ -1,6 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
+/** @var yii\data\Pagination $pages */
 
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
@@ -17,9 +18,11 @@ $this->title = 'My Yii Application';
         'pagination' => $pages,
         'hideOnSinglePage' => true,
         'maxButtonCount' => 5,
-        'disableCurrentPageButton' => true,
-        'firstPageLabel' => true,
-        'lastPageLabel' => true
+        'nextPageLabel' => false,
+        'prevPageLabel' => false,
+        'options' => [
+            'class' => 'pagination',
+        ],
     ]);
     ?>
     <div class="container px-4 px-lg-5 mt-5">

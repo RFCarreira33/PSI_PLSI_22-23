@@ -214,7 +214,8 @@ CREATE TABLE `dados` (
 
 INSERT INTO `dados` (`id_User`, `nome`, `telefone`, `nif`, `morada`, `codPostal`) VALUES
 (1, 'admin', '123123123', '123123123', '123', '123123123'),
-(2, 'Joao Jesus', '960234654', '231056345', 'Vila Nova de Monsarros', '3780-566');
+(2, 'Joao Jesus', '960234654', '231056345', 'Vila Nova de Monsarros', '3780-566'),
+(3, 'Rodrigo Carreira', '965348654', '231765987', 'Parceiros', '3780-547');
 
 -- --------------------------------------------------------
 
@@ -312,7 +313,9 @@ CREATE TABLE `linhafatura` (
 CREATE TABLE `loja` (
   `id` int NOT NULL,
   `id_Empresa` int NOT NULL,
-  `localidade` varchar(45) NOT NULL
+  `localidade` varchar(45) NOT NULL,
+  `latitude` VARCHAR(255) DEFAULT NULL,
+  `longitude` VARCHAR(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
@@ -1000,7 +1003,9 @@ CREATE TABLE `linhafatura` (
 CREATE TABLE `loja` (
   `id` int NOT NULL,
   `id_Empresa` int NOT NULL,
-  `localidade` varchar(45) NOT NULL
+  `localidade` varchar(45) NOT NULL,
+  `latitude` VARCHAR(255) DEFAULT NULL,
+  `longitude` VARCHAR(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --

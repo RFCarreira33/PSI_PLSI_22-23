@@ -47,7 +47,7 @@ class Produto extends \yii\db\ActiveRecord
             [['descricao', 'imagem'], 'string'],
             [['preco'], 'number'],
             [['id_Marca', 'referencia'], 'string', 'max' => 45],
-            [['nome'], 'string', 'max' => 50],
+            [['nome'], 'string', 'max' => 100],
             [['id_Iva'], 'exist', 'skipOnError' => true, 'targetClass' => Iva::class, 'targetAttribute' => ['id_Iva' => 'id']],
             [['id_Marca'], 'exist', 'skipOnError' => true, 'targetClass' => Marca::class, 'targetAttribute' => ['id_Marca' => 'nome']],
             [['id_Categoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['id_Categoria' => 'id']],
