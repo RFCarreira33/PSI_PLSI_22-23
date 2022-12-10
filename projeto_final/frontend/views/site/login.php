@@ -9,6 +9,7 @@ use yii\bootstrap5\ActiveForm;
 
 $this->title = 'Login';
 ?>
+<br>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -33,7 +34,7 @@ $this->title = 'Login';
             <div class="form-group">
                 <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
-
+            <br>
             <?php ActiveForm::end(); ?>
         </div>
     </div>

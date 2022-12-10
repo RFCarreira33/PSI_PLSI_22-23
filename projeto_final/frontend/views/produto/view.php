@@ -5,22 +5,6 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/css/styles.css" rel="stylesheet" />
-</head>
-
 <body>
     <!-- Product section-->
     <section class="py-5">
@@ -45,21 +29,19 @@ use yii\helpers\Html;
                     if ($esgotado) {
                         echo "<h6 style='color:red'>Esgotado</h6>";
                     } else { ?>
-                    <br>
-                    <div class="d-flex">
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <form action="<?= Url::toRoute(["carrinho/create"]) ?>" method="POST">
-                                <input type="hidden" name="id" value="<?= $produto->id ?>">
-                                <input class=" text-center me-3" style="width:4rem; padding:6px" id="quantidade"
-                                    type="number" name="quantidade" value=1 max=20 min=1>
-                                <button class="btn btn-outline-dark" type="submit">Adicionar ao Carrinho<i
-                                        class="bi-cart-fill me-1"></i></button>
-                            </form>
+                        <br>
+                        <div class="d-flex">
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <form action="<?= Url::toRoute(["carrinho/create"]) ?>" method="POST">
+                                    <input type="hidden" name="id" value="<?= $produto->id ?>">
+                                    <input class=" text-center me-3" style="width:4rem; padding:6px" id="quantidade" type="number" name="quantidade" value=1 max=20 min=1>
+                                    <button class="btn btn-outline-dark" type="submit">Adicionar ao Carrinho<i class="bi-cart-fill me-1"></i></button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    <div>
-                        <p>Disponibilidade por Loja:</p>
+                        <br>
+                        <div>
+                            <p>Disponibilidade por Loja:</p>
                         <?php
                         foreach ($produto->stocks as $stock) {
                             if ($stock->quantidade > 0) {
@@ -70,7 +52,7 @@ use yii\helpers\Html;
                         }
                     }
                         ?>
-                    </div>
+                        </div>
                 </div>
             </div>
     </section>
@@ -80,26 +62,24 @@ use yii\helpers\Html;
             <?php
 
             if (count($relatedProducts) > 0) {  ?>
-            <h2 class="fw-bolder mb-4">Produtos Relacionados</h2> <?php } ?>
+                <h2 class="fw-bolder mb-4">Produtos Relacionados</h2> <?php } ?>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <?php
                 foreach ($relatedProducts as $produto) { ?>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <a style="text-decoration: none;color:black;"
-                            href="<?= Url::toRoute(["produto/view", "id" => $produto->id]) ?>">
-                            <!-- Product image-->
-                            <img class="card-img-top" style="width:220px;height:220px;"
-                                src="/img/<?= $produto->imagem ?>" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder"><?= $produto->nome ?></h5>
-                        </a>
-                        <!-- Product price-->
-                        <?= $produto->preco ?>€
-                        <?php
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <a style="text-decoration: none;color:black;" href="<?= Url::toRoute(["produto/view", "id" => $produto->id]) ?>">
+                                <!-- Product image-->
+                                <img class="card-img-top" style="width:220px;height:220px;" src="/img/<?= $produto->imagem ?>" alt="..." />
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <h5 class="fw-bolder"><?= $produto->nome ?></h5>
+                            </a>
+                            <!-- Product price-->
+                            <?= $produto->preco ?>€
+                            <?php
                             $esgotado = true;
                             foreach ($produto->stocks as $stock) {
                                 if ($stock->quantidade > 0) {
@@ -112,17 +92,15 @@ use yii\helpers\Html;
                                 echo "<h6 style='color:green'>Em Stock</h6>";
                             }
                             ?>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
-        <?php } ?>
-        </div>
-        </div>
+    <?php } ?>
+    </div>
+    </div>
     </section>
-    <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
     <script src="/js/scripts.js"></script>
 </body>
 

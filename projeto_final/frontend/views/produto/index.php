@@ -1,6 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
+/** @var yii\data\Pagination $pages */
 
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
@@ -17,9 +18,11 @@ $this->title = 'My Yii Application';
         'pagination' => $pages,
         'hideOnSinglePage' => true,
         'maxButtonCount' => 5,
-        'disableCurrentPageButton' => true,
-        'firstPageLabel' => true,
-        'lastPageLabel' => true
+        'nextPageLabel' => false,
+        'prevPageLabel' => false,
+        'options' => [
+            'class' => 'pagination',
+        ],
     ]);
     ?>
     <div class="container px-4 px-lg-5 mt-5">
@@ -31,9 +34,9 @@ $this->title = 'My Yii Application';
             }
             foreach ($produtos as $produto) { ?>
                 <div class="col mb-5">
-                    <div class="card h-100">
+                    <div class="card h-100" style="width: 250px;">
                         <!-- Product image-->
-                        <a style="text-decoration: none;color:black;" href="<?= Url::toRoute(["produto/view", "id" => $produto->id]) ?>">
+                        <a style="text-decoration: none; color:black; text-align: center;" href="<?= Url::toRoute(["produto/view", "id" => $produto->id]) ?>">
                             <img class="card-img-top" style="width:220px;height:220px;" src="/img/<?php echo $produto->imagem ?>" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
