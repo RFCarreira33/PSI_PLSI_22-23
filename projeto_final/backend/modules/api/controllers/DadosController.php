@@ -48,7 +48,7 @@ class DadosController extends ActiveController
     public function actionIndex()
     {
         $activeData = new ActiveDataProvider([
-            'query' => Dados::find()->where(['id_User' => Yii::$app->params['id']]),
+            'query' => Dados::find()->where(['id_User' => Yii::$app->params['id']])->select('nome, telefone, nif, morada, codPostal'),
             //can add pagination here
             'pagination' => false
         ]);
@@ -62,7 +62,7 @@ class DadosController extends ActiveController
         if ($model->save()) {
             return $model;
         } else {
-            return $model->getErrors();
+            return $model->errors;
         }
     }
 }

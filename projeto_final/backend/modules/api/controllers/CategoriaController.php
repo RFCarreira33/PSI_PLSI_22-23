@@ -15,6 +15,7 @@ class CategoriaController extends ActiveController
         unset($actions['update']);
         unset($actions['delete']);
         unset($actions['create']);
+        unset($actions['view']);
         return $actions;
     }
     protected function verbs()

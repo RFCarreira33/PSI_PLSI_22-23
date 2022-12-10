@@ -58,16 +58,29 @@ class ProdutoController extends ActiveController
     }
 
 
+    //Filters by category 
     public function actionCategory($categoria)
     {
+        $query = Produto::find()->where(['Ativo' => 1])->select('id, nome, preco, imagem');
         try {
-            $categoria = Categoria::find()->where(['Nome' => $categoria])->one()->id;
+            $categoria = Categoria::find()->where(['Nome' => $categoria])->one();
+            //If its a major category get all the minor categories and their products
+            if ($categoria->id_CategoriaPai == null) {
+                $categoriasFilho = Categoria::find()->where(['id_CategoriaPai' => $categoria->id])->all();
+                foreach ($categoriasFilho as $categoriaFilho) {
+                    $categoriasFilhoId[] = $categoriaFilho->id;
+                }
+                $query->andWhere(['id_Categoria' => $categoriasFilhoId]);
+            } else {
+                //minor category
+                $query->andWhere(['id_Categoria' => $categoria->id]);
+            }
         } catch (\Exception $e) {
             throw new \yii\web\NotFoundHttpException('Categoria não encontrada');
         }
         $activeData = new ActiveDataProvider([
             //filters produto by Ativo and categoria and marca
-            'query' => Produto::find()->where(['Ativo' => 1, 'id_Categoria' => $categoria]),
+            'query' => $query,
             //can add pagination here
             'pagination' => false
         ]);
@@ -80,13 +93,23 @@ class ProdutoController extends ActiveController
         //query string to array
         parse_str($queryString, $queryArray);
         //default query
-        $query = Produto::find()->where(['Ativo' => 1]);
+        $query = Produto::find()->where(['Ativo' => 1])->select('id, nome, preco, imagem');
 
         try {
             if (isset($queryArray['categoria'])) {
                 //Only parameter that can throw an exception
-                $categoria = Categoria::find()->where(['Nome' => $queryArray['categoria']])->one()->id;
-                $query->andWhere(['id_Categoria' => $categoria]);
+                $categoria = Categoria::find()->where(['Nome' => $queryArray['categoria']])->one();
+                //If its a major category get all the minor categories and their products
+                if ($categoria->id_CategoriaPai == null) {
+                    $categoriasFilho = Categoria::find()->where(['id_CategoriaPai' => $categoria->id])->all();
+                    foreach ($categoriasFilho as $categoriaFilho) {
+                        $categoriasFilhoId[] = $categoriaFilho->id;
+                    }
+                    $query->andWhere(['id_Categoria' => $categoriasFilhoId]);
+                } else {
+                    //minor category
+                    $query->andWhere(['id_Categoria' => $categoria->id]);
+                }
             }
             if (isset($queryArray['marca'])) {
                 $query->andWhere(['id_Marca' => $queryArray['marca']]);

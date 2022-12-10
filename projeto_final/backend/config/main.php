@@ -52,7 +52,7 @@ return [
                     'class' => 'yii\rest\UrlRule', 'controller' => 'api/produto',
                     //creates a new rule for the controller
                     'extraPatterns' => [
-                        'GET category/{categoria}' => 'category',
+                        'GET {categoria}' => 'category',
                         'GET search' => 'search',
                     ],
                     'tokens' => [
