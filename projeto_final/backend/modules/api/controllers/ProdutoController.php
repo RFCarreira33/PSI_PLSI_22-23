@@ -6,6 +6,7 @@ use yii\rest\ActiveController;
 use yii\data\ActiveDataProvider;
 use common\models\Produto;
 use common\models\Categoria;
+use common\models\Stock;
 use Yii;
 
 class ProdutoController extends ActiveController
@@ -37,24 +38,27 @@ class ProdutoController extends ActiveController
 
     public function actionIndex()
     {
-        $activeData = new ActiveDataProvider([
-            // filters produtos dont add ->all() to the end of the query
-            'query' => Produto::find()->where(['Ativo' => 1])->select('id, nome, preco, imagem'),
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
+        $response = [];
+        $produtos = Produto::find()->where(['Ativo' => 1])->select('id, nome, preco, imagem')->all();
+        foreach ($produtos as $produto) {
+            $data = [
+                'produto' => $produto,
+                'stock' => $produto->hasStock(),
+            ];
+            $response[] = $data;
+        }
+        return $response;
     }
 
     public function actionView()
     {
-        $activeData = new ActiveDataProvider([
-            //filters produto by Ativo and id
-            'query' => Produto::find()->where(['Ativo' => 1, 'id' => Yii::$app->request->get('id')]),
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
+        $produto = Produto::find()->where(['Ativo' => 1, 'id' => Yii::$app->request->get('id')])->one();
+        $response = [
+            'produto' => $produto,
+            'stock' => $produto->hasStock(),
+        ];
+
+        return $response;
     }
 
 
@@ -76,7 +80,7 @@ class ProdutoController extends ActiveController
                 $query->andWhere(['id_Categoria' => $categoria->id]);
             }
         } catch (\Exception $e) {
-            throw new \yii\web\NotFoundHttpException('Categoria não encontrada');
+            return 'Categoria não encontrada';
         }
         $activeData = new ActiveDataProvider([
             //filters produto by Ativo and categoria and marca
@@ -126,7 +130,7 @@ class ProdutoController extends ActiveController
                 $query->orderBy('nome ASC');
             }
         } catch (\Exception $e) {
-            throw new \yii\web\NotFoundHttpException('Categoria não encontrada');
+            return 'Categoria não encontrada';
         }
 
         $activeData = new ActiveDataProvider([

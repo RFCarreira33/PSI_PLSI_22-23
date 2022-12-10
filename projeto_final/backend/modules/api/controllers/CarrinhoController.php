@@ -53,6 +53,7 @@ class CarrinhoController extends ActiveController
 
     public function actionIndex()
     {
+
         $activeData = new ActiveDataProvider([
             // filters faturas by user id dont add ->all() to the end of the query
             'query' => Carrinho::find()->where(['id_Cliente' => Yii::$app->params['id']]),
@@ -104,7 +105,7 @@ class CarrinhoController extends ActiveController
             $carrinho->save();
             return "Adicionado ao carrinho";
         } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
+            return $e->getMessage();
         }
     }
 

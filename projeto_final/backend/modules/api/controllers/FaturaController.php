@@ -65,7 +65,7 @@ class FaturaController extends ActiveController
         //verifies if fatura belongs to user
         $linha = LinhaFatura::find()->where(['id_Fatura' => Yii::$app->request->get('id')])->one();
         if ($linha->fatura->id_Cliente != Yii::$app->params['id']) {
-            throw new \yii\web\UnauthorizedHttpException('Proibido - Fatura não pertence a este cliente');
+            return 'Proibido - Fatura não pertence a este cliente';
         }
         $activeData = new ActiveDataProvider([
             'query' => LinhaFatura::find(['id_Fatura' => Yii::$app->request->get('id')])->select('produto_nome, produto_referencia, quantidade, valor, valorIva'),

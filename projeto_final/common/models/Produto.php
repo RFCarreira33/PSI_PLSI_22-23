@@ -163,4 +163,9 @@ class Produto extends \yii\db\ActiveRecord
     {
         return static::find()->count();
     }
+
+    public function hasStock()
+    {
+        return $this->getStockTotal() > 0;
+    }
 }
