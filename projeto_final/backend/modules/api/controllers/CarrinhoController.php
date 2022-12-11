@@ -33,7 +33,10 @@ class CarrinhoController extends ActiveController
         $verbs =  [
             'index' => ['GET', 'POST', 'HEAD'],
             'create' => ['POST'],
-            'buy' => ['GET']
+            'update' => ['PUT'],
+            'buy' => ['GET'],
+            'remove' => ['POST'],
+            'delete' => ['DELETE'],
         ];
         return $verbs;
     }
@@ -42,25 +45,29 @@ class CarrinhoController extends ActiveController
     {
         $actions = parent::actions();
         //no use
-        unset($actions['update']);
-        unset($actions['delete']);
         unset($actions['view']);
         //unset to override
+        unset($actions['update']);
         unset($actions['create']);
+        unset($actions['delete']);
         unset($actions['index']);
         return $actions;
     }
 
     public function actionIndex()
     {
-
-        $activeData = new ActiveDataProvider([
-            // filters faturas by user id dont add ->all() to the end of the query
-            'query' => Carrinho::find()->where(['id_Cliente' => Yii::$app->params['id']]),
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
+        $response = [];
+        $carrinhos = Carrinho::find()->where(['id_Cliente' => Yii::$app->params['id']])->all();
+        foreach ($carrinhos as $carrinho) {
+            $produto = Produto::find()->where(['id' => $carrinho->id_Produto])->select('id, nome, preco, imagem')->one();
+            $data = [
+                'produto' => $produto,
+                'stock' => $produto->hasStock(),
+                'quantidade' => $carrinho->Quantidade,
+            ];
+            $response[] = $data;
+        }
+        return $response;
     }
 
     public function actionCreate()
@@ -81,8 +88,14 @@ class CarrinhoController extends ActiveController
             }
 
             //Verifica se o produto existe 
-            if (Produto::findOne($params['id_Produto']) == null) {
+            $produto = Produto::findOne($params['id_Produto']);
+            if ($produto == null) {
                 throw new \Exception("Produto não existe");
+            }
+
+            //Verifica se o produto tem stock
+            if (!$produto->hasStock()) {
+                throw new \Exception("Produto sem stock");
             }
 
             //Verifica se ja existe uma instancia do produto no carrinho 
@@ -113,6 +126,10 @@ class CarrinhoController extends ActiveController
     {
         $dados = Dados::findOne(['id_User' => Yii::$app->params['id']]);
         $carrinhos = Carrinho::findAll(['id_Cliente' => $dados->id_User]);
+
+        if ($carrinhos == null) {
+            return "Carrinho vazio";
+        }
 
         $valorTotal = 0;
         $valorIva = 0;
@@ -169,11 +186,34 @@ class CarrinhoController extends ActiveController
                 }
             }
         }
-        $this->actionClear();
+        $this->actionDelete();
         return "Compra efetuada com sucesso";
     }
 
-    public function actionClear()
+    public function actionRemove()
+    {
+        $params = Yii::$app->request->post();
+        $carrinho = Carrinho::findOne(['id_Cliente' => Yii::$app->params['id'], 'id_Produto' => $params['id_Produto']]);
+        if ($carrinho) {
+            $carrinho->delete();
+            return "Produto removido do carrinho";
+        }
+        return "Produto não existe no carrinho";
+    }
+
+    public function actionUpdate()
+    {
+        $params = Yii::$app->request->post();
+        $carrinho = Carrinho::findOne(['id_Cliente' => Yii::$app->params['id'], 'id_Produto' => $params['id_Produto']]);
+        if ($carrinho) {
+            $carrinho->Quantidade = $params['quantidade'];
+            $carrinho->save();
+            return "Carrinho atualizado";
+        }
+        return "Produto não existe no carrinho";
+    }
+
+    public function actionDelete()
     {
         $carrinhos = Carrinho::findAll(['id_Cliente' => Yii::$app->params['id']]);
         foreach ($carrinhos as $carrinho) {
