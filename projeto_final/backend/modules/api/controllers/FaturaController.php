@@ -50,28 +50,30 @@ class FaturaController extends ActiveController
 
     public function actionIndex()
     {
-        $activeData = new ActiveDataProvider([
-            // filters faturas by user id dont add ->all() to the end of the query
-            'query' => Fatura::find()->where(['id_Cliente' => Yii::$app->params['id']])->select('nif, morada, dataFatura, valorTotal, valorIva'),
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
+        $faturas = Fatura::findAll(['id_Cliente' => Yii::$app->params['id']]);
+        $response = [];
+        foreach ($faturas as $fatura) {
+            $data = [
+                'id' => $fatura->id,
+                'nif' => $fatura->nif,
+                'morada' => $fatura->morada,
+                'data' => $fatura->dataFatura,
+                'valorTotal' => $fatura->valorTotal,
+                'valorIva' => $fatura->valorIva,
+            ];
+            $response[] = $data;
+        }
+        return $response;
     }
 
     //returns linhasFatura from fatura
     public function actionView()
     {
         //verifies if fatura belongs to user
-        $linha = LinhaFatura::find()->where(['id_Fatura' => Yii::$app->request->get('id')])->one();
-        if ($linha->fatura->id_Cliente != Yii::$app->params['id']) {
+        $fatura = Fatura::find()->where(['id' => Yii::$app->request->get('id')])->one();
+        if ($fatura->id_Cliente != Yii::$app->params['id']) {
             return 'Proibido - Fatura não pertence a este cliente';
         }
-        $activeData = new ActiveDataProvider([
-            'query' => LinhaFatura::find(['id_Fatura' => Yii::$app->request->get('id')])->select('produto_nome, produto_referencia, quantidade, valor, valorIva'),
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
+        return $fatura->linhafaturas;
     }
 }
