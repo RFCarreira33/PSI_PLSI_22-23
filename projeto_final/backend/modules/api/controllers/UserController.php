@@ -2,7 +2,6 @@
 
 namespace backend\modules\api\controllers;
 
-use common\models\Dados;
 use common\models\User;
 use yii\filters\auth\HttpBasicAuth;
 use frontend\models\SignupForm;

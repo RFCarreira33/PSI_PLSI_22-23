@@ -22,7 +22,7 @@ class MarcaController extends ActiveController
     {
         $verbs = parent::verbs();
         $verbs =  [
-            'index' => ['GET', 'POST', 'HEAD'],
+            'index' => ['GET'],
         ];
         return $verbs;
     }

@@ -5,9 +5,7 @@ namespace backend\modules\api\controllers;
 use backend\modules\api\components\CustomAuth;
 use yii\rest\ActiveController;
 use Yii;
-use yii\data\ActiveDataProvider;
 use common\models\Fatura;
-use common\models\LinhaFatura;
 
 class FaturaController extends ActiveController
 {

@@ -6,7 +6,6 @@ use yii\rest\ActiveController;
 use yii\data\ActiveDataProvider;
 use common\models\Produto;
 use common\models\Categoria;
-use common\models\Stock;
 use Yii;
 
 class ProdutoController extends ActiveController
@@ -30,8 +29,8 @@ class ProdutoController extends ActiveController
     {
         $verbs = parent::verbs();
         $verbs =  [
-            'index' => ['GET', 'POST', 'HEAD'],
-            'view' => ['GET', 'HEAD'],
+            'index' => ['GET'],
+            'view' => ['GET'],
         ];
         return $verbs;
     }

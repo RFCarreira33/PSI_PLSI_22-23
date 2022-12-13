@@ -22,8 +22,8 @@ class CategoriaController extends ActiveController
     {
         $verbs = parent::verbs();
         $verbs =  [
-            'index' => ['GET', 'POST', 'HEAD'],
-            'view' => ['GET', 'HEAD'],
+            'index' => ['GET'],
+            'view' => ['GET'],
         ];
         return $verbs;
     }

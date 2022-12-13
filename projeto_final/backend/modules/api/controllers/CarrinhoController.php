@@ -11,7 +11,6 @@ use common\models\Linhafatura;
 use common\models\Produto;
 use common\models\Stock;
 use Yii;
-use yii\data\ActiveDataProvider;
 
 class CarrinhoController extends ActiveController
 {
@@ -31,7 +30,7 @@ class CarrinhoController extends ActiveController
     {
         $verbs = parent::verbs();
         $verbs =  [
-            'index' => ['GET', 'POST', 'HEAD'],
+            'index' => ['GET'],
             'create' => ['POST'],
             'update' => ['PUT'],
             'buy' => ['GET'],
