@@ -2,10 +2,13 @@
 
 namespace backend\modules\api\controllers;
 
+use common\models\Marca;
+use common\models\Categoria;
 use yii\rest\ActiveController;
 
-class CategoriaController extends ActiveController
+class FilterController extends ActiveController
 {
+    //has to be set to use this controller
     public $modelClass = 'common\models\Categoria';
 
     public function actions()
@@ -16,6 +19,8 @@ class CategoriaController extends ActiveController
         unset($actions['delete']);
         unset($actions['create']);
         unset($actions['view']);
+        //unset to override
+        unset($actions['index']);
         return $actions;
     }
     protected function verbs()
@@ -23,8 +28,18 @@ class CategoriaController extends ActiveController
         $verbs = parent::verbs();
         $verbs =  [
             'index' => ['GET'],
-            'view' => ['GET'],
         ];
         return $verbs;
+    }
+
+    public function actionIndex()
+    {
+        $categorias = Categoria::find()->all();
+        $marcas = Marca::find()->all();
+        $response = [
+            'categorias' => $categorias,
+            'marcas' => $marcas,
+        ];
+        return $response;
     }
 }

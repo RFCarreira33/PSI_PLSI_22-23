@@ -31,6 +31,7 @@ class ProdutoController extends ActiveController
         $verbs =  [
             'index' => ['GET'],
             'view' => ['GET'],
+            'search' => ['GET'],
         ];
         return $verbs;
     }
@@ -58,36 +59,6 @@ class ProdutoController extends ActiveController
         ];
 
         return $response;
-    }
-
-
-    //Filters by category 
-    public function actionCategory($categoria)
-    {
-        $query = Produto::find()->where(['Ativo' => 1])->select('id, nome, preco, imagem');
-        try {
-            $categoria = Categoria::find()->where(['Nome' => $categoria])->one();
-            //If its a major category get all the minor categories and their products
-            if ($categoria->id_CategoriaPai == null) {
-                $categoriasFilho = Categoria::find()->where(['id_CategoriaPai' => $categoria->id])->all();
-                foreach ($categoriasFilho as $categoriaFilho) {
-                    $categoriasFilhoId[] = $categoriaFilho->id;
-                }
-                $query->andWhere(['id_Categoria' => $categoriasFilhoId]);
-            } else {
-                //minor category
-                $query->andWhere(['id_Categoria' => $categoria->id]);
-            }
-        } catch (\Exception $e) {
-            return 'Categoria não encontrada';
-        }
-        $activeData = new ActiveDataProvider([
-            //filters produto by Ativo and categoria and marca
-            'query' => $query,
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
     }
 
     public function actionSearch()
