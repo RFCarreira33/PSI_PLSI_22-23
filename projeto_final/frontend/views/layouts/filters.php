@@ -3,10 +3,12 @@
 use common\models\Categoria;
 use common\models\Marca;
 
+$this->title = 'Globaldiga';
+
 $categories = Categoria::find()->all();
 $brands = Marca::find()->all();
 ?>
-
+<!-- HTML do filtro de Alfabeticamente e preço -->
 <div>
     <select id="sort">
         <option data-filter="sort" value="nome-asc">Alfabeticamente ⬆</option>
@@ -16,7 +18,7 @@ $brands = Marca::find()->all();
     </select>
 </div>
 <br>
-<!-- generates the filters checkboxes. -->
+<!-- HTML dos filtros de stocks -->
 <div style="  max-width: 40%; float: left; padding-right: 5px; flex-direction: column;">
     <h4>Stock</h4>
     <input type="checkbox" data-filter="stock" value="em_stock">Em Stock<br>
@@ -24,6 +26,7 @@ $brands = Marca::find()->all();
     <br>
     <h4>Categorias</h4>
     <?php
+    //HTML que cria checkbox de todas as categorias
     foreach ($categories as $category) { ?>
         <input type="checkbox" data-filter="category" value="<?= str_replace(' ', '_', $category->nome) ?>"><?= " " . $category->nome ?><br>
     <?php
@@ -32,6 +35,7 @@ $brands = Marca::find()->all();
     <br>
     <h4>Marcas</h4>
     <?php
+    //HTML que cria checkbox de todas as marcas
     foreach ($brands as $brand) { ?>
         <input type="checkbox" data-filter="brand" value="<?= str_replace(' ', '_', $brand->nome) ?>"><?= " " . $brand->nome ?><br>
     <?php

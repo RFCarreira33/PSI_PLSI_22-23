@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\models\Categoria;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -11,7 +10,6 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use yii\data\Pagination;
 use common\models\LoginForm;
 use common\models\Produto;
 use frontend\models\PasswordResetRequestForm;
@@ -77,17 +75,23 @@ class SiteController extends Controller
     {
         $produtos = Produto::find()->limit(4)->all();
 
-        $APIKEY = NewsController::getAPIKey();
-        $response = file_get_contents('https://newsdata.io/api/1/news?apikey=' . $APIKEY . '&country=pt&language=pt&category=technology');
-        $response = json_decode($response);
-        $news = [];
+        try {
 
-        for ($i = 0; $i < 4; $i++) {
-            $news[] = $response->results[$i];
+            $APIKEY = NewsController::getAPIKey();
+            $response = file_get_contents('https://newsdata.io/api/1/news?apikey=' . $APIKEY . '&country=pt&language=pt&category=technology');
+            $response = json_decode($response);
+            $news = [];
+
+            for ($i = 0; $i < 4; $i++) {
+                $news[] = $response->results[$i];
+            }
+        } catch (\Exception $e) {
+            $news = [];
         }
 
         $produtos = Produto::find()->where(['Ativo' => 1])->limit(4)->all();
         $empresa = Empresa::findOne(1);
+
         return $this->render('index', ['produtos' => $produtos, 'empresa' => $empresa, 'news' => $news]);
     }
 

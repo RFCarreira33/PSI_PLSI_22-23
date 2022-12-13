@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
 /** @var common\models\Dados $model */
 
 ?>
+
 <div class="dados-view">
 
     <h1><?= Html::encode($this->title) ?></h1>

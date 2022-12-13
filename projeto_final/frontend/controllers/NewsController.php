@@ -24,17 +24,21 @@ class NewsController extends Controller
             $page = $queryArray['page'];
         }
 
-        $APIKEY = $this->getAPIKey();
-        $response = file_get_contents('https://newsdata.io/api/1/news?apikey=' . $APIKEY . '&country=pt&language=pt&category=technology&page=' . $page);
-        $response = json_decode($response);
-        $news = [];
+        try {
+            $APIKEY = $this->getAPIKey();
+            $response = file_get_contents('https://newsdata.io/api/1/news?apikey=' . $APIKEY . '&country=pt&language=pt&category=technology&page=' . $page);
+            $response = json_decode($response);
+            $news = [];
 
-        foreach ($response->results as $result) {
-            $news[] = $result;
+            foreach ($response->results as $result) {
+                $news[] = $result;
+            }
+
+            $pages = new Pagination(['totalCount' => $response->totalResults - 10, 'pageSize' => 10]);
+        } catch (\Exception $e) {
+            $news = [];
+            $pages = new Pagination(['totalCount' => 0, 'pageSize' => 10]);
         }
-
-        $pages = new Pagination(['totalCount' => $response->totalResults - 10, 'pageSize' => 10]);
-
         return $this->render('index', ['news' => $news, 'pages' => $pages]);
     }
 }

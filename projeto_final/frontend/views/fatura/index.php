@@ -1,7 +1,6 @@
 <?php
 
 use common\models\Fatura;
-use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -9,6 +8,7 @@ use yii\helpers\Html;
 /** @var common\models\FaturaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
+$this->title = 'Globaldiga';
 ?>
 <div class="fatura-index">
     <br>

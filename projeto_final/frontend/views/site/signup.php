@@ -7,12 +7,13 @@
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 
-$this->title = 'Signup';
+$this->title = 'Registar-se';
 ?>
 <div class="site-signup">
+    <br>
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to signup:</p>
+    <p>Por favor preencha os seguintes campos para se registar:</p>
 
     <div class="row">
         <div class="col-lg-5">
@@ -37,7 +38,7 @@ $this->title = 'Signup';
             <div class="form-group">
                 <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
-
+            <br>
             <?php ActiveForm::end(); ?>
         </div>
     </div>

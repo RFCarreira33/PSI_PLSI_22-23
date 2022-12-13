@@ -6,6 +6,8 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var common\models\ProdutoSearch $model */
 /** @var yii\widgets\ActiveForm $form */
+
+$this->title = 'Globaldiga';
 ?>
 
 <div class="produto-search">
@@ -24,15 +26,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'marca') ?>
 
     <?= $form->field($model, 'descricao') ?>
-
-    <?php // echo $form->field($model, 'imagem') 
-    ?>
-
-    <?php // echo $form->field($model, 'referencia') 
-    ?>
-
-    <?php // echo $form->field($model, 'preco') 
-    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
