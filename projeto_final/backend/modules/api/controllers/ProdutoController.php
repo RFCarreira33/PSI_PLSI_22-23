@@ -103,11 +103,15 @@ class ProdutoController extends ActiveController
             return 'Categoria não encontrada';
         }
 
-        $activeData = new ActiveDataProvider([
-            'query' => $query,
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
+        $response = [];
+        $produtos = $query->all();
+        foreach ($produtos as $produto) {
+            $data = [
+                'produto' => $produto,
+                'stock' => $produto->hasStock(),
+            ];
+            $response[] = $data;
+        }
+        return $response;
     }
 }
