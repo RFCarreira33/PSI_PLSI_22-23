@@ -60,9 +60,11 @@ class DadosController extends ActiveController
         $model = Dados::findOne(['id_User' => Yii::$app->params['id']]);
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
         if ($model->save()) {
-            return $model;
+            return 'Dados atualizados com sucesso';
         } else {
-            return $model->errors;
+            foreach ($model->errors as $erro) {
+                return $erro[0];
+            }
         }
     }
 }
