@@ -130,20 +130,10 @@ $this->title = 'Globaldiga';
         <div class="receipt-main col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
             <div class="row">
                 <div class="receipt-header">
-
-                    <!-- Logo da empresa -->
-                    <div class="col-xs-6 col-sm-6 col-md-6">
-                        <div class="receipt-left">
-                            <img class="img-responsive" alt="Globaldiga" src="/img/logo.png" style="width:175px;height:50px;">
-                        </div>
-                    </div>
-
-                    <br>
-
                     <!-- Header da fatura com os dados da empresa -->
                     <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                         <div class="receipt-right">
-                            <h5><?= $empresa->designacaoSocial ?></h5>
+                            <h1><?= $empresa->designacaoSocial ?></h1>
                             <p><?= $empresa->telefone ?> <i class="fa fa-phone"></i></p>
                             <p><?= $empresa->email ?> <i class="fa fa-envelope-o"></i></p>
                             <p><?= $empresa->localidade ?> <i class="fa fa-location-arrow"></i></p>
