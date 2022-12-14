@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use chillerlan\QRCode\QRCode;
 
 $this->title = 'Globaldiga';
 ?>
@@ -43,8 +44,9 @@ $this->title = 'Globaldiga';
                             <form action="<?= Url::toRoute(["carrinho/create"]) ?>" method="POST">
                                 <input type="hidden" name="id" value="<?= $produto->id ?>">
                                 <input class=" text-center me-3" style="width:4rem; padding:6px" id="quantidade" type="number" name="quantidade" value=1 max=20 min=1>
-                                <button class="btn btn-outline-dark" type="submit">Adicionar ao Carrinho<i class="bi-cart-fill me-1"></i></button>
+                                <button class="btn btn-outline-dark" type="submit">Adicionar ao Carrinho <i class="bi-cart-fill me-1"></i></button>
                             </form>
+                            <a href="<?= Url::toRoute(["produto/qrcode", "id" => $produto->id]) ?>" class="btn btn-outline-dark mt-3">Gerar QRCode <i class="fa fa-qrcode"></i></a>
                         </div>
                     </div>
                     <br>

@@ -10,6 +10,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
@@ -184,6 +186,28 @@ class ProdutoController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    public function actionQrcode($id)
+    {
+        $produto = $this->findModel($id);
+
+        //convert to pdf
+        $options = new Options();
+        $options->setIsRemoteEnabled(true);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($this->renderPartial('print', [
+            'produto' => $produto,
+        ]));
+        $dompdf->render();
+        ob_end_clean();
+        $dompdf->stream(
+            "QR_Nº$produto->id.pdf",
+            [
+                'Attachment' => false,
+                'chroot' => Yii::getAlias('@webroot'),
+            ]
+        );
     }
 
     /**
