@@ -18,7 +18,7 @@ use yii\bootstrap4\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'id_Loja')->dropDownList(Loja::find()->select(['localidade', 'id'])->indexBy('id')->column(), ['prompt' => 'Todas'])->label('Loja') ?>
-
+    <?= $form->field($model, 'quantidade')->dropDownList([1 => 'Em stock', 0 => 'Sem Stock'], ['prompt' => 'Todas'])->label('Stock') ?>
 
 
     <div class="form-group">

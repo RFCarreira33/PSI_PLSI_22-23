@@ -72,12 +72,12 @@ class CategoriaController extends Controller
         if (!\Yii::$app->user->can('ReadCategoria')) {
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
-        $categoria = $this->findModel($id);
+        $model = $this->findModel($id);
         $dataProvider = new ActiveDataProvider([
-            'query' => $categoria->getProdutos(),
+            'query' => $model->getProdutos(),
         ]);
         return $this->render('view', [
-            'model' => $categoria,
+            'model' => $model,
             'dataProvider' => $dataProvider,
         ]);
     }

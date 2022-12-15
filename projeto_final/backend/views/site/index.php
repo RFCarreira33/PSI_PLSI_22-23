@@ -36,10 +36,10 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
-            'title' => $nClientes,
+            'title' => $nFuncionarios,
             'text' => 'Funcionários Registados',
             'icon' => 'fas fa-user-plus',
-            'linkText' => 'Ver Clientes',
+            'linkText' => 'Ver Funcionários',
             'linkUrl' => Url::toRoute(["dados/index", 'role' => 'funcionario']),
         ]) ?>
     </div>
