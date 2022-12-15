@@ -34,6 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);
         } ?>
+        <?php
+        echo Html::a("Gerar QR", ['print', 'id' => $model->id], ['class' => 'btn btn-success',]);
+        ?>
     </p>
 
     <?= DetailView::widget([

@@ -13,6 +13,8 @@ use common\models\Stock;
 use common\models\Loja;
 use yii\web\UploadedFile;
 use common\models\UploadForm;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Yii;
 
 /**
@@ -64,6 +66,28 @@ class ProdutoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionPrint($id)
+    {
+        $produto = $this->findModel($id);
+
+        //convert to pdf
+        $options = new Options();
+        $options->setIsRemoteEnabled(true);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($this->renderPartial('print', [
+            'produto' => $produto,
+        ]));
+        $dompdf->render();
+        ob_end_clean();
+        $dompdf->stream(
+            "QR_Nº$produto->id.pdf",
+            [
+                'Attachment' => false,
+                'chroot' => Yii::getAlias('@webroot'),
+            ]
+        );
     }
 
     public function actionUpload()

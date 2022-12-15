@@ -188,28 +188,6 @@ class ProdutoController extends Controller
         ]);
     }
 
-    public function actionQrcode($id)
-    {
-        $produto = $this->findModel($id);
-
-        //convert to pdf
-        $options = new Options();
-        $options->setIsRemoteEnabled(true);
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml($this->renderPartial('print', [
-            'produto' => $produto,
-        ]));
-        $dompdf->render();
-        ob_end_clean();
-        $dompdf->stream(
-            "QR_Nº$produto->id.pdf",
-            [
-                'Attachment' => false,
-                'chroot' => Yii::getAlias('@webroot'),
-            ]
-        );
-    }
-
     /**
      * Updates an existing Produto model.
      * If update is successful, the browser will be redirected to the 'view' page.
