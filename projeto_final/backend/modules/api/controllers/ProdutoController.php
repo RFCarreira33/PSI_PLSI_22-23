@@ -29,62 +29,36 @@ class ProdutoController extends ActiveController
     {
         $verbs = parent::verbs();
         $verbs =  [
-            'index' => ['GET', 'POST', 'HEAD'],
-            'view' => ['GET', 'HEAD'],
+            'index' => ['GET'],
+            'view' => ['GET'],
+            'search' => ['GET'],
         ];
         return $verbs;
     }
 
     public function actionIndex()
     {
-        $activeData = new ActiveDataProvider([
-            // filters produtos dont add ->all() to the end of the query
-            'query' => Produto::find()->where(['Ativo' => 1])->select('id, nome, preco, imagem'),
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
+        $response = [];
+        $produtos = Produto::find()->where(['Ativo' => 1])->select('id, nome, preco, imagem')->all();
+        foreach ($produtos as $produto) {
+            $data = [
+                'produto' => $produto,
+                'stock' => $produto->hasStock(),
+            ];
+            $response[] = $data;
+        }
+        return $response;
     }
 
     public function actionView()
     {
-        $activeData = new ActiveDataProvider([
-            //filters produto by Ativo and id
-            'query' => Produto::find()->where(['Ativo' => 1, 'id' => Yii::$app->request->get('id')]),
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
-    }
+        $produto = Produto::find()->where(['Ativo' => 1, 'id' => Yii::$app->request->get('id')])->one();
+        $response = [
+            'produto' => $produto,
+            'stock' => $produto->hasStock(),
+        ];
 
-
-    //Filters by category 
-    public function actionCategory($categoria)
-    {
-        $query = Produto::find()->where(['Ativo' => 1])->select('id, nome, preco, imagem');
-        try {
-            $categoria = Categoria::find()->where(['Nome' => $categoria])->one();
-            //If its a major category get all the minor categories and their products
-            if ($categoria->id_CategoriaPai == null) {
-                $categoriasFilho = Categoria::find()->where(['id_CategoriaPai' => $categoria->id])->all();
-                foreach ($categoriasFilho as $categoriaFilho) {
-                    $categoriasFilhoId[] = $categoriaFilho->id;
-                }
-                $query->andWhere(['id_Categoria' => $categoriasFilhoId]);
-            } else {
-                //minor category
-                $query->andWhere(['id_Categoria' => $categoria->id]);
-            }
-        } catch (\Exception $e) {
-            throw new \yii\web\NotFoundHttpException('Categoria não encontrada');
-        }
-        $activeData = new ActiveDataProvider([
-            //filters produto by Ativo and categoria and marca
-            'query' => $query,
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
+        return $response;
     }
 
     public function actionSearch()
@@ -126,14 +100,18 @@ class ProdutoController extends ActiveController
                 $query->orderBy('nome ASC');
             }
         } catch (\Exception $e) {
-            throw new \yii\web\NotFoundHttpException('Categoria não encontrada');
+            return 'Categoria não encontrada';
         }
 
-        $activeData = new ActiveDataProvider([
-            'query' => $query,
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
+        $response = [];
+        $produtos = $query->all();
+        foreach ($produtos as $produto) {
+            $data = [
+                'produto' => $produto,
+                'stock' => $produto->hasStock(),
+            ];
+            $response[] = $data;
+        }
+        return $response;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace backend\modules\api\controllers;
 
-use common\models\Dados;
 use common\models\User;
 use yii\filters\auth\HttpBasicAuth;
 use frontend\models\SignupForm;
@@ -45,7 +44,7 @@ class UserController extends \yii\web\Controller
     {
         $verbs = parent::verbs();
         $verbs =  [
-            'login' => ['HEAD'],
+            'login' => ['GET'],
             'register' => ['POST'],
         ];
         return $verbs;
@@ -58,7 +57,7 @@ class UserController extends \yii\web\Controller
             $this->user = $user;
             return $user;
         }
-        throw new \yii\web\ForbiddenHttpException('No authentication'); //403
+        return "Falha ao Autenticar";
     }
 
     public function actionLogin()

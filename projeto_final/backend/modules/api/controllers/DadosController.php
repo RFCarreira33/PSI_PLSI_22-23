@@ -5,9 +5,7 @@ namespace backend\modules\api\controllers;
 use common\models\Dados;
 use yii\rest\ActiveController;
 use backend\modules\api\components\CustomAuth;
-use Symfony\Component\VarDumper\Cloner\Data;
 use Yii;
-use yii\data\ActiveDataProvider;
 
 class DadosController extends ActiveController
 {
@@ -39,20 +37,15 @@ class DadosController extends ActiveController
     {
         $verbs = parent::verbs();
         $verbs =  [
-            'index' => ['GET', 'HEAD'],
-            'update' => ['PUT', 'PATCH', 'POST'],
+            'index' => ['GET'],
+            'update' => ['PUT'],
         ];
         return $verbs;
     }
 
     public function actionIndex()
     {
-        $activeData = new ActiveDataProvider([
-            'query' => Dados::find()->where(['id_User' => Yii::$app->params['id']])->select('nome, telefone, nif, morada, codPostal'),
-            //can add pagination here
-            'pagination' => false
-        ]);
-        return $activeData;
+        return Dados::find()->where(['id_User' => Yii::$app->params['id']])->select('nome, telefone, nif, morada, codPostal')->one();
     }
 
     public function actionUpdate()
@@ -60,7 +53,7 @@ class DadosController extends ActiveController
         $model = Dados::findOne(['id_User' => Yii::$app->params['id']]);
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
         if ($model->save()) {
-            return $model;
+            return 'Dados atualizados com sucesso';
         } else {
             return $model->errors;
         }

@@ -52,18 +52,12 @@ return [
                     'class' => 'yii\rest\UrlRule', 'controller' => 'api/produto',
                     //creates a new rule for the controller
                     'extraPatterns' => [
-                        'GET {categoria}' => 'category',
                         'GET search' => 'search',
-                    ],
-                    'tokens' => [
-                        '{id}' => '<id:\\w+>',
-                        '{categoria}' => '<categoria:\\w+>',
                     ],
                 ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/carrinho'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/fatura'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/categoria'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/marca'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/filter'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/user'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/dados'],
             ],
