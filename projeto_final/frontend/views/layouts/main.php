@@ -20,21 +20,22 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
 function checkchildren($category)
 {
     foreach ($category->categorias as $child) { ?>
-        <li><a class="dropdown-item" href="<?= Url::toRoute(['produto/search?category=' . $child->nome]) ?>"><?= $child->nome ?></a></li>
-        <ul>
-            <?php
+<li><a class="dropdown-item"
+        href="<?= Url::toRoute(['produto/search?category=' . $child->nome]) ?>"><?= $child->nome ?></a></li>
+<ul>
+    <?php
             if (sizeof($child->categorias) > 0) {
                 checkChildren($child);
             }
             ?>
-        </ul>
+</ul>
 <?php
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>" class="h-100">
+<html lang="<?= Yii::$app->language ?>" class="h-100" style="height:100%">
 
 <!-- Header -->
 
@@ -54,46 +55,53 @@ function checkchildren($category)
 
 <!-- Body -->
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100" style="display: flex;flex-direction:column">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             <!-- Imagem da empresa -->
             <a href="<?= Url::home() ?>">
-                <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>" style="width:175px;height:50px;">
+                <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>"
+                    style="width:175px;height:50px;">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item dropdown dropright">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Produtos</a>
-                        <ul class="dropdown-menu position-absolute rounded-0 border-0 m-0" aria-labelledby="navbarDropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Produtos</a>
+                        <ul class="dropdown-menu position-absolute rounded-0 border-0 m-0"
+                            aria-labelledby="navbarDropdown">
                             <li>
                                 <a class="dropdown-item" href="<?= URL::toRoute("produto/search"); ?>">Ver Todos</a>
                             </li>
                             <?php
                             foreach ($parentCategories as $parent) {
                             ?>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <a class="dropdown-item"
+                                    href="<?= Url::toRoute(['produto/search?category=' . $parent->nome]) ?>"><?= $parent->nome ?></a>
+                            </li>
+                            <ul>
+                                <?php
+                                    foreach ($parent->categorias as $child) { ?>
                                 <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="<?= Url::toRoute(['produto/search?category=' . $parent->nome]) ?>"><?= $parent->nome ?></a>
+                                    <a class="dropdown-item"
+                                        href="<?= Url::toRoute(['produto/search?category=' . $child->nome]) ?>"><?= $child->nome ?></a>
                                 </li>
                                 <ul>
                                     <?php
-                                    foreach ($parent->categorias as $child) { ?>
-                                        <li>
-                                            <a class="dropdown-item" href="<?= Url::toRoute(['produto/search?category=' . $child->nome]) ?>"><?= $child->nome ?></a>
-                                        </li>
-                                        <ul>
-                                            <?php
                                             checkChildren($child);
                                             ?>
-                                        </ul>
-                                    <?php
-                                    } ?>
                                 </ul>
+                                <?php
+                                    } ?>
+                            </ul>
                             <?php
                             } ?>
                         </ul>
@@ -106,30 +114,28 @@ function checkchildren($category)
 
                 <!-- Barra de pesquisa -->
                 <form action="<?= Url::toRoute(["produto/search"]) ?>" class="d-flex">
-                    <input id="searchBar" style="padding:4px;width:25rem;" type="text" placeholder="Search..." name="query">
+                    <input id="searchBar" style="padding:4px;width:25rem;" type="text" placeholder="Search..."
+                        name="query">
                     <button class="btn btn-outline-dark" type="submit"><i class="bi bi-search"></i></button>
                 </form>
+                <br>
 
                 <!-- Botões do carrinho -->
-                <form action="" class="d-flex">
-                    <a class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
-                        <i class="bi-cart-fill me-1"></i>
-                    </a>
-                </form>
+                <a class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
+                    <i class="bi-cart-fill me-1"></i>
+                </a>
 
                 <!-- Botões da area reservada -->
-                <form action="" class="d-flex">
-                    <a class="btn btn-outline-dark" href="<?= Url::toRoute("dados/view") ?>">
-                        <i class="bi bi-person"></i>
-                    </a>
-                </form>
+                <a class="btn btn-outline-dark" href="<?= Url::toRoute("dados/view") ?>">
+                    <i class="bi bi-person"></i>
+                </a>
 
                 <!-- Botão de login -->
                 <?php
                 if (Yii::$app->user->isGuest ? $session = "in" : $session = "out") { ?>
-                    <a href="<?= Url::toRoute(["site/log$session"]) ?>">
-                        <button type="button" class="btn btn-outline-dark"><?= "Log$session" ?></button>
-                    </a>
+                <a href="<?= Url::toRoute(["site/log$session"]) ?>">
+                    <button type="button" class="btn btn-outline-dark"><?= "Log$session" ?></button>
+                </a>
                 <?php
                 } ?>
             </div>
@@ -138,7 +144,8 @@ function checkchildren($category)
     <!-- End da Navbar -->
 
     <!-- Conteudo -->
-    <main role="main" class="flex-shrink-0">
+    <main role="main" class="flex-shrink-0" style="flex: 1 0 auto;">
+
         <div class="container">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -148,7 +155,9 @@ function checkchildren($category)
         </div>
     </main>
 
+
 </body>
+
 
 <!-- Footer -->
 <footer class=" text-center text-lg-start text-white" style="background-color: #1c2331;">
@@ -156,7 +165,8 @@ function checkchildren($category)
         <!-- Logo da empresa no footer -->
         <div class="me-5">
             <a href="<?= Url::home() ?>">
-                <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>" style="width:175px;height:50px;">
+                <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>"
+                    style="width:175px;height:50px;">
             </a>
         </div>
     </section>
@@ -167,7 +177,8 @@ function checkchildren($category)
 
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold">GlobalDiga</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                        style="width: 60px; background-color: #7c4dff; height: 2px" />
                     <p>
                         GLOBALDIGA Online - Nº1 em Informática em Portugal
                     </p>
@@ -175,7 +186,8 @@ function checkchildren($category)
 
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold">Useful links</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                        style="width: 60px; background-color: #7c4dff; height: 2px" />
                     <p>
                         <a href="<?= Url::toRoute(["site/login"]) ?>" class="text-white">Login</a>
                     </p>
@@ -189,8 +201,10 @@ function checkchildren($category)
 
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold">Contactos</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
-                    <p><i class="fas fa-home mr-3"></i> Rua António do Espírito Santo, Nº94, Lt.4, Estr. da Estação A, 2415-408 Leiria</p>
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                        style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <p><i class="fas fa-home mr-3"></i> Rua António do Espírito Santo, Nº94, Lt.4, Estr. da Estação A,
+                        2415-408 Leiria</p>
                     <p><i class="fas fa-envelope mr-3"></i> globaldiga@gmail.com</p>
                     <p><i class="fas fa-phone mr-3"></i> 914569234</p>
                     <p><i class="fas fa-print mr-3"></i> 956123054</p>
@@ -198,7 +212,10 @@ function checkchildren($category)
 
             </div>
         </div>
+
+        </div>
     </section>
+
 
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
         © 2020 Copyright:
@@ -213,5 +230,3 @@ function checkchildren($category)
 <script src="/js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
-</html>
