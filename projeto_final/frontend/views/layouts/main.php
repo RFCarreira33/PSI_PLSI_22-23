@@ -17,6 +17,7 @@ use common\models\Categoria;
 $empresa = Empresa::findOne(1);
 
 $categorias = Categoria::find()->all();
+$this->title = $empresa->designacaoSocial;
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +86,7 @@ $categorias = Categoria::find()->all();
                     </a>
                 </form>
                 <form action="" class="d-flex">
-                    <a class="btn btn-outline-dark" href="<?= Url::toRoute("dados/view") ?>">
+                    <a id="dados" class="btn btn-outline-dark" href="<?= Url::toRoute("dados/view") ?>">
                         <i class="bi bi-person"></i>
                     </a>
                 </form>
