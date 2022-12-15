@@ -213,7 +213,7 @@ CREATE TABLE `dados` (
 --
 
 INSERT INTO `dados` (`id_User`, `nome`, `telefone`, `nif`, `morada`, `codPostal`) VALUES
-(1, 'admin', '123123123', '123123123', '123', '123123123'),
+(1, 'admin', '912456334', '123654234', 'Rua Bordalo Pinheiro', '3780-232'),
 (2, 'Joao Jesus', '960234654', '231056345', 'Vila Nova de Monsarros', '3780-566'),
 (3, 'Rodrigo Carreira', '965348654', '231765987', 'Parceiros', '3780-547');
 
@@ -293,7 +293,7 @@ CREATE TABLE `iva` (
 CREATE TABLE `linhafatura` (
   `id` int NOT NULL,
   `id_Fatura` int NOT NULL,
-  `produto_nome` varchar(45) NOT NULL,
+  `produto_nome` varchar(100) NOT NULL,
   `produto_referencia` varchar(45) NOT NULL,
   `quantidade` int NOT NULL,
   `valor` decimal(11,2) NOT NULL,
