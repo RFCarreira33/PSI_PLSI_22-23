@@ -16,8 +16,7 @@ Métodos de Autenticação usados `Access-token` e `HTTP Basic`.
 | `/filters`         | Devolve todas as marcas e categorias            | ---            | GET    | Objeto com 2 arrays |
 | `/dados`           | Devolve os dados do cliente                     | `Access-token` | GET    | Dados               |
 | `/dados/update`    | Atualiza os dados do cliente                    | `Access-token` | PUT    | True / False        |
-| `/faturas`         | Devolve todas as faturas do cliente             | `Access-token` | GET    | Array de Faturas    |
-| `/faturas/{id}`    | Devolve as linhas da fatura com `{id}`          | `Access-token` | GET    | Array de Linhas     |
+| `/faturas`         | Devolve todas as faturas e linhas do cliente    | `Access-token` | GET    | Array de Faturas    |
 | `/carrinho`        | Devolve a carrinho do cliente                   | `Access-token` | GET    | Array de Carrinhos  |
 | `/carrinho/create` | Recebe um produto e quantidade e adiciona       | `Access-token` | POST   | True / False        |
 | `/carrinho/buy`    | Compra tudo o que estiver no carrinho           | `Access-token` | GET    | True                |

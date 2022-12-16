@@ -38,6 +38,10 @@
 
 > - projeto_final.sql: Estrutura das tabelas e dados essenciais;
 
+### REST API
+
+> API desenvolvida para auxiliar para a aplicação mobile. [Documentação dos vários Endpoints](https://github.com/RFCarreira33/PSI_PLSI_22-23/tree/development/projeto_final/backend/modules/api)
+
 ### Credenciais de utilizadores
 
 > Administrador:
