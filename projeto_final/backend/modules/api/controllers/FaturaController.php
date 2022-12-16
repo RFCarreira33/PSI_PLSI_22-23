@@ -52,26 +52,11 @@ class FaturaController extends ActiveController
         $response = [];
         foreach ($faturas as $fatura) {
             $data = [
-                'id' => $fatura->id,
-                'nif' => $fatura->nif,
-                'morada' => $fatura->morada,
-                'data' => $fatura->dataFatura,
-                'valorTotal' => $fatura->valorTotal,
-                'valorIva' => $fatura->valorIva,
+                'fatura' => $fatura,
+                'linhasFatura' => $fatura->linhafaturas,
             ];
             $response[] = $data;
         }
         return $response;
-    }
-
-    //returns linhasFatura from fatura
-    public function actionView()
-    {
-        //verifies if fatura belongs to user
-        $fatura = Fatura::find()->where(['id' => Yii::$app->request->get('id')])->one();
-        if ($fatura->id_Cliente != Yii::$app->params['id']) {
-            return 'Proibido - Fatura não pertence a este cliente';
-        }
-        return $fatura->linhafaturas;
     }
 }
