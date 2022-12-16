@@ -36,7 +36,7 @@ class Linhafatura extends \yii\db\ActiveRecord
             [['id_Fatura', 'produto_nome', 'produto_referencia', 'quantidade', 'valor', 'valorIva'], 'required'],
             [['id_Fatura', 'quantidade'], 'integer'],
             [['valor', 'valorIva'], 'number'],
-            [['produto_nome', 'produto_referencia'], 'string', 'max' => 45],
+            [['produto_nome', 'produto_referencia'], 'string', 'max' => 100],
             [['id_Fatura'], 'exist', 'skipOnError' => true, 'targetClass' => Fatura::class, 'targetAttribute' => ['id_Fatura' => 'id']],
         ];
     }
