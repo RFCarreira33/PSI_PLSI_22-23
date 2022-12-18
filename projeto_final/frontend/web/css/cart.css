@@ -1,0 +1,15 @@
+.cross
+{
+    color: var(--bs-red)
+}
+
+.pointer
+{
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.pointer:hover
+{
+    color: #ee0e24;
+}

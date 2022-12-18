@@ -3,6 +3,7 @@
 use yii\helpers\Url;
 
 ?>
+<link href="/css/cart.css" rel="stylesheet" />
 <section class="h-100 h-custom">
     <div class="container py-12 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -66,7 +67,8 @@ use yii\helpers\Url;
 
                                             <!-- Botão de remover do Produto no carrinho -->
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                <a data-method="POST" style='text-decoration:none ' href="<?= Url::toRoute(["carrinho/delete", 'id_Produto' => $carrinho->id_Produto]) ?>">
+                                            <a data-method="POST" class="pointer cross" style='text-decoration:none '
+                                                onclick="remove('Pretende remover este produto do carrinho?', '<?= Url::toRoute(['carrinho/delete', 'id_Produto' => $carrinho->id_Produto], true)?>')">
                                                     <button class="btn btn-outline-danger">X</button>
                                                 </a>
                                             </div>
@@ -76,13 +78,20 @@ use yii\helpers\Url;
                                     <hr class="my-4">
 
                                     <!-- Limpar Carrinho -->
+                                    <?php
+                                        if(sizeof($carrinhos) > 0)
+                                        { ?>
+                                            <div class="pt-5">
+                                                <h6 class="mb-0"><a data-method="POST" class="text-body pointer" onclick="remove('Pretende limpar o carrinho?', '<?= Url::toRoute('carrinho/clear', true) ?>')">Limpar Carrinho</a></h6>
+                                            </div>
+                                        <?php
+                                        }
+                                    ?>
                                     <div class="pt-5">
-                                        <h6 class="mb-0"><a data-method="POST" class="text-body" href="<?= Url::toRoute("carrinho/clear") ?>">Limpar Carrinho</a></h6>
-                                    </div>
-
-                                    <!-- Voltar a loja -->
-                                    <div class="pt-5">
-                                        <h6 class="mb-0"><a href="<?= Url::home() ?>" class="text-body">Voltar a loja</a></h6>
+                                        <h6 class="mb-0"><a href="<?= Url::home() ?>" class="text-body">
+                                        <svg width="1em" height="1em" viewBox="0 0 19 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.249 3.625l2.323-2.266L5.302.125.801 4.5l4.501 4.375 1.27-1.234-2.323-2.266h14.558v-1.75H4.249z" fill="currentColor"></path></svg>
+                                        Voltar à loja
+                                        </a></h6>
                                     </div>
 
                                 </div>
@@ -137,38 +146,41 @@ use yii\helpers\Url;
 </section>
 
 <script>
-    function changeQuantity(el, value) {
+    var timer;
+    
+    function changeQuantity(el, value)
+    {
         var input = el.parentNode.querySelector("input[name='quantityInput']");
         var newValue = parseInt(input.value) + value;
-
-        if (newValue > 20) {
-            newValue = 20;
-            alert("Não foi possível adicionar o produto. O máximo disponível é 20.")
-        }
-        if (newValue < 1) {
-            newValue = 1;
-            alert("Introduza uma quantidade superior a zero.")
-        }
-
+        if(newValue > 20) { newValue = 20;}
+        if(newValue < 1)  { newValue = 1; }
+        
+        callAjax(newValue, input.getAttribute("data-product"));
         input.value = newValue;
-
-        callAjax(input.value, input.getAttribute("data-product"), );
     }
 
     var quantityInputs = document.getElementsByName("quantityInput");
 
-    quantityInputs.forEach(function(input) {
-        input.addEventListener('input', function(e) {
-            if (e.srcElement.value > 20) {
-                e.srcElement.value = 20;
-                alert("Não foi possível adicionar o produto. O máximo disponível é 20.")
-            }
-            if (e.srcElement.value < 1) {
-                e.srcElement.value = 1;
-                alert("Introduza uma quantidade superior a zero.")
-            }
-
-            callAjax(e.srcElement.value, input.getAttribute("data-product"));
+    quantityInputs.forEach(function(input)
+    {
+        input.addEventListener('input', function(e)
+        {
+            clearTimeout(timer);
+            timer = setTimeout(function()
+            {
+                if(e.srcElement.value > 20) 
+                { 
+                    var notification = alertify.notify("Não foi possível adicionar o produto. O máximo disponível é 20.", 'error', 2); 
+                }
+                else if(e.srcElement.value < 1) 
+                { 
+                    var notification = alertify.notify("Introduza uma quantidade superior a zero.", 'error', 2); 
+                }
+                else
+                {
+                    callAjax(e.srcElement.value, input.getAttribute("data-product"));
+                }
+            }.bind(this), 500);
         })
     })
 
@@ -204,5 +216,14 @@ use yii\helpers\Url;
                 $("#totalPrice").text(result.totalPrice + "€");
             }
         });
+    }
+
+    function remove(message, route)
+    {
+        alertify.confirm("", message,
+            function()
+            {
+                window.location = route;
+            }, function(){});
     }
 </script>
