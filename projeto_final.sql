@@ -234,7 +234,7 @@ CREATE TABLE `empresa` (
   `localidade` varchar(45) NOT NULL,
   `capitalSocial` int NOT NULL,
   `imgBanner` varchar(255) NOT NULL,
-  `imgLogo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+  `imgLogo` text CHARACTER SET utf8mb4 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
@@ -919,7 +919,7 @@ CREATE TABLE `empresa` (
   `localidade` varchar(45) NOT NULL,
   `capitalSocial` int NOT NULL,
   `imgBanner` varchar(255) NOT NULL,
-  `imgLogo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+  `imgLogo` text CHARACTER SET utf8mb4 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
