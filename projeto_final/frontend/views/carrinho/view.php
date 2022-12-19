@@ -69,7 +69,9 @@ use yii\helpers\Url;
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                             <a data-method="POST" class="pointer cross" style='text-decoration:none '
                                                 onclick="remove('Pretende remover este produto do carrinho?', '<?= Url::toRoute(['carrinho/delete', 'id_Produto' => $carrinho->id_Produto], true)?>')">
-                                                    <button class="btn btn-outline-danger">X</button>
+                                                    <button class="btn btn-outline-danger">
+                                                        <i class="bi bi-x-lg"></i>
+                                                    </button>
                                                 </a>
                                             </div>
 
