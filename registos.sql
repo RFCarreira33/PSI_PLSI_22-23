@@ -1,17 +1,17 @@
 /*
-TeSP_PSI_2122_CDBD
-Gestão de hardware de desktop
+TeSP_PSI_2123
+Globaldiga
 João Pedro Jesus, estudante n.º 2211874
 Rodrigo Filipe Carreira, estudante n.º 2213146
-Fernando Jose Videira, estudante n.º 2211877
+João Ferreira, estudante nº 2211889
 */
 
 USE projeto_final;
 
-INSERT INTO `loja` (`id`,`id_Empresa`,`localidade`) VALUES 
-(1,1,'Leiria'),
-(2,1,'Lisboa'),
-(3,1,'Porto');
+INSERT INTO `loja` (`id`,`id_Empresa`,`localidade`,`latitude`,`longitude`) VALUES 
+(1,1,'Leiria','39.75432371409301','-8.820840997312317'),
+(2,1,'Lisboa','38.83457487883205','-9.337723665385509'),
+(3,1,'Porto','41.25692553919101','-8.625050968363148');
 
 INSERT INTO `categoria` (`id`,`id_CategoriaPai`,`nome`) VALUES
 (1,NULL,'Componentes'),
