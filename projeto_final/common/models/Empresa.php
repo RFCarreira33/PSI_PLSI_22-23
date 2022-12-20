@@ -37,12 +37,17 @@ class Empresa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['designacaoSocial', 'email', 'telefone', 'nif', 'morada', 'codPostal', 'localidade', 'capitalSocial', 'imgBanner', 'imgLogo'], 'required'],
+            [['designacaoSocial', 'email', 'telefone', 'nif', 'morada', 'codPostal', 'localidade', 'capitalSocial'], 'required'],
             [['capitalSocial'], 'integer'],
             [['designacaoSocial', 'email', 'morada', 'localidade'], 'string', 'max' => 45],
-            [['telefone', 'nif', 'codPostal'], 'string', 'max' => 9],
             [['imgBanner', 'imgLogo'], 'string', 'max' => 255],
-            [['imgBanner', 'imgLogo'], 'match', 'pattern' => "^\.(?:jpe?g|png)$^", 'message' => 'Formato de imagem inválido']
+            [['imgBanner', 'imgLogo'], 'match', 'pattern' => "^\.(?:jpe?g|png)$^", 'message' => 'Formato de imagem inválido'],
+            [['nif', 'codPostal', 'telefone'], 'trim'],
+            ['codPostal', 'match', 'pattern' => '^\d{4}-\d{3}?$^', 'message' => 'Código de Postal Inválido'],
+            ['telefone', 'match', 'pattern' => '^\d{9}?$^', 'message' => 'número de telefone inválido'],
+            ['telefone', 'string', 'max' => 9, 'message' => 'número de telefone com mais de 9 digitos'],
+            ['nif', 'match', 'pattern' => '^\d{9}?$^', 'message' => 'NIF Inválido'],
+            ['nif', 'string', 'max' => 9, 'message' => 'NIF com mais de 9 digitos'],
         ];
     }
 

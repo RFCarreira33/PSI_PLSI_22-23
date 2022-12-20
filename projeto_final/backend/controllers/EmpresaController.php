@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 use common\models\UploadForm;
+use DeepCopy\Exception\CloneException;
 use Yii;
 
 /**
@@ -71,15 +72,26 @@ class EmpresaController extends Controller
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
         $model = $this->findModel($id);
+        $lastModel = clone $model;
         $modelUpload = new UploadForm();
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                //verifies if imglogo was uploaded and if it was, uploads it else, keeps the last one
                 $modelUpload->imageFile = UploadedFile::getInstance($model, 'imgLogo');
-                $modelUpload->upload();
-                $model->imgLogo = $modelUpload->imageFile->name;
+                if ($modelUpload->imageFile != null) {
+                    $modelUpload->upload();
+                    $model->imgLogo = $modelUpload->imageFile->name;
+                } else {
+                    $model->imgLogo = $lastModel->imgLogo;
+                }
+                //verifies if imgBanner was uploaded and if it was, uploads it else, keeps the last one
                 $modelUpload->imageFile = UploadedFile::getInstance($model, 'imgBanner');
-                $modelUpload->upload();
-                $model->imgBanner = $modelUpload->imageFile->name;
+                if ($modelUpload->imageFile != null) {
+                    $modelUpload->upload();
+                    $model->imgBanner = $modelUpload->imageFile->name;
+                } else {
+                    $model->imgBanner = $lastModel->imgBanner;
+                }
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }

@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap4\LinkPager as Bootstrap4LinkPager;
 use yii\widgets\LinkPager;
 
 $this->title = 'Globaldiga';
@@ -55,7 +56,7 @@ if (empty($news)) { ?>
 } ?>
 
 <?php
-echo LinkPager::widget([
+echo Bootstrap4LinkPager::widget([
     'pagination' => $pages,
     'hideOnSinglePage' => true,
     'maxButtonCount' => 5,

@@ -37,23 +37,21 @@ $this->title = 'Globaldiga';
                 return;
             }
             foreach ($produtos as $produto) { ?>
-            <div class="col mb-5">
-                <div class="card h-100" style="width: 250px;">
-                    <a style="text-decoration: none; color:black; text-align: center;"
-                        href="<?= Url::toRoute(["produto/view", "id" => $produto->id]) ?>">
-                        <!-- Imagem do Produto -->
-                        <img class="card-img-top" style="width:220px;height:220px;"
-                            src="/img/<?php echo $produto->imagem ?>" />
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Nome do Produto-->
-                                <h5 class="fw-bolder"><?php echo $produto->nome ?></h5>
-                    </a>
-                    <!-- Preço do Produto -->
-                    <?php echo $produto->preco ?>€
-                    <br>
-                    <br>
-                    <?php
+                <div class="col mb-5">
+                    <div class="card h-100" style="width: 250px;">
+                        <a style="text-decoration: none; color:black; text-align: center;" href="<?= Url::toRoute(["produto/view", "id" => $produto->id]) ?>">
+                            <!-- Imagem do Produto -->
+                            <img class="card-img-top" style="width:220px;height:220px;" src="/img/<?php echo $produto->imagem ?>" />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Nome do Produto-->
+                                    <h5 class="fw-bolder"><?php echo $produto->nome ?></h5>
+                        </a>
+                        <!-- Preço do Produto -->
+                        <?php echo $produto->preco ?>€
+                        <br>
+                        <br>
+                        <?php
                         $esgotado = true;
                         foreach ($produto->stocks as $stock) {
                             if ($stock->quantidade > 0) {
@@ -66,13 +64,13 @@ $this->title = 'Globaldiga';
                             echo "<h6 style='color:green'>Em Stock</h6>";
                         }
                         ?>
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
-    <?php } ?>
-    </div>
-    <?= Bootstrap4LinkPager::widget([
+<?php } ?>
+</div>
+<?= Bootstrap4LinkPager::widget([
     'pagination' => $pages,
     'hideOnSinglePage' => true,
     'maxButtonCount' => 5,

@@ -145,6 +145,14 @@ class ProdutoController extends Controller
                     throw new yii\web\HttpException(400, 'Taxa de IVA inativa.');
                 }
                 $modelUpload->imageFile = UploadedFile::getInstance($model, 'imagem');
+                //verifies if the image is null and if it is, it returns an error
+                if ($modelUpload->imageFile == null) {
+                    $model->addError('imagem', 'É necessário inserir uma imagem.');
+                    return $this->render('create', [
+                        'model' => $model,
+                        'modelUpload' => $modelUpload
+                    ]);
+                }
                 $modelUpload->upload();
                 $model->imagem = $modelUpload->imageFile->name;
                 $model->save();
@@ -181,6 +189,7 @@ class ProdutoController extends Controller
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
         $model = $this->findModel($id);
+        $lastModel = clone $model;
         $modelUpload = new UploadForm();
 
         if ($this->request->isPost) {
@@ -190,8 +199,12 @@ class ProdutoController extends Controller
                     throw new yii\web\HttpException(400, 'Taxa de IVA inativa.');
                 }
                 $modelUpload->imageFile = UploadedFile::getInstance($model, 'imagem');
-                $modelUpload->upload();
-                $model->imagem = $modelUpload->imageFile->name;
+                if ($modelUpload->imageFile != null) {
+                    $modelUpload->upload();
+                    $model->imagem = $modelUpload->imageFile->name;
+                } else {
+                    $model->imagem = $lastModel->imagem;
+                }
                 $model->save();
             }
             return $this->redirect(['view', 'id' => $model->id]);
