@@ -31,6 +31,7 @@ class CarrinhoCest
         $I->wait(1);
         $I->click('a[id="clearCart"]');
         $I->wait(1);
+        $I->click('button[class="ajs-button ajs-ok"]');
         //voltar a pagina inicial e clicar no produto id=1
         $I->click('.card-img-top');
         $I->click('#produtoDetails1');

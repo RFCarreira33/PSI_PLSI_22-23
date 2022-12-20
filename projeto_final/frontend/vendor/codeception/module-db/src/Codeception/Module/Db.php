@@ -23,7 +23,7 @@ use PDOException;
  * Access a database.
  *
  * The most important function of this module is to clean a database before each test.
- * This module also provides actions to perform checks in a database, e.g. [seeInDatabase()](http://codeception.com/docs/modules/Db#seeInDatabase)
+ * This module also provides actions to perform checks in a database, e.g. [seeInDatabase()](https://codeception.com/docs/modules/Db#seeInDatabase)
  *
  * In order to have your database populated with data you need a raw SQL dump.
  * Simply put the dump in the `tests/_data` directory (by default) and specify the path in the config.
@@ -55,11 +55,11 @@ use PDOException;
  * * cleanup: false - whether the dump should be reloaded before each test
  * * reconnect: false - whether the module should reconnect to the database before each test
  * * waitlock: 0 - wait lock (in seconds) that the database session should use for DDL statements
- * * ssl_key - path to the SSL key (MySQL specific, @see http://php.net/manual/de/ref.pdo-mysql.php#pdo.constants.mysql-attr-key)
- * * ssl_cert - path to the SSL certificate (MySQL specific, @see http://php.net/manual/de/ref.pdo-mysql.php#pdo.constants.mysql-attr-ssl-cert)
- * * ssl_ca - path to the SSL certificate authority (MySQL specific, @see http://php.net/manual/de/ref.pdo-mysql.php#pdo.constants.mysql-attr-ssl-ca)
- * * ssl_verify_server_cert - disables certificate CN verification (MySQL specific, @see http://php.net/manual/de/ref.pdo-mysql.php)
- * * ssl_cipher - list of one or more permissible ciphers to use for SSL encryption (MySQL specific, @see http://php.net/manual/de/ref.pdo-mysql.php#pdo.constants.mysql-attr-cipher)
+ * * ssl_key - path to the SSL key (MySQL specific, @see https://php.net/manual/de/ref.pdo-mysql.php#pdo.constants.mysql-attr-key)
+ * * ssl_cert - path to the SSL certificate (MySQL specific, @see https://php.net/manual/de/ref.pdo-mysql.php#pdo.constants.mysql-attr-ssl-cert)
+ * * ssl_ca - path to the SSL certificate authority (MySQL specific, @see https://php.net/manual/de/ref.pdo-mysql.php#pdo.constants.mysql-attr-ssl-ca)
+ * * ssl_verify_server_cert - disables certificate CN verification (MySQL specific, @see https://php.net/manual/de/ref.pdo-mysql.php)
+ * * ssl_cipher - list of one or more permissible ciphers to use for SSL encryption (MySQL specific, @see https://php.net/manual/de/ref.pdo-mysql.php#pdo.constants.mysql-attr-cipher)
  * * databases - include more database configs and switch between them in tests.
  * * initial_queries - list of queries to be executed right after connection to the database has been initiated, i.e. creating the database if it does not exist or preparing the database collation
  * * skip_cleanup_if_failed - Do not perform the cleanup if the tests failed. If this is used, manual cleanup might be required when re-running
@@ -529,7 +529,6 @@ class Db extends Module implements DbInterface
     }
 
     /**
-     * @return bool|null|string|string[]
      * @throws ModuleConfigException
      */
     private function readSqlFile(string $filePath): ?string
@@ -729,7 +728,7 @@ class Db extends Module implements DbInterface
         $databaseKey = empty($databaseKey) ?  self::DEFAULT_DATABASE : $databaseKey;
         $databaseConfig = empty($databaseConfig) ?  $this->config : $databaseConfig;
 
-        if ($databaseConfig['populator']) {
+        if (!empty($databaseConfig['populator'])) {
             $this->loadDumpUsingPopulator($databaseKey, $databaseConfig);
             return;
         }
@@ -759,8 +758,8 @@ class Db extends Module implements DbInterface
     }
 
     /**
-     * Inserts an SQL record into a database. This record will be erased after the test, 
-     * unless you've configured "skip_cleanup_if_failed", and the test fails. 
+     * Inserts an SQL record into a database. This record will be erased after the test,
+     * unless you've configured "skip_cleanup_if_failed", and the test fails.
      *
      * ```php
      * <?php
@@ -801,8 +800,15 @@ class Db extends Module implements DbInterface
         $primaryKey = $this->_getDriver()->getPrimaryKey($table);
         $primary = [];
         if ($primaryKey !== []) {
-            if ($id && count($primaryKey) === 1) {
-                $primary [$primaryKey[0]] = $id;
+            $filledKeys = array_intersect($primaryKey, array_keys($row));
+            $missingPrimaryKeyColumns = array_diff_key($primaryKey, $filledKeys);
+
+            if (count($missingPrimaryKeyColumns) === 0) {
+                $primary = array_intersect_key($row, array_flip($primaryKey));
+            } elseif (count($missingPrimaryKeyColumns) === 1) {
+                $primary = array_intersect_key($row, array_flip($primaryKey));
+                $missingColumn = reset($missingPrimaryKeyColumns);
+                $primary[$missingColumn] = $id;
             } else {
                 foreach ($primaryKey as $column) {
                     if (isset($row[$column])) {
@@ -936,8 +942,8 @@ class Db extends Module implements DbInterface
      *
      * ```php
      * <?php
-     * $post = $I->grabFromDatabase('posts', ['num_comments >=' => 100]);
-     * $user = $I->grabFromDatabase('users', ['email like' => 'miles%']);
+     * $postNum = $I->grabFromDatabase('posts', 'num_comments', ['num_comments >=' => 100]);
+     * $mail = $I->grabFromDatabase('users', 'email', ['email like' => 'miles%']);
      * ```
      *
      * Supported operators: `<`, `>`, `>=`, `<=`, `!=`, `like`.
@@ -947,6 +953,77 @@ class Db extends Module implements DbInterface
     public function grabFromDatabase(string $table, string $column, array $criteria = [])
     {
         return $this->proceedSeeInDatabase($table, $column, $criteria);
+    }
+
+    /**
+     * Fetches a whole entry from a database.
+     * Make the test fail if the entry is not found.
+     * Provide table name, desired column and criteria.
+     *
+     * ``` php
+     * <?php
+     * $mail = $I->grabEntryFromDatabase('users', array('name' => 'Davert'));
+     * ```
+     * Comparison expressions can be used as well:
+     *
+     * ```php
+     * <?php
+     * $post = $I->grabEntryFromDatabase('posts', ['num_comments >=' => 100]);
+     * $user = $I->grabEntryFromDatabase('users', ['email like' => 'miles%']);
+     * ```
+     *
+     * Supported operators: `<`, `>`, `>=`, `<=`, `!=`, `like`.
+     *
+     * @return array Returns a single entry value
+     * @throws PDOException|Exception
+     */
+    public function grabEntryFromDatabase(string $table, array $criteria = []): array
+    {
+        $query      = $this->_getDriver()->select('*', $table, $criteria);
+        $parameters = array_values($criteria);
+        $this->debugSection('Query', $query);
+        $this->debugSection('Parameters', $parameters);
+        $sth = $this->_getDriver()->executeQuery($query, $parameters);
+
+        $result = $sth->fetch(PDO::FETCH_ASSOC, 0);
+
+        if ($result === false) {
+            throw new \AssertionError("No matching row found");
+        }
+
+        return $result;
+    }
+
+    /**
+     * Fetches a set of entries from a database.
+     * Provide table name and criteria.
+     *
+     * ``` php
+     * <?php
+     * $mail = $I->grabEntriesFromDatabase('users', array('name' => 'Davert'));
+     * ```
+     * Comparison expressions can be used as well:
+     *
+     * ```php
+     * <?php
+     * $post = $I->grabEntriesFromDatabase('posts', ['num_comments >=' => 100]);
+     * $user = $I->grabEntriesFromDatabase('users', ['email like' => 'miles%']);
+     * ```
+     *
+     * Supported operators: `<`, `>`, `>=`, `<=`, `!=`, `like`.
+     *
+     * @return array<array<string, mixed>> Returns an array of all matched rows
+     * @throws PDOException|Exception
+     */
+    public function grabEntriesFromDatabase(string $table, array $criteria = []): array
+    {
+        $query      = $this->_getDriver()->select('*', $table, $criteria);
+        $parameters = array_values($criteria);
+        $this->debugSection('Query', $query);
+        $this->debugSection('Parameters', $parameters);
+        $sth = $this->_getDriver()->executeQuery($query, $parameters);
+
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

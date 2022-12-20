@@ -26,23 +26,25 @@ use yii\helpers\Url;
                                         $esgotado = true;
                                         $stock = $carrinho->produto->getStockTotal();
                                     ?>
-                                        <hr class="my-4">
-                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                    <hr class="my-4">
+                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
 
-                                            <!-- Imagem do Produto no carrinho -->
-                                            <div class="col-md-2 col-lg-2 col-xl-2">
-                                                <img src="/img/<?= $carrinho->produto->imagem ?>" class="img-fluid rounded-3">
-                                            </div>
+                                        <!-- Imagem do Produto no carrinho -->
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <img src="/img/<?= $carrinho->produto->imagem ?>"
+                                                class="img-fluid rounded-3">
+                                        </div>
 
-                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
 
-                                                <a href="<?= Url::toRoute(['produto/view', 'id' => $carrinho->produto->id]) ?>" style="text-decoration:none">
-                                                    <!-- Nome do Produto no carrinho -->
-                                                    <h6 class="text-muted"><?= $carrinho->produto->nome ?></h6>
-                                                </a>
+                                            <a href="<?= Url::toRoute(['produto/view', 'id' => $carrinho->produto->id]) ?>"
+                                                style="text-decoration:none">
+                                                <!-- Nome do Produto no carrinho -->
+                                                <h6 class="text-muted"><?= $carrinho->produto->nome ?></h6>
+                                            </a>
 
-                                                <!-- Informação de stock do Produto no carrinho -->
-                                                <?php
+                                            <!-- Informação de stock do Produto no carrinho -->
+                                            <?php
                                                 if ($stock == 0) {
                                                     echo '<p name="stockInfo" data-product="' . $carrinho->produto->id . '" class="text-danger">Produto esgotado</p>';
                                                 } else if ($stock < $carrinho->Quantidade) {
@@ -50,47 +52,54 @@ use yii\helpers\Url;
                                                 } else {
                                                     echo '<p name="stockInfo" data-product="' . $carrinho->produto->id . '" class="text-success">Em stock</p>';
                                                 } ?>
-                                            </div>
-
-                                            <!-- Quantidade do Produto no carrinho -->
-                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                <button style="padding: 6px 15px;" class="btn btn-outline-dark" data-product="<?= $carrinho->produto->id ?>" onclick="changeQuantity(this, -1)">-</button>
-                                                <input style="max-width:4em;text-align:center;" data-product="<?= $carrinho->produto->id ?>" type="number" name="quantityInput" value="<?= $carrinho->Quantidade ?>">
-                                                <button class="btn btn-outline-dark" data-product="<?= $carrinho->produto->id ?>" onclick="changeQuantity(this, 1)">+</button>
-                                            </div>
-
-                                            <!-- Preço do Produto no carrinho -->
-                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h6 data-product="<?= $carrinho->produto->id ?>" name="price" class="mb-0">
-                                                    <?= $carrinho->produto->preco *  $carrinho->Quantidade ?>€</h6>
-                                            </div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-
-                                            <!-- Botão de remover do Produto no carrinho -->
-                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                <a data-method="POST" class="pointer cross" style='text-decoration:none ' onclick="remove('Pretende remover este produto do carrinho?', '<?= Url::toRoute(['carrinho/delete', 'id_Produto' => $carrinho->id_Produto], true) ?>')">
-                                                    <button class="btn btn-outline-danger">
-                                                        <i class="bi bi-x-lg"></i>
-                                                    </button>
-                                                </a>
-                                            </div>
-
                                         </div>
+
+                                        <!-- Quantidade do Produto no carrinho -->
+                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                            <button style="padding: 6px 15px;" class="btn btn-outline-dark"
+                                                data-product="<?= $carrinho->produto->id ?>"
+                                                onclick="changeQuantity(this, -1)">-</button>
+                                            <input style="max-width:4em;text-align:center;"
+                                                data-product="<?= $carrinho->produto->id ?>" type="number"
+                                                name="quantityInput" value="<?= $carrinho->Quantidade ?>">
+                                            <button class="btn btn-outline-dark"
+                                                data-product="<?= $carrinho->produto->id ?>"
+                                                onclick="changeQuantity(this, 1)">+</button>
+                                        </div>
+
+                                        <!-- Preço do Produto no carrinho -->
+                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                            <h6 data-product="<?= $carrinho->produto->id ?>" name="price" class="mb-0">
+                                                <?= $carrinho->produto->preco *  $carrinho->Quantidade ?>€</h6>
+                                        </div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+
+                                        <!-- Botão de remover do Produto no carrinho -->
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <a data-method="POST" class="pointer cross" style='text-decoration:none '
+                                                onclick="remove('Pretende remover este produto do carrinho?', '<?= Url::toRoute(['carrinho/delete', 'id_Produto' => $carrinho->id_Produto], true) ?>')">
+                                                <button class="btn btn-outline-danger">
+                                                    <i class="bi bi-x-lg"></i>
+                                                </button>
+                                            </a>
+                                        </div>
+
+                                    </div>
                                     <?php } ?>
                                     <hr class="my-4">
 
                                     <!-- Limpar Carrinho -->
-                                    <?php
-                                    if (sizeof($carrinhos) > 0) { ?>
-                                        <div class="pt-5">
-                                            <h6 class="mb-0"><a data-method="POST" class="text-body pointer" onclick="remove('Pretende limpar o carrinho?', '<?= Url::toRoute('carrinho/clear', true) ?>')">Limpar Carrinho</a></h6>
-                                        </div>
-                                    <?php
-                                    }
-                                    ?>
                                     <div class="pt-5">
-                                        <h6 class="mb-0"><a id="clearCart" href="<?= Url::home() ?>" class="text-body">
-                                                <svg width="1em" height="1em" viewBox="0 0 19 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M4.249 3.625l2.323-2.266L5.302.125.801 4.5l4.501 4.375 1.27-1.234-2.323-2.266h14.558v-1.75H4.249z" fill="currentColor"></path>
+                                        <h6 class="mb-0"><a id="clearCart" data-method="POST" class="text-body pointer"
+                                                onclick="remove('Pretende limpar o carrinho?', '<?= Url::toRoute('carrinho/clear', true) ?>')">Limpar
+                                                Carrinho</a></h6>
+                                    </div>
+                                    <div class="pt-5">
+                                        <h6 class="mb-0"><a href="<?= Url::home() ?>" class="text-body">
+                                                <svg width="1em" height="1em" viewBox="0 0 19 8" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M4.249 3.625l2.323-2.266L5.302.125.801 4.5l4.501 4.375 1.27-1.234-2.323-2.266h14.558v-1.75H4.249z"
+                                                        fill="currentColor"></path>
                                                 </svg>
                                                 Voltar à loja
                                             </a></h6>
@@ -118,7 +127,8 @@ use yii\helpers\Url;
 
                                     <div class="mb-5">
                                         <div class="form-outline">
-                                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                                            <input type="text" id="form3Examplea2"
+                                                class="form-control form-control-lg" />
                                         </div>
                                     </div>
 
@@ -132,13 +142,11 @@ use yii\helpers\Url;
                                     <?php
                                     if (!empty($carrinhos)) {
                                     ?>
-                                        <<<<<<< HEAD <a data-method="POST" class="btn btn-dark btn-block btn-lg" href="<?= Url::toRoute("fatura/create") ?>">Comprar</a></h6>
-                                            =======
-                                            <a data-method="POST" id="comprar" class="btn btn-dark btn-block btn-lg" href="<?= Url::toRoute("fatura/create") ?>">Comprar</a></h6>
-                                            >>>>>>> testes
-                                        <?php
+                                    <a data-method="POST" id="comprar" class="btn btn-dark btn-block btn-lg"
+                                        href="<?= Url::toRoute("fatura/create") ?>">Comprar</a></h6>
+                                    <?php
                                     }
-                                        ?>
+                                    ?>
 
                                 </div>
                             </div>
@@ -151,78 +159,81 @@ use yii\helpers\Url;
 </section>
 
 <script>
-    var timer;
+var timer;
 
-    function changeQuantity(el, value) {
-        var input = el.parentNode.querySelector("input[name='quantityInput']");
-        var newValue = parseInt(input.value) + value;
-        if (newValue > 20) {
-            newValue = 20;
-        }
-        if (newValue < 1) {
-            newValue = 1;
-        }
-
-        callAjax(newValue, input.getAttribute("data-product"));
-        input.value = newValue;
+function changeQuantity(el, value) {
+    var input = el.parentNode.querySelector("input[name='quantityInput']");
+    var newValue = parseInt(input.value) + value;
+    if (newValue > 20) {
+        newValue = 20;
+    }
+    if (newValue < 1) {
+        newValue = 1;
     }
 
-    var quantityInputs = document.getElementsByName("quantityInput");
+    callAjax(newValue, input.getAttribute("data-product"));
+    input.value = newValue;
+}
 
-    quantityInputs.forEach(function(input) {
-        input.addEventListener('input', function(e) {
-            clearTimeout(timer);
-            timer = setTimeout(function() {
-                if (e.srcElement.value > 20) {
-                    var notification = alertify.notify("Não foi possível adicionar o produto. O máximo disponível é 20.", 'error', 2);
-                } else if (e.srcElement.value < 1) {
-                    var notification = alertify.notify("Introduza uma quantidade superior a zero.", 'error', 2);
-                } else {
-                    callAjax(e.srcElement.value, input.getAttribute("data-product"));
-                }
-            }.bind(this), 500);
-        })
-    })
+var quantityInputs = document.getElementsByName("quantityInput");
 
-    function callAjax(value, product) {
-        if (isNaN(value) || value == "") {
-            return;
-        }
-
-        $.ajax({
-            url: "<?= Url::toRoute("carrinho/changequantity") ?>",
-            type: "post",
-            data: {
-                value: value,
-                id_Produto: product
-            },
-            success: (result) => {
-                result = JSON.parse(result);
-                var stockInfoElement = $(`p[name='stockInfo'][data-product=${product}]`);
-
-                $(`h6[name='price'][data-product=${product}]`).text(result.total + "€");
-
-                if (result.stock > 0 && value > result.stock) {
-                    stockInfoElement.removeClass("text-success");
-                    stockInfoElement.addClass("text-warning");
-                    stockInfoElement.text(`Apenas ${result.stock} unidades em stock`);
-                } else if (result.stock > 0 && value <= result.stock) {
-                    stockInfoElement.removeClass("text-warning");
-                    stockInfoElement.addClass("text-success");
-                    stockInfoElement.text("Em stock");
-                }
-
-                $("#totalProducts").text("Número de Artigos: " + result.totalProducts);
-                $("#totalPrice").text(result.totalPrice + "€");
+quantityInputs.forEach(function(input) {
+    input.addEventListener('input', function(e) {
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+            if (e.srcElement.value > 20) {
+                var notification = alertify.notify(
+                    "Não foi possível adicionar o produto. O máximo disponível é 20.",
+                    'error', 2);
+            } else if (e.srcElement.value < 1) {
+                var notification = alertify.notify("Introduza uma quantidade superior a zero.",
+                    'error', 2);
+            } else {
+                callAjax(e.srcElement.value, input.getAttribute("data-product"));
             }
-        });
+        }.bind(this), 500);
+    })
+})
+
+function callAjax(value, product) {
+    if (isNaN(value) || value == "") {
+        return;
     }
 
-    function remove(message, route) {
-        alertify.confirm("", message,
-            function() {
-                window.location = route;
-            },
-            function() {});
-    }
+    $.ajax({
+        url: "<?= Url::toRoute("carrinho/changequantity") ?>",
+        type: "post",
+        data: {
+            value: value,
+            id_Produto: product
+        },
+        success: (result) => {
+            result = JSON.parse(result);
+            var stockInfoElement = $(`p[name='stockInfo'][data-product=${product}]`);
+
+            $(`h6[name='price'][data-product=${product}]`).text(result.total + "€");
+
+            if (result.stock > 0 && value > result.stock) {
+                stockInfoElement.removeClass("text-success");
+                stockInfoElement.addClass("text-warning");
+                stockInfoElement.text(`Apenas ${result.stock} unidades em stock`);
+            } else if (result.stock > 0 && value <= result.stock) {
+                stockInfoElement.removeClass("text-warning");
+                stockInfoElement.addClass("text-success");
+                stockInfoElement.text("Em stock");
+            }
+
+            $("#totalProducts").text("Número de Artigos: " + result.totalProducts);
+            $("#totalPrice").text(result.totalPrice + "€");
+        }
+    });
+}
+
+function remove(message, route) {
+    alertify.confirm("", message,
+        function() {
+            window.location = route;
+        },
+        function() {});
+}
 </script>
