@@ -35,7 +35,7 @@ class FaturaController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'roles' => ['cliente']
+                            'roles' => ['@'],
                         ],
                     ],
                 ],

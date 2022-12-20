@@ -32,7 +32,7 @@ class CarrinhoController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'roles' => ['cliente']
+                            'roles' => ['@'],
                         ],
                     ],
                 ],
@@ -156,8 +156,7 @@ class CarrinhoController extends Controller
      */
     public function actionChangequantity()
     {
-        if (Yii::$app->request->isAjax) 
-        {
+        if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();
             $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
             $carrinho = $dados->getCarrinhos()->where(['id_Produto' => $data['id_Produto']])->one();
@@ -170,7 +169,7 @@ class CarrinhoController extends Controller
                 'totalProducts' => $dados->getCarrinhos()->sum("quantidade"),
                 'totalPrice' => $dados->getCarrinhos()->innerJoin("produto", "id = id_produto")->sum("quantidade * preco"),
             ];
-            
+
             return json_encode($result);
         }
     }

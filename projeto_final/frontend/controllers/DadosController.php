@@ -26,7 +26,7 @@ class DadosController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'roles' => ['cliente']
+                            'roles' => ['@'],
                         ],
                     ],
                 ],

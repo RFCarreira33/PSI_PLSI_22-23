@@ -12,7 +12,7 @@ $this->title = 'GlobalDiga';
     <br>
     <br>
     <div class="text-center text-white">
-        <img src="/img/<?= $empresa->imgBanner ?>" style="width:1300px;height:300px;">
+        <img id="bannerImg" src="../img/<?= $empresa->imgBanner ?>" style="width:1300px;height:300px;">
     </div>
 </header>
 

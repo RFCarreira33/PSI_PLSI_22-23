@@ -20,15 +20,14 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
 function checkchildren($category)
 {
     foreach ($category->categorias as $child) { ?>
-<li><a class="dropdown-item"
-        href="<?= Url::toRoute(['produto/search?category=' . $child->nome]) ?>"><?= $child->nome ?></a></li>
-<ul>
-    <?php
+        <li><a class="dropdown-item" href="<?= Url::toRoute(['produto/search?category=' . $child->nome]) ?>"><?= $child->nome ?></a></li>
+        <ul>
+            <?php
             if (sizeof($child->categorias) > 0) {
                 checkChildren($child);
             }
             ?>
-</ul>
+        </ul>
 <?php
     }
 }
@@ -68,47 +67,40 @@ function checkchildren($category)
         <div class="container px-4 px-lg-5">
             <!-- Imagem da empresa -->
             <a href="<?= Url::home() ?>">
-                <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>"
-                    style="width:175px;height:50px;">
+                <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>" style="width:175px;height:50px;">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item dropdown dropright">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">Produtos</a>
-                        <ul class="dropdown-menu position-absolute rounded-0 border-0 m-0"
-                            aria-labelledby="navbarDropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">Produtos</a>
+                        <ul class="dropdown-menu position-absolute rounded-0 border-0 m-0" aria-labelledby="navbarDropdown">
                             <li>
                                 <a class="dropdown-item" href="<?= URL::toRoute("produto/search"); ?>">Ver Todos</a>
                             </li>
                             <?php
                             foreach ($parentCategories as $parent) {
                             ?>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li>
-                                <a class="dropdown-item"
-                                    href="<?= Url::toRoute(['produto/search?category=' . $parent->nome]) ?>"><?= $parent->nome ?></a>
-                            </li>
-                            <ul>
-                                <?php
-                                    foreach ($parent->categorias as $child) { ?>
                                 <li>
-                                    <a class="dropdown-item"
-                                        href="<?= Url::toRoute(['produto/search?category=' . $child->nome]) ?>"><?= $child->nome ?></a>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="<?= Url::toRoute(['produto/search?category=' . $parent->nome]) ?>"><?= $parent->nome ?></a>
                                 </li>
                                 <ul>
                                     <?php
+                                    foreach ($parent->categorias as $child) { ?>
+                                        <li>
+                                            <a class="dropdown-item" href="<?= Url::toRoute(['produto/search?category=' . $child->nome]) ?>"><?= $child->nome ?></a>
+                                        </li>
+                                        <ul>
+                                            <?php
                                             checkChildren($child);
                                             ?>
-                                </ul>
-                                <?php
+                                        </ul>
+                                    <?php
                                     } ?>
-                            </ul>
+                                </ul>
                             <?php
                             } ?>
                         </ul>
@@ -121,8 +113,7 @@ function checkchildren($category)
 
                 <!-- Barra de pesquisa -->
                 <form action="<?= Url::toRoute(["produto/search"]) ?>" class="d-flex">
-                    <input id="searchBar" style="padding:4px;width:25rem;" type="text" placeholder="Search..."
-                        name="query">
+                    <input id="searchBar" style="padding:4px;width:25rem;" type="text" placeholder="Search..." name="query">
                     <button class="btn btn-outline-dark" type="submit"><i class="bi bi-search"></i></button>
                 </form>
                 <br>
@@ -140,9 +131,9 @@ function checkchildren($category)
                 <!-- Botão de login -->
                 <?php
                 if (Yii::$app->user->isGuest ? $session = "in" : $session = "out") { ?>
-                <a href="<?= Url::toRoute(["site/log$session"]) ?>">
-                    <button type="button" class="btn btn-outline-dark"><?= "Log$session" ?></button>
-                </a>
+                    <a href="<?= Url::toRoute(["site/log$session"]) ?>">
+                        <button type="button" class="btn btn-outline-dark"><?= "Log$session" ?></button>
+                    </a>
                 <?php
                 } ?>
             </div>
@@ -172,8 +163,7 @@ function checkchildren($category)
         <!-- Logo da empresa no footer -->
         <div class="me-5">
             <a href="<?= Url::home() ?>">
-                <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>"
-                    style="width:175px;height:50px;">
+                <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>" style="width:175px;height:50px;">
             </a>
         </div>
     </section>
@@ -184,8 +174,7 @@ function checkchildren($category)
 
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold">GlobalDiga</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
-                        style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
                     <p>
                         GLOBALDIGA Online - Nº1 em Informática em Portugal
                     </p>
@@ -193,8 +182,7 @@ function checkchildren($category)
 
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold">Contactos</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
-                        style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
                     <p><i class="fa fa-home mr-3"></i> Rua António do Espírito Santo, Nº94, Lt.4, Estr. da Estação A,
                         2415-408 Leiria</p>
                     <p><i class="fa fa-envelope mr-3"></i> globaldiga@gmail.com</p>

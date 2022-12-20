@@ -4,6 +4,8 @@ namespace frontend\tests\functional;
 
 use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
+use common\models\Dados;
+use common\models\User;
 
 class LoginCest
 {
@@ -26,6 +28,24 @@ class LoginCest
 
     public function _before(FunctionalTester $I)
     {
+        $user = new User();
+        $auth = \Yii::$app->authManager;
+        $user->username = "era";
+        $user->email = "era@gmail.com";
+        $user->setPassword("password_0");
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        $user->save();
+        $auth->assign($auth->getRole('admin'), $user->getId());
+        $dados = new Dados();
+        $dados->nome = "era";
+        $dados->codPostal = "2100-000";
+        $dados->telefone = "913345678";
+        $dados->nif = "123356789";
+        $dados->morada = "cliente morada";
+        $dados->id_User = $user->id;
+        $dados->save();
+
         $I->amOnRoute('site/login');
     }
 
@@ -56,11 +76,20 @@ class LoginCest
         $I->seeValidationError('Incorrect username or password');
     }
 
+    public function checkForbiddenRole(FunctionalTester $I)
+    {
+        $I->submitForm('#login-form', $this->formParams('era', 'password_0'));
+        $I->dontSeeValidationError('Username cannot be blank.'); //username isn't empty
+        $I->dontSeeValidationError('Password cannot be blank.'); //password isn't empty
+        $I->dontSeeValidationError('Incorrect username or password.'); //credentials are correct
+        $I->see('Please fill out the following fields to login:');
+    }
+
     public function checkValidLogin(FunctionalTester $I)
     {
         $I->submitForm('#login-form', $this->formParams('erau', 'password_0'));
-        $I->see('Logout (erau)', 'form button[type=submit]');
-        $I->dontSeeLink('Login');
+        $I->see('Logout');
+        $I->dontSeeLink('href="/site/login"');
         $I->dontSeeLink('Signup');
     }
 }
