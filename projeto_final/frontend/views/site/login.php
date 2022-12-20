@@ -26,7 +26,7 @@ $this->title = 'Login';
             <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
             <div class="my-1 mx-0" style="color:#999;">
-                Resetar Password: <?= Html::a('reset it', ['site/request-password-reset']) ?>.
+                Resetar Password <?= Html::a('aqui', ['site/request-password-reset']) ?>.
                 <br>
                 Nao tem conta? <?= Html::a('Registe-se', ['site/signup']) ?>
             </div>

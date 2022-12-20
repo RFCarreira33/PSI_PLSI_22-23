@@ -10,8 +10,8 @@ class HomeCest
     {
         $I->amOnRoute(\Yii::$app->homeUrl);
         $I->see('Novas Notícias');
-        $I->seeLink('News');
-        $I->click('News');
+        $I->seeLink('Notícias');
+        $I->click('Notícias');
         $I->see('Continuar a ler');
     }
 }

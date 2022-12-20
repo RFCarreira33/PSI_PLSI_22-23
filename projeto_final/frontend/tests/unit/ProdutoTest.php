@@ -62,8 +62,6 @@ class ProdutoTest extends \Codeception\Test\Unit
         $this->assertFalse($produto->validate(['id_Marca']));
         $produto->descricao = null;
         $this->assertFalse($produto->validate(['descricao']));
-        $produto->imagem = null;
-        $this->assertFalse($produto->validate(['imagem']));
         $produto->referencia = null;
         $this->assertFalse($produto->validate(['referencia']));
         $produto->preco = null;
@@ -90,7 +88,7 @@ class ProdutoTest extends \Codeception\Test\Unit
         $this->assertFalse($produto->validate(['referencia']));
 
         //nome max 50 caracteres
-        $produto->nome = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        $produto->nome = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta, asperiores nostrum error rerum iure maxime excepturi. Aliquid quis ipsum quidem, ab placeat illo ad, voluptates, perspiciatis ipsam voluptas repudiandae perferendis!";
         $this->assertFalse($produto->validate(['nome']));
 
         //ativo 0 a 1

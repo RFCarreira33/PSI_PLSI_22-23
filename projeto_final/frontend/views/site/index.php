@@ -23,7 +23,7 @@ $this->title = 'GlobalDiga';
             <?php foreach ($produtos as $produto) { ?>
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <a style="text-decoration: none;color:black;" href="<?= Url::toRoute(["produto/view", "id" => $produto->id]) ?>">
+                        <a id="produtoDetails<?= $produto->id ?>" style="text-decoration: none;color:black;" href="<?= Url::toRoute(["produto/view", "id" => $produto->id]) ?>">
                             <img class="card-img-top" style="width:220px;height:220px;" src="img/<?php echo $produto->imagem ?>" alt="..." />
                             <div class="card-body p-4">
                                 <div class="text-center">

@@ -82,7 +82,7 @@ class LoginCest
         $I->dontSeeValidationError('Username cannot be blank.'); //username isn't empty
         $I->dontSeeValidationError('Password cannot be blank.'); //password isn't empty
         $I->dontSeeValidationError('Incorrect username or password.'); //credentials are correct
-        $I->see('Please fill out the following fields to login:');
+        $I->see('Preencha os campos para efetuar o login:');
     }
 
     public function checkValidLogin(FunctionalTester $I)

@@ -17,20 +17,6 @@ $empresa = Empresa::findOne(1);
 $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all();
 
 //Função recursiva para verificar se a categoria tem filhos
-function checkchildren($category)
-{
-    foreach ($category->categorias as $child) { ?>
-        <li><a class="dropdown-item" href="<?= Url::toRoute(['produto/search?category=' . $child->nome]) ?>"><?= $child->nome ?></a></li>
-        <ul>
-            <?php
-            if (sizeof($child->categorias) > 0) {
-                checkChildren($child);
-            }
-            ?>
-        </ul>
-<?php
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +81,6 @@ function checkchildren($category)
                                         </li>
                                         <ul>
                                             <?php
-                                            checkChildren($child);
                                             ?>
                                         </ul>
                                     <?php
@@ -119,12 +104,12 @@ function checkchildren($category)
                 <br>
 
                 <!-- Botões do carrinho -->
-                <a class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
+                <a id="carrinho" class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
                     <i class="bi-cart-fill me-1"></i>
                 </a>
 
                 <!-- Botões da area reservada -->
-                <a class="btn btn-outline-dark" href="<?= Url::toRoute("dados/view") ?>">
+                <a id="dados" class="btn btn-outline-dark" href="<?= Url::toRoute("dados/view") ?>">
                     <i class="bi bi-person"></i>
                 </a>
 

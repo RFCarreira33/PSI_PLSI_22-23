@@ -216,9 +216,9 @@ class FaturaTest extends \Codeception\Test\Unit
         $this->assertFalse($linhaFatura->validate(['valorIva']));
 
         //produto nome e referencia max 45 caracteres
-        $linhaFatura->produto_nome = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; //50 caracteres
+        $linhaFatura->produto_nome = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta, asperiores nostrum error rerum iure maxime excepturi. Aliquid quis ipsum quidem, ab placeat illo ad, voluptates, perspiciatis ipsam voluptas repudiandae perferendis!"; //100 caracteres
         $this->assertFalse($linhaFatura->validate(['produto_nome']));
-        $linhaFatura->produto_referencia = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; //50 carateres
+        $linhaFatura->produto_referencia = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta, asperiores nostrum error rerum iure maxime excepturi. Aliquid quis ipsum quidem, ab placeat illo ad, voluptates, perspiciatis ipsam voluptas repudiandae perferendis!"; //50 carateres
         $this->assertFalse($linhaFatura->validate(['produto_referencia']));
 
         //Criar uma fatura para fazer os assert trues da linha fatura
