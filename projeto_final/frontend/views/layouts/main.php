@@ -16,7 +16,6 @@ $empresa = Empresa::findOne(1);
 
 $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all();
 
-//Função recursiva para verificar se a categoria tem filhos
 ?>
 
 <!DOCTYPE html>
@@ -81,6 +80,7 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
                                         </li>
                                         <ul>
                                             <?php
+                                            Categoria::checkChildren($child);
                                             ?>
                                         </ul>
                                     <?php

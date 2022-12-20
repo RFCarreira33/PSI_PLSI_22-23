@@ -113,4 +113,17 @@ class Categoria extends \yii\db\ActiveRecord
         // query for categorias that are used as Categoria Pai
         return $categoriasPai;
     }
+
+    public static function checkChildren($category)
+    {
+        foreach ($category->categorias as $child) {
+
+            echo '<li><a class="dropdown-item" href="<?= Url::toRoute(["produto/search?category="' . $child->nome . '])">' . $child->nome . '</a></li>';
+            echo '<ul>';
+            if (sizeof($child->categorias) > 0) {
+                $child->checkChildren($child);
+            }
+            echo '</ul>';
+        }
+    }
 }
