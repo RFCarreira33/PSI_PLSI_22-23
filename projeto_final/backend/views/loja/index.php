@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Loja;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -17,6 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Criar Loja', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -37,6 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }
             ],
+        ],
+        'pager' => [
+            'class' => LinkPager::class,
+            'pagination' => $dataProvider->pagination,
+            'maxButtonCount' => 5,
+            'hideOnSinglePage' => true,
         ],
     ]); ?>
 

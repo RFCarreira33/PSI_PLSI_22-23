@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Produto;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -77,6 +78,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }
             ],
+        ],
+        'pager' => [
+            'class' => LinkPager::class,
+            'pagination' => $dataProvider->pagination,
+            'maxButtonCount' => 5,
+            'hideOnSinglePage' => true,
         ],
     ]); ?>
 

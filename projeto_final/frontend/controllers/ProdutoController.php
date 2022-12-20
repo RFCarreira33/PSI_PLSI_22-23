@@ -140,7 +140,7 @@ class ProdutoController extends Controller
             ->andfilterWhere(["id_Categoria" => $categories])->andFilterWhere(["id_marca" => $brands])->andWhere(["ativo" => "1"])->groupBy("produto.id")->having("sum(quantidade) " . $stocksFilter . " 0")
             ->orderBy([$sort[0] => $sort[1]]);
         $countQuery = clone $produtos;
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 15]);
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 16]);
         $models = $produtos->offset($pages->offset)
             ->limit($pages->limit)
             ->all();

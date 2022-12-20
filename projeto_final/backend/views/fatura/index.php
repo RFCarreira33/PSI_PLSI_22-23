@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Fatura;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -46,6 +47,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('Ver', ['view', 'id' => $model->id], ['class' => 'btn btn-primary']) . " " . Html::a('PDF', ['pdf', 'id' => $model->id], ['class' => 'btn btn-danger']);
                     },
                 ],
+            ],
+            'pager' => [
+                'class' => LinkPager::class,
+                'pagination' => $dataProvider->pagination,
+                'maxButtonCount' => 5,
+                'hideOnSinglePage' => true,
             ],
         ],
     ); ?>

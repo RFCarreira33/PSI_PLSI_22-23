@@ -55,11 +55,11 @@ class LojaController extends Controller
         if (!Yii::$app->user->can('ReadLoja')) {
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
+        $searchModel = new LojaSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => Loja::find()->where(['id_Empresa' => 1]),
-        ]);
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

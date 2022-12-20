@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Stock;
 use backend\models\StockSearch;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -57,6 +58,7 @@ class StockController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'pagination' => false,
         ]);
     }
     /**
