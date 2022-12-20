@@ -1,9 +1,9 @@
 <?php
 
 use common\models\Stock;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
@@ -45,7 +45,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
         ],
+        'pager' => [
+            'class' => LinkPager::class,
+            'pagination' => $dataProvider->pagination,
+            'maxButtonCount' => 5,
+            'hideOnSinglePage' => true,
+        ],
     ]); ?>
-
 
 </div>

@@ -14,7 +14,7 @@ use yii\helpers\Html;
             <a href="<?= \yii\helpers\Url::home() ?>" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="https://github.com/RFCarreira33/PSI_PLSI_22-23" class="nav-link">About</a>
+            <a href="https://github.com/RFCarreira33/PSI_PLSI_22-23" class="nav-link">Sobre</a>
     </ul>
 
     <!-- Right navbar links -->

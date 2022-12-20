@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Marca;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -19,12 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Criar Marca', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    <?php echo $this->render('_search', ['model' => $searchModel]);
     ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -35,6 +35,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Url::toRoute([$action, 'nome' => $model->nome]);
                 }
             ],
+        ],
+        'pager' => [
+            'class' => LinkPager::class,
+            'pagination' => $dataProvider->pagination,
+            'maxButtonCount' => 5,
+            'hideOnSinglePage' => true,
         ],
     ]); ?>
 

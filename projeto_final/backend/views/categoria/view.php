@@ -13,7 +13,6 @@ use common\models\Produto;
 $this->title = $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Categorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
 ?>
 <div class="categoria-view">
 
