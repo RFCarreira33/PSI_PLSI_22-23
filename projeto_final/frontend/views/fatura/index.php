@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Fatura;
+use yii\bootstrap4\LinkPager;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -51,6 +52,12 @@ $this->title = 'Globaldiga';
                 },
             ],
         ],
+        'pager' => [
+            'class' => LinkPager::class,
+            'pagination' => $dataProvider->pagination,
+            'maxButtonCount' => 5,
+            'hideOnSinglePage' => true,
+        ]
     ]); ?>
     <br>
 </div>

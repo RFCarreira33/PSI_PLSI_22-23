@@ -2,6 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
+use common\models\Dados;
 use common\models\User;
 use yii\filters\auth\HttpBasicAuth;
 use frontend\models\SignupForm;
@@ -62,6 +63,11 @@ class UserController extends \yii\web\Controller
 
     public function actionLogin()
     {
+        $dados = Dados::findOne($this->user->id);
+        if ($dados->codDesconto == "Sem Acesso") {
+            $dados->codDesconto = "Sim";
+            $dados->save();
+        }
         return $this->user->auth_key;
     }
 

@@ -117,34 +117,30 @@ class FaturaController extends Controller
         $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
         $carrinhos = Carrinho::findAll(['id_Cliente' => $dados->id_User]);
         $empresa = Empresa::find()->one();
-        
+
         $subtotal = 0;
         $valorIva = 0;
         $promoCode = $empresa->codigoDesconto;
         $discountValue = $empresa->valorDesconto;
 
-        if(sizeof($carrinhos) <= 0) { return $this->redirect(URL::toRoute(['carrinho/view'])); } //checks if the cart is empty
+        if (sizeof($carrinhos) <= 0) {
+            return $this->redirect(URL::toRoute(['carrinho/view']));
+        } //checks if the cart is empty
 
-        foreach ($carrinhos as $carrinho) 
-        {
+        foreach ($carrinhos as $carrinho) {
             $ivaP = $carrinho->produto->iva->percentagem / 100;
             $valorIva += $carrinho->Quantidade * $carrinho->produto->preco * $ivaP;
             $subtotal += $carrinho->Quantidade * $carrinho->produto->preco;
         }
 
-        try 
-        {
-            foreach ($carrinhos as $carrinho) 
-            {
+        try {
+            foreach ($carrinhos as $carrinho) {
                 $stock = $carrinho->produto->getStockTotal();
-                if ($stock < $carrinho->Quantidade) 
-                {
+                if ($stock < $carrinho->Quantidade) {
                     throw new \Exception("Stock insuficiente para " . $carrinho->produto->nome);
                 }
             }
-        } 
-        catch (\Exception $e) 
-        {
+        } catch (\Exception $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
             return $this->redirect(URL::toRoute(['carrinho/view']));
         }
@@ -162,25 +158,22 @@ class FaturaController extends Controller
         $fatura->valorIva = $valorIva;
         $fatura->subtotal = $subtotal;
 
-        if($code != "" && $code == $promoCode && $dados->codDesconto == "Sim") //checks if promo code was used and if so, updates the values
+        if ($code != "" && $code == $promoCode && $dados->codDesconto == "Sim") //checks if promo code was used and if so, updates the values
         {
             $fatura->valorDesconto = $subtotal * $discountValue / 100;
-            $fatura->valorTotal = $subtotal + $valorIva - $subtotal * $discountValue / 100;
-            
+            $fatura->valorTotal = $subtotal - $subtotal * $discountValue / 100;
+
             $dados->codDesconto = "Não";
             $dados->save();
-        }
-        else
-        {
+        } else {
             $fatura->valorDesconto = 0;
-            $fatura->valorTotal = $subtotal + $valorIva;
+            $fatura->valorTotal = $subtotal;
         }
-        
+
         $fatura->save();
 
         //Create Linhas Fatura
-        foreach ($carrinhos as $carrinho) 
-        {
+        foreach ($carrinhos as $carrinho) {
             $linhaFatura = new LinhaFatura;
             $linhaFatura->id_Fatura = $fatura->id;
             $linhaFatura->produto_nome = $carrinho->produto->nome;
@@ -190,15 +183,25 @@ class FaturaController extends Controller
             $ivaP = $carrinho->produto->iva->percentagem;
             $linhaFatura->valorIva = $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100);
             $linhaFatura->save();
-            
+
             $stocks = Stock::find()->where(["id_produto" => $carrinho->produto->id])->all();
 
-            foreach($stocks as $stock)
-            {
-                if($stock->quantidade > 0)
-                {
-                    $carrinho->Quantidade <= $stock->quantidade ? $stock->quantidade -= $carrinho->Quantidade : $stock->quantidade -= $stock->quantidade;
-                    $stock->save();
+            $tempQuantidade = $carrinho->Quantidade;
+            foreach ($stocks as $stock) {
+                switch ($stock->quantidade) {
+                    case $tempQuantidade <= $stock->quantidade:
+                        $stock->quantidade -= $tempQuantidade;
+                        $tempQuantidade = 0;
+                        break;
+                    case $tempQuantidade > $stock->quantidade:
+                        $stockRestante = $stock->quantidade;
+                        $tempQuantidade -= $stockRestante;
+                        $stock->quantidade = 0;
+                        break;
+                }
+                $stock->save();
+                if ($tempQuantidade == 0) {
+                    break;
                 }
             }
         }
