@@ -7,8 +7,6 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\models\FaturaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
-
-$this->title = 'Globaldiga';
 ?>
 <div class="fatura-index">
     <br>

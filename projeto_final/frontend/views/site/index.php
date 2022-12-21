@@ -4,7 +4,7 @@
 
 use yii\helpers\Url;
 
-$this->title = 'GlobalDiga';
+$this->title = $empresa->designacaoSocial;
 ?>
 
 <!-- Banner -->

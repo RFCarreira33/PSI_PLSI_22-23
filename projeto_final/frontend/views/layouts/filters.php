@@ -3,8 +3,6 @@
 use common\models\Categoria;
 use common\models\Marca;
 
-$this->title = 'Globaldiga';
-
 $categories = Categoria::find()->all();
 $brands = Marca::find()->all();
 ?>

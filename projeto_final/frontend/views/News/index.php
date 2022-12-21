@@ -3,7 +3,6 @@
 use yii\bootstrap4\LinkPager as Bootstrap4LinkPager;
 use yii\widgets\LinkPager;
 
-$this->title = 'Globaldiga';
 ?>
 <br>
 <?php

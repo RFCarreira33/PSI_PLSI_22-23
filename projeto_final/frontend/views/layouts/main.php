@@ -10,9 +10,8 @@ use yii\helpers\Url;
 use common\models\Empresa;
 use common\models\Categoria;
 
-$this->title = 'Globaldiga';
-
 $empresa = Empresa::findOne(1);
+$this->title = $empresa->designacaoSocial;
 
 $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all();
 
@@ -158,30 +157,31 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
             <div class="row mt-3">
 
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold">GlobalDiga</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <h6 class="text-uppercase fw-bold"><?= $empresa->designacaoSocial ?></h6>
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                        style="width: 60px; background-color: #7c4dff; height: 2px" />
                     <p>
-                        GLOBALDIGA Online - Nº1 em Informática em Portugal
+                        <?= $empresa->designacaoSocial ?> - Nº1 em Informática em Portugal
                     </p>
                 </div>
 
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold">Contactos</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
-                    <p><i class="fa fa-home mr-3"></i> Rua António do Espírito Santo, Nº94, Lt.4, Estr. da Estação A,
-                        2415-408 Leiria</p>
-                    <p><i class="fa fa-envelope mr-3"></i> globaldiga@gmail.com</p>
-                    <p><i class="fa fa-phone mr-3"></i> 914569234</p>
-
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                        style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <p><i class="fas fa-home mr-3"></i> <?= $empresa->morada ?></p>
+                    <p><i class="fas fa-envelope mr-3"></i> <?= $empresa->email ?></p>
+                    <p><i class="fas fa-phone mr-3"></i> <?= $empresa->telefone ?></p>
+                </div>
                 </div>
             </div>
     </section>
 
 
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-        © 2020 Copyright:
+        © 2022 Copyright:
         <a class="text-white">
-            GlobalDiga.com
+            <?= $empresa->designacaoSocial ?>
         </a>
     </div>
 

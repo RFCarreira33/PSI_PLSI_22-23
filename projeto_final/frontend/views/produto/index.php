@@ -6,8 +6,6 @@
 use yii\bootstrap4\LinkPager as Bootstrap4LinkPager;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
-
-$this->title = 'Globaldiga';
 ?>
 
 <section class="py-5">
@@ -32,7 +30,8 @@ $this->title = 'Globaldiga';
 
             <!-- Verificação de não existirem produtos -->
             <?php
-            if (sizeof($produtos) == 0) {
+            if (sizeof($produtos) == 0) 
+            {
                 include __DIR__ . '/../layouts/notFound.php';
                 return;
             }

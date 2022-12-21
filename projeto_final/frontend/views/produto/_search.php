@@ -6,8 +6,6 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var common\models\ProdutoSearch $model */
 /** @var yii\widgets\ActiveForm $form */
-
-$this->title = 'Globaldiga';
 ?>
 
 <div class="produto-search">

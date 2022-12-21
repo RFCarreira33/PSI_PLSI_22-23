@@ -1,8 +1,6 @@
 <?php
 
 use yii\helpers\Url;
-
-$this->title = 'Globaldiga';
 ?>
 
 <!-- Detalhes do Produto -->
