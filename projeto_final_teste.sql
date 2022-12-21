@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `projeto_final` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `projeto_final`;
+CREATE DATABASE  IF NOT EXISTS `projeto_final_teste` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `projeto_final_teste`;
 -- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: projeto_final

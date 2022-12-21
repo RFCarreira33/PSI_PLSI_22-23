@@ -126,13 +126,6 @@ $empresa = Empresa::findOne(1);
         <div class="receipt-main col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
             <div class="row">
                 <div class="receipt-header">
-                    <div class="col-xs-6 col-sm-6 col-md-6">
-                        <div class="receipt-left">
-                            <img class="img-responsive" alt="Globaldiga" src="/img/logo.png"
-                                style="width:175px;height:50px;">
-                        </div>
-                    </div>
-                    <br>
                     <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                         <div class="receipt-right">
                             <h5><?= $empresa->designacaoSocial ?></h5>
@@ -167,7 +160,7 @@ $empresa = Empresa::findOne(1);
                             <th>Quantidade</th>
                             <th>Valor Uni.</th>
                             <th>IVA</th>
-                            <th>Subtotal</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -176,14 +169,24 @@ $empresa = Empresa::findOne(1);
                             <td><?= $linha->produto_referencia ?></td>
                             <td><?= $linha->produto_nome ?></td>
                             <td><?= $linha->quantidade ?></td>
-                            <td><?= round($linha->valor / $linha->quantidade, 2) ?>€</td>
+                            <td><?= number_format($linha->valor / $linha->quantidade, 2, '.', '') ?>€</td>
                             <td><?= $linha->valorIva ?>€</td>
-                            <td><?= $linha->valor ?>€</td>
+                            <td><?= number_format($linha->valor + $linha->valorIva, 2, '.', '') ?>€</td>
                         </tr>
                         <?php } ?>
                     </tbody>
                 </table>
                 <div>
+                    <br>
+                    <b>Subtotal:</b>
+                    <?= $model->subtotal ?>€
+                    <br>
+                    <b>IVA:</b>
+                    <?= $model->valorIva ?>€
+                    <br>
+                    <b>Desconto:</b>
+                    <?= $model->valorDesconto ?>€
+                    <br>
                     <br>
                     <b>Total:</b>
                     <?= $model->valorTotal ?>€
@@ -201,7 +204,7 @@ $empresa = Empresa::findOne(1);
                     </div>
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <div class="receipt-left">
-                            <h1>Globaldiga</h1>
+                            <h1><?= $empresa->designacaoSocial ?></h1>
                         </div>
                     </div>
                 </div>

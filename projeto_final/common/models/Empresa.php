@@ -38,11 +38,13 @@ class Empresa extends \yii\db\ActiveRecord
     {
         return [
             [['designacaoSocial', 'email', 'telefone', 'nif', 'morada', 'codPostal', 'localidade', 'capitalSocial', 'imgBanner', 'imgLogo'], 'required'],
-            [['capitalSocial'], 'integer'],
+            [['capitalSocial', 'valorDesconto'], 'integer'],
             [['designacaoSocial', 'email', 'morada', 'localidade'], 'string', 'max' => 45],
-            [['telefone', 'nif', 'codPostal'], 'string', 'max' => 9],
+            [['telefone', 'nif'], 'string', 'min' => 9, 'max' => 9],
+            [['codPostal'], 'string', 'min' => 8, 'max' => 8],
             [['imgBanner', 'imgLogo'], 'string', 'max' => 255],
-            [['imgBanner', 'imgLogo'], 'match', 'pattern' => "^\.(?:jpe?g|png)$^", 'message' => 'Formato de imagem inválido']
+            [['imgBanner', 'imgLogo'], 'match', 'pattern' => "^\.(?:jpe?g|png)$^", 'message' => 'Formato de imagem inválido'],
+            [['codigoDesconto'], 'string', 'max' => 10]
         ];
     }
 
@@ -63,6 +65,8 @@ class Empresa extends \yii\db\ActiveRecord
             'capitalSocial' => 'Capital Social',
             'imgBanner' => 'Img Banner',
             'imgLogo' => 'Img Logo',
+            'codigoDesconto' => 'Codigo Desconto',
+            'valorDesconto' => 'Valor Desconto'
         ];
     }
 

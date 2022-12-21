@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->codPostal;
                 }
             ],
+            'codDesconto',
         ],
     ]) ?>
 

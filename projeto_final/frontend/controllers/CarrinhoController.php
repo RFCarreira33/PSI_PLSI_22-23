@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Produto;
 use common\models\Carrinho;
 use common\models\Dados;
+use common\models\Empresa;
 use frontend\models\CarrinhoSearch;
 use common\models\Stock;
 use Yii;
@@ -13,12 +14,13 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
-
 /**
  * CarrinhoController implements the CRUD actions for Carrinho model.
  */
 class CarrinhoController extends Controller
 {
+    public $appliedCode = "";
+
     /**
      * @inheritDoc
      */
@@ -171,6 +173,31 @@ class CarrinhoController extends Controller
                 'totalPrice' => $dados->getCarrinhos()->innerJoin("produto", "id = id_produto")->sum("quantidade * preco"),
             ];
             
+            return json_encode($result);
+        }
+    }
+
+    public function actionApplypromocode()
+    {
+        if (Yii::$app->request->isAjax) 
+        {
+            $data = Yii::$app->request->post();
+            $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
+            $empresa = Empresa::find()->one();
+            
+            $promoCode = $empresa->codigoDesconto;
+            $discountValue = $empresa->valorDesconto;
+
+            if($dados->codDesconto == "Sem Acesso") { return(json_encode('Instale a nossa aplicação para ter acesso ao código de desconto.')); }
+            if($dados->codDesconto == "Não") { return(json_encode('Código já foi usado.')); }
+            if($data['promoCode'] != $promoCode) { return(json_encode('Código inválido.')); }
+
+            $result = [
+                'discount' => number_format(($data['subtotal'] * $discountValue / 100), 2, ".", ""),
+                'totalPrice' => number_format(($data['subtotal'] - $data['subtotal'] * $discountValue / 100), 2, ".", ""),
+            ];
+            
+            $_SESSION["promoCode"] = $data['promoCode'];
             return json_encode($result);
         }
     }

@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->codPostal;
                 }
             ],
+            'codDesconto',
             [
                 'class' => 'yii\grid\ActionColumn', 'template' => '{view}',
                 'urlCreator' => function ($action, Dados $model, $key, $index, $column) {

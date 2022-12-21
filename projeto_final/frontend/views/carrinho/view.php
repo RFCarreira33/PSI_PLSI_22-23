@@ -118,12 +118,21 @@ use yii\helpers\Url;
 
                                     <div class="mb-5">
                                         <div class="form-outline">
-                                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                                            <input type="text" id="promoCode" class="form-control form-control-lg" />
+                                            <button id="promoCodeBtn" class="btn btn-outline-dark">Aplicar</button>
                                         </div>
                                     </div>
 
                                     <hr class="my-4">
 
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="text-uppercase">Subtotal</h5>
+                                        <h6 id="subtotalPrice" data-subtotal="<?= number_format($precoTotal, 2, '.', '') ?>"><?= number_format($precoTotal, 2, '.', '') ?>€</h5>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h6 class="text-uppercase">Desconto</h5>
+                                        <h6 id="discount">-0.00€</h5>
+                                    </div>
                                     <div class="d-flex justify-content-between mb-5">
                                         <h5 class="text-uppercase">Total</h5>
                                         <h5 id="totalPrice"><?= number_format($precoTotal, 2, '.', '') ?>€</h5>
@@ -132,7 +141,7 @@ use yii\helpers\Url;
                                     <?php
                                     if (!empty($carrinhos)) {
                                     ?>
-                                        <a data-method="POST" class="btn btn-dark btn-block btn-lg" href="<?= Url::toRoute("fatura/create") ?>">Comprar</a></h6>
+                                        <a data-method="POST" id="comprar" class="btn btn-dark btn-block btn-lg" href="<?= Url::toRoute("fatura/create") ?>">Comprar</a></h6>
                                     <?php
                                     }
                                     ?>
@@ -149,6 +158,7 @@ use yii\helpers\Url;
 
 <script>
     var timer;
+    var appliedCode = "";
     
     function changeQuantity(el, value)
     {
@@ -157,7 +167,7 @@ use yii\helpers\Url;
         if(newValue > 20) { newValue = 20;}
         if(newValue < 1)  { newValue = 1; }
         
-        callAjax(newValue, input.getAttribute("data-product"));
+        applyQuantityChange(newValue, input.getAttribute("data-product"));
         input.value = newValue;
     }
 
@@ -172,24 +182,23 @@ use yii\helpers\Url;
             {
                 if(e.srcElement.value > 20) 
                 { 
-                    var notification = alertify.notify("Não foi possível adicionar o produto. O máximo disponível é 20.", 'error', 2); 
+                    var notification = alertify.notify("Não foi possível adicionar o produto. O máximo disponível é 20.", 'error', 2, function(){  console.log('Não foi possível adicionar o produto. O máximo disponível é 20.'); }); 
                 }
                 else if(e.srcElement.value < 1) 
                 { 
-                    var notification = alertify.notify("Introduza uma quantidade superior a zero.", 'error', 2); 
+                    var notification = alertify.notify("Introduza uma quantidade superior a zero.", 'error', 2, function(){  console.log('Introduza uma quantidade superior a zero.'); }); 
                 }
                 else
                 {
-                    callAjax(e.srcElement.value, input.getAttribute("data-product"));
+                    applyQuantityChange(e.srcElement.value, input.getAttribute("data-product"));
                 }
             }.bind(this), 500);
         })
     })
 
-    function callAjax(value, product) {
-        if (isNaN(value) || value == "") {
-            return;
-        }
+    function applyQuantityChange(value, product) //makes an ajax request to update the procuct quantity
+    {
+        if (isNaN(value) || value == "") { return; }
 
         $.ajax({
             url: "<?= Url::toRoute("carrinho/changequantity") ?>",
@@ -204,18 +213,24 @@ use yii\helpers\Url;
 
                 $(`h6[name='price'][data-product=${product}]`).text(result.total + "€");
 
-                if (result.stock > 0 && value > result.stock) {
+                if (result.stock > 0 && value > result.stock) 
+                {
                     stockInfoElement.removeClass("text-success");
                     stockInfoElement.addClass("text-warning");
                     stockInfoElement.text(`Apenas ${result.stock} unidades em stock`);
-                } else if (result.stock > 0 && value <= result.stock) {
+                } 
+                else if (result.stock > 0 && value <= result.stock) 
+                {
                     stockInfoElement.removeClass("text-warning");
                     stockInfoElement.addClass("text-success");
                     stockInfoElement.text("Em stock");
                 }
 
                 $("#totalProducts").text("Número de Artigos: " + result.totalProducts);
+                $("#subtotalPrice").text(result.totalPrice + "€");
+                $("#subtotalPrice").attr("data-subtotal", result.totalPrice);
                 $("#totalPrice").text(result.totalPrice + "€");
+                if(appliedCode != ""){ applyPromoCode(appliedCode, ""); }
             }
         });
     }
@@ -227,5 +242,59 @@ use yii\helpers\Url;
             {
                 window.location = route;
             }, function(){});
+    }
+
+    $("#promoCodeBtn").click(function()
+    {
+        var code = $("#promoCode").val();
+
+        if(code == "") 
+        { 
+            appliedCode = "";
+            clearTimeout(timer);
+            timer = setTimeout(function()
+            {
+                var notification = alertify.notify("Código inválido.", 'error', 2, function(){  console.log('Código inválido.'); });
+                $("#discount").text("-0.00€");
+                $("#totalPrice").text($("#subtotalPrice").text());
+            }.bind(this), 500);
+
+            return; 
+        }
+
+        applyPromoCode(code, "button");
+    });
+
+    function applyPromoCode(code, trigger) //makes an ajax request to apply a promo code and update the total value
+    {
+        var code = $("#promoCode").val();
+        var applied = false;
+
+        $.ajax({
+            url: "<?= Url::toRoute("carrinho/applypromocode") ?>",
+            type: "post",
+            data: {
+                promoCode: code,
+                subtotal: $("#subtotalPrice").attr("data-subtotal")
+            },
+            success: (result) => {
+                result = JSON.parse(result);
+                appliedCode = code;
+
+                if(!result.discount) { var notification = alertify.notify(result, 'error', 2, function(){  console.log(result); }); return; }
+                
+                $("#discount").text("-" + result.discount + "€");
+                $("#totalPrice").text(result.totalPrice + "€");
+
+                if(trigger == "button") 
+                { 
+                    clearTimeout(timer);
+                    timer = setTimeout(function()
+                    {
+                        var notification = alertify.notify("Código usado com sucesso.", 'success', 2, function(){  console.log('Código usado com sucesso.'); }); 
+                    }.bind(this), 500);
+                }
+            }
+        });
     }
 </script>

@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="fatura-view">
-
     <p>
         <?= Html::a('Ver em formato PDF', ['pdf', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
     </p>
@@ -55,11 +54,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->dataFatura;
                 }
             ],
-            'valorTotal' => [
-                'label' => 'Valor Total',
-                'attribute' => 'valorTotal',
+            'subtotal' => [
+                'label' => 'Subtotal',
+                'attribute' => 'subtotal',
                 'value' => function (Fatura $model) {
-                    return $model->valorTotal . '€';
+                    return $model->subtotal . '€';
                 }
             ],
             'valorIva' => [
@@ -67,6 +66,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'valorIva',
                 'value' => function (Fatura $model) {
                     return $model->valorIva . '€';
+                }
+            ],
+            'valorDesconto' => [
+                'label' => 'Valor Desconto',
+                'attribute' => 'valorDesconto',
+                'value' => function (Fatura $model) {
+                    return $model->valorDesconto . '€';
+                }
+            ],
+            'valorTotal' => [
+                'label' => 'Valor Total',
+                'attribute' => 'valorTotal',
+                'value' => function (Fatura $model) {
+                    return $model->valorTotal . '€';
                 }
             ],
         ],
@@ -107,14 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Valor Unitário',
                 'attribute' => 'valor',
                 'value' => function (Linhafatura $model) {
-                    return round($model->valor / $model->quantidade, 2) . '€';
-                }
-            ],
-            'valor' => [
-                'label' => 'Valor Total',
-                'attribute' => 'valor',
-                'value' => function (Linhafatura $model) {
-                    return $model->valor . '€';
+                    return number_format($model->valor / $model->quantidade, 2, '.', '') . '€';
                 }
             ],
             'valorIva' => [
@@ -122,6 +128,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'valorIva',
                 'value' => function (Linhafatura $model) {
                     return $model->valorIva . '€';
+                }
+            ],
+            'valorTotal' => [
+                'label' => 'Valor Total',
+                'attribute' => 'valorTotal',
+                'value' => function (Linhafatura $model) {
+                    return number_format($model->valor + $model->valorIva, 2, '.', '') . '€';
                 }
             ],
             [

@@ -8,6 +8,7 @@ use common\models\Carrinho;
 use common\models\FaturaSearch;
 use common\models\LinhaFatura;
 use common\models\Stock;
+use common\models\Empresa;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -112,18 +113,23 @@ class FaturaController extends Controller
      */
     public function actionCreate()
     {
-
+        $code = $_SESSION["promoCode"];
         $dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
         $carrinhos = Carrinho::findAll(['id_Cliente' => $dados->id_User]);
-
-        $valorTotal = 0;
+        $empresa = Empresa::find()->one();
+        
+        $subtotal = 0;
         $valorIva = 0;
+        $promoCode = $empresa->codigoDesconto;
+        $discountValue = $empresa->valorDesconto;
+
+        if(sizeof($carrinhos) <= 0) { return $this->redirect(URL::toRoute(['carrinho/view'])); } //checks if the cart is empty
 
         foreach ($carrinhos as $carrinho) 
         {
             $ivaP = $carrinho->produto->iva->percentagem / 100;
             $valorIva += $carrinho->Quantidade * $carrinho->produto->preco * $ivaP;
-            $valorTotal += $carrinho->Quantidade * $carrinho->produto->preco;
+            $subtotal += $carrinho->Quantidade * $carrinho->produto->preco;
         }
 
         try 
@@ -154,7 +160,22 @@ class FaturaController extends Controller
         $fatura->email = $dados->user->email;
         $fatura->dataFatura = date("Y-m-d H:i:s");
         $fatura->valorIva = $valorIva;
-        $fatura->valorTotal = $valorTotal;
+        $fatura->subtotal = $subtotal;
+
+        if($code != "" && $code == $promoCode && $dados->codDesconto == "Sim") //checks if promo code was used and if so, updates the values
+        {
+            $fatura->valorDesconto = $subtotal * $discountValue / 100;
+            $fatura->valorTotal = $subtotal + $valorIva - $subtotal * $discountValue / 100;
+            
+            $dados->codDesconto = "Não";
+            $dados->save();
+        }
+        else
+        {
+            $fatura->valorDesconto = 0;
+            $fatura->valorTotal = $subtotal + $valorIva;
+        }
+        
         $fatura->save();
 
         //Create Linhas Fatura
@@ -181,6 +202,9 @@ class FaturaController extends Controller
                 }
             }
         }
+
+        $_SESSION["promoCode"] = "";
+
         $this->redirect('/carrinho/clear');
     }
 

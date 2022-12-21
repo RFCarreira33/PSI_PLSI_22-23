@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Reiniciar Códigos', 'refreshpromocodes', ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -52,6 +53,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'imagem',
                 'value' => '/img/' . $model->imgBanner,
                 'format' => ['image', ['width' => '20%', 'height' => '20%']],
+            ],
+            'codigoDesconto' => [
+                'label' => 'Código de Desconto',
+                'attribute' => 'codigoDesconto',
+                'value' => $model->codigoDesconto,
+            ],
+            'valorDesconto' => [
+                'label' => 'Valor de Desconto (%)',
+                'attribute' => 'valorDesconto',
+                'value' => $model->valorDesconto,
             ],
         ],
     ]) ?>
