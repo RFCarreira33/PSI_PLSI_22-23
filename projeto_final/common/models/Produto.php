@@ -168,4 +168,14 @@ class Produto extends \yii\db\ActiveRecord
     {
         return $this->getStockTotal() > 0;
     }
+
+    public function getStockLoja($id)
+    {
+        foreach ($this->stocks as $stock) {
+            if ($stock->id_Loja == $id) {
+                return $stock->quantidade;
+            }
+        }
+        return 0;
+    }
 }

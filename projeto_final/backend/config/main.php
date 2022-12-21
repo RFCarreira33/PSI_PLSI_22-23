@@ -53,6 +53,7 @@ return [
                     //creates a new rule for the controller
                     'extraPatterns' => [
                         'GET search' => 'search',
+                        'POST location' => 'location',
                     ],
                 ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/carrinho'],

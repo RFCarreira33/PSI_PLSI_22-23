@@ -6,6 +6,9 @@ use yii\rest\ActiveController;
 use yii\data\ActiveDataProvider;
 use common\models\Produto;
 use common\models\Categoria;
+use common\models\Dados;
+use common\models\Loja;
+use common\models\Stock;
 use Yii;
 
 class ProdutoController extends ActiveController
@@ -22,6 +25,7 @@ class ProdutoController extends ActiveController
         //unset to override
         unset($actions['index']);
         unset($actions['view']);
+        unset($actions['location']);
         return $actions;
     }
 
@@ -32,6 +36,7 @@ class ProdutoController extends ActiveController
             'index' => ['GET'],
             'view' => ['GET'],
             'search' => ['GET'],
+            'location' => ['POST'],
         ];
         return $verbs;
     }
@@ -48,6 +53,37 @@ class ProdutoController extends ActiveController
             $response[] = $data;
         }
         return $response;
+    }
+
+    public function actionLocation()
+    {
+        $dados = Yii::$app->getRequest()->getBodyParams();
+        $lojas = Loja::find()->all();
+        $produto = Produto::findOne($dados['idProduto']);
+        $distanciaLoja = null;
+        $lojaPerto = null;
+
+        foreach ($lojas as $loja) {
+            $stock = $produto->getStockLoja($loja->id);
+            if ($stock > 0) {
+                $distancia = $this->distancia($dados['latitude'], $dados['longitude'], $loja->latitude, $loja->longitude);
+
+                if ($distancia < $distanciaLoja || $distanciaLoja == null) {
+                    $distanciaLoja = $distancia;
+                    $lojaPerto = $loja->localidade;
+                }
+            }
+        }
+        return $lojaPerto;
+    }
+
+    public function distancia($latitude, $longitude, $lat2, $lon2)
+    {
+        $a = $latitude - $lat2;
+        $b = $longitude - $lon2;
+        $distancia = sqrt(($a * $a) + ($b * $b));
+
+        return $distancia;
     }
 
     public function actionView()
