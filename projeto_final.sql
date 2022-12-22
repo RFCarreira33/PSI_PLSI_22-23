@@ -242,7 +242,7 @@ CREATE TABLE `empresa` (
 --
 
 INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`) VALUES
-(1, 'GlobalDiga', 'globaldiga@gmail.com', '244501812', '503503503', 'Rua do', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png');
+(1, 'GlobalDiga', 'Globaldiga@gmail.com', '244501812', '503503503', 'Rua dos Olivais Nº9', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png');
 
 -- --------------------------------------------------------
 

@@ -13,16 +13,6 @@ use yii\widgets\LinkPager;
     <!-- Paginação -->
     <?php
     include __DIR__ . '/../layouts/filters.php';
-    echo Bootstrap4LinkPager::widget([
-        'pagination' => $pages,
-        'hideOnSinglePage' => true,
-        'maxButtonCount' => 5,
-        'nextPageLabel' => false,
-        'prevPageLabel' => false,
-        'options' => [
-            'class' => 'pagination',
-        ],
-    ]);
     ?>
 
     <div class="container px-4 px-lg-5 mt-5">
@@ -30,8 +20,7 @@ use yii\widgets\LinkPager;
 
             <!-- Verificação de não existirem produtos -->
             <?php
-            if (sizeof($produtos) == 0) 
-            {
+            if (sizeof($produtos) == 0) {
                 include __DIR__ . '/../layouts/notFound.php';
                 return;
             }

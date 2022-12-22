@@ -28,10 +28,11 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js">
-    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css" />
@@ -158,8 +159,7 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
 
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold"><?= $empresa->designacaoSocial ?></h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
-                        style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
                     <p>
                         <?= $empresa->designacaoSocial ?> - Nº1 em Informática em Portugal
                     </p>
@@ -167,20 +167,19 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
 
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold">Contactos</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
-                        style="width: 60px; background-color: #7c4dff; height: 2px" />
-                    <p><i class="fas fa-home mr-3"></i> <?= $empresa->morada ?></p>
-                    <p><i class="fas fa-envelope mr-3"></i> <?= $empresa->email ?></p>
-                    <p><i class="fas fa-phone mr-3"></i> <?= $empresa->telefone ?></p>
-                </div>
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <p><i class="fa fa-home mr-3"></i> <?= $empresa->morada ?></p>
+                    <p><i class="fa fa-envelope mr-3"></i> <?= $empresa->email ?></p>
+                    <p><i class="fa fa-phone mr-3"></i> <?= $empresa->telefone ?></p>
                 </div>
             </div>
+        </div>
     </section>
 
 
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
         © 2022 Copyright:
-        <a class="text-white">
+        <a style="color:white">
             <?= $empresa->designacaoSocial ?>
         </a>
     </div>
