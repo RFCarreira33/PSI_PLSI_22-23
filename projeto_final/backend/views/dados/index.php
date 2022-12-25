@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -34,6 +33,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'codPostal',
                 'value' => function (Dados $model) {
                     return $model->codPostal;
+                }
+            ],
+            'codDesconto' => [
+                'label' => 'Código de Desconto',
+                'attribute' => 'codDesconto',
+                'value' => function (Dados $model) {
+                    switch ($model->codDesconto) {
+                        case "Sim":
+                            return "Por usar";
+                            break;
+                        case "Não":
+                            return "Usado";
+                            break;
+                        default:
+                            return "Sem acesso";
+                    }
                 }
             ],
             [

@@ -48,6 +48,7 @@ class Empresa extends \yii\db\ActiveRecord
             ['telefone', 'string', 'max' => 9, 'message' => 'número de telefone com mais de 9 digitos'],
             ['nif', 'match', 'pattern' => '^\d{9}?$^', 'message' => 'NIF Inválido'],
             ['nif', 'string', 'max' => 9, 'message' => 'NIF com mais de 9 digitos'],
+            [['codigoDesconto'], 'string', 'max' => 10]
         ];
     }
 
@@ -68,6 +69,8 @@ class Empresa extends \yii\db\ActiveRecord
             'capitalSocial' => 'Capital Social',
             'imgBanner' => 'Img Banner',
             'imgLogo' => 'Img Logo',
+            'codigoDesconto' => 'Codigo Desconto',
+            'valorDesconto' => 'Valor Desconto'
         ];
     }
 

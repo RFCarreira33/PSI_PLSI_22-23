@@ -28,6 +28,8 @@ $this->params['breadcrumbs'][] = 'Atualizar';
     <?= $form->field($model, 'capitalSocial')->label('Capital Social') ?>
     <?= $form->field($model, 'imgLogo')->fileInput()->label('Imagem do Logótipo') ?>
     <?= $form->field($model, 'imgBanner')->fileInput()->label('Imagem do Banner') ?>
+    <?= $form->field($model, 'codigoDesconto')->label('Código de Desconto') ?>
+    <?= $form->field($model, 'valorDesconto')->label('Valor de Desconto') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>

@@ -18,7 +18,7 @@ class DadosSearch extends dados
     {
         return [
             [['id_User'], 'integer'],
-            [['nome', 'telefone', 'nif', 'morada', 'codPostal'], 'safe'],
+            [['nome', 'telefone', 'nif', 'morada', 'codPostal', 'codDesconto'], 'safe'],
         ];
     }
 
@@ -65,7 +65,8 @@ class DadosSearch extends dados
             ->andFilterWhere(['like', 'telefone', $this->telefone])
             ->andFilterWhere(['like', 'nif', $this->nif])
             ->andFilterWhere(['like', 'morada', $this->morada])
-            ->andFilterWhere(['like', 'codPostal', $this->codPostal]);
+            ->andFilterWhere(['like', 'codPostal', $this->codPostal])
+            ->andFilterWhere(['like', 'codDesconto', $this->codDesconto]);
 
         return $dataProvider;
     }

@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `projeto_final` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `projeto_final`;
+CREATE DATABASE  IF NOT EXISTS `projeto_final_teste` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `projeto_final_teste`;
 -- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: projeto_final
@@ -265,7 +265,7 @@ CREATE TABLE `empresa` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`) VALUES
-(1, 'GlobalDiga', 'Globaldiga@gmail.com', '244501812', '503503503', 'Rua dos Olivais Nº9', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png');
+(1, 'GlobalDiga', 'globaldiga@gmail.com', '244501812', '503503503', 'Rua do', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png');
 
 --
 -- Table structure for table `fatura`

@@ -6,6 +6,7 @@ use yii\rest\ActiveController;
 use backend\modules\api\components\CustomAuth;
 use common\models\Carrinho;
 use common\models\Dados;
+use common\models\Empresa;
 use common\models\Fatura;
 use common\models\Linhafatura;
 use common\models\Produto;
@@ -33,8 +34,9 @@ class CarrinhoController extends ActiveController
             'index' => ['GET'],
             'create' => ['POST'],
             'update' => ['PUT'],
-            'buy' => ['GET'],
+            'buy' => ['POST'],
             'remove' => ['POST'],
+            'coupon' => ['POST'],
             'delete' => ['DELETE'],
         ];
         return $verbs;
@@ -77,6 +79,7 @@ class CarrinhoController extends ActiveController
             if (!isset($params['id_Produto'], $params['quantidade'])) {
                 throw new \Exception('Parâmetros inválidos');
             }
+
 
             //Verificar quantidade
             if ($params['quantidade'] <= 0) {
@@ -121,29 +124,72 @@ class CarrinhoController extends ActiveController
         }
     }
 
+    public function actionCoupon()
+    {
+        $params = Yii::$app->getRequest()->getBodyParams();
+        if (isset($params['promoCode'])) {
+            $valid = Empresa::findOne(['codigoDesconto' => $params['promoCode']]);
+            if ($valid == null) {
+                return 'Código inválido';
+            }
+            $dados = Dados::find()->where(['id_User' => Yii::$app->params['id']])->one();
+            switch ($dados->codDesconto) {
+                case "Não":
+                    return 'Código já utilizado';
+                    break;
+                case "Sem Acesso":
+                    return 'Instale a nossa aplicação para ter acesso ao código de desconto.';
+                    break;
+            }
+            return 'Código válido';
+        }
+    }
+
     public function actionBuy()
     {
         $dados = Dados::findOne(['id_User' => Yii::$app->params['id']]);
         $carrinhos = Carrinho::findAll(['id_Cliente' => $dados->id_User]);
+        $empresa = Empresa::find()->one();
+
+        $subtotal = 0;
+        $valorIva = 0;
+        $promoCode = $empresa->codigoDesconto;
+        $discountValue = $empresa->valorDesconto;
 
         if ($carrinhos == null) {
             return "Carrinho vazio";
         }
 
-        $valorTotal = 0;
         $valorIva = 0;
 
+        $params = Yii::$app->getRequest()->getBodyParams();
+        if (isset($params['promoCode'])) {
+            $valid = Empresa::findOne(['codigoDesconto' => $params['promoCode']]);
+            if ($valid == null) {
+                return 'Código inválido';
+            }
+            switch ($dados->codDesconto) {
+                case "Não":
+                    return 'Código já utilizado';
+                    break;
+                case "Sem Acesso":
+                    return 'Instale a nossa aplicação para ter acesso ao código de desconto.';
+                    break;
+            }
+        }
         foreach ($carrinhos as $carrinho) {
             $ivaP = $carrinho->produto->iva->percentagem / 100;
             $valorIva += $carrinho->Quantidade * $carrinho->produto->preco * $ivaP;
-            $valorTotal += $carrinho->Quantidade * $carrinho->produto->preco;
+            $subtotal += $carrinho->Quantidade * $carrinho->produto->preco;
         }
+
+
 
         try {
             foreach ($carrinhos as $carrinho) {
                 $stock = $carrinho->produto->getStockTotal();
                 if ($stock < $carrinho->Quantidade) {
-                    throw new \Exception("Stock insuficiente para " . $carrinho->produto->nome);
+                    throw new \Exception("Stock insuficiente para " . $carrinho->produto->nome . " apenas $stock unidade(s) disponiveis");
                 }
             }
         } catch (\Exception $e) {
@@ -151,7 +197,7 @@ class CarrinhoController extends ActiveController
         }
 
         //Create Fatura
-        $fatura = new Fatura();
+        $fatura = new Fatura;
         $fatura->id_Cliente = $dados->id_User;
         $fatura->nome = $dados->nome;
         $fatura->nif = $dados->nif;
@@ -161,12 +207,24 @@ class CarrinhoController extends ActiveController
         $fatura->email = $dados->user->email;
         $fatura->dataFatura = date("Y-m-d H:i:s");
         $fatura->valorIva = $valorIva;
-        $fatura->valorTotal = $valorTotal;
+        $fatura->subtotal = $subtotal;
+
+        if (isset($params['promoCode'])) {
+            $fatura->valorDesconto = $subtotal * $discountValue / 100;
+            $fatura->valorTotal = $subtotal - $subtotal * $discountValue / 100;
+
+            $dados->codDesconto = "Não";
+            $dados->save();
+        } else {
+            $fatura->valorDesconto = 0;
+            $fatura->valorTotal = $subtotal;
+        }
+
         $fatura->save();
 
         //Create Linhas Fatura
         foreach ($carrinhos as $carrinho) {
-            $linhaFatura = new Linhafatura();
+            $linhaFatura = new LinhaFatura;
             $linhaFatura->id_Fatura = $fatura->id;
             $linhaFatura->produto_nome = $carrinho->produto->nome;
             $linhaFatura->produto_referencia = $carrinho->produto->referencia;

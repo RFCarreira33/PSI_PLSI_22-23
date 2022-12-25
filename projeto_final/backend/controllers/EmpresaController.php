@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Empresa;
 use backend\models\DadosSearch;
+use common\models\Dados;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -100,6 +101,16 @@ class EmpresaController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionRefreshpromocodes() //Sets every used promo code as available
+    {
+        if (!\Yii::$app->user->can('UpdateEmpresa')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+        
+        Dados::updateAll(["codDesconto" => "Sim"], "codDesconto like 'Não'");
+        return $this->redirect(['dados/index', 'role' => 'cliente']);
     }
 
     protected function findModel($id)

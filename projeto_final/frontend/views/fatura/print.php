@@ -6,8 +6,6 @@ use common\models\Empresa;
 /** @var common\models\Fatura $model */
 
 $empresa = Empresa::findOne(1);
-
-$this->title = 'Globaldiga';
 ?>
 
 <!-- CSS da Fatura -->
@@ -170,7 +168,7 @@ $this->title = 'Globaldiga';
                             <th>Quantidade</th>
                             <th>Valor Uni.</th>
                             <th>IVA</th>
-                            <th>Subtotal</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -179,14 +177,24 @@ $this->title = 'Globaldiga';
                                 <td><?= $linha->produto_referencia ?></td>
                                 <td><?= $linha->produto_nome ?></td>
                                 <td><?= $linha->quantidade ?></td>
-                                <td><?= round($linha->valor / $linha->quantidade, 2) ?>€</td>
+                                <td><?= number_format($linha->valor / $linha->quantidade, 2, '.', '') ?>€</td>
                                 <td><?= $linha->valorIva ?>€</td>
-                                <td><?= $linha->valor ?>€</td>
+                                <td><?= number_format($linha->valor + $linha->valorIva, 2, '.', '') ?>€</td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
                 <div>
+                    <br>
+                    <b>Subtotal:</b>
+                    <?= $model->subtotal ?>€
+                    <br>
+                    <b>IVA:</b>
+                    <?= $model->valorIva ?>€
+                    <br>
+                    <b>Desconto:</b>
+                    <?= $model->valorDesconto ?>€
+                    <br>
                     <br>
                     <b>Total:</b>
                     <?= $model->valorTotal ?>€
@@ -207,7 +215,7 @@ $this->title = 'Globaldiga';
                     </div>
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <div class="receipt-left">
-                            <h1>Globaldiga</h1>
+                            <h1><?= $empresa->designacaoSocial ?></h1>
                         </div>
                     </div>
                 </div>

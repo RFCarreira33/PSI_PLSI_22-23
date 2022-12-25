@@ -41,7 +41,7 @@ class Fatura extends \yii\db\ActiveRecord
             [['id_Cliente', 'nome', 'nif', 'codPostal', 'telefone', 'morada', 'email', 'valorTotal', 'valorIva'], 'required'],
             [['id_Cliente'], 'integer'],
             [['dataFatura'], 'safe'],
-            [['valorTotal', 'valorIva'], 'number'],
+            [['subtotal', 'valorIva', 'valorDesconto', 'valorTotal'], 'number'],
             [['nome', 'morada'], 'string', 'max' => 45],
             [['nif', 'codPostal', 'telefone'], 'string', 'max' => 9],
             [['email'], 'string', 'max' => 255],
@@ -64,8 +64,10 @@ class Fatura extends \yii\db\ActiveRecord
             'morada' => 'Morada',
             'email' => 'Email',
             'dataFatura' => 'Data Fatura',
-            'valorTotal' => 'Valor Total',
+            'subtotal' => 'Subtotal',
             'valorIva' => 'Valor Iva',
+            'valorDesconto' => 'Valor Desconto',
+            'valorTotal' => 'Valor Total',
         ];
     }
 
