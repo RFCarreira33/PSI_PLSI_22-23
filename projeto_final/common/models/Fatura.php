@@ -38,7 +38,7 @@ class Fatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_Cliente', 'nome', 'nif', 'codPostal', 'telefone', 'morada', 'email', 'valorTotal', 'valorIva'], 'required'],
+            [['id_Cliente', 'nome', 'nif', 'codPostal', 'telefone', 'morada', 'email', 'valorTotal', 'valorIva', 'subtotal', 'valorDesconto'], 'required'],
             [['id_Cliente'], 'integer'],
             [['dataFatura'], 'safe'],
             [['subtotal', 'valorIva', 'valorDesconto', 'valorTotal'], 'number'],

@@ -37,7 +37,7 @@ class CategoriaTest extends \Codeception\Test\Unit
         //assert true
         $categoria->id_CategoriaPai = null;
         $this->assertTrue($categoria->validate(['id_CategoriaPai']));
-        $categoria->nome = "processadores";
+        $categoria->nome = "cpus";
         $this->assertTrue($categoria->validate(['nome']));
 
         //Criar um registo válido e guardar na BD e Ver se o registo válido se encontra na BD
@@ -51,15 +51,15 @@ class CategoriaTest extends \Codeception\Test\Unit
         //Ler o registo anterior e aplicar um update e Ver se o registo atualizado se encontra na BD
         $categoriaUpdate = $this->tester->grabRecord('common\models\Categoria', array('nome' => 'placas'));
 
-        $categoriaUpdate->nome = "processadores";
+        $categoriaUpdate->nome = "cpus";
         $categoriaUpdate->save();
 
-        $this->tester->seeRecord('common\models\Categoria', array('nome' => "processadores"));
+        $this->tester->seeRecord('common\models\Categoria', array('nome' => "cpus"));
 
         //Apagar o registo e Verificar que o registo não se encontra na BD
-        $categoriaDelete = $this->tester->grabRecord('common\models\Categoria', array('nome' => 'processadores'));
+        $categoriaDelete = $this->tester->grabRecord('common\models\Categoria', array('nome' => 'cpus'));
         $categoriaDelete->delete();
 
-        $this->tester->dontSeeRecord('common\models\Categoria', array('id_CategoriaPai' => 1, 'nome' => "processadores"));
+        $this->tester->dontSeeRecord('common\models\Categoria', array('id_CategoriaPai' => 1, 'nome' => "cpus"));
     }
 }

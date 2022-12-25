@@ -47,7 +47,8 @@ class Dados extends \yii\db\ActiveRecord
             ['telefone', 'string', 'max' => 9, 'message' => 'Número de telefone com mais de 9 digitos'],
             ['nif', 'match', 'pattern' => '^\d{9}?$^', 'message' => 'NIF Inválido'],
             ['nif', 'string', 'max' => 9, 'message' => 'NIF com mais de 9 digitos'],
-
+            ['codDesconto', 'in', 'range' => ['Sim', 'Não', 'Sem Acesso']],
+            ['codDesconto', 'default', 'value' => 'Sem Acesso'],
         ];
     }
 

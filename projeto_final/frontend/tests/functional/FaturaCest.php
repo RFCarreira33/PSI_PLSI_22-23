@@ -81,7 +81,7 @@ class FaturaCest
         $I->click('Adicionar ao Carrinho');
         //No carrinho de compras
         $I->see('Carrinho de Compras');
-        $I->click('a[id="comprar"]');
+        $I->click('button[id="comprar"]');
         $I->see('0.00€');
         $I->click('a[id="dados"]');
         //Na área pessoal

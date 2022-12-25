@@ -107,8 +107,12 @@ class FaturaTest extends \Codeception\Test\Unit
         $ivaP = $carrinho->produto->iva->percentagem / 100;
         //Valor Iva
         $valorIva = $carrinho->Quantidade * $carrinho->produto->preco * $ivaP;
+        //valor de desconto
+        $valorDesconto = 0;
+        //Subtotal
+        $subtotal = $carrinho->Quantidade * $carrinho->produto->preco;
         //ValorTotal da fatura
-        $valorTotal = $carrinho->Quantidade * $carrinho->produto->preco;
+        $valorTotal = $subtotal - $valorDesconto;
 
         $fatura = new Fatura();
         $linhaFatura = new Linhafatura();
@@ -136,6 +140,10 @@ class FaturaTest extends \Codeception\Test\Unit
         $this->assertFalse($fatura->validate(['valorTotal']));
         $fatura->valorIva = null;
         $this->assertFalse($fatura->validate(['valorIva']));
+        $fatura->valorDesconto = null;
+        $this->assertFalse($fatura->validate(['valorDesconto']));
+        $fatura->subtotal = null;
+        $this->assertFalse($fatura->validate(['subtotal']));
 
         //id cliente integer
         $fatura->id_Cliente = 1.2;
@@ -146,6 +154,10 @@ class FaturaTest extends \Codeception\Test\Unit
         $this->assertFalse($fatura->validate(['valorTotal']));
         $fatura->valorIva = "a";
         $this->assertFalse($fatura->validate(['valorIva']));
+        $fatura->valorDesconto = "a";
+        $this->assertFalse($fatura->validate(['valorDesconto']));
+        $fatura->subtotal = "a";
+        $this->assertFalse($fatura->validate(['subtotal']));
 
         //nome morada max 45 caracteres
         $fatura->nome = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; //50 caracteres
@@ -184,6 +196,10 @@ class FaturaTest extends \Codeception\Test\Unit
         $this->assertTrue($fatura->validate(['valorTotal']));
         $fatura->valorIva = $valorTotal;
         $this->assertTrue($fatura->validate(['valorIva']));
+        $fatura->valorDesconto = $valorDesconto;
+        $this->assertTrue($fatura->validate(['valorDesconto']));
+        $fatura->subtotal = $subtotal;
+        $this->assertTrue($fatura->validate(['subtotal']));
 
         //[LINHA FATURA]
 
@@ -233,6 +249,8 @@ class FaturaTest extends \Codeception\Test\Unit
         $fatura->dataFatura = date("Y-m-d H:i:s");
         $fatura->valorIva = $valorIva;
         $fatura->valorTotal = $valorTotal;
+        $fatura->valorDesconto = $valorDesconto;
+        $fatura->subtotal = $subtotal;
         $fatura->save();
 
         //assert true
@@ -261,6 +279,8 @@ class FaturaTest extends \Codeception\Test\Unit
         $fatura->dataFatura = date("Y-m-d H:i:s");
         $fatura->valorIva = $valorIva;
         $fatura->valorTotal = $valorTotal;
+        $fatura->valorDesconto = $valorDesconto;
+        $fatura->subtotal = $subtotal;
         $fatura->save();
 
         $this->tester->seeRecord('common\models\Fatura', array('id_Cliente' => $dados->id_User, 'nome' => $dados->nome, 'nif' => $dados->nif, 'codPostal' => $dados->codPostal, 'telefone' => $dados->telefone, 'morada' => $dados->morada, 'email' => $dados->user->email, 'valorIva' => $valorIva, 'valorTotal' => $valorTotal));

@@ -60,7 +60,8 @@ class CarrinhoCest
         $total = $preco1 * 2 + $preco2 * 3;
         $I->see(number_format($total, 2, '.', ''));
         $I->wait(2);
-        $I->click('Comprar');
+        $I->scrollTo('a[id="clearCart"]');
+        $I->click('button[id="comprar"]');
         //Verificar se a compra foi efetuada
         $I->see('0.00€');
         $I->wait(2);

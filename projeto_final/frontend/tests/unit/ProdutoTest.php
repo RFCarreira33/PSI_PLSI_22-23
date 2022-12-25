@@ -141,7 +141,7 @@ class ProdutoTest extends \Codeception\Test\Unit
         //Ler o registo anterior e aplicar um update e Ver se o registo atualizado se encontra na BD
         $produtoUpdate = $this->tester->grabRecord('common\models\Produto', array('referencia' => 'RKFGD'));
         $ivaUpdate = $this->tester->grabRecord('common\models\Iva', array('percentagem' => '23'));
-        $categoriaUpdate = $this->tester->grabRecord('common\models\Categoria', array('nome' => 'OPGG'));
+        $categoriaUpdate = $this->tester->grabRecord('common\models\Categoria', array('nome' => 'placas'));
         $marcaUpdate = $this->tester->grabRecord('common\models\Marca', array('nome' => 'Nvidia'));
         $produtoUpdate->id_Categoria = $categoriaUpdate->id;
         $produtoUpdate->id_Iva = $ivaUpdate->id;

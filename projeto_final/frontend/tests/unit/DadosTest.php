@@ -18,7 +18,6 @@ class DadosTest extends \Codeception\Test\Unit
 
     function testDados()
     {
-        //criação de um user 
         $user = new User();
         $user->username = "jj";
         $user->email = "jj@gmail.com";
@@ -70,6 +69,10 @@ class DadosTest extends \Codeception\Test\Unit
         $this->assertFalse($dados->validate(['telefone']));
         $dados->nif = "22134565 4";
         $this->assertFalse($dados->validate(['nif']));
+
+        //validar range codDescoto
+        $dados->codDesconto = 'Talvez';
+        $this->assertFalse($dados->validate(['codDesconto']));
 
         //assert trues
         $dados->id_User = $user->id;
