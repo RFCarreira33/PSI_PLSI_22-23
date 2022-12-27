@@ -35,9 +35,10 @@ CREATE TABLE `auth_assignment` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-('admin', '1', 1669125447),
-('cliente', '2', 1669125447),
-('funcionario', '3', 1669125447);
+('admin', '1', 1672178424),
+('cliente', '2', 1672178424),
+('funcionario', '3', 1672178424);
+
 
 --
 -- Table structure for table `auth_item`
@@ -62,45 +63,51 @@ CREATE TABLE `auth_item` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
-('admin', 1, NULL, NULL, NULL, 1669125447, 1669125447),
-('cliente', 1, NULL, NULL, NULL, 1669125447, 1669125447),
-('Comprador', 2, 'Ver faturas', 'Comprador', NULL, 1669125447, 1669125447),
-('CreateAdmin', 2, 'Permissão para criar uma conta de Admin', NULL, NULL, 1669125447, 1669125447),
-('CreateCategoria', 2, 'Create Categoria', NULL, NULL, 1669125447, 1669125447),
-('CreateFatura', 2, 'Create Fatura', NULL, NULL, 1669125447, 1669125447),
-('CreateIva', 2, 'Create Iva', NULL, NULL, 1669125447, 1669125447),
-('CreateMarca', 2, 'Create Marca', NULL, NULL, 1669125447, 1669125447),
-('CreateProduto', 2, 'Create Produto', NULL, NULL, 1669125447, 1669125447),
-('CreateStock', 2, 'Create Stock', NULL, NULL, 1669125447, 1669125447),
-('DeactivateCategoria', 2, 'Deactivate Categoria', NULL, NULL, 1669125447, 1669125447),
-('DeactivateFatura', 2, 'Deactivate Fatura', NULL, NULL, 1669125447, 1669125447),
-('DeactivateIva', 2, 'Deactivate Iva', NULL, NULL, 1669125447, 1669125447),
-('DeactivateMarca', 2, 'Deactivate Marca', NULL, NULL, 1669125447, 1669125447),
-('DeactivateProduto', 2, 'Deactivate Produto', NULL, NULL, 1669125447, 1669125447),
-('DeactivateStock', 2, 'Deactivate Stock', NULL, NULL, 1669125447, 1669125447),
-('DeleteCategoria', 2, 'Permission to delete Categoria', NULL, NULL, 1669125447, 1669125447),
-('DeleteFatura', 2, 'Permission to delete Fatura', NULL, NULL, 1669125447, 1669125447),
-('DeleteIva', 2, 'Permission to delete Iva', NULL, NULL, 1669125447, 1669125447),
-('DeleteMarca', 2, 'Permission to delete Marca', NULL, NULL, 1669125447, 1669125447),
-('DeleteProduto', 2, 'Permission to delete Produto', NULL, NULL, 1669125447, 1669125447),
-('DeleteStock', 2, 'Permission to delete Stock', NULL, NULL, 1669125447, 1669125447),
-('FrontendReadFatura', 2, 'Permite ao cliente visualizar Fatura', NULL, NULL, 1669125447, 1669125447),
-('FrontendReadProduto', 2, 'Permite ao cliente visualizar Produto', NULL, NULL, 1669125447, 1669125447),
-('funcionario', 1, NULL, NULL, NULL, 1669125447, 1669125447),
-('ReadCategoria', 2, 'Read Categoria', NULL, NULL, 1669125447, 1669125447),
-('ReadEmpresa', 2, 'Alterar os dados da Empresa', NULL, NULL, 1669125447, 1669125447),
-('ReadFatura', 2, 'Read Fatura', NULL, NULL, 1669125447, 1669125447),
-('ReadIva', 2, 'Read Iva', NULL, NULL, 1669125447, 1669125447),
-('ReadMarca', 2, 'Read Marca', NULL, NULL, 1669125447, 1669125447),
-('ReadProduto', 2, 'Read Produto', NULL, NULL, 1669125447, 1669125447),
-('ReadStock', 2, 'Read Stock', NULL, NULL, 1669125447, 1669125447),
-('UpdateCategoria', 2, 'Update Categoria', NULL, NULL, 1669125447, 1669125447),
-('UpdateEmpresa', 2, 'Alterar os dados da Empresa', NULL, NULL, 1669125447, 1669125447),
-('UpdateFatura', 2, 'Update Fatura', NULL, NULL, 1669125447, 1669125447),
-('UpdateIva', 2, 'Update Iva', NULL, NULL, 1669125447, 1669125447),
-('UpdateMarca', 2, 'Update Marca', NULL, NULL, 1669125447, 1669125447),
-('UpdateProduto', 2, 'Update Produto', NULL, NULL, 1669125447, 1669125447),
-('UpdateStock', 2, 'Update Stock', NULL, NULL, 1669125447, 1669125447);
+('admin', 1, NULL, NULL, NULL, 1672178424, 1672178424),
+('cliente', 1, NULL, NULL, NULL, 1672178424, 1672178424),
+('Comprador', 2, 'Ver faturas', 'Comprador', NULL, 1672178424, 1672178424),
+('CreateAdmin', 2, 'Permissão para criar uma conta de Admin', NULL, NULL, 1672178424, 1672178424),
+('CreateCategoria', 2, 'Create Categoria', NULL, NULL, 1672178424, 1672178424),
+('CreateFatura', 2, 'Create Fatura', NULL, NULL, 1672178424, 1672178424),
+('CreateIva', 2, 'Create Iva', NULL, NULL, 1672178424, 1672178424),
+('CreateLoja', 2, 'Create Loja', NULL, NULL, 1672178424, 1672178424),
+('CreateMarca', 2, 'Create Marca', NULL, NULL, 1672178424, 1672178424),
+('CreateProduto', 2, 'Create Produto', NULL, NULL, 1672178424, 1672178424),
+('CreateStock', 2, 'Create Stock', NULL, NULL, 1672178424, 1672178424),
+('DeactivateCategoria', 2, 'Deactivate Categoria', NULL, NULL, 1672178424, 1672178424),
+('DeactivateFatura', 2, 'Deactivate Fatura', NULL, NULL, 1672178424, 1672178424),
+('DeactivateIva', 2, 'Deactivate Iva', NULL, NULL, 1672178424, 1672178424),
+('DeactivateLoja', 2, 'Deactivate Loja', NULL, NULL, 1672178424, 1672178424),
+('DeactivateMarca', 2, 'Deactivate Marca', NULL, NULL, 1672178424, 1672178424),
+('DeactivateProduto', 2, 'Deactivate Produto', NULL, NULL, 1672178424, 1672178424),
+('DeactivateStock', 2, 'Deactivate Stock', NULL, NULL, 1672178424, 1672178424),
+('DeleteCategoria', 2, 'Permission to delete Categoria', NULL, NULL, 1672178424, 1672178424),
+('DeleteFatura', 2, 'Permission to delete Fatura', NULL, NULL, 1672178424, 1672178424),
+('DeleteIva', 2, 'Permission to delete Iva', NULL, NULL, 1672178424, 1672178424),
+('DeleteLoja', 2, 'Permission to delete Loja', NULL, NULL, 1672178424, 1672178424),
+('DeleteMarca', 2, 'Permission to delete Marca', NULL, NULL, 1672178424, 1672178424),
+('DeleteProduto', 2, 'Permission to delete Produto', NULL, NULL, 1672178424, 1672178424),
+('DeleteStock', 2, 'Permission to delete Stock', NULL, NULL, 1672178424, 1672178424),
+('FrontendReadFatura', 2, 'Permite ao cliente visualizar Fatura', NULL, NULL, 1672178424, 1672178424),
+('FrontendReadProduto', 2, 'Permite ao cliente visualizar Produto', NULL, NULL, 1672178424, 1672178424),
+('funcionario', 1, NULL, NULL, NULL, 1672178424, 1672178424),
+('ReadCategoria', 2, 'Read Categoria', NULL, NULL, 1672178424, 1672178424),
+('ReadEmpresa', 2, 'Alterar os dados da Empresa', NULL, NULL, 1672178424, 1672178424),
+('ReadFatura', 2, 'Read Fatura', NULL, NULL, 1672178424, 1672178424),
+('ReadIva', 2, 'Read Iva', NULL, NULL, 1672178424, 1672178424),
+('ReadLoja', 2, 'Read Loja', NULL, NULL, 1672178424, 1672178424),
+('ReadMarca', 2, 'Read Marca', NULL, NULL, 1672178424, 1672178424),
+('ReadProduto', 2, 'Read Produto', NULL, NULL, 1672178424, 1672178424),
+('ReadStock', 2, 'Read Stock', NULL, NULL, 1672178424, 1672178424),
+('SuperiorRole', 2, NULL, 'Superior Role', NULL, 1672178424, 1672178424),
+('UpdateCategoria', 2, 'Update Categoria', NULL, NULL, 1672178424, 1672178424),
+('UpdateEmpresa', 2, 'Alterar os dados da Empresa', NULL, NULL, 1672178424, 1672178424),
+('UpdateFatura', 2, 'Update Fatura', NULL, NULL, 1672178424, 1672178424),
+('UpdateIva', 2, 'Update Iva', NULL, NULL, 1672178424, 1672178424),
+('UpdateLoja', 2, 'Update Loja', NULL, NULL, 1672178424, 1672178424),
+('UpdateMarca', 2, 'Update Marca', NULL, NULL, 1672178424, 1672178424),
+('UpdateProduto', 2, 'Update Produto', NULL, NULL, 1672178424, 1672178424),
+('UpdateStock', 2, 'Update Stock', NULL, NULL, 1672178424, 1672178424);
 --
 -- Table structure for table `auth_item_child`
 --
@@ -124,18 +131,21 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('funcionario', 'CreateCategoria'),
 ('funcionario', 'CreateFatura'),
 ('funcionario', 'CreateIva'),
+('funcionario', 'CreateLoja'),
 ('funcionario', 'CreateMarca'),
 ('funcionario', 'CreateProduto'),
 ('funcionario', 'CreateStock'),
 ('funcionario', 'DeactivateCategoria'),
 ('funcionario', 'DeactivateFatura'),
 ('funcionario', 'DeactivateIva'),
+('funcionario', 'DeactivateLoja'),
 ('funcionario', 'DeactivateMarca'),
 ('funcionario', 'DeactivateProduto'),
 ('funcionario', 'DeactivateStock'),
 ('admin', 'DeleteCategoria'),
 ('admin', 'DeleteFatura'),
 ('admin', 'DeleteIva'),
+('admin', 'DeleteLoja'),
 ('admin', 'DeleteMarca'),
 ('admin', 'DeleteProduto'),
 ('admin', 'DeleteStock'),
@@ -146,13 +156,16 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('admin', 'ReadEmpresa'),
 ('funcionario', 'ReadFatura'),
 ('funcionario', 'ReadIva'),
+('funcionario', 'ReadLoja'),
 ('funcionario', 'ReadMarca'),
 ('funcionario', 'ReadProduto'),
 ('funcionario', 'ReadStock'),
+('funcionario', 'SuperiorRole'),
 ('funcionario', 'UpdateCategoria'),
 ('admin', 'UpdateEmpresa'),
 ('funcionario', 'UpdateFatura'),
 ('funcionario', 'UpdateIva'),
+('funcionario', 'UpdateLoja'),
 ('funcionario', 'UpdateMarca'),
 ('funcionario', 'UpdateProduto'),
 ('funcionario', 'UpdateStock');
@@ -174,7 +187,9 @@ CREATE TABLE `auth_rule` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `auth_rule` (`name`, `data`, `created_at`, `updated_at`) VALUES
-('Comprador', 0x4f3a32353a22636f6e736f6c655c6d6f64656c735c46617475726152756c65223a333a7b733a343a226e616d65223b733a393a22436f6d707261646f72223b733a393a22637265617465644174223b693a313636393132353434373b733a393a22757064617465644174223b693a313636393132353434373b7d, 1669125447, 1669125447);
+('Comprador', 0x4f3a32353a22636f6e736f6c655c6d6f64656c735c46617475726152756c65223a333a7b733a343a226e616d65223b733a393a22436f6d707261646f72223b733a393a22637265617465644174223b693a313637323137383432343b733a393a22757064617465644174223b693a313637323137383432343b7d, 1672178424, 1672178424),
+('Superior Role', 0x4f3a32373a22636f6e736f6c655c6d6f64656c735c5375706572696f7252756c65223a333a7b733a343a226e616d65223b733a31333a225375706572696f7220526f6c65223b733a393a22637265617465644174223b693a313637323137383432343b733a393a22757064617465644174223b693a313637323137383432343b7d, 1672178424, 1672178424);
+
 
 --
 -- Table structure for table `carrinho`
@@ -234,10 +249,11 @@ CREATE TABLE `dados` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `dados` (`id_User`, `nome`, `telefone`, `nif`, `morada`, `codPostal`) VALUES
-(1, 'admin', '912456334', '123654234', 'Rua Bordalo Pinheiro', '3780-232'),
-(2, 'Joao Jesus', '960234654', '231056345', 'Vila Nova de Monsarros', '3780-566'),
-(3, 'Rodrigo Carreira', '965348654', '231765987', 'Parceiros', '3780-547');
+INSERT INTO `dados` (`id_User`, `nome`, `telefone`, `nif`, `morada`, `codPostal`, `codDesconto`) VALUES
+(1, 'admin', '912456334', '123654234', 'Rua Bordalo Pinheiro', '3780-232', 'Sem Acesso'),
+(2, 'Joao Jesus', '960234654', '231056345', 'Vila Nova de Monsarros', '3780-566', 'Sem Acesso'),
+(3, 'Rodrigo Carreira', '965348654', '231765987', 'Parceiros', '3780-547', 'Sem Acesso');
+
 
 --
 -- Table structure for table `empresa`
@@ -264,8 +280,9 @@ CREATE TABLE `empresa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`) VALUES
-(1, 'GlobalDiga', 'Globaldiga@gmail.com', '244501812', '503503503', 'Rua dos Olivais Nº9', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png');
+INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`, `codigoDesconto`, `valorDesconto`) VALUES
+(1, 'GlobalDiga', 'Globaldiga@gmail.com', '244501812', '503503503', 'Rua dos Olivais Nº9', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png', 'app10', 10);
+
 
 --
 -- Table structure for table `fatura`
@@ -386,6 +403,7 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m200409_110543_rbac_update_mssql_trigger', 1666107620),
 ('m221018_154041_init_rbac', 1666108008);
 
+
 --
 -- Table structure for table `produto`
 --
@@ -462,6 +480,7 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 (1, 'admin', 'zx8XakGqQFMniURHZ0EPQHP0ESo2c9ZU', '$2y$13$2J/mDcioD6Ly4A2JCgvYUuDzUTwRZ5ye0RxiMc6rYSIVwFl2w.mte', NULL, 'admin@gmail.com', 10, 1666107512, 1666107512, 'l6yJJiwDgybNJyGYvh1opn5L7yrhXPkN_1666107512'),
 (2, 'cliente', '4VSpN1OuE8poYmpOYj7Ydfemd8rVsvEv', '$2y$13$CRfnOyBa8CzQcdfI86pIOu.uFi0th5tOCGuqCl0TUFMO6ebjiYKg2', NULL, 'cliente@gmail.com', 10, 1666112069, 1666112069, 'oJPREkKzHvs-Y1vFtg7HkAv0QOsN9Hpu_1666112069'),
 (3, 'funcionario', '9exi6gzj7eDty99pGSZORalM66Fa9wfC', '$2y$13$YHu7iZ9A8pfHfy4gIWW/mu0gLjtasCy.twDTPK66QHxKcFiIMZ.EC', NULL, 'funcionario@gmail.com', 10, 1667235750, 1667235750, '13f01cOizu-KBHzyvOwk5IgZh6lrpi-z_1667235750');
+
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
