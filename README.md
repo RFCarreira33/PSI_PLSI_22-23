@@ -34,10 +34,11 @@
 > - [AdminLTE](https://adminlte.io)
 > - [Bootstrap](https://getbootstrap.com)
 > - [Codeception](https://codeception.com)
+> - [DomPDF](https://github.com/dompdf/dompdf)
 
 ### Ficheiros SQL
 
-> - projeto_final.sql: Estrutura das tabelas e dados essenciais;
+> - projeto_final.sql: Estrutura das tabelas e dados essenciais.
 
 ### REST API
 
@@ -64,12 +65,17 @@
 
     git clone https://github.com/RFCarreira33/PSI_PLSI_22-23.git
 
-### Executar o script `projeto_final.sql`
+### Base de Dados
+- Executar o script `projeto_final.sql` juntamente do script `registos.sql` para preencher as tabelas.
+- Correr o [rbac](https://www.yiiframework.com/doc/guide/2.0/en/security-authorization) para que todas as roles e permissões sejam adicionadas.
+
+Para correr o rbac
 
     cd projeto_final
     composer update
     ./init
     ./yii rbac/init
+
 
 ### Configurar a Base de Dados
 
@@ -92,7 +98,11 @@ Editar o ficheiro de configuração e executar
 
     frontend/config/test.php
 
+	// Para testes de frontned 
     cd frontend
+	// Para testes de backend 
+    cd backend
+
     ../vendor/bin/codecept run [type] [filename]
 
     -type, pode ser ignorado    Executa apenas testes do tipo especificado
