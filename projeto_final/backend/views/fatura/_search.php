@@ -43,7 +43,7 @@ use yii\widgets\ActiveForm;
                     'format' => 'yyyy-mm-dd',
                     'convertFormat' => true,
                 ]
-            ]);
+            ])->label('Data de Emissão');
             ?>
         </div>
     </div>
