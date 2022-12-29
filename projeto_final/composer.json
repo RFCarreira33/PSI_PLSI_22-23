@@ -21,7 +21,8 @@
         "hail812/yii2-adminlte3": "~1.1",
         "aminkt/yii2-alert-widget": "^1.0",
         "dompdf/dompdf": "^2.0",
-        "chillerlan/php-qrcode": "^4.3"
+        "chillerlan/php-qrcode": "^4.3",
+        "kartik-v/yii2-widget-datepicker": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

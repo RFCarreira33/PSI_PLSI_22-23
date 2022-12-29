@@ -1,5 +1,6 @@
 <?php
 
+use kartik\date\DatePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -16,13 +17,9 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <div class="row">
-        <div class="col-md-6">
-            <?= $form->field($model, 'nome') ?>
+        <?= $form->field($model, 'nome') ?>
 
-        </div>
-        <div class="col-md-6">
-            <?= $form->field($model, 'nif')->label('NIF') ?>
-        </div>
+
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -31,6 +28,23 @@ use yii\widgets\ActiveForm;
         <div class="col-md-6">
 
             <?php echo $form->field($model, 'valorTotal') ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'nif')->label('NIF') ?>
+        </div>
+        <div class="col-md-6">
+            <?=
+            $form->field($model, 'dataFatura')->widget(DatePicker::classname(), [
+                'options' => ['placeholder' => 'Data de Emissão'],
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-mm-dd',
+                    'convertFormat' => true,
+                ]
+            ]);
+            ?>
         </div>
     </div>
 

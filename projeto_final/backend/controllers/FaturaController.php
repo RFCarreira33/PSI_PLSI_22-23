@@ -55,7 +55,27 @@ class FaturaController extends Controller
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
         $searchModel = new FaturaSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        //needs to be done this way because of datetime in DB if we rly want to use the search model
+        $params = $this->request->queryParams;
+        $query = Fatura::find();
+        if (isset($params['FaturaSearch']['dataFatura'])) {
+            $query->andFilterWhere(['like', 'dataFatura', $params['FaturaSearch']['dataFatura']]);
+        }
+        if (isset($params['FaturaSearch']['nome'])) {
+            $query->andFilterWhere(['like', 'nome', $params['FaturaSearch']['nome']]);
+        }
+        if (isset($params['FaturaSearch']['nif'])) {
+            $query->andFilterWhere(['like', 'nif', $params['FaturaSearch']['nif']]);
+        }
+        if (isset($params['FaturaSearch']['email'])) {
+            $query->andFilterWhere(['like', 'email', $params['FaturaSearch']['email']]);
+        }
+        if (isset($params['FaturaSearch']['valorTotal'])) {
+            $query->andFilterWhere(['like', 'valorTotal', $params['FaturaSearch']['valorTotal']]);
+        }
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
