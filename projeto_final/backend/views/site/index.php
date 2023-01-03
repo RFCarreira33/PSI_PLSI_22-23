@@ -3,8 +3,7 @@
 use common\models\Dados;
 use yii\helpers\Url;
 
-$this->title = 'Starter Page';
-$this->params['breadcrumbs'] = [['label' => $this->title]];
+$this->title = 'Globaldiga ';
 $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 ?>
 <?php if (Yii::$app->session->getFlash('error') !== null) { ?>
