@@ -22,7 +22,8 @@
         "aminkt/yii2-alert-widget": "^1.0",
         "dompdf/dompdf": "^2.0",
         "chillerlan/php-qrcode": "^4.3",
-        "kartik-v/yii2-widget-datepicker": "dev-master"
+        "kartik-v/yii2-widget-datepicker": "dev-master",
+        "php-mqtt/client": "^1.7"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

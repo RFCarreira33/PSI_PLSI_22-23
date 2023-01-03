@@ -9,6 +9,8 @@ use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use PhpMqtt\Client\MqttClient;
+use Yii;
 
 /**
  * MarcaController implements the CRUD actions for Marca model.
@@ -101,6 +103,7 @@ class MarcaController extends Controller
             $model->loadDefaultValues();
         }
 
+        $this->Mqtt();
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -115,6 +118,7 @@ class MarcaController extends Controller
         $marca = $this->findModel($nome);
 
         if ($marca->canDelete()) {
+            $this->Mqtt();
             $marca->delete();
             return $this->redirect(['index']);
         }
@@ -134,5 +138,17 @@ class MarcaController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function Mqtt()
+    {
+        try {
+            $mqtt = new MqttClient('127.0.0.1', 1883, 'Android');
+            $mqtt->connect();
+            $mqtt->publish('filters', 'update', 1);
+            $mqtt->disconnect();
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('error', 'Erro ao comunicar com o servidor MQTT');
+        }
     }
 }

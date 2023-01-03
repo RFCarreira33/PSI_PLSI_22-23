@@ -9,6 +9,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
+use PhpMqtt\Client\MqttClient;
+use Yii;
 
 /**
  * CategoriaController implements the CRUD actions for Categoria model.
@@ -101,6 +103,7 @@ class CategoriaController extends Controller
             $model->loadDefaultValues();
         }
 
+        $this->Mqtt();
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -124,6 +127,8 @@ class CategoriaController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $this->Mqtt();
+
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -145,6 +150,7 @@ class CategoriaController extends Controller
         $categoria = $this->findModel($id);
 
         if ($categoria->canDelete()) {
+            $this->Mqtt();
             $categoria->delete();
             return $this->redirect(['index']);
         }
@@ -165,5 +171,17 @@ class CategoriaController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function Mqtt()
+    {
+        try {
+            $mqtt = new MqttClient('127.0.0.1', 1883, 'Android');
+            $mqtt->connect();
+            $mqtt->publish('filters', 'update', 1);
+            $mqtt->disconnect();
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('error', 'Erro ao comunicar com o servidor MQTT');
+        }
     }
 }
