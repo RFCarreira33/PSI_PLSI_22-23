@@ -45,4 +45,12 @@ phpunit.phar
 /backend/web/index.php
 /backend/web/index-test.php
 /backend/web/robots.txt
+/frontend/vendor
+/backend/vendor
+/frontend/assets/
+/backend/assets/
+
+#dont ignore
+!/frontent/assets/AppAsset.php
+!/backend/assets/AppAsset.php
 
