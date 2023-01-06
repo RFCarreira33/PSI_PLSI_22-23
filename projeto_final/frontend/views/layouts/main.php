@@ -25,6 +25,7 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="<?php echo Yii::$app->request->baseUrl; ?>/img/<?= $empresa->favIcon ?>" type="image/x-icon" />
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>

@@ -93,6 +93,14 @@ class EmpresaController extends Controller
 				} else {
 					$model->imgBanner = $lastModel->imgBanner;
 				}
+				//favicon
+				$modelUpload->imageFile = UploadedFile::getInstance($model, 'favIcon');
+				if ($modelUpload->imageFile != null) {
+					$modelUpload->upload();
+					$model->favIcon = $modelUpload->imageFile->name;
+				} else {
+					$model->favIcon = $lastModel->favIcon;
+				}
 				$model->save();
 				return $this->redirect(['view', 'id' => $model->id]);
 			}

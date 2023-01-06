@@ -64,6 +64,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'valorDesconto',
                 'value' => $model->valorDesconto,
             ],
+            'favIcon' => [
+                'label' => 'Favicon',
+                'attribute' => 'imagem',
+                'value' => '/img/' . $model->favIcon,
+                'format' => ['image', ['width' => '20%', 'height' => '20%']],
+            ],
         ],
     ]) ?>
 
