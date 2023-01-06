@@ -54,12 +54,28 @@ return [
                     'extraPatterns' => [
                         'GET search' => 'search',
                         'POST location' => 'location',
+
+                    ],
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/carrinho',
+                    'extraPatterns' => [
+                        'POST coupon' => 'coupon',
+                        'POST buy' => 'buy',
+
                     ],
                 ],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/carrinho'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/fatura'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/filter'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/user'],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/user',
+                    'extraPatterns' => [
+                        'GET login' => 'login',
+                        'POST register' => 'register',
+
+                    ],
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/dados'],
             ],
         ],
