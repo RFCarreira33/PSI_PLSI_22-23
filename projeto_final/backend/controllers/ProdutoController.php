@@ -71,6 +71,9 @@ class ProdutoController extends Controller
     public function actionPrint($id)
     {
         $produto = $this->findModel($id);
+        if ($produto->Ativo == 0) {
+            throw new \yii\web\BadRequestHttpException('Não é possível gerar QR para um produto inativo.');
+        }
 
         //convert to pdf
         $options = new Options();

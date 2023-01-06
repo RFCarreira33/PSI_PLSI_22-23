@@ -89,6 +89,9 @@ class ProdutoController extends ActiveController
     public function actionView()
     {
         $produto = Produto::find()->where(['Ativo' => 1, 'id' => Yii::$app->request->get('id')])->one();
+        if ($produto == null) {
+            return 'Produto não encontrado';
+        }
         $response = [
             'produto' => $produto,
             'stock' => $produto->hasStock(),

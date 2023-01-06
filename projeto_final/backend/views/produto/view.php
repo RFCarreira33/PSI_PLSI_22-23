@@ -35,7 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ]);
         } ?>
         <?php
-        echo Html::a("Gerar QR", ['print', 'id' => $model->id], ['class' => 'btn btn-success',]);
+        if ($model->Ativo == 1)
+            echo Html::a("Gerar QR", ['print', 'id' => $model->id], ['class' => 'btn btn-success',]);
         ?>
     </p>
 
