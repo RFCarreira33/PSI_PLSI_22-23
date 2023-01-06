@@ -19,6 +19,8 @@ use Yii;
  * @property string $imgBanner
  * @property string $imgLogo
  * @property string $favIcon
+ * @property string|null $codigoDesconto
+ * @property int|null $valorDesconto
  *
  * @property Loja[] $lojas
  */
@@ -71,8 +73,9 @@ class Empresa extends \yii\db\ActiveRecord
 			'capitalSocial' => 'Capital Social',
 			'imgBanner' => 'Img Banner',
 			'imgLogo' => 'Img Logo',
+			'favIcon' => 'Fav Icon',
 			'codigoDesconto' => 'Codigo Desconto',
-			'valorDesconto' => 'Valor Desconto'
+			'valorDesconto' => 'Valor Desconto',
 		];
 	}
 
@@ -83,6 +86,6 @@ class Empresa extends \yii\db\ActiveRecord
 	 */
 	public function getLojas()
 	{
-		return $this->hasMany(Loja::class, ['idEmpresa' => 'id']);
+		return $this->hasMany(Loja::class, ['id_Empresa' => 'id']);
 	}
 }

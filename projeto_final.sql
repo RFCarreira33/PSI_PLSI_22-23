@@ -282,7 +282,7 @@ CREATE TABLE `empresa` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`, `codigoDesconto`, `valorDesconto`,`favIcon`) VALUES
-(1, 'GlobalDiga', 'Globaldiga@gmail.com', '244501812', '503503503', 'Rua dos Olivais Nº9', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png', 'app10', 10,'favIcon.jpg');
+(1, 'GlobalDiga', 'Globaldiga@gmail.com', '244501812', '503503503', 'Rua dos Olivais Nº9', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png', 'app10', 10,'favIcon.png');
 
 
 --
@@ -1178,56 +1178,30 @@ DROP TABLE IF EXISTS `empresa`;
 
 ;
 
-CREATE TABLE
-    `empresa` (
-        `id` int(11) NOT NULL AUTO_INCREMENT,
-        `designacaoSocial` varchar(45) NOT NULL,
-        `email` varchar(45) NOT NULL,
-        `telefone` varchar(9) NOT NULL,
-        `nif` varchar(9) NOT NULL,
-        `morada` varchar(45) NOT NULL,
-        `codPostal` varchar(9) NOT NULL,
-        `localidade` varchar(45) NOT NULL,
-        `capitalSocial` int(11) NOT NULL,
-        `imgBanner` varchar(255) NOT NULL,
-        `imgLogo` text NOT NULL,
-        `codigoDesconto` varchar(10) DEFAULT '',
-        `valorDesconto` int(11) DEFAULT '0',
-        PRIMARY KEY (`id`)
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+DROP TABLE IF EXISTS `empresa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `empresa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `designacaoSocial` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `telefone` varchar(9) NOT NULL,
+  `nif` varchar(9) NOT NULL,
+  `morada` varchar(45) NOT NULL,
+  `codPostal` varchar(9) NOT NULL,
+  `localidade` varchar(45) NOT NULL,
+  `capitalSocial` int(11) NOT NULL,
+  `imgBanner` varchar(255) NOT NULL,
+  `imgLogo` text NOT NULL,
+  `favIcon` TEXT NOT NULL,
+  `codigoDesconto` varchar(10) DEFAULT '',
+  `valorDesconto` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*!40101 SET character_set_client = @saved_cs_client */
-
-;
-
-INSERT INTO
-    `empresa` (
-        `id`,
-        `designacaoSocial`,
-        `email`,
-        `telefone`,
-        `nif`,
-        `morada`,
-        `codPostal`,
-        `localidade`,
-        `capitalSocial`,
-        `imgBanner`,
-        `imgLogo`
-    )
-VALUES (
-        1,
-        'GlobalDiga',
-        'globaldiga@gmail.com',
-        '244501812',
-        '503503503',
-        'Rua do',
-        '2410-367',
-        'Leiria',
-        28654876,
-        'ok.jpg',
-        'logo.png'
-    );
-
+INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `morada`, `codPostal`, `localidade`, `capitalSocial`, `imgBanner`, `imgLogo`, `codigoDesconto`, `valorDesconto`,`favIcon`) VALUES
+(1, 'GlobalDiga', 'Globaldiga@gmail.com', '244501812', '503503503', 'Rua dos Olivais Nº9', '2410-367', 'Leiria', 28654876, 'ok.jpg', 'logo.png', 'app10', 10,'favIcon.png');
 --
 
 -- Table structure for table `fatura`
