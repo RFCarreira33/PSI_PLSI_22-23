@@ -18,6 +18,7 @@ use Yii;
  * @property int $capitalSocial
  * @property string $imgBanner
  * @property string $imgLogo
+ * @property string $favIcon
  *
  * @property Loja[] $lojas
  */
@@ -40,8 +41,8 @@ class Empresa extends \yii\db\ActiveRecord
 			[['designacaoSocial', 'email', 'telefone', 'nif', 'morada', 'codPostal', 'localidade', 'capitalSocial'], 'required'],
 			[['capitalSocial'], 'integer'],
 			[['designacaoSocial', 'email', 'morada', 'localidade'], 'string', 'max' => 45],
-			[['imgBanner', 'imgLogo'], 'string', 'max' => 255],
-			[['imgBanner', 'imgLogo'], 'match', 'pattern' => "^\.(?:jpe?g|png)$^", 'message' => 'Formato de imagem inválido'],
+			[['imgBanner', 'imgLogo', 'favIcon'], 'string', 'max' => 255],
+			[['imgBanner', 'imgLogo', 'favIcon'], 'match', 'pattern' => "^\.(?:jpe?g|png)$^", 'message' => 'Formato de imagem inválido'],
 			[['nif', 'codPostal', 'telefone'], 'trim'],
 			['codPostal', 'match', 'pattern' => '^\d{4}-\d{3}?$^', 'message' => 'Código de Postal Inválido'],
 			['telefone', 'match', 'pattern' => '^\d{9}?$^', 'message' => 'número de telefone inválido'],
