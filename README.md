@@ -65,17 +65,15 @@
 
     git clone https://github.com/RFCarreira33/PSI_PLSI_22-23.git
 
-### Base de Dados
 - Executar o script `projeto_final.sql` juntamente do script `registos.sql` para preencher as tabelas.
 - Correr o [rbac](https://www.yiiframework.com/doc/guide/2.0/en/security-authorization) para que todas as roles e permissões sejam adicionadas.
 
-Para correr o rbac
+### Inicializar a aplicação
 
     cd projeto_final
     composer update
     ./init
     ./yii rbac/init
-
 
 ### Configurar a Base de Dados
 
@@ -98,9 +96,9 @@ Editar o ficheiro de configuração e executar
 
     frontend/config/test.php
 
-	// Para testes de frontned 
+    // Para testes de frontned
     cd frontend
-	// Para testes de backend 
+    // Para testes de backend
     cd backend
 
     ../vendor/bin/codecept run [type] [filename]
