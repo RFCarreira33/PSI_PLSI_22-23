@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'codPostal')->textInput(['maxlength' => true])->label("Código Postal") ?>
     <br>
     <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-dark']) ?>
     </div>
     <br>
     <?php ActiveForm::end(); ?>

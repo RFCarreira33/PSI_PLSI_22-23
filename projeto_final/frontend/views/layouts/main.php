@@ -49,8 +49,8 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
 
 <body class="d-flex flex-column h-100" style="display: flex;flex-direction:column">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
+    <nav class="navbar navbar-expand-lg" style="background-color: #222;">
+        <div class=" container px-4 px-lg-5">
             <!-- Imagem da empresa -->
             <a href="<?= Url::home() ?>">
                 <img class="card-img-top mb-5 mb-md-0" src="/img/<?= $empresa->imgLogo ?>" style="width:175px;height:50px;">
@@ -59,7 +59,7 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item dropdown dropright">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">Produtos</a>
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">Produtos</a>
                         <ul class="dropdown-menu position-absolute rounded-0 border-0 m-0" aria-labelledby="navbarDropdown">
                             <li>
                                 <a class="dropdown-item" href="<?= URL::toRoute("produto/search"); ?>">Ver Todos</a>
@@ -93,32 +93,32 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
                     </li>
                     <!-- Botão das Noticias -->
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= Url::toRoute("news/index") ?>" role="button">Notícias</a>
+                        <a class="nav-link" href="<?= Url::toRoute("news/index") ?>" role="button" style="color:white">Notícias</a>
                     </li>
                 </ul>
 
                 <!-- Barra de pesquisa -->
                 <form action="<?= Url::toRoute(["produto/search"]) ?>" class="d-flex">
-                    <input id="searchBar" style="padding:4px;width:25rem;" type="text" placeholder="Search..." name="query">
-                    <button class="btn btn-outline-dark" type="submit"><i class="bi bi-search"></i></button>
+                    <input id="searchBar" style="padding:4px;width:25rem;margin-right:10px" type="text" placeholder="Search..." name="query">
+                    <button style="border:2px solid white;margin-right:10px" class="btn btn-outline-dark" type="submit"><i class="bi bi-search" style="color:white"></i></button>
                 </form>
                 <br>
 
                 <!-- Botões do carrinho -->
-                <a id="carrinho" class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
-                    <i class="bi-cart-fill me-1"></i>
+                <a id="carrinho" style="border:2px solid white;margin-right:10px" class="btn btn-outline-dark" href="<?= Url::toRoute("carrinho/view") ?>">
+                    <i class="bi-cart-fill me-1" style="color: white;"></i>
                 </a>
 
                 <!-- Botões da area reservada -->
-                <a id="dados" class="btn btn-outline-dark" href="<?= Url::toRoute("dados/view") ?>">
-                    <i class="bi bi-person"></i>
+                <a id="dados" style="border:2px solid white;margin-right:10px;" class="btn btn-outline-dark" href="<?= Url::toRoute("dados/view") ?>">
+                    <i class="bi bi-person" style="color:white"></i>
                 </a>
 
                 <!-- Botão de login -->
                 <?php
                 if (Yii::$app->user->isGuest ? $session = "in" : $session = "out") { ?>
                     <a href="<?= Url::toRoute(["site/log$session"]) ?>">
-                        <button type="button" class="btn btn-outline-dark"><?= "Log$session" ?></button>
+                        <button type="button" class="btn btn-outline-dark" style="color: white;border:2px solid white"><?= "Log$session" ?></button>
                     </a>
                 <?php
                 } ?>
@@ -144,8 +144,8 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
 
 
 <!-- Footer -->
-<footer class=" text-center text-lg-start text-white" style="background-color: #1c2331;">
-    <section class="d-flex justify-content-between p-4" style="background-color: #6351ce">
+<footer class=" text-center text-lg-start text-white" style="background-color: #222;">
+    <section class="d-flex justify-content-between p-4" style="background-color: #555;">
         <!-- Logo da empresa no footer -->
         <div class="me-5">
             <a href="<?= Url::home() ?>">

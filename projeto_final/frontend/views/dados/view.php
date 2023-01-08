@@ -9,13 +9,14 @@ use yii\widgets\DetailView;
 /** @var common\models\Dados $model */
 $this->title = "Área Pessoal";
 ?>
-<div class="dados-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="dados-view" style="text-align: center;">
+    <br>
+    <br>
+    <h1 style="font-family:fantasy"><?= Html::encode($this->title) ?></h1>
     <br>
     <p>
-        <?= Html::a('Atualizar informações', ['update'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('As minhas encomendas', Url::toRoute('fatura/index'),  ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Atualizar informações', ['update'], ['class' => 'btn btn-dark']) ?>
+        <?= Html::a('As minhas encomendas', Url::toRoute('fatura/index'),  ['class' => 'btn btn-dark']) ?>
     </p>
 
     <?= DetailView::widget([

@@ -10,29 +10,30 @@ use yii\bootstrap5\ActiveForm;
 $this->title = 'Login';
 ?>
 <br>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>Preencha os campos para efetuar o login:</p>
-
+<div class="site-login" style="text-align: center;">
+    <br>
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-5" style="max-width: 500px;margin: auto;border: 2px solid black;margin-bottom: 50px;background-color:#222;border-radius: 25px;">
+            <br>
+            <h2 style="color: white;font-family:fantasy;"><?= Html::encode($this->title) ?></h2>
+
+            <p style="color: white;">Preencha os campos para efetuar o login:</p>
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <div style="color: white;">
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'password')->passwordInput() ?>
 
-            <?= $form->field($model, 'password')->passwordInput() ?>
-
-            <?= $form->field($model, 'rememberMe')->checkbox() ?>
-
-            <div class="my-1 mx-0" style="color:#999;">
+                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+            </div>
+            <div class="my-1 mx-0" style="color:white;">
                 Resetar Password <?= Html::a('aqui', ['site/request-password-reset']) ?>.
                 <br>
                 Nao tem conta? <?= Html::a('Registe-se', ['site/signup']) ?>
             </div>
             <br>
             <div class="form-group">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Login', ['class' => 'btn btn-light', 'name' => 'login-button']) ?>
             </div>
             <br>
             <?php ActiveForm::end(); ?>

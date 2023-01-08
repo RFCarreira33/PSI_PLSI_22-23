@@ -9,10 +9,10 @@ $brands = Marca::find()->all();
 <!-- HTML do filtro de Alfabeticamente e preço -->
 <div>
     <select id="sort">
-        <option data-filter="sort" value="nome-asc">Alfabeticamente ⬆</option>
-        <option data-filter="sort" value="nome-desc">Alfabeticamente ⬇</option>
-        <option data-filter="sort" value="preco-asc">Preço ⬆</option>
-        <option data-filter="sort" value="preco-desc">Preço ⬇</option>
+        <option data-filter="sort" value="nome-asc">Alfabeticamente &#8593;</option>
+        <option data-filter="sort" value="nome-desc">Alfabeticamente &#8595;</option>
+        <option data-filter="sort" value="preco-asc">Preço &#8593;</option>
+        <option data-filter="sort" value="preco-desc">Preço &#8595;</option>
     </select>
 </div>
 <br>
