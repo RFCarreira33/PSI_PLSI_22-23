@@ -681,7 +681,11 @@ VALUES (
         NULL,
         1669125447,
         1669125447
-    ), (
+    ), 
+    
+('FrontendReadCarrinho', 2, 'Permite ao cliente visualizar Carrinho', NULL, NULL, 1673214549, 1673214549),
+('FrontendReadDados', 2, 'Permite ao cliente visualizar Dados', NULL, NULL, 1673214549, 1673214549),
+    (
         'CreateFatura',
         2,
         'Create Fatura',
@@ -996,7 +1000,11 @@ VALUES ('cliente', 'Comprador'), ('admin', 'CreateAdmin'), (
     ), ('funcionario', 'CreateStock'), (
         'funcionario',
         'DeactivateCategoria'
-    ), (
+    ), 
+    
+('cliente', 'FrontendReadCarrinho'),
+('cliente', 'FrontendReadDados'),
+    (
         'funcionario',
         'DeactivateFatura'
     ), (
