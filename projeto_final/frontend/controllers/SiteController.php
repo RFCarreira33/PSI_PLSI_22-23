@@ -110,9 +110,10 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if (AuthAssignment::findOne(['user_id' => Yii::$app->user->id])->item_name == 'cliente') {
-                return $this->goBack();
+            if (!AuthAssignment::isCliente()) {
+                return $this->redirect('logout');
             }
+            return $this->goBack();
         }
 
         $model->password = '';

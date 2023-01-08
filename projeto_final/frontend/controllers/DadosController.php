@@ -26,7 +26,7 @@ class DadosController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'roles' => ['@'],
+                            'roles' => ['cliente'],
                         ],
                     ],
                 ],
@@ -41,6 +41,10 @@ class DadosController extends Controller
      */
     public function actionView()
     {
+        if (!Yii::$app->user->can('FrontendReadDados')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+
         $id_User = Yii::$app->user->id;
         $model = $this->findModel($id_User);
         return $this->render('view', [
@@ -56,6 +60,10 @@ class DadosController extends Controller
      */
     public function actionUpdate()
     {
+        if (!Yii::$app->user->can('FrontendReadDados')) {
+            throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+        }
+
         $model = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {

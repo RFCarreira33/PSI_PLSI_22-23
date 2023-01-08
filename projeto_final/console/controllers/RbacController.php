@@ -11,7 +11,7 @@ class RbacController extends Controller
     {
         $Crud = ['Read', 'Update', 'Deactivate', 'Create']; // READ = VIEW + INDEX
         $tabelas = ['Categoria', 'Produto', 'Iva', 'Fatura', 'Marca', 'Stock', 'Loja'];
-        $tabelasCliente = ['Produto', 'Fatura'];
+        $tabelasCliente = ['Produto', 'Fatura', 'Carrinho', 'Dados'];
 
         $auth = Yii::$app->authManager;
         $auth->removeAll();

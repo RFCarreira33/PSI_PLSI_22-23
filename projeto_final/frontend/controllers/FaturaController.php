@@ -61,6 +61,9 @@ class FaturaController extends Controller
 	 */
 	public function actionIndex()
 	{
+		if (!Yii::$app->user->can('FrontendReadFatura')) {
+			throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+		}
 		$searchModel = new FaturaSearch();
 		$dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -68,23 +71,6 @@ class FaturaController extends Controller
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
 		]);
-	}
-
-
-	/**
-	 * Displays a single Fatura model.
-	 * @param int $id ID
-	 * @return string
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	public function actionView($id)
-	{
-
-		$fatura =  $this->findModel($id);
-		if (\Yii::$app->user->can('Comprador', ['fatura' => $fatura])) {
-			return $this->renderPartial('view', ['model' => $fatura]);
-		}
-		return $this->render('view', ['model' => $fatura]);
 	}
 
 	public function actionPdf($id)
@@ -117,6 +103,10 @@ class FaturaController extends Controller
 	 */
 	public function actionCreate()
 	{
+		if (!Yii::$app->user->can('FrontendReadFatura')) {
+			throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+		}
+
 		if (!isset($_SESSION["promoCode"]) || $_SESSION["promoCode"] == null) {
 			$code = $_SESSION["promoCode"] = "";
 		} else {

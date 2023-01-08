@@ -61,6 +61,10 @@ class CarrinhoController extends Controller
 	 */
 	public function actionView()
 	{
+		if (!Yii::$app->user->can('FrontendReadCarrinho')) {
+			throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+		}
+
 		$_SESSION['promoCode'] = "";
 		$dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
 		$carrinhos = $dados->carrinhos;
@@ -75,6 +79,9 @@ class CarrinhoController extends Controller
 	 */
 	public function actionCreate()
 	{
+		if (!Yii::$app->user->can('FrontendReadCarrinho')) {
+			throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+		}
 		$quantidade = Yii::$app->request->post('quantidade');
 		$id = Yii::$app->request->post('id');
 
@@ -116,27 +123,6 @@ class CarrinhoController extends Controller
 	}
 
 	/**
-	 * Updates an existing Carrinho model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param int $id_Cliente Id Cliente
-	 * @param int $id_Produto Id Produto
-	 * @return string|\yii\web\Response
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	public function actionUpdate($id_Cliente, $id_Produto)
-	{
-		$model = $this->findModel($id_Cliente, $id_Produto);
-
-		if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id_Cliente' => $model->id_Cliente, 'id_Produto' => $model->id_Produto]);
-		}
-
-		return $this->render('update', [
-			'model' => $model,
-		]);
-	}
-
-	/**
 	 * Deletes an existing Carrinho model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param int $id_Cliente Id Cliente
@@ -146,6 +132,9 @@ class CarrinhoController extends Controller
 	 */
 	public function actionDelete($id_Produto)
 	{
+		if (!Yii::$app->user->can('FrontendReadCarrinho')) {
+			throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+		}
 		$this->findModel(Yii::$app->user->id, $id_Produto)->delete();
 
 		return $this->redirect(['carrinho/view']);
@@ -158,6 +147,9 @@ class CarrinhoController extends Controller
 	 */
 	public function actionChangequantity()
 	{
+		if (!Yii::$app->user->can('FrontendReadCarrinho')) {
+			throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+		}
 		if (Yii::$app->request->isAjax) {
 			$data = Yii::$app->request->post();
 			$dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
@@ -178,6 +170,9 @@ class CarrinhoController extends Controller
 
 	public function actionApplypromocode()
 	{
+		if (!Yii::$app->user->can('FrontendReadCarrinho')) {
+			throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+		}
 		if (Yii::$app->request->isAjax) {
 			$data = Yii::$app->request->post();
 			$dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
@@ -207,6 +202,9 @@ class CarrinhoController extends Controller
 
 	public function actionClear()
 	{
+		if (!Yii::$app->user->can('FrontendReadCarrinho')) {
+			throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+		}
 		$dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
 		$carrinho = $dados->carrinhos;
 		foreach ($carrinho as $carrinhos) {
