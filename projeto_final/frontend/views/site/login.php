@@ -13,13 +13,13 @@ $this->title = 'Login';
 <div class="site-login" style="text-align: center;">
     <br>
     <div class="row">
-        <div class="col-lg-5" style="max-width: 500px;margin: auto;border: 2px solid black;margin-bottom: 50px;background-color:#222;border-radius: 25px;">
+        <div class="col-lg-5" style="max-width: 500px;margin: auto;border: 2px solid black;margin-bottom: 50px;background-color:#333;border-radius: 25px;">
             <br>
-            <h2 style="color: white;font-family:fantasy;"><?= Html::encode($this->title) ?></h2>
+            <h2 style="color: white;"><?= Html::encode($this->title) ?></h2>
 
             <p style="color: white;">Preencha os campos para efetuar o login:</p>
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-            <div style="color: white;">
+            <div style="color: white;text-align:left">
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
                 <?= $form->field($model, 'password')->passwordInput() ?>

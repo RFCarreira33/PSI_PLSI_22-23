@@ -12,7 +12,7 @@ $this->title = "Área Pessoal";
 <div class="dados-view" style="text-align: center;">
     <br>
     <br>
-    <h1 style="font-family:fantasy"><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
     <br>
     <p>
         <?= Html::a('Atualizar informações', ['update'], ['class' => 'btn btn-dark']) ?>

@@ -99,7 +99,7 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
 
                 <!-- Barra de pesquisa -->
                 <form action="<?= Url::toRoute(["produto/search"]) ?>" class="d-flex">
-                    <input id="searchBar" style="padding:4px;width:25rem;margin-right:10px" type="text" placeholder="Search..." name="query">
+                    <input id="searchBar" style="padding:4px;width:25rem;margin-right:10px" type="text" placeholder="Escreve aqui o que procuras..." name="query">
                     <button style="border:2px solid white;margin-right:10px" class="btn btn-outline-dark" type="submit"><i class="bi bi-search" style="color:white"></i></button>
                 </form>
                 <br>
@@ -160,7 +160,7 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
 
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold"><?= $empresa->designacaoSocial ?></h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: white; height: 2px" />
                     <p>
                         <?= $empresa->designacaoSocial ?> - Nº1 em Informática em Portugal
                     </p>
@@ -168,7 +168,7 @@ $parentCategories = Categoria::find()->where(["id_CategoriaPai" => null])->all()
 
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold">Contactos</h6>
-                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: white; height: 2px" />
                     <p><i class="fa fa-home mr-3"></i> <?= $empresa->morada ?></p>
                     <p><i class="fa fa-envelope mr-3"></i> <?= $empresa->email ?></p>
                     <p><i class="fa fa-phone mr-3"></i> <?= $empresa->telefone ?></p>

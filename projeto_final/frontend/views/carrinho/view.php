@@ -119,7 +119,7 @@ use yii\helpers\Url;
                                                     <input type="text" id="promoCode" class="form-control form-control-lg" style="height: 80%;" />
                                                 </div>
                                                 <div class="col-4">
-                                                    <button id="promoCodeBtn" class="btn btn-outline-dark" style="height: 100%;">Aplicar</button>
+                                                    <button id="promoCodeBtn" class="btn btn-outline-dark" style="height: 100%;color:white;border:2px solid white">Aplicar</button>
                                                 </div>
                                             </div>
                                             <form action="<?= Url::to(['fatura/create']) ?>" method="post">
