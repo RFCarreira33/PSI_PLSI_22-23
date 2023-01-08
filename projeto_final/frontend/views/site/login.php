@@ -29,7 +29,7 @@ $this->title = 'Login';
             <div class="my-1 mx-0" style="color:white;">
                 Resetar Password <?= Html::a('aqui', ['site/request-password-reset']) ?>.
                 <br>
-                Nao tem conta? <?= Html::a('Registe-se', ['site/signup']) ?>
+                Não tem conta? <?= Html::a('Registe-se', ['site/signup']) ?>
             </div>
             <br>
             <div class="form-group">

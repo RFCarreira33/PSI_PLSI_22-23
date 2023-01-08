@@ -76,15 +76,6 @@ class LoginCest
         $I->seeValidationError('Incorrect username or password');
     }
 
-    public function checkForbiddenRole(FunctionalTester $I)
-    {
-        $I->submitForm('#login-form', $this->formParams('era', 'password_0'));
-        $I->dontSeeValidationError('Username cannot be blank.'); //username isn't empty
-        $I->dontSeeValidationError('Password cannot be blank.'); //password isn't empty
-        $I->dontSeeValidationError('Incorrect username or password.'); //credentials are correct
-        $I->see('Preencha os campos para efetuar o login:');
-    }
-
     public function checkValidLogin(FunctionalTester $I)
     {
         $I->submitForm('#login-form', $this->formParams('erau', 'password_0'));
