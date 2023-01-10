@@ -32,6 +32,15 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
+                    ['label' => 'Gestão ', 'header' => true],
+                    ['label' => 'Vendas',  'icon' => 'th', 'url' => ['/fatura/index']],
+                    ['label' => 'Stocks',  'icon' => 'th', 'url' => ['/stock/index']],
+                    ['label' => 'Produtos',  'icon' => 'th', 'url' => ['/produto/index']],
+                    ['label' => 'Marcas',  'icon' => 'th', 'url' => ['/marca/index']],
+                    ['label' => 'Categorias',  'icon' => 'th', 'url' => ['/categoria/index']],
+                    ['label' => 'Taxas de Iva',  'icon' => 'th', 'url' => ['/iva/index']],
+                    ['label' => 'Lojas',  'icon' => 'th', 'url' => ['/loja/index'], 'visible' => $admin],
+                    ['label' => 'Empresa',  'icon' => 'th', 'url' => ['/empresa/view'], 'visible' => $admin],
                     ['label' => 'Atalhos', 'header' => true],
                     ['label' => 'Criar uma conta', 'url' => ['site/signup']],
                     ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
@@ -45,15 +54,6 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 
                         ]
                     ],
-                    ['label' => 'Gestão ', 'header' => true],
-                    ['label' => 'Empresa',  'icon' => 'th', 'url' => ['/empresa/view'], 'visible' => $admin],
-                    ['label' => 'Produtos',  'icon' => 'th', 'url' => ['/produto/index']],
-                    ['label' => 'Stocks',  'icon' => 'th', 'url' => ['/stock/index']],
-                    ['label' => 'Lojas',  'icon' => 'th', 'url' => ['/loja/index'], 'visible' => $admin],
-                    ['label' => 'Taxas de Iva',  'icon' => 'th', 'url' => ['/iva/index']],
-                    ['label' => 'Marcas',  'icon' => 'th', 'url' => ['/marca/index']],
-                    ['label' => 'Faturas',  'icon' => 'th', 'url' => ['/fatura/index']],
-                    ['label' => 'Categorias',  'icon' => 'th', 'url' => ['/categoria/index']],
                 ],
             ]);
             ?>

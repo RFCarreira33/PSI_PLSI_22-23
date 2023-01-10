@@ -11,7 +11,7 @@ use yii\grid\GridView;
 /** @var backend\models\FaturaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Faturas';
+$this->title = 'Vendas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fatura-index">

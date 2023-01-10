@@ -2,25 +2,26 @@
 
 use common\models\Dados;
 use yii\helpers\Url;
+use onmotion\apexcharts\ApexchartsWidget;
 
 $this->title = 'Globaldiga ';
 $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
 ?>
 <?php if (Yii::$app->session->getFlash('error') !== null) { ?>
-<div class="col-lg-6">
-    <?= \hail812\adminlte\widgets\Alert::widget([
+    <div class="col-lg-6">
+        <?= \hail812\adminlte\widgets\Alert::widget([
             'type' => 'danger',
             'body' => Yii::$app->session->getFlash('error'),
         ]) ?>
-</div>
+    </div>
 <?php } ?>
 <?php if (Yii::$app->session->getFlash('success') !== null) { ?>
-<div class="col-lg-6">
-    <?= \hail812\adminlte\widgets\Alert::widget([
+    <div class="col-lg-6">
+        <?= \hail812\adminlte\widgets\Alert::widget([
             'type' => 'success',
             'body' => "Bem vindo(a) $username->nome !",
         ]) ?>
-</div>
+    </div>
 <?php } ?>
 
 <div class="row">
@@ -44,35 +45,8 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <?= \hail812\adminlte\widgets\SmallBox::widget([
-            'title' => $nFaturas,
-            'text' => 'Número de Faturas',
-            'icon' => 'far fa-copy',
-            'linkText' => 'Ver Faturas',
-            'linkUrl' => Url::toRoute(["fatura/index"])
-        ]) ?>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-        <?= \hail812\adminlte\widgets\SmallBox::widget([
-            'title' => $somaFatura . '€',
-            'text' => 'Total Faturado',
-            'icon' => 'far fa-copy',
-            'linkText' => 'Ver Faturas',
-            'linkUrl' => Url::toRoute(["fatura/index"])
-        ]) ?>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-        <?= \hail812\adminlte\widgets\SmallBox::widget([
             'title' => $nProdutos,
             'text' => 'Total de Produtos Registados',
-            'icon' => 'fas fa-tag',
-            'linkText' => 'Ver Produtos',
-            'linkUrl' => Url::toRoute(["produto/index"]),
-        ]) ?>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-        <?= \hail812\adminlte\widgets\SmallBox::widget([
-            'title' => $nProdutosAtivos,
-            'text' => 'Produtos Ativos',
             'icon' => 'fas fa-tag',
             'linkText' => 'Ver Produtos',
             'linkUrl' => Url::toRoute(["produto/index"]),
@@ -103,5 +77,62 @@ $username = Dados::find()->where(['id_User' => Yii::$app->user->id])->one();
             'icon' => 'fas fa-industry',
             'linkText' => 'Ver Marcas',
             'linkUrl' => Url::toRoute(["marca/index"]),
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <?=
+        ApexchartsWidget::widget([
+            'type' => 'bar',
+            'height' => '200%',
+            'width' => '100%',
+            'chartOptions' => [
+                'chart' => [
+                    'id' => 'basic-bar'
+                ],
+                'xaxis' => [
+                    'categories' => ['Hoje', 'Este Mês', 'Este Ano', 'Total']
+                ],
+                'yaxis' => [
+                    'title' => [
+                        'text' => 'Total Faturado em (€)',
+                        'type' => 'currency',
+                        'currency' => 'EUR',
+                    ],
+                ],
+            ],
+            'series' => [
+                [
+                    'name' => 'Faturado',
+                    'data' => $graphFaturado
+                ]
+            ]
+        ]) ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <?=
+        ApexchartsWidget::widget([
+            'type' => 'bar',
+            'height' => '200%',
+            'width' => '100%',
+            'chartOptions' => [
+                'chart' => [
+                    'id' => 'basic-bar'
+                ],
+                'xaxis' => [
+                    'categories' => ['Hoje', 'Este Mês', 'Este Ano', 'Total']
+                ],
+                'yaxis' => [
+                    'title' => [
+                        'text' => 'Total de Vendas',
+                        'type' => 'integer',
+                    ],
+                ],
+            ],
+            'series' => [
+                [
+                    'name' => 'Faturas',
+                    'data' => $graphNFaturas
+                ]
+            ]
         ]) ?>
     </div>

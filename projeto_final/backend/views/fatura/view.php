@@ -9,8 +9,8 @@ use common\models\Linhafatura;
 /** @var yii\web\View $this */
 /** @var common\models\Fatura $model */
 
-$this->title = "Fatura número $model->id";
-$this->params['breadcrumbs'][] = ['label' => 'Faturas', 'url' => ['index']];
+$this->title = "Venda número $model->id";
+$this->params['breadcrumbs'][] = ['label' => 'Vendas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <br>
-    <h2>Linhas da Fatura:</h2>
+    <h2>Detalhes da venda:</h2>
     <br>
 
 

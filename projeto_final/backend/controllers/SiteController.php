@@ -79,14 +79,14 @@ class SiteController extends Controller
     {
         return $this->render('index', [
             'nClientes' => AuthAssignment::getCountClientes(),
-            'nFaturas' => Fatura::find()->count(),
-            'somaFatura' => Fatura::getTotalFaturado(),
             'nFuncionarios' => AuthAssignment::getCountFuncionarios(),
             'nProdutos' => Produto::getCountProdutos(),
-            'nProdutosAtivos' => Produto::getCountProdutosAtivos(),
             'nMarcas' => Marca::getCountMarcas(),
             'nLojas' => Loja::getCountLojas(),
             'nCategorias' => Categoria::getCountCategorias(),
+            //graph data
+            'graphFaturado' => Fatura::getTotalFaturadoGraph(),
+            'graphNFaturas' => Fatura::getTotalFaturasGraph(),
         ]);
     }
 

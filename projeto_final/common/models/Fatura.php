@@ -90,9 +90,22 @@ class Fatura extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Linhafatura::class, ['id_Fatura' => 'id']);
     }
-    public static function getTotalFaturado()
+
+    public static function getTotalFaturadoGraph()
     {
-        $total = Fatura::find()->sum('valorTotal');
-        return $total;
+        $hoje = Fatura::find()->where(['DAY(dataFatura)' => date('d'), 'MONTH(dataFatura)' => date('m'), 'YEAR(dataFatura)' => date('Y')])->sum('valorTotal');
+        $mes = Fatura::find()->where(['MONTH(dataFatura)' => date('m'), 'YEAR(dataFatura)' => date('Y')])->sum('valorTotal');
+        $ano = Fatura::find()->where(['YEAR(dataFatura)' => date('Y')])->sum('valorTotal');
+        $all = Fatura::find()->sum('valorTotal');
+        return [$hoje, $mes, $ano, $all];
+    }
+
+    public static function getTotalFaturasGraph()
+    {
+        $hoje = Fatura::find()->where(['DAY(dataFatura)' => date('d'), 'MONTH(dataFatura)' => date('m'), 'YEAR(dataFatura)' => date('Y')])->count();
+        $mes = Fatura::find()->where(['MONTH(dataFatura)' => date('m'), 'YEAR(dataFatura)' => date('Y')])->count();
+        $ano = Fatura::find()->where(['YEAR(dataFatura)' => date('Y')])->count();
+        $all = Fatura::find()->count();
+        return [$hoje, $mes, $ano, $all];
     }
 }
