@@ -21,6 +21,8 @@ class ModuleAPI extends \yii\base\Module
     {
         parent::init();
         Yii::$app->user->enableSession = false;
+        //errorhandler
+        Yii::$app->errorHandler->errorAction = 'api/base/error';
 
         // custom initialization code goes here
     }

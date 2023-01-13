@@ -7,7 +7,7 @@ use yii\rest\ActiveController;
 use backend\modules\api\components\CustomAuth;
 use Yii;
 
-class DadosController extends ActiveController
+class DadosController extends BaseController
 {
     public $modelClass = 'common\models\Dados';
 
@@ -53,9 +53,11 @@ class DadosController extends ActiveController
         $model = Dados::findOne(['id_User' => Yii::$app->params['id']]);
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
         if ($model->save()) {
-            return 'Dados atualizados com sucesso';
+            return ['response' => 'Dados atualizados com sucesso'];
         } else {
-            return $model->errors;
+            foreach ($model->errors as $error) {
+                return ["response" => $error[0]];
+            }
         }
     }
 }
