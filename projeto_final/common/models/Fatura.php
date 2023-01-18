@@ -16,8 +16,11 @@ use Yii;
  * @property string $morada
  * @property string $email
  * @property string $dataFatura
- * @property float $valorTotal
+ * @property float $subtotal
  * @property float $valorIva
+ * @property float $valorDesconto
+ * @property float $valorTotal
+ * @property string $entrega
  *
  * @property Dados $cliente
  * @property Linhafatura[] $linhafaturas
@@ -38,11 +41,11 @@ class Fatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_Cliente', 'nome', 'nif', 'codPostal', 'telefone', 'morada', 'email', 'valorTotal', 'valorIva', 'subtotal', 'valorDesconto'], 'required'],
+            [['id_Cliente', 'nome', 'nif', 'codPostal', 'telefone', 'morada', 'email', 'subtotal', 'valorIva', 'valorDesconto', 'valorTotal', 'entrega'], 'required'],
             [['id_Cliente'], 'integer'],
             [['dataFatura'], 'safe'],
             [['subtotal', 'valorIva', 'valorDesconto', 'valorTotal'], 'number'],
-            [['nome', 'morada'], 'string', 'max' => 45],
+            [['nome', 'morada', 'entrega'], 'string', 'max' => 45],
             [['nif', 'codPostal', 'telefone'], 'string', 'max' => 9],
             [['email'], 'string', 'max' => 255],
             [['id_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Dados::class, 'targetAttribute' => ['id_Cliente' => 'id_User']],
@@ -68,6 +71,7 @@ class Fatura extends \yii\db\ActiveRecord
             'valorIva' => 'Valor Iva',
             'valorDesconto' => 'Valor Desconto',
             'valorTotal' => 'Valor Total',
+            'entrega' => 'Entrega',
         ];
     }
 

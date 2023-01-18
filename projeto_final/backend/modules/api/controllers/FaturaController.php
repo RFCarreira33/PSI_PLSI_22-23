@@ -7,7 +7,7 @@ use yii\rest\ActiveController;
 use Yii;
 use common\models\Fatura;
 
-class FaturaController extends ActiveController
+class FaturaController extends BaseController
 {
     public $modelClass = 'common\models\Fatura';
 

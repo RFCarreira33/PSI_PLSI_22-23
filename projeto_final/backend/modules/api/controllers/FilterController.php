@@ -6,10 +6,16 @@ use common\models\Marca;
 use common\models\Categoria;
 use yii\rest\ActiveController;
 
-class FilterController extends ActiveController
+class FilterController extends BaseController
 {
     //has to be set to use this controller
     public $modelClass = 'common\models\Categoria';
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        return $behaviors;
+    }
 
     public function actions()
     {

@@ -2,6 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
+use backend\models\AuthAssignment;
 use common\models\Dados;
 use common\models\User;
 use yii\filters\auth\HttpBasicAuth;
@@ -10,7 +11,7 @@ use Yii;
 
 class UserController extends \yii\web\Controller
 {
-    public $user = null;
+    protected $user = null;
 
     public function behaviors()
     {
@@ -58,17 +59,24 @@ class UserController extends \yii\web\Controller
             $this->user = $user;
             return $user;
         }
-        return "Falha ao Autenticar";
+        return $this->asJson(["response" => "Falha ao Autenticar"]);
     }
 
     public function actionLogin()
     {
         $dados = Dados::findOne($this->user->id);
+        $role = AuthAssignment::findOne(['user_id' => $this->user->id])->item_name;
+        if ($role != "cliente") {
+            throw new \yii\web\ForbiddenHttpException("Acesso Negado");
+        }
         if ($dados->codDesconto == "Sem Acesso") {
             $dados->codDesconto = "Sim";
             $dados->save();
         }
-        return $this->user->auth_key;
+
+
+        $token = $this->user->auth_key;
+        return $this->asJson(["response" => $token]);
     }
 
     public function actionRegister()
@@ -76,11 +84,11 @@ class UserController extends \yii\web\Controller
         $model = new SignupForm();
         $model->load(Yii::$app->request->post(), '');
         if ($model->signup()) {
-            return "Sucesso";
+            return $this->asJson(["response" => "Sucesso"]);
         }
         //in case of 1+ errors from diferent models foreach will only return the first error
         foreach ($model->errors as $error) {
-            return $error[0];
+            return $this->asJson(["response" => $error[0]]);
         }
     }
 }

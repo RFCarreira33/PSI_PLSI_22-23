@@ -11,9 +11,15 @@ use common\models\Loja;
 use common\models\Stock;
 use Yii;
 
-class ProdutoController extends ActiveController
+class ProdutoController extends BaseController
 {
     public $modelClass = 'common\models\Produto';
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        return $behaviors;
+    }
 
     public function actions()
     {
@@ -74,7 +80,7 @@ class ProdutoController extends ActiveController
                 }
             }
         }
-        return $lojaPerto;
+        return ["response" => $lojaPerto];
     }
 
     public function distancia($latitude, $longitude, $lat2, $lon2)
@@ -139,7 +145,7 @@ class ProdutoController extends ActiveController
                 $query->orderBy('nome ASC');
             }
         } catch (\Exception $e) {
-            return 'Categoria não encontrada';
+            return ['response' => 'Categoria não encontrada'];
         }
 
         $response = [];
