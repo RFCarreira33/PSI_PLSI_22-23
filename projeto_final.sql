@@ -292,7 +292,6 @@ INSERT INTO `empresa` (`id`, `designacaoSocial`, `email`, `telefone`, `nif`, `mo
 --
 -- Table structure for table `fatura`
 --
-
 DROP TABLE IF EXISTS `fatura`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -310,11 +309,13 @@ CREATE TABLE `fatura` (
   `valorIva` decimal(11,2) NOT NULL,
   `valorDesconto` decimal(11,2) NOT NULL,
   `valorTotal` decimal(11,2) NOT NULL,
+  `entrega` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCliente` (`id_Cliente`),
   CONSTRAINT `fatura_ibfk_1` FOREIGN KEY (`id_Cliente`) REFERENCES `dados` (`id_User`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `iva`
@@ -341,6 +342,7 @@ DROP TABLE IF EXISTS `linhafatura`;
 CREATE TABLE `linhafatura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_Fatura` int(11) NOT NULL,
+  `id_Produto` int(11) NOT NULL,
   `produto_nome` varchar(100) NOT NULL,
   `produto_referencia` varchar(45) NOT NULL,
   `quantidade` int(11) NOT NULL,
@@ -348,10 +350,11 @@ CREATE TABLE `linhafatura` (
   `valorIva` decimal(11,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idFatura` (`id_Fatura`),
-  CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`id_Fatura`) REFERENCES `fatura` (`id`)
+  KEY `idProduto` (`id_Produto`),
+  CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`id_Fatura`) REFERENCES `fatura` (`id`),
+  CONSTRAINT `linhafatura_ibfk_2` FOREIGN KEY (`id_Produto`) REFERENCES `produto` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 --
 -- Table structure for table `loja`
 --
@@ -1230,29 +1233,28 @@ DROP TABLE IF EXISTS `fatura`;
 
 ;
 
-CREATE TABLE
-    `fatura` (
-        `id` int(11) NOT NULL AUTO_INCREMENT,
-        `id_Cliente` int(11) NOT NULL,
-        `nome` varchar(45) NOT NULL,
-        `nif` varchar(9) NOT NULL,
-        `codPostal` varchar(9) NOT NULL,
-        `telefone` varchar(9) NOT NULL,
-        `morada` varchar(45) NOT NULL,
-        `email` varchar(255) NOT NULL,
-        `dataFatura` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        `subtotal` decimal(11, 2) NOT NULL,
-        `valorIva` decimal(11, 2) NOT NULL,
-        `valorDesconto` decimal(11, 2) NOT NULL,
-        `valorTotal` decimal(11, 2) NOT NULL,
-        PRIMARY KEY (`id`),
-        KEY `idCliente` (`id_Cliente`),
-        CONSTRAINT `fatura_ibfk_1` FOREIGN KEY (`id_Cliente`) REFERENCES `dados` (`id_User`)
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
-/*!40101 SET character_set_client = @saved_cs_client */
+CREATE TABLE `fatura` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_Cliente` int(11) NOT NULL,
+  `nome` varchar(45) NOT NULL,
+  `nif` varchar(9) NOT NULL,
+  `codPostal` varchar(9) NOT NULL,
+  `telefone` varchar(9) NOT NULL,
+  `morada` varchar(45) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `dataFatura` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `subtotal` decimal(11,2) NOT NULL,
+  `valorIva` decimal(11,2) NOT NULL,
+  `valorDesconto` decimal(11,2) NOT NULL,
+  `valorTotal` decimal(11,2) NOT NULL,
+  `entrega` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idCliente` (`id_Cliente`),
+  CONSTRAINT `fatura_ibfk_1` FOREIGN KEY (`id_Cliente`) REFERENCES `dados` (`id_User`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-;
 
 --
 
@@ -1298,19 +1300,18 @@ DROP TABLE IF EXISTS `linhafatura`;
 
 ;
 
-CREATE TABLE
-    `linhafatura` (
-        `id` int(11) NOT NULL AUTO_INCREMENT,
-        `id_Fatura` int(11) NOT NULL,
-        `produto_nome` varchar(100) NOT NULL,
-        `produto_referencia` varchar(45) NOT NULL,
-        `quantidade` int(11) NOT NULL,
-        `valor` decimal(11, 2) NOT NULL,
-        `valorIva` decimal(11, 2) NOT NULL,
-        PRIMARY KEY (`id`),
-        KEY `idFatura` (`id_Fatura`),
-        CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`id_Fatura`) REFERENCES `fatura` (`id`)
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+CREATE TABLE `linhafatura` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_Fatura` int(11) NOT NULL,
+  `produto_nome` varchar(100) NOT NULL,
+  `produto_referencia` varchar(45) NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  `valor` decimal(11,2) NOT NULL,
+  `valorIva` decimal(11,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idFatura` (`id_Fatura`),
+  CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`id_Fatura`) REFERENCES `fatura` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40101 SET character_set_client = @saved_cs_client */
 

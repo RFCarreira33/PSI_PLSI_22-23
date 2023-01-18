@@ -204,6 +204,7 @@ class CarrinhoController extends BaseController
 		$fatura->nif = $dados->nif;
 		$fatura->codPostal = $dados->codPostal;
 		$fatura->telefone = $dados->telefone;
+		$fatura->entrega = $params['adress'];
 		$fatura->morada = $dados->morada;
 		$fatura->email = $dados->user->email;
 		$fatura->dataFatura = date("Y-m-d H:i:s");
@@ -231,6 +232,7 @@ class CarrinhoController extends BaseController
 			$linhaFatura->produto_referencia = $carrinho->produto->referencia;
 			$linhaFatura->quantidade = $carrinho->Quantidade;
 			$linhaFatura->valor = $carrinho->produto->preco * $carrinho->Quantidade;
+			$linhaFatura->id_Produto = $carrinho->produto->id;
 			$ivaP = $carrinho->produto->iva->percentagem;
 			$linhaFatura->valorIva = $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100);
 			$linhaFatura->save();
