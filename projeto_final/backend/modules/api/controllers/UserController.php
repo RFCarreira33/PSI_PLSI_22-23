@@ -2,6 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
+use backend\models\AuthAssignment;
 use common\models\Dados;
 use common\models\User;
 use yii\filters\auth\HttpBasicAuth;
@@ -64,10 +65,15 @@ class UserController extends \yii\web\Controller
     public function actionLogin()
     {
         $dados = Dados::findOne($this->user->id);
+        $role = AuthAssignment::findOne(['user_id' => $this->user->id])->item_name;
+        if ($role != "cliente") {
+            throw new \yii\web\ForbiddenHttpException("Acesso Negado");
+        }
         if ($dados->codDesconto == "Sem Acesso") {
             $dados->codDesconto = "Sim";
             $dados->save();
         }
+
 
         $token = $this->user->auth_key;
         return $this->asJson(["response" => $token]);
