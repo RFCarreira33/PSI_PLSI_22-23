@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'btn btn-primary',
             ]);
         } ?>
-        <?php if (Yii::$app->user->can('DeleteProduto')) {
+        <?php if (Yii::$app->user->can('DeleteProduto') && $model->canDelete()) {
             echo Html::a('Apagar', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [

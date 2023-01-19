@@ -264,6 +264,9 @@ class ProdutoController extends Controller
             throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
         }
         $model = $this->findModel($id);
+        if ($model->canDelete() == false) {
+            throw new yii\web\HttpException(400, 'Não é possível eliminar este produto');
+        }
         $carrinhos = $model->carrinhos;
         $stocks = $model->stocks;
 

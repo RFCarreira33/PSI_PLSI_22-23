@@ -135,6 +135,11 @@ class Produto extends \yii\db\ActiveRecord
         return $this->hasOne(Marca::class, ['nome' => 'id_Marca']);
     }
 
+    public function getLinhafaturas()
+    {
+        return $this->hasMany(Linhafatura::class, ['id_Produto' => 'id']);
+    }
+
     /**
      * Gets query for [[Stocks]].
      *
@@ -177,5 +182,26 @@ class Produto extends \yii\db\ActiveRecord
             }
         }
         return 0;
+    }
+
+    public static function graphMaisVendidos()
+    {
+        $query = (new \yii\db\Query())
+            ->select(['produto.nome', 'SUM(linhaFatura.quantidade) as quantidade'])
+            ->from('linhaFatura')
+            ->join('INNER JOIN', 'produto', 'produto.id = linhaFatura.id_Produto')
+            ->groupBy('produto.nome')
+            ->orderBy('quantidade DESC')
+            ->limit(10)
+            ->all();
+        return $query;
+    }
+
+    public function canDelete()
+    {
+        if (Linhafatura::findOne(['id_Produto' => $this->id]) == null) {
+            return true;
+        }
+        return false;
     }
 }

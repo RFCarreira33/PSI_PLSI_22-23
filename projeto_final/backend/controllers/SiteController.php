@@ -87,6 +87,7 @@ class SiteController extends Controller
             //graph data
             'graphFaturado' => Fatura::getTotalFaturadoGraph(),
             'graphNFaturas' => Fatura::getTotalFaturasGraph(),
+            'graphProdutosMaisVendidos' => Produto::graphMaisVendidos(),
         ]);
     }
 
