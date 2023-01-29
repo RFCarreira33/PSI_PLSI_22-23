@@ -310,6 +310,7 @@ CREATE TABLE `fatura` (
   `valorIva` decimal(11,2) NOT NULL,
   `valorDesconto` decimal(11,2) NOT NULL,
   `valorTotal` decimal(11,2) NOT NULL,
+  `entrega` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCliente` (`id_Cliente`),
   CONSTRAINT `fatura_ibfk_1` FOREIGN KEY (`id_Cliente`) REFERENCES `dados` (`id_User`)
@@ -341,6 +342,7 @@ DROP TABLE IF EXISTS `linhafatura`;
 CREATE TABLE `linhafatura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_Fatura` int(11) NOT NULL,
+  `id_Produto` int(11) NOT NULL,
   `produto_nome` varchar(100) NOT NULL,
   `produto_referencia` varchar(45) NOT NULL,
   `quantidade` int(11) NOT NULL,
@@ -348,7 +350,9 @@ CREATE TABLE `linhafatura` (
   `valorIva` decimal(11,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idFatura` (`id_Fatura`),
-  CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`id_Fatura`) REFERENCES `fatura` (`id`)
+  KEY `idProduto` (`id_Produto`),
+  CONSTRAINT `linhafatura_ibfk_1` FOREIGN KEY (`id_Fatura`) REFERENCES `fatura` (`id`),
+  CONSTRAINT `linhafatura_ibfk_2` FOREIGN KEY (`id_Produto`) REFERENCES `produto` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

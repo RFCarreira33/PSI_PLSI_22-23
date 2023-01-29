@@ -112,7 +112,7 @@ use yii\helpers\Url;
 
                                     <h5 class="mb-3">Código de Desconto</h5>
 
-                                    <div class="mb-5">
+                                    <div class="mb-1">
                                         <div class="form-outline">
                                             <div class="row">
                                                 <div class="col-8">
@@ -122,7 +122,7 @@ use yii\helpers\Url;
                                                     <button id="promoCodeBtn" class="btn btn-outline-dark" style="height: 100%;color:white;border:2px solid white">Aplicar</button>
                                                 </div>
                                             </div>
-                                            <form action="<?= Url::to(['fatura/create']) ?>" method="post">
+                                            <form action="<?= Url::to(['carrinho/checkout']) ?>" method="post">
                                                 <hr class="my-4">
 
                                                 <div class="d-flex justify-content-between">
@@ -134,16 +134,16 @@ use yii\helpers\Url;
                                                     <h6 class="text-uppercase">Desconto</h5>
                                                         <h6 id="discount">-0.00€</h5>
                                                 </div>
-                                                <div class="d-flex justify-content-between mb-5">
+                                                <div class="d-flex justify-content-between mb-2">
                                                     <h5 class="text-uppercase">Total</h5>
                                                     <h5 id="totalPrice"><?= number_format($precoTotal, 2, '.', '') ?>€
                                                     </h5>
-                                                </div>
-
+                                                </div> 
+                                                
                                                 <?php
                                                 if (!empty($carrinhos)) {
                                                 ?>
-                                                    <button id="comprar" class="btn btn-dark btn-block btn-lg" style="background-color:white;color:black" type="submit">Finalizar Compra</button>
+                                                    <button id="comprar" class="btn btn-dark btn-block btn-lg mt-4" style="background-color:white;color:black" type="submit">Finalizar Compra</button>
                                                 <?php
                                                 }
                                                 ?>
@@ -310,4 +310,37 @@ use yii\helpers\Url;
             }
         });
     }
+
+    $("input:radio[name='shipping']").click(function(e)
+    {
+        applyShippingMethod(this.value);
+    });
+
+    $("#morada").on('input', function() {
+        clearTimeout(timer);
+        timer = setTimeout(function() 
+        {
+            if($("input:radio[value=Morada]").is(':checked')) { applyShippingMethod($("#morada").val()); }
+        }
+        .bind(this), 500);
+    })
+
+    function applyShippingMethod(shippingMethod)
+    {
+        if(shippingMethod == "Morada") { shippingMethod = $("#morada").val(); }
+
+        $.ajax({
+            url: "<?= Url::toRoute("carrinho/applyshippingmethod") ?>",
+            type: "post",
+            data: {
+                shippingMethod: shippingMethod
+            },
+            success: (result) => {
+                result = JSON.parse(result);
+                console.log(result);
+            }
+        });
+    }
+
+    applyShippingMethod($("input:radio:checked").val());
 </script>

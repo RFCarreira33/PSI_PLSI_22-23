@@ -33,11 +33,12 @@ class Linhafatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_Fatura', 'produto_nome', 'produto_referencia', 'quantidade', 'valor', 'valorIva'], 'required'],
-            [['id_Fatura', 'quantidade'], 'integer'],
+            [['id_Fatura', 'id_Produto', 'produto_nome', 'produto_referencia', 'quantidade', 'valor', 'valorIva'], 'required'],
+            [['id_Fatura', 'id_Produto', 'quantidade'], 'integer'],
             [['valor', 'valorIva'], 'number'],
             [['produto_nome', 'produto_referencia'], 'string', 'max' => 100],
             [['id_Fatura'], 'exist', 'skipOnError' => true, 'targetClass' => Fatura::class, 'targetAttribute' => ['id_Fatura' => 'id']],
+            [['id_Produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['id_Produto' => 'id']],
         ];
     }
 
@@ -49,6 +50,7 @@ class Linhafatura extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_Fatura' => 'Id Fatura',
+            'id_Produto' => 'Id Produto',
             'produto_nome' => 'Produto Nome',
             'produto_referencia' => 'Produto Referencia',
             'quantidade' => 'Quantidade',

@@ -112,6 +112,16 @@ class FaturaController extends Controller
 		} else {
 			$code = $_SESSION["promoCode"];
 		}
+
+		if (!isset($_SESSION["shippingMethod"]) || $_SESSION["shippingMethod"] == null) 
+		{
+			return $this->redirect(URL::toRoute(['carrinho/view']));
+		} 
+		else 
+		{
+			$shippingMethod = $_SESSION["shippingMethod"];
+		}
+		
 		$dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
 		$carrinhos = Carrinho::findAll(['id_Cliente' => $dados->id_User]);
 		$empresa = Empresa::find()->one();
@@ -155,6 +165,7 @@ class FaturaController extends Controller
 		$fatura->dataFatura = date("Y-m-d H:i:s");
 		$fatura->valorIva = $valorIva;
 		$fatura->subtotal = $subtotal;
+		$fatura->entrega = $shippingMethod;
 
 		if ($code != "" && $code == $promoCode && $dados->codDesconto == "Sim") //checks if promo code was used and if so, updates the values
 		{
@@ -174,6 +185,7 @@ class FaturaController extends Controller
 		foreach ($carrinhos as $carrinho) {
 			$linhaFatura = new LinhaFatura;
 			$linhaFatura->id_Fatura = $fatura->id;
+			$linhaFatura->id_Produto = $carrinho->produto->id;
 			$linhaFatura->produto_nome = $carrinho->produto->nome;
 			$linhaFatura->produto_referencia = $carrinho->produto->referencia;
 			$linhaFatura->quantidade = $carrinho->Quantidade;
@@ -205,6 +217,7 @@ class FaturaController extends Controller
 		}
 
 		$_SESSION["promoCode"] = "";
+		$_SESSION["shippingMethod"] = "";
 
 		$this->redirect('/carrinho/clear');
 	}
