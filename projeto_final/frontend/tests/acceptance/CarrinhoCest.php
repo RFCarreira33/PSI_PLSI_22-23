@@ -28,6 +28,7 @@ class CarrinhoCest
         //Limpar o carrinho 
         $I->click('a[id="carrinho"]');
         $I->see('Limpar Carrinho');
+        $I->scrollTo('a[id="backToHome"]');
         $I->wait(1);
         $I->click('a[id="clearCart"]');
         $I->wait(1);
@@ -61,6 +62,15 @@ class CarrinhoCest
         $I->see(number_format($total, 2, '.', ''));
         $I->wait(2);
         $I->scrollTo('a[id="clearCart"]');
+        $I->click('button[id="comprar"]');
+        //Página de checkout
+        $I->see('Finalizar Compra');
+        $I->fillField('input[name="nome"]', 'Cliente');
+        $I->fillField('input[name="numero"]', '4523243525432453');
+        $I->fillField('input[name="MM"]', '12');
+        $I->fillField('input[name="YY"]', '12');
+        $I->fillField('input[name="CVV"]', '123');
+        $I->wait(3);
         $I->click('button[id="comprar"]');
         //Verificar se a compra foi efetuada
         $I->see('0.00€');
