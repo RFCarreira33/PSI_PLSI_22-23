@@ -24,3 +24,10 @@
 {
     font-weight: 400!important;
 }
+
+div.scroll {
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    text-overflow: ellipsis;
+}

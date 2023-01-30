@@ -85,7 +85,9 @@ class CarrinhoController extends Controller
 		$empresa = Empresa::find()->one();
 		$desconto = 0;
 
-		if(isset($_SESSION["promoCode"])) { $desconto = number_format(($subtotal * $empresa->valorDesconto / 100), 2, ".", ""); }
+		if (isset($_SESSION["promoCode"]) && $_SESSION["promoCode"] != "") {
+			$desconto = number_format(($subtotal * $empresa->valorDesconto / 100), 2, ".", "");
+		}
 
 		try {
 			foreach ($carrinhos as $carrinho) {
@@ -237,7 +239,7 @@ class CarrinhoController extends Controller
 		}
 		if (Yii::$app->request->isAjax) {
 			$data = Yii::$app->request->post();
-			
+
 			$_SESSION["shippingMethod"] = $data['shippingMethod'];
 			return json_encode($_SESSION["shippingMethod"]);
 		}
