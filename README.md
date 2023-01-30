@@ -7,8 +7,8 @@
 Online Tech Store.
 <br>
 <a href="#about-the-project">Summary</a> •
-<a href="https://github.com/RFCarreira33/PSI_PLSI_22-23/resources/about.md">About The Project</a> •
-  <a href="https://github.com/RFCarreira33/PSI_PLSI_22-23/resources/installation.md">Installation</a> • <a href="https://github.com/RFCarreira33/PSI_AMSI_22-23">Mobile</a> 
+<a href="https://github.com/RFCarreira33/PSI_PLSI_22-23/blob/main/resources/about.md">About The Project</a> •
+  <a href="https://github.com/RFCarreira33/PSI_PLSI_22-23/blob/main/resources/installation.md">Installation</a> • <a href="https://github.com/RFCarreira33/PSI_AMSI_22-23">Mobile</a> 
 </div>
 <!--end Header -->
 
