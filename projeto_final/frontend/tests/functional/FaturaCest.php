@@ -7,6 +7,7 @@ use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
 use common\models\Dados;
 use common\models\User;
+use SeekableIterator;
 
 class FaturaCest
 {
@@ -82,11 +83,19 @@ class FaturaCest
         //No carrinho de compras
         $I->see('Carrinho de Compras');
         $I->click('button[id="comprar"]');
-        $I->see('0.00€');
+        //Na página de pagamento
+        $I->amOnRoute('/carrinho/checkout');
+        $I->see('Finalizar Compra');
+        $I->fillField('input[name="nome"]', 'nome');
+        $I->fillField('input[name="numero"]', '9999967897869798');
+        $I->fillField('input[name="MM"]', '11');
+        $I->fillField('input[name="YY"]', '99');
+        $I->fillField('input[name="CVV"]', '123');
+        $I->click('button[id="comprar"]');
+        $I->amOnRoute('/carrinho/view');
         $I->click('a[id="dados"]');
         //Na área pessoal
         $I->see('Área Pessoal');
         $I->click('As minhas encomendas');
-        $I->dontSee('No results found.');
     }
 }

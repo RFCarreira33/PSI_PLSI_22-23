@@ -144,6 +144,8 @@ class FaturaTest extends \Codeception\Test\Unit
         $this->assertFalse($fatura->validate(['valorDesconto']));
         $fatura->subtotal = null;
         $this->assertFalse($fatura->validate(['subtotal']));
+        $fatura->entrega = null;
+        $this->assertFalse($fatura->validate(['entrega']));
 
         //id cliente integer
         $fatura->id_Cliente = 1.2;
@@ -218,6 +220,8 @@ class FaturaTest extends \Codeception\Test\Unit
         $this->assertFalse($linhaFatura->validate(['valor']));
         $linhaFatura->valorIva = null;
         $this->assertFalse($linhaFatura->validate(['valorIva']));
+        $linhaFatura->id_Produto = null;
+        $this->assertFalse($linhaFatura->validate(['id_Produto']));
 
         //idfatura quantidade integer
         $linhaFatura->id_Fatura = 1.2;
@@ -251,6 +255,7 @@ class FaturaTest extends \Codeception\Test\Unit
         $fatura->valorTotal = $valorTotal;
         $fatura->valorDesconto = $valorDesconto;
         $fatura->subtotal = $subtotal;
+        $fatura->entrega = "Loja";
         $fatura->save();
 
         //assert true
@@ -266,6 +271,8 @@ class FaturaTest extends \Codeception\Test\Unit
         $this->assertTrue($linhaFatura->validate(['valor']));
         $linhaFatura->valorIva = $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100);
         $this->assertTrue($linhaFatura->validate(['valorIva']));
+        $linhaFatura->id_Produto = $carrinho->produto->id;
+        $this->assertTrue($linhaFatura->validate(['id_Produto']));
 
         //Criar um registo válido e guardar na BD e Ver se o registo válido se encontra na BD [FATURA]
         $fatura = new Fatura;
@@ -281,6 +288,7 @@ class FaturaTest extends \Codeception\Test\Unit
         $fatura->valorTotal = $valorTotal;
         $fatura->valorDesconto = $valorDesconto;
         $fatura->subtotal = $subtotal;
+        $fatura->entrega = "Loja";
         $fatura->save();
 
         $this->tester->seeRecord('common\models\Fatura', array('id_Cliente' => $dados->id_User, 'nome' => $dados->nome, 'nif' => $dados->nif, 'codPostal' => $dados->codPostal, 'telefone' => $dados->telefone, 'morada' => $dados->morada, 'email' => $dados->user->email, 'valorIva' => $valorIva, 'valorTotal' => $valorTotal));
@@ -289,6 +297,7 @@ class FaturaTest extends \Codeception\Test\Unit
         $linhaFatura = new LinhaFatura;
         $linhaFatura->id_Fatura = $fatura->id;
         $linhaFatura->produto_nome = $carrinho->produto->nome;
+        $linhaFatura->id_Produto = $carrinho->produto->id;
         $linhaFatura->produto_referencia = $carrinho->produto->referencia;
         $linhaFatura->quantidade = $carrinho->Quantidade;
         $linhaFatura->valor = $carrinho->produto->preco * $carrinho->Quantidade;
@@ -296,7 +305,7 @@ class FaturaTest extends \Codeception\Test\Unit
         $linhaFatura->valorIva = $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100);
         $linhaFatura->save();
 
-        $this->tester->seeRecord('common\models\LinhaFatura', array('id_Fatura' => $fatura->id, 'produto_nome' => $carrinho->produto->nome, 'produto_referencia' => $carrinho->produto->referencia, 'quantidade' => $carrinho->Quantidade, 'valor' => $carrinho->produto->preco * $carrinho->Quantidade, 'valorIva' => $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100)));
+        $this->tester->seeRecord('common\models\LinhaFatura', array('id_Fatura' => $fatura->id, 'id_Produto' => $carrinho->produto->id, 'produto_nome' => $carrinho->produto->nome, 'produto_referencia' => $carrinho->produto->referencia, 'quantidade' => $carrinho->Quantidade, 'valor' => $carrinho->produto->preco * $carrinho->Quantidade, 'valorIva' => $carrinho->Quantidade * $carrinho->produto->preco * ($ivaP / 100)));
 
 
         //Ler o registo anterior e aplicar um update e Ver se o registo atualizado se encontra na BD

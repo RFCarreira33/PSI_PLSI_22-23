@@ -38,26 +38,37 @@ foreach ($carrinhos as $carrinho) {
                                                     <div class="input">
                                                         <i class="fa fa-user"></i>
                                                         <span class="font-weight-normal card-text">Nome</span>
-                                                        <input type="text" class="form-control" placeholder="Nome" required>
+                                                        <input type="text" class="form-control" placeholder="Nome"
+                                                            name="nome" required>
                                                     </div>
 
                                                     <div class="input mt-1 mb-1">
                                                         <i class="fa fa-credit-card"></i>
-                                                        <span class="font-weight-normal card-text">Número do Cartão</span>
-                                                        <input maxlength="16" pattern="[0-9]{16}" inputmode="numeric" class="form-control" placeholder="0000 0000 0000 0000" required>
+                                                        <span class="font-weight-normal card-text">Número do
+                                                            Cartão</span>
+                                                        <input maxlength="16" pattern="[0-9]{16}" inputmode="numeric"
+                                                            class="form-control" placeholder="0000 0000 0000 0000"
+                                                            name="numero" required>
                                                     </div>
 
                                                     <div class="row mt-1 mb-1">
                                                         <div class="col-md-6">
                                                             <div class="input">
                                                                 <i class="fa fa-calendar"></i>
-                                                                <span class="font-weight-normal card-text">Data Validade</span>
+                                                                <span class="font-weight-normal card-text">Data
+                                                                    Validade</span>
                                                                 <div class="row" style="--bs-gutter-x: 0.1rem;">
                                                                     <div class="col">
-                                                                        <input maxlength="2" pattern="^(0?[1-9]|1[012])$" inputmode="numeric" class="form-control" placeholder="MM" required>
+                                                                        <input maxlength="2"
+                                                                            pattern="^(0?[1-9]|1[012])$"
+                                                                            inputmode="numeric" name="MM"
+                                                                            class="form-control" placeholder="MM"
+                                                                            required>
                                                                     </div>
                                                                     <div class="col">
-                                                                        <input maxlength="2" pattern="[01-99]{2}" inputmode="numeric" class="form-control" placeholder="YY" required>
+                                                                        <input maxlength="2" pattern="[01-99]{2}"
+                                                                            inputmode="numeric" class="form-control"
+                                                                            placeholder="YY" name="YY" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -67,7 +78,9 @@ foreach ($carrinhos as $carrinho) {
                                                             <div class="input">
                                                                 <i class="fa fa-lock"></i>
                                                                 <span class="font-weight-normal card-text">CVV</span>
-                                                                <input maxlength="3" pattern="[0-9]{3}" type="text" inputmode="numeric" class="form-control" placeholder="000" required>
+                                                                <input maxlength="3" pattern="[0-9]{3}" type="text"
+                                                                    inputmode="numeric" class="form-control"
+                                                                    placeholder="000" name="CVV" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -84,18 +97,23 @@ foreach ($carrinhos as $carrinho) {
                                                 <div class="card-body">
                                                     <div class="mb-1">
                                                         <div class="input">
-                                                            <input type="radio" name="shipping" id="" value="Loja" checked required>
+                                                            <input type="radio" name="shipping" id="" value="Loja"
+                                                                checked required>
                                                             <i class="fa fa-store"></i>
-                                                            <span class="font-weight-normal card-text">Levantamento em Loja</span>
+                                                            <span class="font-weight-normal card-text">Levantamento em
+                                                                Loja</span>
                                                         </div>
                                                     </div>
 
                                                     <div class="mt-1">
                                                         <div class="input">
-                                                            <input type="radio" name="shipping" id="" value="Morada" required>
+                                                            <input type="radio" name="shipping" id="" value="Morada"
+                                                                required>
                                                             <i class="fa fa-house"></i>
-                                                            <span class="font-weight-normal card-text">Entrega ao Domicílio</span>
-                                                            <input id="morada" type="text" class="form-control" placeholder="Morada" value="<?= $morada ?>">
+                                                            <span class="font-weight-normal card-text">Entrega ao
+                                                                Domicílio</span>
+                                                            <input id="morada" type="text" class="form-control"
+                                                                placeholder="Morada" value="<?= $morada ?>">
                                                             <a href="<?= Url::toRoute("dados/update") ?>">Editar</a>
                                                         </div>
                                                     </div>
@@ -107,12 +125,17 @@ foreach ($carrinhos as $carrinho) {
 
                                         <div class="row pt-5">
                                             <h6 class="col"><a href="<?= Url::home() ?>" class="text-body">
-                                                    <svg width="1em" height="1em" viewBox="0 0 19 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M4.249 3.625l2.323-2.266L5.302.125.801 4.5l4.501 4.375 1.27-1.234-2.323-2.266h14.558v-1.75H4.249z" fill="currentColor"></path>
+                                                    <svg width="1em" height="1em" viewBox="0 0 19 8" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M4.249 3.625l2.323-2.266L5.302.125.801 4.5l4.501 4.375 1.27-1.234-2.323-2.266h14.558v-1.75H4.249z"
+                                                            fill="currentColor"></path>
                                                     </svg>
                                                     Voltar à loja
                                                 </a></h6>
-                                            <button id="comprar" class="col btn btn-dark btn-block btn-lg" style="background-color:white;color:black" type="submit">Finalizar Compra</button>
+                                            <button id="comprar" class="col btn btn-dark btn-block btn-lg"
+                                                style="background-color:white;color:black" type="submit">Finalizar
+                                                Compra</button>
                                         </div>
                                     </form>
                                 </div>
@@ -138,52 +161,60 @@ foreach ($carrinhos as $carrinho) {
                                                 </h5>
                                                 <div class="d-flex justify-content-between">
                                                     <h6 class="text-uppercase">Subtotal</h5>
-                                                        <h6 id="subtotalPrice" data-subtotal="<?= number_format($precoTotal, 2, '.', '') ?>">
+                                                        <h6 id="subtotalPrice"
+                                                            data-subtotal="<?= number_format($precoTotal, 2, '.', '') ?>">
                                                             <?= number_format($precoTotal, 2, '.', '') ?>€</h5>
                                                 </div>
                                                 <div class="d-flex justify-content-between mb-3">
                                                     <h6 class="text-uppercase">Desconto</h5>
-                                                        <h6 id="discount">-<?= number_format($desconto, 2, '.', '') ?>€</h5>
+                                                        <h6 id="discount">-<?= number_format($desconto, 2, '.', '') ?>€
+                                                            </h5>
                                                 </div>
                                                 <div class="d-flex justify-content-between mb-2">
                                                     <h5 class="text-uppercase">Total</h5>
-                                                    <h5 id="totalPrice"><?= number_format($precoTotal - $desconto, 2, '.', '') ?>€
+                                                    <h5 id="totalPrice">
+                                                        <?= number_format($precoTotal - $desconto, 2, '.', '') ?>€
                                                     </h5>
                                                 </div>
                                                 <div class="scroll" style="height: 25em;padding: 3%">
                                                     <?php
                                                     foreach ($carrinhos as $carrinho) {
                                                     ?>
-                                                        <hr class="my-1">
-                                                        <div style="background-color: #fff; color:#000;">
-                                                            <div class="row mb-1 d-flex justify-content-between align-items-center">
+                                                    <hr class="my-1">
+                                                    <div style="background-color: #fff; color:#000;">
+                                                        <div
+                                                            class="row mb-1 d-flex justify-content-between align-items-center">
 
-                                                                <!-- Imagem do Produto no carrinho -->
-                                                                <div class="col-md-2">
-                                                                    <img src="/img/<?= $carrinho->produto->imagem ?>" class="img-fluid rounded-3">
-                                                                </div>
+                                                            <!-- Imagem do Produto no carrinho -->
+                                                            <div class="col-md-2">
+                                                                <img src="/img/<?= $carrinho->produto->imagem ?>"
+                                                                    class="img-fluid rounded-3">
+                                                            </div>
 
-                                                                <div class="col">
-                                                                    <a href="<?= Url::toRoute(['produto/view', 'id' => $carrinho->produto->id]) ?>" style="text-decoration:none">
-                                                                        <!-- Nome do Produto no carrinho -->
-                                                                        <?php $name = $carrinho->produto->nome;
+                                                            <div class="col">
+                                                                <a href="<?= Url::toRoute(['produto/view', 'id' => $carrinho->produto->id]) ?>"
+                                                                    style="text-decoration:none">
+                                                                    <!-- Nome do Produto no carrinho -->
+                                                                    <?php $name = $carrinho->produto->nome;
                                                                         if ($name > 20) {
                                                                             $name = substr($name, 0, 15) . "...";
                                                                         }
                                                                         ?>
-                                                                        <h6 class="text-muted"><?= $name ?></h6>
-                                                                    </a>
-                                                                </div>
-
-                                                                <?= $carrinho->Quantidade ?>
-
-                                                                <!-- Preço do Produto no carrinho -->
-                                                                <div class="col-md offset-lg-1">
-                                                                    <h6 data-product="<?= $carrinho->produto->id ?>" name="price" class="mb-0">
-                                                                        <?= $carrinho->produto->preco *  $carrinho->Quantidade ?>€</h6>
-                                                                </div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                                    <h6 class="text-muted"><?= $name ?></h6>
+                                                                </a>
                                                             </div>
+
+                                                            <?= $carrinho->Quantidade ?>
+
+                                                            <!-- Preço do Produto no carrinho -->
+                                                            <div class="col-md offset-lg-1">
+                                                                <h6 data-product="<?= $carrinho->produto->id ?>"
+                                                                    name="price" class="mb-0">
+                                                                    <?= $carrinho->produto->preco *  $carrinho->Quantidade ?>€
+                                                                </h6>
+                                                            </div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                         </div>
+                                                    </div>
                                                     <?php
                                                     }
                                                     ?>
@@ -200,39 +231,39 @@ foreach ($carrinhos as $carrinho) {
 </section>
 
 <script>
-    var timer;
+var timer;
 
-    $("input:radio[name='shipping']").click(function(e) {
-        applyShippingMethod(this.value);
-    });
+$("input:radio[name='shipping']").click(function(e) {
+    applyShippingMethod(this.value);
+});
 
-    $("#morada").on('input', function() {
-        clearTimeout(timer);
-        timer = setTimeout(function() {
-                if ($("input:radio[value=Morada]").is(':checked')) {
-                    applyShippingMethod($("#morada").val());
-                }
+$("#morada").on('input', function() {
+    clearTimeout(timer);
+    timer = setTimeout(function() {
+            if ($("input:radio[value=Morada]").is(':checked')) {
+                applyShippingMethod($("#morada").val());
             }
-            .bind(this), 500);
-    })
-
-    function applyShippingMethod(shippingMethod) {
-        if (shippingMethod == "Morada") {
-            shippingMethod = $("#morada").val();
         }
+        .bind(this), 500);
+})
 
-        $.ajax({
-            url: "<?= Url::toRoute("carrinho/applyshippingmethod") ?>",
-            type: "post",
-            data: {
-                shippingMethod: shippingMethod
-            },
-            success: (result) => {
-                result = JSON.parse(result);
-                console.log(result);
-            }
-        });
+function applyShippingMethod(shippingMethod) {
+    if (shippingMethod == "Morada") {
+        shippingMethod = $("#morada").val();
     }
 
-    applyShippingMethod($("input:radio:checked").val());
+    $.ajax({
+        url: "<?= Url::toRoute("carrinho/applyshippingmethod") ?>",
+        type: "post",
+        data: {
+            shippingMethod: shippingMethod
+        },
+        success: (result) => {
+            result = JSON.parse(result);
+            console.log(result);
+        }
+    });
+}
+
+applyShippingMethod($("input:radio:checked").val());
 </script>
