@@ -13,6 +13,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 
 /**
  * CarrinhoController implements the CRUD actions for Carrinho model.
@@ -70,6 +71,37 @@ class CarrinhoController extends Controller
 		$carrinhos = $dados->carrinhos;
 
 		return $this->render('view', ['carrinhos' => $carrinhos]);
+	}
+
+	public function actionCheckout()
+	{
+		if (!Yii::$app->user->can('FrontendReadCarrinho')) {
+			throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+		}
+
+		$dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
+		$carrinhos = $dados->carrinhos;
+		$subtotal = $dados->getCarrinhos()->innerJoin("produto", "id = id_produto")->sum("quantidade * preco");
+		$empresa = Empresa::find()->one();
+		$desconto = 0;
+
+		if (isset($_SESSION["promoCode"]) && $_SESSION["promoCode"] != "") {
+			$desconto = number_format(($subtotal * $empresa->valorDesconto / 100), 2, ".", "");
+		}
+
+		try {
+			foreach ($carrinhos as $carrinho) {
+				$stock = $carrinho->produto->getStockTotal();
+				if ($stock < $carrinho->Quantidade) {
+					throw new \Exception("Stock insuficiente para " . $carrinho->produto->nome);
+				}
+			}
+		} catch (\Exception $e) {
+			Yii::$app->session->setFlash('error', $e->getMessage());
+			return $this->redirect(URL::toRoute(['carrinho/view']));
+		}
+
+		return $this->render('checkout', ['carrinhos' => $carrinhos, 'morada' => $dados->morada, 'desconto' => $desconto]);
 	}
 
 	/**
@@ -197,6 +229,19 @@ class CarrinhoController extends Controller
 
 			$_SESSION["promoCode"] = $data['promoCode'];
 			return json_encode($result);
+		}
+	}
+
+	public function actionApplyshippingmethod()
+	{
+		if (!Yii::$app->user->can('FrontendReadCarrinho')) {
+			throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder a esta página.');
+		}
+		if (Yii::$app->request->isAjax) {
+			$data = Yii::$app->request->post();
+
+			$_SESSION["shippingMethod"] = $data['shippingMethod'];
+			return json_encode($_SESSION["shippingMethod"]);
 		}
 	}
 
