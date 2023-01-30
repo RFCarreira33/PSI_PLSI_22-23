@@ -14,7 +14,7 @@ Online Tech Store.
 
 ## Summary
 
-GlobalDiga is our final project of the [PSI](https://www.ipleiria.pt/curso/tesp-de-programacao-de-sistemas-de-informacao/) course, which also has a [mobile component](https://github.com/RFCarreira33/PSI_AMSI_22-23), and it is our take on a online tech store, you can read more about the details [here]().
+GlobalDiga is our final project of the [PSI](https://www.ipleiria.pt/curso/tesp-de-programacao-de-sistemas-de-informacao/) course, which also has a [mobile component](https://github.com/RFCarreira33/PSI_AMSI_22-23), and it is our take on a online tech store, you can read more about the details [here](https://github.com/RFCarreira33/PSI_PLSI_22-23/blob/main/resources/about.md).
 
 ## Examples
 

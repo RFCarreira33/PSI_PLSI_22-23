@@ -3,7 +3,7 @@
 Globaldiga is [our](#developed-by) final [course](#course) project and our take on a online tech store with both a frontend and backend layer, the backend layer is used to manage the store while the frontend is used by the costumers.
 
 - The language and framework were the same for all the students.
-- We also had to build a [mobile app](https://github.com/RFCarreira33/PSI_AMSI_22-23) and an [Api](https://github.com/RFCarreira33/PSI_PLSI_22-23/tree/development/projeto_final/backend/modules/api).
+- We also had to build a [mobile app](https://github.com/RFCarreira33/PSI_AMSI_22-23) and an [Api](https://github.com/RFCarreira33/PSI_PLSI_22-23/tree/main/projeto_final/backend/modules/api).
 
 ### Developed by:
 
