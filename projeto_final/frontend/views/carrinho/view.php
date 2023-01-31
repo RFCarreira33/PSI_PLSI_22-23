@@ -18,7 +18,8 @@ use yii\helpers\Url;
                                     <div class="d-flex justify-content-between align-items-center mb-5">
                                         <h1 class="fw-bold mb-0 text-black">Carrinho de Compras</h1>
                                     </div>
-                                    <div class="scroll" style="height: 35em;padding: 3%">
+
+                                    <div class="scroll" style="height: 25em;padding: 3%">
                                         <?php
                                         $precoTotal = 0;
                                         foreach ($carrinhos as $carrinho) {
@@ -77,7 +78,6 @@ use yii\helpers\Url;
                                             </div>
                                         <?php } ?>
                                     </div>
-                                    <hr class="my-4">
 
                                     <!-- Limpar Carrinho -->
                                     <div class="pt-5">
