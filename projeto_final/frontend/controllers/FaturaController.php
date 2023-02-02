@@ -113,18 +113,20 @@ class FaturaController extends Controller
 			$code = $_SESSION["promoCode"];
 		}
 
-		if (!isset($_SESSION["shippingMethod"]) || $_SESSION["shippingMethod"] == null) 
-		{
+		if (!isset($_SESSION["shippingMethod"]) || $_SESSION["shippingMethod"] == null) {
 			return $this->redirect(URL::toRoute(['carrinho/view']));
-		} 
-		else 
-		{
+		} else {
 			$shippingMethod = $_SESSION["shippingMethod"];
 		}
-		
+
 		$dados = Dados::findOne(['id_User' => Yii::$app->user->id]);
 		$carrinhos = Carrinho::findAll(['id_Cliente' => $dados->id_User]);
 		$empresa = Empresa::find()->one();
+
+		$morada = Yii::$app->request->post('morada');
+		if ($morada == null) {
+			$morada = $dados->morada;
+		}
 
 		$subtotal = 0;
 		$valorIva = 0;
@@ -160,7 +162,7 @@ class FaturaController extends Controller
 		$fatura->nif = $dados->nif;
 		$fatura->codPostal = $dados->codPostal;
 		$fatura->telefone = $dados->telefone;
-		$fatura->morada = $dados->morada;
+		$fatura->morada = $morada;
 		$fatura->email = $dados->user->email;
 		$fatura->dataFatura = date("Y-m-d H:i:s");
 		$fatura->valorIva = $valorIva;
