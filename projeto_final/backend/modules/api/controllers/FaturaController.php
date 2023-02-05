@@ -6,6 +6,8 @@ use backend\modules\api\components\CustomAuth;
 use yii\rest\ActiveController;
 use Yii;
 use common\models\Fatura;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class FaturaController extends BaseController
 {
@@ -57,6 +59,26 @@ class FaturaController extends BaseController
             ];
             $response[] = $data;
         }
+        return $response;
+    }
+
+    public function actionView()
+    {
+        $fatura = Fatura::findOne(['id' => Yii::$app->request->get('id'), 'id_Cliente' => Yii::$app->params['id']]);
+        if ($fatura == null) {
+            return 'Produto não encontrado';
+        }
+        //convert to pdf
+        $dompdf = new Dompdf;
+        $dompdf->loadHtml($this->renderPartial('print', [
+            'model' => $fatura,
+        ]));
+        $dompdf->render();
+        //convert the output to base64
+        $data = $dompdf->output();
+        $response = [
+            'pdf' => base64_encode($data),
+        ];
         return $response;
     }
 }

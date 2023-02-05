@@ -37,10 +37,7 @@ class BaseController extends ActiveController
         $exception = Yii::$app->errorHandler->exception;
         if ($exception !== null) {
             return [
-                'message' => $exception->getMessage(),
-                'code' => $exception->getCode(),
-                'status' => $exception->statusCode,
-                'type' => get_class($exception),
+                'response' => 'Endpoint não encontrado',
             ];
         }
     }
