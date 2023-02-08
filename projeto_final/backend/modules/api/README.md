@@ -1,27 +1,25 @@
 # Yii Framework REST API
 
-Esta API é o que permite ligar os serviços fazer a ligação entre a aplicação [Mobile](https://github.com/RFCarreira33/PSI_AMSI_22-23) e a aplicação [Web](https://github.com/RFCarreira33/PSI_PLSI_22-23).
+This API is what bridges the gap between the server of the [Web](https://github.com/RFCarreira33/PSI_PLSI_22-23) app and the [Mobile](https://github.com/RFCarreira33/PSI_AMSI_22-23) app.
 
 ## Endpoints
 
-Métodos de Autenticação usados `Access-token` e `HTTP Basic`.
-
-| Endpoint             | Descrição                                        | Autenticação   | Método | Resposta            |
-| :------------------- | :----------------------------------------------- | :------------- | :----- | :------------------ |
-| `/user/login`        | Verifica as crendenciais                         | `Http Basic`   | GET    | Access Token        |
-| `/user/register`     | Regista uma conta Cliente caso seja válida       | ---            | POST   | Success / Error     |
-| `/produtos`          | Devolve todos os produtos Ativos                 | ---            | GET    | Array de Produtos   |
-| `/produtos/{id}`     | Devolve o produto com `{id}`                     | ---            | GET    | Produto             |
-| `/produtos/search`   | Filtra produtos por `?{categoria}{nome}{order}`  | ---            | GET    | Array de Produtos   |
-| `/produtos/location` | Devolve a loja mais próximo com stock do produto | ---            | POST   | Loja                |
-| `/filters`           | Devolve todas as marcas e categorias             | ---            | GET    | Objeto com 2 arrays |
-| `/dados`             | Devolve os dados do cliente                      | `Access-token` | GET    | Dados               |
-| `/dados/update`      | Atualiza os dados do cliente                     | `Access-token` | PUT    | Success / Error     |
-| `/faturas`           | Devolve todas as faturas e linhas do cliente     | `Access-token` | GET    | Array de Faturas    |
-| `/carrinho`          | Devolve a carrinho do cliente                    | `Access-token` | GET    | Array de Carrinhos  |
-| `/carrinho/coupon`   | Verifica se o cupão inserido é válido            | `Access-token` | POST   | Success / Error     |
-| `/carrinho/create`   | Recebe um produto e quantidade e adiciona        | `Access-token` | POST   | Success / Error     |
-| `/carrinho/buy`      | Compra tudo o que estiver no carrinho            | `Access-token` | POST   | Success / Error     |
-| `/carrinho/remove`   | Recebe id de um produto                          | `Access-token` | POST   | Success / Error     |
-| `/carrinho/update`   | Recebe um produto e quantidade                   | `Access-token` | PUT    | Success / Error     |
-| `/carrinho/delete`   | Limpa o carrinho do cliente                      | `Access-token` | DELETE | True                |
+| HTTP Method | Endpoint                                    | Authentication | Parameters                                                          | Description                                                                                                |
+| :---------- | :------------------------------------------ | :------------- | :------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------- |
+| GET         | `/user/login`                               | `HTTP Basic`   | `username:password` to base64 through the Authorization Header      | Returns the `Acess-Token` of the user if the credentials are valid                                         |
+| POST        | `/user/register`                            | Not Required   | `username, email, password, nome, codPostal, telefone, nif, morada` | Returns Success if the new user was created or an error on the camp that was invalid                       |
+| GET         | `/produtos`                                 | Not Required   | Null                                                                | Returns a general information about all the products                                                       |
+| GET         | `/produtos/{id}`                            | Not Required   | `{id}` of the product                                               | Returns details about the specific product                                                                 |
+| GET         | `/produtos/search?{categoria}{nome}{order}` | Not Required   | `{categoria}{nome}{order}` nullable                                 | Returns products after filtering using the parameters                                                      |
+| GET         | `/produtos/location`                        | Not Required   | `latitude, longitude, id_Produto`                                   | Returns the nearest shop with stock of the product that was specified                                      |
+| GET         | `/filters`                                  | Not Required   | Null                                                                | Returns every brand and category existing                                                                  |
+| GET         | `/dados`                                    | `Access-token` | Null                                                                | Returns the personal information of the user                                                               |
+| PUT         | `/dados/update`                             | `Access-token` | `nome, morada, codPostal, nif, telefone` nullable                   | Returns Success if the personal information was updated or an error on the camp that was invalid           |
+| GET         | `/faturas`                                  | `Access-token` | Null                                                                | Returns all the Invoices from the user                                                                     |
+| GET         | `/carrinhos`                                | `Access-token` | Null                                                                | Returns all the items in the user cart                                                                     |
+| POST        | `/carrinhos/coupon`                         | `Access-token` | `coupon`                                                            | Returns a message depending on whether `coupon` is valid                                                   |
+| POST        | `/carrinhos/create`                         | `Access-token` | `id_Produto, quantidade`                                            | Updates the cart from the user if the parameters are valid                                                 |
+| POST        | `/carrinhos/buy`                            | `Access-token` | `promoCode` nullable                                                | Checkout the user cart                                                                                     |
+| PUT         | `/carrinhos/update`                         | `Access-token` | `id_Produto, quantidade`                                            | Updates the entry with `id_Produto` with the new `quantidade` on the user cart if the parameters are valid |
+| POST        | `/carrinhos/remove`                         | `Access-token` | `id_Produto`                                                        | Deletes the entry with `id_Produto` on the user cart if it is a valid                                      |
+| DELETE      | `/carrinhos/delete`                         | `Access-token` | Null                                                                | Clears all the items from the user cart                                                                    |
