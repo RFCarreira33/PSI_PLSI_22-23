@@ -98,6 +98,14 @@ class CarrinhoController extends BaseController
 				throw new \Exception("Produto sem stock");
 			}
 
+			$stockTotal = 0;
+			foreach ($produto->stocks as $stock) {
+				$stockTotal += $stock->quantidade;
+			}
+			if ($stockTotal < $params['quantidade']) {
+				throw new \Exception("Quantidade máxima de " . $stockTotal . " unidades disponíveis");
+			}
+
 			//Verifica se ja existe uma instancia do produto no carrinho 
 			$carrinho = Carrinho::findOne(['id_Cliente' => Yii::$app->params['id'], 'id_Produto' => $params['id_Produto']]);
 			if ($carrinho) {

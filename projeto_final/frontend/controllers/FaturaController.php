@@ -221,6 +221,9 @@ class FaturaController extends Controller
 		$_SESSION["promoCode"] = "";
 		$_SESSION["shippingMethod"] = "";
 
+		//Alerts the user that the order was successful
+		Yii::$app->session->setFlash('success', 'Compra efetuada com sucesso!');
+
 		$this->redirect('/carrinho/clear');
 	}
 

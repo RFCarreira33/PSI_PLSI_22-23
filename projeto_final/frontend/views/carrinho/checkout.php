@@ -207,7 +207,7 @@ foreach ($carrinhos as $carrinho) {
 </section>
 
 <script>
-    //diseable radios
+    //disable radios
     var check = $("#loja");
     var check2 = $("#casa");
 
@@ -215,14 +215,7 @@ foreach ($carrinhos as $carrinho) {
     $("#casa").on('click', checkStatus);
 
     function checkStatus() {
-
-        if (check.is(':checked')) {
-            $("#morada").prop('disabled', true);
-        }
-        if (check2.is(':checked')) {
-            $("#morada").prop('disabled', false);
-        }
-
+        check.is(':checked') ? $("#morada").prop('disabled', true) : $("#morada").prop('disabled', false);
     }
 
     var timer;
