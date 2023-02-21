@@ -25,3 +25,7 @@ GlobalDiga is our final project of the [PSI](https://www.ipleiria.pt/curso/tesp-
 ![Cart Page](resources/imgs/cart.png)
 
 <p align="center">Website Cart page</p>
+
+![Backend Page](resources/imgs/backend.png)
+
+<p align="center">Website Backend page</p>
